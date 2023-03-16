@@ -63,6 +63,7 @@ packages:
     source: sdk
     version: "0.0.0"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   flutter_lints:
     dependency: "direct dev"
@@ -73,6 +74,8 @@ packages:
     source: hosted
     version: "2.0.1"
 >>>>>>> ef56938... first commit.
+=======
+>>>>>>> 1c5548d... initial
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -87,6 +90,7 @@ packages:
     source: hosted
     version: "0.6.5"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   lints:
     dependency: transitive
@@ -97,6 +101,8 @@ packages:
     source: hosted
     version: "2.0.1"
 >>>>>>> ef56938... first commit.
+=======
+>>>>>>> 1c5548d... initial
   matcher:
     dependency: transitive
     description:
