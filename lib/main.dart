@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/view/SplashScreen.dart';
 
 void main() {
@@ -8,14 +12,14 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashScreen(),
-    );
+    return ScreenUtilInit(builder: (BuildContext context, Widget? child) {
+      return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: GoogleFonts.urbanist().fontFamily),
+        home: SplashScreen(),
+      );
+    });
   }
 }
