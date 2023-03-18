@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(builder: (BuildContext context, Widget? child) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: GoogleFonts.urbanist().fontFamily),
+        theme: ThemeData(
+            fontFamily: GoogleFonts.urbanist().fontFamily,
+            primaryColor: kPrimaryColor),
         home: SplashScreen(),
       );
     });
