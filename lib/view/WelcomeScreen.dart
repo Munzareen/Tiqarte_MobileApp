@@ -20,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.initState();
 
     Timer(Duration(seconds: 2), () {
-      Get.offAll(() => GetStartedScreen(), transition: Transition.leftToRight);
+      Get.offAll(() => GetStartedScreen(), transition: Transition.rightToLeft);
     });
   }
 

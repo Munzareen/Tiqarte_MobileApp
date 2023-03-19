@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
@@ -5,6 +7,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
 
@@ -102,32 +105,38 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                   ],
                 ),
               ),
-              20.verticalSpace,
-              Container(
-                height: 60,
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    border: Border.all(
-                      color: kDisabledColor,
-                      width: 1,
-                    )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(appleIcon),
-                    10.horizontalSpace,
-                    Text(
-                      preLoginAppleString,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
+              Platform.isIOS
+                  ? Column(
+                      children: [
+                        20.verticalSpace,
+                        Container(
+                          height: 60,
+                          margin: EdgeInsets.symmetric(horizontal: 25.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(
+                                color: kDisabledColor,
+                                width: 1,
+                              )),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(appleIcon),
+                              10.horizontalSpace,
+                              Text(
+                                preLoginAppleString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     )
-                  ],
-                ),
-              ),
+                  : SizedBox(),
               30.verticalSpace,
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),

@@ -47,5 +47,23 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- Access Gallery and Camera Permission-->
+<key>NSPhotoLibraryUsageDescription</key>
+<string>This app require permission to access gallery</string>
+<key>NSCameraUsageDescription</key>
+<string>Please grant camera access</string>
+<!-- Access Gallery and Camera Permission-->
+
+<!-- Location Permission-->
+ <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location when in use</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Always and when in use!</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Older devices need location.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Can I haz location always?</string>
+<!--Location Permission-->
 </dict>
 </plist>

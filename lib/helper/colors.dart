@@ -9,4 +9,5 @@ const kErrorColor = Color(0xffF75555);
 const kDisabledColor = Color(0xffD8D8D8);
 const kDisabledButtonColor = Color(0xff544BC3);
 const kBackgroundColor = Colors.white;
+const kSecondBackgroundColor = Color(0xffF5F5F5);
 const kOtpFieldDisableColor = Color(0xffEEEEEE);

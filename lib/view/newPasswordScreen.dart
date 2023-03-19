@@ -269,10 +269,13 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     onTap: () {
                       customAlertDialog(
                           context,
-                          successLogo,
+                          backgroundLogo,
+                          Icons.verified_user,
                           newPasswordCongratsString,
                           newPasswordCongratsSubString);
                       Timer(Duration(seconds: 2), () {
+                        Get.back();
+
                         Get.offAll(() => LoginScreen(),
                             transition: Transition.zoom);
                       });
@@ -286,70 +289,5 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         ),
       ),
     );
-  }
-
-  customAlertDialog(
-    BuildContext context,
-    String logo,
-    String title,
-    String contentMsg,
-  ) {
-    return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: Container(
-              height: 0.4.sh,
-              width: 0.8.sw,
-              child: AlertDialog(
-                contentPadding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0)),
-                backgroundColor: kBackgroundColor,
-                actionsPadding: EdgeInsets.symmetric(vertical: 0),
-                actionsAlignment: MainAxisAlignment.end,
-                buttonPadding: EdgeInsets.zero,
-                iconPadding: EdgeInsets.zero,
-                titlePadding: EdgeInsets.zero,
-                actions: [
-                  10.verticalSpace,
-                  Center(
-                      child: Image.asset(
-                    logo,
-                    height: 150,
-                  )),
-                  20.verticalSpace,
-                  Center(
-                      child: Text(
-                    title,
-                    style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  )),
-                  20.verticalSpace,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Center(
-                      child: Text(
-                        contentMsg,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  ),
-                  20.verticalSpace,
-                  spinkit,
-                  25.verticalSpace,
-                ],
-              ),
-            ),
-          );
-        });
   }
 }

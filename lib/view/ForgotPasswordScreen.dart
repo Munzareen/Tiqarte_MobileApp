@@ -183,7 +183,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               InkWell(
                 onTap: () {
                   Get.to(() => OtpVerificationScreen(),
-                      transition: Transition.leftToRight);
+                      transition: Transition.rightToLeft);
                 },
                 child: customButton(forgotPasswordButtonString, kPrimaryColor),
               )

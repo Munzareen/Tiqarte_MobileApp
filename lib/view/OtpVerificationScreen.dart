@@ -150,7 +150,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         floatingActionButton: InkWell(
           onTap: () {
             Get.to(() => NewPasswordScreen(),
-                transition: Transition.leftToRight);
+                transition: Transition.rightToLeft);
           },
           child: customButton(otpVerificationButtonString, kPrimaryColor),
         ),

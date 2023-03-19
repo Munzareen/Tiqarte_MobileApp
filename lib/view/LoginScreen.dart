@@ -8,6 +8,7 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/ForgotPasswordScreen.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -229,10 +230,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   10.verticalSpace,
                   InkWell(
-                    // onTap: () {
-                    //   Get.to(() => LoginScreen(),
-                    //       transition: Transition.rightToLeft);
-                    // },
+                    onTap: () {
+                      Get.to(() => MainScreen(),
+                          transition: Transition.rightToLeft);
+                    },
                     child: customButton(LoginSignInString, kPrimaryColor),
                   ),
                   10.verticalSpace,

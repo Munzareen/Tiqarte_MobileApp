@@ -6,6 +6,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -230,10 +231,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                   10.verticalSpace,
                   InkWell(
-                    // onTap: () {
-                    //   Get.to(() => LoginScreen(),
-                    //       transition: Transition.rightToLeft);
-                    // },
+                    onTap: () {
+                      Get.to(() => AccountSetupScreen(),
+                          transition: Transition.rightToLeft);
+                    },
                     child:
                         customButton(createAccountSignUpString, kPrimaryColor),
                   ),

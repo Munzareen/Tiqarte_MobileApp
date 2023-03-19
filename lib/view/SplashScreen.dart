@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Timer(Duration(seconds: 2), () {
-      Get.offAll(() => WelcomeScreen(), transition: Transition.leftToRight);
+      Get.offAll(() => WelcomeScreen(), transition: Transition.rightToLeft);
     });
   }
 

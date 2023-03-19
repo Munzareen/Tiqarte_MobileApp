@@ -73,3 +73,63 @@ String newPasswordButtonString = "Continue";
 String newPasswordCongratsString = "Congratulations!";
 String newPasswordCongratsSubString =
     "Your account is ready to use. You will be redirected to the Home page in a few seconds..";
+
+//Account Setup Screen Strings
+String accountSetupHeadingString = "Fill Your Profile";
+String accountSetupFullNameString = "Full Name";
+String accountSetupNickNameString = "Nickname";
+String accountSetupDOBString = "Date of Birth";
+String accountSetupEmailString = "Email";
+String accountSetupGenderString = "Gender";
+String accountSetupButtonString = "Continue";
+String accountSetupMaleString = "Male";
+String accountSetupFemaleString = "Female";
+String accountSetupOtherString = "Other";
+
+//Location Setup Screen Strings
+String locationSetupHeadingString = "Set Your Location";
+String locationSetupLocationString = "Location";
+String locationSetupButtonString = "Continue";
+String locationSetupDialogCongratsString = "Congratulations!";
+String locationSetupDialogSubString =
+    "Your account is ready to use. You will be redirected to the Home page in a few seconds..";
+
+//Bottom Navigation Bar Strings
+String bottomNavBarHomeString = "Home";
+String bottomNavBarExploreString = "Explore";
+String bottomNavBarFavoritestring = "Favorites";
+String bottomNavBarTicketsString = "Tickets";
+String bottomNavBarProfileString = "Profile";
+
+//Home Screen Strings
+String homeGoodMorningString = "Good Morning";
+String homeSearchFieldString = "What event are you looking for...";
+String homeFeaturedString = "Featured";
+String homeSeeAllString = "See All";
+String homePopularEventString = "Popular Event";
+String homeAllString = "All";
+String homeMusicString = "Music";
+String homeArtString = "Art";
+String homeWorkshopsString = "Workshops";
+
+//---Dialog--
+//Alert Dialog for Location Permission
+String locationDialogHeadingString = "Enable Location";
+String locationDialogSubString =
+    "To use this service, we need permission to access your location.";
+String locationDialogButtonEnableString = "Enable Location";
+String locationButtonCancelString = "Cancel";
+
+//Alert Dialog for Camera Permission
+String cameraDialogHeadingString = "Enable Camera";
+String cameraDialogSubString =
+    "To use this service, we need permission to access your camera.";
+String cameraDialogButtonEnableString = "Enable Camera";
+String cameraDialogButtonCancelString = "Cancel";
+
+//Alert Dialog for Gallery Permission
+String galleryDialogHeadingString = "Enable Photo";
+String galleryDialogSubString =
+    "To use this service, we need permission to access your photos.";
+String galleryDialogButtonEnableString = "Enable Photo";
+String galleryDialogButtonCancelString = "Cancel";
