@@ -321,6 +321,60 @@ customProfileImage(String url, double width, double height) {
                   fit: BoxFit.cover))); //AssetImage(placeholder)
 }
 
+customCardImage(String url, double width, double height) {
+  return url == "" && url == "null"
+      ? CachedNetworkImage(
+          imageUrl: url,
+          imageBuilder: (context, imageProvider) {
+            return Container(
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    // border: Border.all(
+                    //   color: kPrimaryColor,
+                    //   style: BorderStyle.solid,
+                    // ),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover)));
+          },
+          placeholder: (context, url) => Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  // border: Border.all(
+                  //   color: kPrimaryColor,
+                  //   style: BorderStyle.solid,
+                  // ),
+                  image: DecorationImage(
+                      image: AssetImage(eventImage), fit: BoxFit.cover))),
+          errorWidget: (context, url, error) => Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  // border: Border.all(
+                  //   color: kPrimaryColor,
+                  //   style: BorderStyle.solid,
+                  // ),
+                  image: DecorationImage(
+                      image: AssetImage(eventImage), fit: BoxFit.cover))),
+        )
+      : Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              // border: Border.all(
+              //   color: kPrimaryColor,
+              //   style: BorderStyle.solid,
+              // ),
+              image: DecorationImage(
+                  image: AssetImage(eventImage),
+                  fit: BoxFit.cover))); //AssetImage(placeholder)
+}
+
 exitUser() {
   if (Platform.isAndroid) {
     SystemNavigator.pop();

@@ -46,14 +46,14 @@ class _MainScreenState extends State<MainScreen> {
           clipBehavior: Clip.none,
           color: Colors.transparent,
           child: Container(
-            height: 100,
+            height: 50.h,
             child: Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
                   clipBehavior: Clip.none,
-                  height: 50.h,
+                  //  height: 50.h,
                   width: 1.sw,
                   decoration: BoxDecoration(
                     color: Colors.white,

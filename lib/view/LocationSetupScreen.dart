@@ -210,36 +210,4 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
       address = "${place.subLocality}, ${place.locality}, ${place.country}";
     });
   }
-
-  showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
-              color: Colors.white),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              children: [
-                Text(
-                  locationSetupLocationString,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                Divider()
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 }

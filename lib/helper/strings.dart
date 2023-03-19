@@ -112,6 +112,21 @@ String homeMusicString = "Music";
 String homeArtString = "Art";
 String homeWorkshopsString = "Workshops";
 
+//See All Event Screen Strings
+String seeAllEventFoundString = "Found";
+String seeAllEventNotFoundString = "Not Found";
+String seeAllEventNotFoundSubString =
+    "Sorry, the keyword you entered cannot be found, please check again or search with another keyword.";
+
+//Filter Strings
+String filterHeadingString = "Filter";
+String filterEventCategoryString = "Event Category";
+String filterSeeAllString = "See All";
+String filterLocationString = "Location";
+String filterLocationRangeString = "Event Location Range (km)";
+String filterButtonResetString = "Reset";
+String filterButtonApplyString = "Apply";
+
 //---Dialog--
 //Alert Dialog for Location Permission
 String locationDialogHeadingString = "Enable Location";

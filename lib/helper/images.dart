@@ -40,3 +40,5 @@ String musicIcon = "assets/images/musicIcon.png";
 String fireIcon = "assets/images/fireIcon.png";
 String artIcon = "assets/images/artIcon.png";
 String workshopIcon = "assets/images/workshopIcon.png";
+
+String notFoundImage = "assets/images/notFoundImage.png";
