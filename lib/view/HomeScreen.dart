@@ -1,14 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/ImagePreviewDialog.dart';
+import 'package:tiqarte/view/NotificationScreen.dart';
 import 'package:tiqarte/view/SeeAllEvents.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     {"name": homeArtString, "icon": artIcon, "isSelected": false},
     {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
   ];
+
+  final _homeController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -81,14 +84,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
-                            border: Border.all(color: kDisabledColor, width: 1),
-                            image: DecorationImage(
-                                image: AssetImage(notificationIconWithBadge))),
+                      InkWell(
+                        onTap: () => Get.to(() => NotificationScreen(),
+                            transition: Transition.rightToLeft),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.0),
+                              border:
+                                  Border.all(color: kDisabledColor, width: 1),
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage(notificationIconWithBadge))),
+                        ),
                       )
                     ],
                   ),
@@ -110,7 +119,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 20,
                           color: kDisabledColor,
                         ),
-                        suffixIcon: Image.asset(filterIcon),
+                        suffixIcon: InkWell(
+                            onTap: () => filterBottomSheet(
+                                context,
+                                eventsCatergoryList,
+                                locationList,
+                                selectedLocation,
+                                currentRangeValues),
+                            child: Image.asset(filterIcon)),
                         errorBorder: customOutlineBorder,
                         enabledBorder: customOutlineBorder,
                         focusedBorder: customOutlineBorder,
@@ -144,104 +160,112 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
-                            Text(
-                              homeSeeAllString,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor),
+                            InkWell(
+                              onTap: () => Get.to(
+                                  () => SeeAllEvents(
+                                      name: homeFeaturedString, img: ''),
+                                  transition: Transition.rightToLeft),
+                              child: Text(
+                                homeSeeAllString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: kPrimaryColor),
+                              ),
                             ),
                           ],
                         ),
                         20.verticalSpace,
-                        CarouselSlider.builder(
-                            options: CarouselOptions(
-                                height: 0.45.sh,
-                                enlargeCenterPage: true,
-                                scrollDirection: Axis.horizontal,
-                                enableInfiniteScroll: false,
-                                viewportFraction: 0.8),
-                            itemCount: 5,
-                            itemBuilder: (BuildContext context, int itemIndex,
-                                int pageViewIndex) {
-                              return Container(
-                                padding: EdgeInsets.all(16.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    color: Colors.white),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) => ImagePreviewDialog(
-                                                imagePath: eventImage),
-                                          );
-                                        },
-                                        child: customCardImage(
+                        GetBuilder<HomeController>(builder: (_hc) {
+                          return CarouselSlider.builder(
+                              options: CarouselOptions(
+                                  height: 0.45.sh,
+                                  enlargeCenterPage: true,
+                                  scrollDirection: Axis.horizontal,
+                                  enableInfiniteScroll: false,
+                                  viewportFraction: 0.8),
+                              itemCount: _hc.eventList.length,
+                              itemBuilder: (BuildContext context, int itemIndex,
+                                  int pageViewIndex) {
+                                return Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      color: Colors.white),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        customCardImage(
                                             eventImage, 250.w, 160.h),
-                                      ),
-                                      12.verticalSpace,
-                                      FittedBox(
-                                        child: Text(
-                                          "National Music Festival",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
+                                        12.verticalSpace,
+                                        FittedBox(
+                                          child: Text(
+                                            _hc.eventList[itemIndex]['name'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
                                         ),
-                                      ),
-                                      12.verticalSpace,
-                                      FittedBox(
-                                        child: Text(
-                                          "Mon, Dec 24 • 18.00 - 23.00 PM",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w400,
-                                              color: kPrimaryColor),
+                                        12.verticalSpace,
+                                        FittedBox(
+                                          child: Text(
+                                            _hc.eventList[itemIndex]['date'],
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400,
+                                                color: kPrimaryColor),
+                                          ),
                                         ),
-                                      ),
-                                      12.verticalSpace,
-                                      FittedBox(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: kPrimaryColor,
-                                              size: 25,
-                                            ),
-                                            10.horizontalSpace,
-                                            Text(
-                                              "Grand Park, New York",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Color(0xff616161)),
-                                            ),
-                                            10.horizontalSpace,
-                                            InkWell(
-                                              onTap: () {},
-                                              child: Image.asset(
-                                                favoriteIcon,
+                                        12.verticalSpace,
+                                        FittedBox(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
                                                 color: kPrimaryColor,
+                                                size: 25,
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                              10.horizontalSpace,
+                                              Text(
+                                                _hc.eventList[itemIndex]
+                                                    ['location'],
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xff616161)),
+                                              ),
+                                              10.horizontalSpace,
+                                              InkWell(
+                                                onTap: () {
+                                                  _hc.addRemoveToFavorite(
+                                                      itemIndex,
+                                                      _hc.eventList[itemIndex]);
+                                                },
+                                                child: Image.asset(
+                                                  _hc.eventList[itemIndex]
+                                                              ['isFavorite'] ==
+                                                          true
+                                                      ? favoriteIconSelected
+                                                      : favoriteIcon,
+                                                  color: kPrimaryColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              });
+                        }),
                         20.verticalSpace,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -261,7 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                             InkWell(
-                              onTap: () => Get.to(() => SeeAllEvents(),
+                              onTap: () => Get.to(
+                                  () => SeeAllEvents(
+                                      name: homePopularEventString,
+                                      img: fireIcon),
                                   transition: Transition.rightToLeft),
                               child: Text(
                                 homeSeeAllString,
@@ -359,17 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      InkWell(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) => ImagePreviewDialog(
-                                                imagePath: eventImage),
-                                          );
-                                        },
-                                        child:
-                                            customCardImage("", 120.h, 100.h),
-                                      ),
+                                      customCardImage("", 120.h, 100.h),
                                       8.verticalSpace,
                                       FittedBox(
                                         child: Text(

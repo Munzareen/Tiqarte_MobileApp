@@ -127,6 +127,60 @@ String filterLocationRangeString = "Event Location Range (km)";
 String filterButtonResetString = "Reset";
 String filterButtonApplyString = "Apply";
 
+//See All Event Screen Strings
+String notificationHeadingSrting = "Notification";
+String notificationEmptySrting = "Empty";
+String notificationSubSrting = "You don't have any notifications at this time";
+
+//Favorites Screen Strings
+String favoriteHeadingString = "Favorites";
+String favoriteRemoveFavoriteString = "Remove from Favorites?";
+String favoriteButtonCancelString = "Cancel";
+String favoriteButtonRemoveString = "Yes, Remove";
+
+//Tickets Screen Strings
+String ticketHeadingString = "Tickets";
+String ticketUpcomingString = "Upcoming";
+String ticketCompletedString = "Completed";
+String ticketCancelledString = "Cancelled";
+String ticketPaidString = "Paid";
+String ticketReviewButtonString = "Leave a Review";
+String ticketViewTicketButtonString = "View E-Ticket";
+String ticketReviewHeadingString = "Leave a Review";
+String ticketReviewSubString =
+    "How was your experience withArt & Painting Training?";
+String ticketReviewWriteString = "Write Your Review";
+String ticketReviewWriteSubString = "Your review here...";
+String ticketReviewMAybeLaterButtonString = "Maybe Later";
+String ticketReviewSubmitButtonString = "Submit";
+String ticketEmptyTicketsString = "Empty Tickets";
+
+String ticketEmptyTicketSubString =
+    "Looks like you don't have a ticket yet.Start searching for events now by clicking the button below.";
+String ticketFindEventsString = "Find Events";
+String ticketCancelBookingHeadingString = "Cancel Booking";
+String ticketCancelBookingSubString =
+    "Are you sure you want to cancel this event?";
+String ticketCancelBookingRefundString =
+    "Only 80% of funds will be returned to your account according to our policy.";
+String ticketNoDontCancelButtonString = "No, Don't Cancel";
+String ticketYesCancelButtonString = "Yes, Cancel";
+String ticketCancelBookingSelectReasonString =
+    "Please select the reason for cancellation:";
+String ticketCancelBookingReason1String =
+    "I have another event, so it collides";
+String ticketCancelBookingReason2String = "I'm sick, can't come";
+String ticketCancelBookingReason3String = "I have an urgent need";
+String ticketCancelBookingReason4String = "I have no transportation to come";
+String ticketCancelBookingReason5String = "I have no friends to come";
+String ticketCancelBookingReason6String = "I want to book another event";
+String ticketCancelBookingReason7String = "I just want to cancel";
+String ticketCancelBookingReasonOthersString = "Others";
+String ticketCancelBookingReasonOthersSubString = "Others reason...";
+// String ticketCancelBookingReasonCancelButtonString = "Cancel Booking";
+String ticketCancelBookingSuccessfulString = "Successful!";
+String ticketCancelBookingOKString = "OK";
+
 //---Dialog--
 //Alert Dialog for Location Permission
 String locationDialogHeadingString = "Enable Location";

@@ -10,6 +10,7 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 
 class LocationSetupScreen extends StatefulWidget {
   final String lat;
@@ -185,7 +186,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                           Timer(Duration(seconds: 2), () {
                             Get.back();
 
-                            Get.to(() => LoginScreen(),
+                            Get.offAll(() => MainScreen(),
                                 transition: Transition.rightToLeft);
                           });
                         },

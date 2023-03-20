@@ -6,10 +6,11 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/ImagePreviewDialog.dart';
 
 class SeeAllEvents extends StatefulWidget {
-  const SeeAllEvents({super.key});
+  final String name;
+  final String img;
+  const SeeAllEvents({super.key, required this.name, required this.img});
 
   @override
   State<SeeAllEvents> createState() => _SeeAllEventsState();
@@ -21,8 +22,6 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
   Color filledColorSearch = kDisabledColor.withOpacity(0.4);
   Color iconColorSearch = kDisabledColor;
   final _searchFocusNode = FocusNode();
-
-  RangeValues _currentRangeValues = RangeValues(1, 50);
 
   List popularEventsCatergoryList = [
     {"name": homeAllString, "icon": allIcon, "isSelected": true},
@@ -107,14 +106,6 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
     },
   ];
 
-  String? selectedLocation;
-
-  List locationList = [
-    'New York, United States',
-    'Times Square NYC, Manhattan',
-    'NYC'
-  ];
-
   bool isListSelected = true;
 
   @override
@@ -185,7 +176,12 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                     color: iconColorSearch,
                                   ),
                                   suffixIcon: InkWell(
-                                      onTap: () => showBottomSheet(context),
+                                      onTap: () => filterBottomSheet(
+                                          context,
+                                          eventsCatergoryList,
+                                          locationList,
+                                          selectedLocation,
+                                          currentRangeValues),
                                       child: Image.asset(filterIcon)),
                                   errorBorder: customOutlineBorder,
                                   enabledBorder: customOutlineBorder,
@@ -226,7 +222,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                   onPressed: () => Get.back(),
                                   icon: Icon(Icons.arrow_back)),
                               Text(
-                                homePopularEventString,
+                                widget.name,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20,
@@ -234,7 +230,9 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                     color: Colors.black),
                               ),
                               5.horizontalSpace,
-                              Image.asset(fireIcon),
+                              widget.img == ''
+                                  ? SizedBox()
+                                  : Image.asset(widget.img),
                             ],
                           ),
                           IconButton(
@@ -407,19 +405,8 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (_) =>
-                                                          ImagePreviewDialog(
-                                                              imagePath:
-                                                                  eventImage),
-                                                    );
-                                                  },
-                                                  child: customCardImage(
-                                                      "", 120.h, 100.h),
-                                                ),
+                                                customCardImage(
+                                                    "", 120.h, 100.h),
                                                 8.verticalSpace,
                                                 FittedBox(
                                                   child: Text(
@@ -494,7 +481,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 5.0),
+                                            vertical: 10.0),
                                         child: Container(
                                           padding: EdgeInsets.all(16.0),
                                           decoration: BoxDecoration(
@@ -508,19 +495,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (_) =>
-                                                        ImagePreviewDialog(
-                                                            imagePath:
-                                                                eventImage),
-                                                  );
-                                                },
-                                                child: customCardImage(
-                                                    "", 110.h, 100.h),
-                                              ),
+                                              customCardImage("", 110.h, 100.h),
                                               8.horizontalSpace,
                                               Column(
                                                 crossAxisAlignment:
@@ -619,277 +594,5 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
       eventList = suggestion;
       // searchDoc = true;
     });
-  }
-
-  showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return Wrap(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50.0),
-                        topRight: Radius.circular(50.0),
-                      ),
-                      color: Colors.white),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      children: [
-                        5.verticalSpace,
-                        Container(
-                          height: 5,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: kDisabledColor.withOpacity(0.6)),
-                        ),
-                        15.verticalSpace,
-                        Text(
-                          filterHeadingString,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        Divider(),
-                        10.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              filterEventCategoryString,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            Text(
-                              filterSeeAllString,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor),
-                            ),
-                          ],
-                        ),
-                        20.verticalSpace,
-                        Container(
-                          child: GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    // childAspectRatio: 1,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 20,
-                                    mainAxisExtent: 45),
-                            itemCount: popularEventsCatergoryList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    popularEventsCatergoryList
-                                        .forEach((element) {
-                                      element['isSelected'] = false;
-                                    });
-                                    popularEventsCatergoryList[index]
-                                        ['isSelected'] = true;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: popularEventsCatergoryList[index]
-                                            ['isSelected']
-                                        ? kPrimaryColor
-                                        : Colors.transparent,
-                                    border: Border.all(
-                                        width: 2, color: kPrimaryColor),
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                            popularEventsCatergoryList[index]
-                                                ['icon']),
-                                        5.horizontalSpace,
-                                        Text(
-                                          popularEventsCatergoryList[index]
-                                              ['name'],
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              color: popularEventsCatergoryList[
-                                                      index]['isSelected']
-                                                  ? Colors.white
-                                                  : kPrimaryColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        10.verticalSpace,
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            filterLocationString,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                        10.verticalSpace,
-                        Container(
-                          height: 48.h,
-                          decoration: BoxDecoration(
-                            color: kDisabledColor.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: DropdownButtonFormField(
-                            dropdownColor: kDisabledColor,
-                            borderRadius: BorderRadius.circular(12.0),
-                            decoration: InputDecoration(
-                                constraints: BoxConstraints(),
-                                isDense: true,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none)),
-                            alignment: AlignmentDirectional.centerStart,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              size: 30,
-                              color: Colors.black,
-                            ),
-                            iconEnabledColor: kDisabledColor,
-                            hint: Text(
-                              "New York, United States",
-                              style: TextStyle(
-                                  color: Colors.grey, fontSize: 15.sp),
-                            ),
-                            value: selectedLocation,
-                            onChanged: (value) {
-                              selectedLocation = value;
-                            },
-                            items: locationList //items
-                                .map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item.toString(),
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                        20.verticalSpace,
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            filterLocationRangeString,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                        10.verticalSpace,
-                        Row(
-                          children: [
-                            Expanded(
-                              child: RangeSlider(
-                                inactiveColor: kDisabledColor,
-                                activeColor: kPrimaryColor,
-                                values: _currentRangeValues,
-                                min: 0,
-                                max: 100,
-                                divisions: 100,
-                                labels: RangeLabels(
-                                  '${_currentRangeValues.start.round()} km',
-                                  '${_currentRangeValues.end.round()} km',
-                                ),
-                                onChanged: (RangeValues values) {
-                                  setState(() {
-                                    _currentRangeValues = values;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        20.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () => Get.back(),
-                              child: Container(
-                                height: 50,
-                                width: 0.3.sw,
-                                decoration: BoxDecoration(
-                                    color: kPrimaryColor.withOpacity(0.3),
-                                    borderRadius: BorderRadius.circular(50.0)),
-                                child: Center(
-                                  child: Text(filterButtonResetString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.white)),
-                                ),
-                              ),
-                            ),
-                            20.horizontalSpace,
-                            InkWell(
-                              onTap: () => Get.back(),
-                              child: Container(
-                                height: 50,
-                                width: 0.3.sw,
-                                decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.circular(50.0)),
-                                child: Center(
-                                  child: Text(filterButtonApplyString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.white)),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        20.verticalSpace
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
   }
 }

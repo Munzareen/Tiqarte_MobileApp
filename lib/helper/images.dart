@@ -42,3 +42,5 @@ String artIcon = "assets/images/artIcon.png";
 String workshopIcon = "assets/images/workshopIcon.png";
 
 String notFoundImage = "assets/images/notFoundImage.png";
+String noNotificationImage = "assets/images/noNotificationImage.png";
+String ticketEmptyImage = "assets/images/ticketEmptyImage.png";
