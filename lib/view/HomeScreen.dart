@@ -8,6 +8,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
 import 'package:tiqarte/view/SeeAllEvents.dart';
 
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Row(
                         children: [
-                          customProfileImage('', 40.h, 40.h),
+                          customProfileImage(profileImage, 40.h, 40.h),
                           15.horizontalSpace,
                           Column(
                             children: [
@@ -188,79 +189,89 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: _hc.eventList.length,
                               itemBuilder: (BuildContext context, int itemIndex,
                                   int pageViewIndex) {
-                                return Container(
-                                  padding: EdgeInsets.all(16.0),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      color: Colors.white),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        customCardImage(
-                                            eventImage, 250.w, 160.h),
-                                        12.verticalSpace,
-                                        FittedBox(
-                                          child: Text(
-                                            _hc.eventList[itemIndex]['name'],
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                return InkWell(
+                                  onTap: () {
+                                    Get.to(() => EventDetailScreen(
+                                          data: _hc.eventList[itemIndex],
+                                        ));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        color: Colors.white),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          customCardImage(
+                                              eventImage, 250.w, 160.h),
+                                          12.verticalSpace,
+                                          FittedBox(
+                                            child: Text(
+                                              _hc.eventList[itemIndex]['name'],
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
                                           ),
-                                        ),
-                                        12.verticalSpace,
-                                        FittedBox(
-                                          child: Text(
-                                            _hc.eventList[itemIndex]['date'],
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: kPrimaryColor),
+                                          12.verticalSpace,
+                                          FittedBox(
+                                            child: Text(
+                                              _hc.eventList[itemIndex]['date'],
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: kPrimaryColor),
+                                            ),
                                           ),
-                                        ),
-                                        12.verticalSpace,
-                                        FittedBox(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on,
-                                                color: kPrimaryColor,
-                                                size: 25,
-                                              ),
-                                              10.horizontalSpace,
-                                              Text(
-                                                _hc.eventList[itemIndex]
-                                                    ['location'],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff616161)),
-                                              ),
-                                              10.horizontalSpace,
-                                              InkWell(
-                                                onTap: () {
-                                                  _hc.addRemoveToFavorite(
-                                                      itemIndex,
-                                                      _hc.eventList[itemIndex]);
-                                                },
-                                                child: Image.asset(
-                                                  _hc.eventList[itemIndex]
-                                                              ['isFavorite'] ==
-                                                          true
-                                                      ? favoriteIconSelected
-                                                      : favoriteIcon,
+                                          12.verticalSpace,
+                                          FittedBox(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
                                                   color: kPrimaryColor,
+                                                  size: 25,
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                                10.horizontalSpace,
+                                                Text(
+                                                  _hc.eventList[itemIndex]
+                                                      ['location'],
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Color(0xff616161)),
+                                                ),
+                                                10.horizontalSpace,
+                                                InkWell(
+                                                  onTap: () {
+                                                    _hc.addRemoveToFavorite(
+                                                        itemIndex,
+                                                        _hc.eventList[
+                                                            itemIndex]);
+                                                  },
+                                                  child: Image.asset(
+                                                    _hc.eventList[itemIndex][
+                                                                'isFavorite'] ==
+                                                            true
+                                                        ? favoriteIconSelected
+                                                        : favoriteIcon,
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
@@ -372,75 +383,82 @@ class _HomeScreenState extends State<HomeScreen> {
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 20,
                                     mainAxisExtent: 255),
-                            itemCount: 6,
+                            itemCount: _homeController.eventList.length,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                padding: EdgeInsets.all(16.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    color: Colors.white),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      customCardImage("", 120.h, 100.h),
-                                      8.verticalSpace,
-                                      FittedBox(
-                                        child: Text(
-                                          "Art Workshops",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
+                              return InkWell(
+                                onTap: () {
+                                  Get.to(() => EventDetailScreen(
+                                        data: _homeController.eventList[index],
+                                      ));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      color: Colors.white),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        customCardImage("", 120.h, 100.h),
+                                        8.verticalSpace,
+                                        FittedBox(
+                                          child: Text(
+                                            "Art Workshops",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
                                         ),
-                                      ),
-                                      8.verticalSpace,
-                                      FittedBox(
-                                        child: Text(
-                                          "Mon, Dec 24 • 18.00 - 23.00 PM",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: kPrimaryColor),
+                                        8.verticalSpace,
+                                        FittedBox(
+                                          child: Text(
+                                            "Mon, Dec 24 • 18.00 - 23.00 PM",
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: kPrimaryColor),
+                                          ),
                                         ),
-                                      ),
-                                      8.verticalSpace,
-                                      FittedBox(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: kPrimaryColor,
-                                              size: 25,
-                                            ),
-                                            5.horizontalSpace,
-                                            Text(
-                                              "Grand Park, New York",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Color(0xff616161)),
-                                            ),
-                                            5.horizontalSpace,
-                                            InkWell(
-                                              onTap: () {},
-                                              child: Image.asset(
-                                                favoriteIcon,
+                                        8.verticalSpace,
+                                        FittedBox(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
                                                 color: kPrimaryColor,
+                                                size: 25,
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                              5.horizontalSpace,
+                                              Text(
+                                                "Grand Park, New York",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xff616161)),
+                                              ),
+                                              5.horizontalSpace,
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Image.asset(
+                                                  favoriteIcon,
+                                                  color: kPrimaryColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

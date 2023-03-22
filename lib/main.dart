@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            fontFamily: GoogleFonts.urbanist().fontFamily,
-            primaryColor: kPrimaryColor),
+          primarySwatch: Colors.green,
+          textTheme: GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme),
+        ),
         home: SplashScreen(),
       );
     });

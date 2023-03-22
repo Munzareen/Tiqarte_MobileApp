@@ -361,7 +361,7 @@ customAlertDialogForPermission(
 }
 
 customProfileImage(String url, double width, double height) {
-  return url != "" || url != "null"
+  return url == "" || url == "null"
       ? CachedNetworkImage(
           imageUrl: url,
           imageBuilder: (context, imageProvider) {
@@ -410,7 +410,7 @@ customProfileImage(String url, double width, double height) {
               //   style: BorderStyle.solid,
               // ),
               image: DecorationImage(
-                  image: AssetImage(profileImage),
+                  image: AssetImage(url),
                   fit: BoxFit.cover))); //AssetImage(placeholder)
 }
 

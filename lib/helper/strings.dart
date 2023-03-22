@@ -181,6 +181,18 @@ String ticketCancelBookingReasonOthersSubString = "Others reason...";
 String ticketCancelBookingSuccessfulString = "Successful!";
 String ticketCancelBookingOKString = "OK";
 
+//Event Detail Screen Strings
+String addToMyCalender = "Add to My Calendar";
+String seeLocationOnMaps = "See Location on Maps";
+String follow = "follow";
+String aboutEvent = "About Event";
+String readMore = "Read more...";
+String galleryPreEvent = "Gallery (Pre-Event)";
+String seeAll = "See All";
+String location = "Location";
+String moreEventsLikeThis = "More Events like this";
+String bookEvent = "Book Event";
+
 //---Dialog--
 //Alert Dialog for Location Permission
 String locationDialogHeadingString = "Enable Location";

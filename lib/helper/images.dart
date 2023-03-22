@@ -1,3 +1,14 @@
+String profileImage = "assets/tempImages/profileImage.png";
+String eventImage = "assets/tempImages/eventImage.png";
+String eventUserImage1 = "assets/tempImages/eventUserImage1.png";
+String eventUserImage2 = "assets/tempImages/eventUserImage2.png";
+String eventUserImage3 = "assets/tempImages/eventUserImage3.png";
+String eventUserImage4 = "assets/tempImages/eventUserImage4.png";
+String eventUserImage5 = "assets/tempImages/eventUserImage5.png";
+String organizerImage = "assets/tempImages/organizerImage.png";
+String galleryEventImage1 = "assets/tempImages/galleryEventImage1.png";
+String galleryEventImage2 = "assets/tempImages/galleryEventImage2.png";
+
 String appLogo = "assets/images/appLogo.png";
 String appLogoWithName = "assets/images/appLogoWithName.png";
 String welcomeBackground = "assets/images/welcomeBackground.png";
@@ -18,8 +29,6 @@ String waveIcon = "assets/images/waveIcon.png";
 String locationLogo = "assets/images/locationLogo.png";
 String placeholder = "assets/images/placeholder.png";
 String filterIcon = "assets/images/filterIcon.png";
-String profileImage = "assets/images/profileImage.png";
-String eventImage = "assets/images/eventImage.png";
 
 String homeIcon = "assets/images/homeIcon.png";
 String exploreIcon = "assets/images/exploreIcon.png";
@@ -40,6 +49,7 @@ String musicIcon = "assets/images/musicIcon.png";
 String fireIcon = "assets/images/fireIcon.png";
 String artIcon = "assets/images/artIcon.png";
 String workshopIcon = "assets/images/workshopIcon.png";
+String sendIcon = "assets/images/sendIcon.png";
 
 String notFoundImage = "assets/images/notFoundImage.png";
 String noNotificationImage = "assets/images/noNotificationImage.png";
