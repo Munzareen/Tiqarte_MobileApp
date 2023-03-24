@@ -9,6 +9,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/GoingScreen.dart';
 
 class EventDetailScreen extends StatefulWidget {
   final dynamic data;
@@ -186,7 +187,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         10.verticalSpace,
                         IconButton(
                           onPressed: () {
-                            Get.back();
+                            Get.to(() => GoingScreen(),
+                                transition: Transition.rightToLeft);
                           },
                           icon: Icon(
                             Icons.arrow_forward,

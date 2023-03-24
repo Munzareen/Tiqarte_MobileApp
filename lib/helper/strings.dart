@@ -184,7 +184,9 @@ String ticketCancelBookingOKString = "OK";
 //Event Detail Screen Strings
 String addToMyCalender = "Add to My Calendar";
 String seeLocationOnMaps = "See Location on Maps";
-String follow = "follow";
+String follow = "Follow";
+String following = "Following";
+
 String aboutEvent = "About Event";
 String readMore = "Read more...";
 String galleryPreEvent = "Gallery (Pre-Event)";

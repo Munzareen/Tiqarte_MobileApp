@@ -8,6 +8,15 @@ String eventUserImage5 = "assets/tempImages/eventUserImage5.png";
 String organizerImage = "assets/tempImages/organizerImage.png";
 String galleryEventImage1 = "assets/tempImages/galleryEventImage1.png";
 String galleryEventImage2 = "assets/tempImages/galleryEventImage2.png";
+String goingUserImage1 = "assets/tempImages/goingUserImage1.png";
+String goingUserImage2 = "assets/tempImages/goingUserImage2.png";
+String goingUserImage3 = "assets/tempImages/goingUserImage3.png";
+String goingUserImage4 = "assets/tempImages/goingUserImage4.png";
+String goingUserImage5 = "assets/tempImages/goingUserImage5.png";
+String goingUserImage6 = "assets/tempImages/goingUserImage6.png";
+String goingUserImage7 = "assets/tempImages/goingUserImage7.png";
+String goingUserImage8 = "assets/tempImages/goingUserImage8.png";
+String goingUserImage9 = "assets/tempImages/goingUserImage9.png";
 
 String appLogo = "assets/images/appLogo.png";
 String appLogoWithName = "assets/images/appLogoWithName.png";
