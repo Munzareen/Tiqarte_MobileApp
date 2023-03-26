@@ -28,8 +28,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   bool rememberMe = false;
   Color _filledColorPass = kDisabledColor.withOpacity(0.4);
   Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
-  Color _iconColorPass = kDisabledColor;
-  Color _iconColorEmail = kDisabledColor;
+  Color _iconColorPass = Colors.grey;
+  Color _iconColorEmail = Colors.grey;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       } else {
         setState(() {
           _filledColorEmail = kDisabledColor.withOpacity(0.4);
-          _iconColorEmail = kDisabledColor;
+          _iconColorEmail = Colors.grey;
         });
       }
     });
@@ -58,7 +58,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       } else {
         setState(() {
           _filledColorPass = kDisabledColor.withOpacity(0.4);
-          _iconColorPass = kDisabledColor;
+          _iconColorPass = Colors.grey;
         });
       }
     });
@@ -125,9 +125,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         keyboardType: TextInputType.text,
                         focusNode: _emailFocusNode,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.email,
-                              size: 20,
+                            prefixIcon: Image.asset(
+                              emailIcon,
                               color: _iconColorEmail,
                             ),
                             errorBorder: customOutlineBorder,

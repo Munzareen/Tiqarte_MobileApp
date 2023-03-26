@@ -27,8 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool rememberMe = false;
   Color _filledColorPass = kDisabledColor.withOpacity(0.4);
   Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
-  Color _iconColorPass = kDisabledColor;
-  Color _iconColorEmail = kDisabledColor;
+  Color _iconColorPass = Colors.grey;
+  Color _iconColorEmail = Colors.grey;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         setState(() {
           _filledColorEmail = kDisabledColor.withOpacity(0.4);
-          _iconColorEmail = kDisabledColor;
+          _iconColorEmail = Colors.grey;
         });
       }
     });
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         setState(() {
           _filledColorPass = kDisabledColor.withOpacity(0.4);
-          _iconColorPass = kDisabledColor;
+          _iconColorPass = Colors.grey;
         });
       }
     });
@@ -124,9 +124,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         keyboardType: TextInputType.text,
                         focusNode: _emailFocusNode,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.email,
-                              size: 20,
+                            prefixIcon: Image.asset(
+                              emailIcon,
                               color: _iconColorEmail,
                             ),
                             errorBorder: customOutlineBorder,

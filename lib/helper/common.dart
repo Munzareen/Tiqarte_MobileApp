@@ -31,7 +31,8 @@ customButton(String text, Color color) {
     child: Center(
       child: Text(text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, color: Colors.white)),
+          style: TextStyle(
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
     ),
   );
 }
@@ -464,7 +465,7 @@ customCardImage(String url, double width, double height) {
               //   style: BorderStyle.solid,
               // ),
               image: DecorationImage(
-                  image: AssetImage(eventImage),
+                  image: AssetImage(url),
                   fit: BoxFit.cover))); //AssetImage(placeholder)
 }
 

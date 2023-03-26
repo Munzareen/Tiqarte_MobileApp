@@ -148,7 +148,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           decoration: BoxDecoration(
                               color: kPrimaryColor.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(50.0)),
-                          child: Image.asset(emailIcon),
+                          child: Image.asset(emailIconFilled),
                         ),
                         20.horizontalSpace,
                         Column(

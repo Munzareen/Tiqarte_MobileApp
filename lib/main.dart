@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.deepPurple,
           textTheme: GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme),
         ),
         home: SplashScreen(),

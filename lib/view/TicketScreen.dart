@@ -16,7 +16,7 @@ class TicketScreen extends StatefulWidget {
 }
 
 class _TicketScreenState extends State<TicketScreen>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   bool isSearch = false;
 
   TabController? tabController;
@@ -306,7 +306,8 @@ class _TicketScreenState extends State<TicketScreen>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              customCardImage("", 110.h, 100.h),
+                                              customCardImage(
+                                                  eventImage, 110.h, 100.h),
                                               8.horizontalSpace,
                                               Column(
                                                 crossAxisAlignment:
@@ -559,7 +560,8 @@ class _TicketScreenState extends State<TicketScreen>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              customCardImage("", 110.h, 100.h),
+                                              customCardImage(
+                                                  eventImage, 110.h, 100.h),
                                               8.horizontalSpace,
                                               Column(
                                                 crossAxisAlignment:
@@ -804,7 +806,8 @@ class _TicketScreenState extends State<TicketScreen>
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          customCardImage("", 110.h, 100.h),
+                                          customCardImage(
+                                              eventImage, 110.h, 100.h),
                                           8.horizontalSpace,
                                           Column(
                                             crossAxisAlignment:

@@ -194,71 +194,114 @@ class _GoingScreenState extends State<GoingScreen> {
                       ],
                     ),
               20.verticalSpace,
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: goingList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: ListTile(
-                        leading: customProfileImage(
-                            goingList[index]['image'].toString(), 60, 60),
-                        title: Text(
-                          goingList[index]['name'],
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        trailing: goingList[index]['isFollowed'] == true
-                            ? Container(
-                                // width: 0.2.sh,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20.0, vertical: 10.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    border: Border.all(
-                                        color: kPrimaryColor, width: 2)),
-                                child: Text(
-                                  following,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: kPrimaryColor),
-                                ),
-                              )
-                            : InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    goingList[index]['isFollowed'] =
-                                        !goingList[index]['isFollowed'];
-                                  });
-                                },
-                                child: Container(
-                                  // width: 0.2.sh,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 10.0),
-                                  decoration: BoxDecoration(
-                                      color: kPrimaryColor,
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  child: Text(
-                                    follow,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
+              goingList.isEmpty
+                  ? Expanded(
+                      child: ListView(
+                        children: [
+                          30.verticalSpace,
+                          Image.asset(
+                            notFoundImage,
+                            height: 250,
+                          ),
+                          10.verticalSpace,
+                          Text(
+                            seeAllEventNotFoundString,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          10.verticalSpace,
+                          Text(
+                            seeAllEventNotFoundSubString,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
-              )
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: goingList.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: ListTile(
+                              leading: customProfileImage(
+                                  goingList[index]['image'].toString(), 60, 60),
+                              title: Text(
+                                goingList[index]['name'],
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              trailing: goingList[index]['isFollowed'] == true
+                                  ? InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          goingList[index]['isFollowed'] =
+                                              !goingList[index]['isFollowed'];
+                                        });
+                                      },
+                                      child: Container(
+                                        // width: 0.2.sh,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10.0),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            border: Border.all(
+                                                color: kPrimaryColor,
+                                                width: 2)),
+                                        child: Text(
+                                          following,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: kPrimaryColor),
+                                        ),
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          // if (goingList[index]['isFollowed'] ==
+                                          //     true) {
+                                          //   goingList[index]['isFollowed'] = false;
+                                          // } else {
+                                          //   goingList[index]['isFollowed'] = true;
+                                          // }
+                                          goingList[index]['isFollowed'] =
+                                              !goingList[index]['isFollowed'];
+                                        });
+                                      },
+                                      child: Container(
+                                        // width: 0.2.sh,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10.0),
+                                        decoration: BoxDecoration(
+                                            color: kPrimaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                        child: Text(
+                                          follow,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
             ],
           ),
         ),

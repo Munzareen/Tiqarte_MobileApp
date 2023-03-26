@@ -145,7 +145,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
           height: 1.sh,
           width: 1.sw,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               children: [
                 20.verticalSpace,

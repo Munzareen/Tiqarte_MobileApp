@@ -1,38 +1,33 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/route_manager.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:tiqarte/view/LocationSetupScreen.dart';
+import 'package:tiqarte/view/PaymentScreen.dart';
 
-class AccountSetupScreen extends StatefulWidget {
-  const AccountSetupScreen({super.key});
+class BookEventContactInfoScreen extends StatefulWidget {
+  const BookEventContactInfoScreen({super.key});
 
   @override
-  State<AccountSetupScreen> createState() => _AccountSetupScreenState();
+  State<BookEventContactInfoScreen> createState() =>
+      _BookEventContactInfoScreenState();
 }
 
-class _AccountSetupScreenState extends State<AccountSetupScreen> {
+class _BookEventContactInfoScreenState
+    extends State<BookEventContactInfoScreen> {
   String? phoneNumber;
-  File? imageFile;
-  String? latitude;
-  String? longitude;
-  Position? position;
-  LocationPermission? permission;
-  final _fullNameController = TextEditingController();
-  final _nickNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _dobController = TextEditingController();
+  bool privacyCheck = false;
+
+  final _fullNameController = TextEditingController(text: "Andrew Ainsley");
+  final _nickNameController = TextEditingController(text: "Andrew");
+  final _emailController =
+      TextEditingController(text: "andrew_ainsley@yourdomain.com");
+  final _dobController = TextEditingController(text: "12/27/1995");
 
   final _fullNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
@@ -52,12 +47,14 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
     accountSetupOtherString
   ];
 
-  String? selectedGender;
+  List<String> locationList = ["United States", "United Kingdom", "Spain"];
+
+  String? selectedGender = "Male";
+  String? selectedLocation = "United States";
 
   @override
   void initState() {
     super.initState();
-    checkLocationPermission();
     _fullNameFocusNode.addListener(() {
       if (_fullNameFocusNode.hasFocus) {
         setState(() {
@@ -123,105 +120,47 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kBackgroundColor,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          title: Text(
-            accountSetupHeadingString,
-            style: TextStyle(
-                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
-        ),
-        body: Container(
+        backgroundColor: kSecondBackgroundColor,
+        body: SafeArea(
+            child: Container(
           height: 1.sh,
           width: 1.sw,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  20.verticalSpace,
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      imageFile == null
-                          ? Container(
-                              width: 100.h,
-                              height: 100.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(200.0),
-                                  border: Border.all(
-                                    color: kDisabledColor,
-                                    style: BorderStyle.solid,
-                                  ),
-                                  color: kDisabledColor.withOpacity(0.2)),
-                              child: Icon(
-                                Icons.person,
-                                color: kDisabledColor,
-                                size: 100,
-                              ),
-                            )
-                          : Container(
-                              width: 100.h,
-                              height: 100.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(200.0),
-                                  border: Border.all(
-                                    color: kDisabledColor,
-                                    style: BorderStyle.solid,
-                                  ),
-                                  color: kDisabledColor.withOpacity(0.2),
-                                  image: DecorationImage(
-                                      image: FileImage(imageFile!),
-                                      fit: BoxFit.cover)),
-                            ),
-                      PopupMenuButton(
-                          color: kDisabledColor,
-                          offset: Offset(50, -5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                                size: 25,
-                              ),
-                            ),
-                          ),
-                          itemBuilder: (_) => <PopupMenuItem<String>>[
-                                PopupMenuItem<String>(
-                                  child: Text("Camera"),
-                                  value: 'Camera',
-                                  onTap: () =>
-                                      checkCameraPermissionAndOpenCamera(),
-                                ),
-                                PopupMenuItem<String>(
-                                    child: Text("Gallery"),
-                                    value: 'Gallery',
-                                    onTap: () =>
-                                        //  checkGalleryPermissionAndPickImage(),
-                                        _getFromGallery())
-                              ])
-                    ],
-                  ),
-                  40.verticalSpace,
-                  Form(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                20.verticalSpace,
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(Icons.arrow_back)),
+                    10.horizontalSpace,
+                    Text(
+                      bookEvent,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+                20.verticalSpace,
+                Text(
+                  contactInformation,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
+                20.verticalSpace,
+                Expanded(
+                  child: Form(
                       //     key: _formKey,
-                      child: Column(
+                      child: ListView(
                     children: [
                       TextFormField(
                         cursorColor: kPrimaryColor,
@@ -342,6 +281,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                       ),
                       20.verticalSpace,
                       IntlPhoneField(
+                        initialValue: "1467378399",
                         focusNode: _phoneFocusNode,
                         // controller: _phoneController,
                         flagsButtonPadding:
@@ -398,7 +338,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             Icons.arrow_drop_down,
                             size: 25,
                           ),
-                          iconEnabledColor: kDisabledColor,
+                          iconEnabledColor: Colors.grey,
                           hint: Text(
                             accountSetupGenderString,
                             style:
@@ -425,29 +365,135 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                         ),
                       ),
                       20.verticalSpace,
+                      Container(
+                        height: 48.h,
+                        decoration: BoxDecoration(
+                          color: kDisabledColor.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: DropdownButtonFormField(
+                          dropdownColor: kDisabledColor,
+                          borderRadius: BorderRadius.circular(12.0),
+                          decoration: InputDecoration(
+                              constraints: BoxConstraints(),
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none)),
+                          alignment: AlignmentDirectional.centerStart,
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            size: 25,
+                          ),
+                          iconEnabledColor: Colors.grey,
+                          hint: Text(
+                            location,
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 15.sp),
+                          ),
+                          value: selectedLocation,
+                          onChanged: (value) {
+                            selectedLocation = value;
+                          },
+                          items: locationList //items
+                              .map(
+                                (item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item.toString(),
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                      20.verticalSpace,
+                      Container(
+                        width: 200,
+                        child: CheckboxListTile(
+                          contentPadding: EdgeInsets.zero,
+                          activeColor: kPrimaryColor,
+                          checkboxShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          side: BorderSide(color: kPrimaryColor, width: 2.5),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          title: RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: iAcceptTheEveno + " ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: termsOfService,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: kPrimaryColor)),
+                              TextSpan(
+                                  text: ", ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: communityGuidelines,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: kPrimaryColor)),
+                              TextSpan(
+                                  text: ", $and ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: privacyPolicy,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: kPrimaryColor)),
+                              TextSpan(
+                                  text: " " + require,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black))
+                            ]),
+                          ),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          checkColor: Colors.white,
+                          dense: false,
+                          value: privacyCheck,
+                          onChanged: (value) {
+                            setState(() {
+                              privacyCheck = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      20.verticalSpace,
                       InkWell(
                         onTap: () {
-                          if (latitude != null) {
-                            Get.to(
-                                () => LocationSetupScreen(
-                                    lat: latitude.toString(),
-                                    long: longitude.toString()),
-                                transition: Transition.rightToLeft);
-                          } else {
-                            checkLocationPermission();
-                          }
+                          Get.to(() => PaymentScreen(),
+                              transition: Transition.rightToLeft);
                         },
-                        child: customButton(
-                            accountSetupButtonString, kPrimaryColor),
+                        child: customButton(continueButton, kPrimaryColor),
                       ),
                       20.verticalSpace,
                     ],
                   )),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ),
+        )),
       ),
     );
   }
@@ -483,196 +529,6 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
 
         FocusManager.instance.primaryFocus?.unfocus();
       });
-    }
-  }
-
-  _getFromGallery() async {
-    XFile? pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 2500,
-      maxHeight: 2500,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }
-
-  _getFromCamera() async {
-    XFile? pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.camera,
-      maxWidth: 2500,
-      maxHeight: 2500,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }
-
-  // DateTime? currentBackPressTime;
-
-  // Future<bool> onWillPop() {
-  //   DateTime now = DateTime.now();
-  //   if (currentBackPressTime == null ||
-  //       now.difference(currentBackPressTime!) > Duration(seconds: 1)) {
-  //     currentBackPressTime = now;
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text(
-  //         "Tap again to exit from app",
-  //         style: TextStyle(color: Colors.white),
-  //       ),
-  //       backgroundColor: kSecondaryColor,
-  //     ));
-  //     return Future.value(false);
-  //   }
-  //   customAlertDialog(
-  //       context, "Alert!", "Are you sure you want to exit from app?", () {
-  //     exitUser();
-  //   });
-
-  //   return Future.value(false);
-  // }
-
-  checkLocationPermission() async {
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-      } else if (permission == LocationPermission.always ||
-          permission == LocationPermission.whileInUse) {
-        getLatLng();
-      } else if (permission == LocationPermission.deniedForever) {
-        customAlertDialogForPermission(
-            context,
-            backgroundLogo,
-            Icons.location_on,
-            locationDialogHeadingString,
-            locationDialogSubString,
-            locationDialogButtonEnableString,
-            locationButtonCancelString, () {
-          openAppSettings().then((value) {
-            //checkLocationPermission();
-          });
-          Get.back();
-        });
-      }
-    } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(
-          context,
-          backgroundLogo,
-          Icons.location_on,
-          locationDialogHeadingString,
-          locationDialogSubString,
-          locationDialogButtonEnableString,
-          locationButtonCancelString, () {
-        openAppSettings().then((value) {
-          //checkLocationPermission();
-        });
-        Get.back();
-      });
-    } else if (permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse) {
-      getLatLng();
-    }
-  }
-
-  getLatLng() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    if (position != null) {
-      latitude = position?.latitude.toString();
-      longitude = position?.longitude.toString();
-    }
-  }
-
-  checkCameraPermissionAndOpenCamera() async {
-    var cameraStatus = await Permission.camera.status;
-
-    if (cameraStatus.isDenied) {
-      cameraStatus = await Permission.camera.request();
-      if (cameraStatus.isDenied) {
-        cameraStatus = await Permission.camera.request();
-      } else if (cameraStatus.isPermanentlyDenied) {
-        customAlertDialogForPermission(
-            context,
-            backgroundLogo,
-            Icons.camera_alt,
-            cameraDialogHeadingString,
-            cameraDialogSubString,
-            cameraDialogButtonEnableString,
-            cameraDialogButtonCancelString, () {
-          openAppSettings().then((value) {
-            checkCameraPermissionAndOpenCamera();
-          });
-          Get.back();
-        });
-      } else if (cameraStatus.isGranted) {
-        _getFromCamera();
-      }
-    } else if (cameraStatus.isPermanentlyDenied) {
-      customAlertDialogForPermission(
-          context,
-          backgroundLogo,
-          Icons.camera_alt,
-          cameraDialogHeadingString,
-          cameraDialogSubString,
-          cameraDialogButtonEnableString,
-          cameraDialogButtonCancelString, () {
-        openAppSettings().then((value) {
-          checkCameraPermissionAndOpenCamera();
-        });
-        Get.back();
-      });
-    } else if (cameraStatus.isGranted) {
-      _getFromCamera();
-    }
-  }
-
-  checkGalleryPermissionAndPickImage() async {
-    var photoStatus = await Permission.photos.status;
-
-    if (photoStatus.isDenied) {
-      photoStatus = await Permission.camera.request();
-      if (photoStatus.isDenied) {
-        photoStatus = await Permission.camera.request();
-      } else if (photoStatus.isPermanentlyDenied) {
-        customAlertDialogForPermission(
-            context,
-            backgroundLogo,
-            Icons.photo,
-            galleryDialogHeadingString,
-            galleryDialogSubString,
-            galleryDialogButtonEnableString,
-            galleryDialogButtonCancelString, () {
-          openAppSettings().then((value) {
-            checkGalleryPermissionAndPickImage();
-          });
-          Get.back();
-        });
-      } else if (photoStatus.isGranted) {
-        _getFromGallery();
-      }
-    } else if (photoStatus.isPermanentlyDenied) {
-      customAlertDialogForPermission(
-          context,
-          backgroundLogo,
-          Icons.photo,
-          galleryDialogHeadingString,
-          galleryDialogSubString,
-          galleryDialogButtonEnableString,
-          galleryDialogButtonCancelString, () {
-        openAppSettings().then((value) {
-          checkGalleryPermissionAndPickImage();
-        });
-        Get.back();
-      });
-    } else if (photoStatus.isGranted) {
-      _getFromGallery();
     }
   }
 }

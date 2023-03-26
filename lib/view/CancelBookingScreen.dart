@@ -57,7 +57,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
           height: 1.sh,
           width: 1.sw,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

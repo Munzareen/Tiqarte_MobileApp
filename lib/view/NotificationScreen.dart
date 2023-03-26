@@ -101,7 +101,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         notificationHeadingSrting,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),

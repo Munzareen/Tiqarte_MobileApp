@@ -72,7 +72,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           height: 1.sh,
           width: 1.sw,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: GetBuilder<HomeController>(builder: (_hc) {
               return Column(
                 children: [
@@ -344,125 +344,121 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               child: ListView(
                                 children: [
                                   !_hc.isListSelectedFav
-                                      ? Container(
-                                          child: GridView.builder(
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    childAspectRatio: 1,
-                                                    crossAxisSpacing: 10,
-                                                    mainAxisSpacing: 20,
-                                                    mainAxisExtent: 255),
-                                            itemCount: _hc.favEventList.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  removeFavoriteBottomSheet(
-                                                      context, index);
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.all(16.0),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.0),
-                                                      color: Colors.white),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      // mainAxisSize: MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        customCardImage(
-                                                            "", 120.h, 100.h),
-                                                        8.verticalSpace,
-                                                        FittedBox(
-                                                          child: Text(
-                                                            _hc.favEventList[
-                                                                index]['name'],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
+                                      ? GridView.builder(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  childAspectRatio: 1,
+                                                  crossAxisSpacing: 10,
+                                                  mainAxisSpacing: 20,
+                                                  mainAxisExtent: 255),
+                                          itemCount: _hc.favEventList.length,
+                                          shrinkWrap: true,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                removeFavoriteBottomSheet(
+                                                    context, index);
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.all(16.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                    color: Colors.white),
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    // mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      customCardImage(
+                                                          "", 120.h, 100.h),
+                                                      8.verticalSpace,
+                                                      FittedBox(
+                                                        child: Text(
+                                                          _hc.favEventList[
+                                                              index]['name'],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
                                                         ),
-                                                        8.verticalSpace,
-                                                        FittedBox(
-                                                          child: Text(
-                                                            _hc.favEventList[
-                                                                index]['date'],
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color:
-                                                                    kPrimaryColor),
-                                                          ),
+                                                      ),
+                                                      8.verticalSpace,
+                                                      FittedBox(
+                                                        child: Text(
+                                                          _hc.favEventList[
+                                                              index]['date'],
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color:
+                                                                  kPrimaryColor),
                                                         ),
-                                                        8.verticalSpace,
-                                                        FittedBox(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .location_on,
+                                                      ),
+                                                      8.verticalSpace,
+                                                      FittedBox(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.location_on,
+                                                              color:
+                                                                  kPrimaryColor,
+                                                              size: 25,
+                                                            ),
+                                                            5.horizontalSpace,
+                                                            Text(
+                                                              _hc.favEventList[
+                                                                      index]
+                                                                  ['location'],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Color(
+                                                                      0xff616161)),
+                                                            ),
+                                                            5.horizontalSpace,
+                                                            InkWell(
+                                                              onTap: () {},
+                                                              child:
+                                                                  Image.asset(
+                                                                favoriteIconSelected,
                                                                 color:
                                                                     kPrimaryColor,
-                                                                size: 25,
                                                               ),
-                                                              5.horizontalSpace,
-                                                              Text(
-                                                                _hc.favEventList[
-                                                                        index][
-                                                                    'location'],
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: Color(
-                                                                        0xff616161)),
-                                                              ),
-                                                              5.horizontalSpace,
-                                                              InkWell(
-                                                                onTap: () {},
-                                                                child:
-                                                                    Image.asset(
-                                                                  favoriteIconSelected,
-                                                                  color:
-                                                                      kPrimaryColor,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                          ),
+                                              ),
+                                            );
+                                          },
                                         )
                                       : ListView.builder(
                                           physics: BouncingScrollPhysics(),
