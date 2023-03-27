@@ -13,6 +13,7 @@ String galleryEventImage4 = "assets/tempImages/galleryEventImage4.png";
 String galleryEventImage5 = "assets/tempImages/galleryEventImage5.png";
 String galleryEventImage6 = "assets/tempImages/galleryEventImage6.png";
 String galleryEventImage7 = "assets/tempImages/galleryEventImage7.png";
+String qrImage = "assets/tempImages/qrImage.png";
 
 String goingUserImage1 = "assets/tempImages/goingUserImage1.png";
 String goingUserImage2 = "assets/tempImages/goingUserImage2.png";
@@ -71,6 +72,7 @@ String fireIcon = "assets/images/fireIcon.png";
 String artIcon = "assets/images/artIcon.png";
 String workshopIcon = "assets/images/workshopIcon.png";
 String sendIcon = "assets/images/sendIcon.png";
+String copyIcon = "assets/images/copyIcon.png";
 
 String notFoundImage = "assets/images/notFoundImage.png";
 String noNotificationImage = "assets/images/noNotificationImage.png";

@@ -403,7 +403,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        customCardImage("", 120.h, 100.h),
+                                        customCardImage(
+                                            eventImage, 120.h, 100.h),
                                         8.verticalSpace,
                                         FittedBox(
                                           child: Text(

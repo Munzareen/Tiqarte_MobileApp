@@ -70,21 +70,10 @@ String newPasswordNewPasswordString = "Enter new password";
 String newPasswordConfirmPasswordString = "Confirm Password";
 String newPasswordRememberMeString = "Remember me";
 String newPasswordButtonString = "Continue";
-String newPasswordCongratsString = "Congratulations!";
 String newPasswordCongratsSubString =
     "Your account is ready to use. You will be redirected to the Home page in a few seconds..";
 
 //Account Setup Screen Strings
-String accountSetupHeadingString = "Fill Your Profile";
-String accountSetupFullNameString = "Full Name";
-String accountSetupNickNameString = "Nickname";
-String accountSetupDOBString = "Date of Birth";
-String accountSetupEmailString = "Email";
-String accountSetupGenderString = "Gender";
-String accountSetupButtonString = "Continue";
-String accountSetupMaleString = "Male";
-String accountSetupFemaleString = "Female";
-String accountSetupOtherString = "Other";
 
 //Location Setup Screen Strings
 String locationSetupHeadingString = "Set Your Location";
@@ -145,7 +134,6 @@ String ticketCompletedString = "Completed";
 String ticketCancelledString = "Cancelled";
 String ticketPaidString = "Paid";
 String ticketReviewButtonString = "Leave a Review";
-String ticketViewTicketButtonString = "View E-Ticket";
 String ticketReviewHeadingString = "Leave a Review";
 String ticketReviewSubString =
     "How was your experience withArt & Painting Training?";
@@ -181,11 +169,21 @@ String ticketCancelBookingReasonOthersSubString = "Others reason...";
 String ticketCancelBookingSuccessfulString = "Successful!";
 String ticketCancelBookingOKString = "OK";
 
-//Event Detail Screen Strings
+//by name original
+String fillYourProfile = "Fill Your Profile";
+String fullName = "Full Name";
+String nickName = "Nickname";
+String dateOfBirth = "Date of Birth";
+String email = "Email";
+String gender = "Gender";
+String male = "Male";
+String female = "Female";
+String other = "Other";
 String addToMyCalender = "Add to My Calendar";
 String seeLocationOnMaps = "See Location on Maps";
 String follow = "Follow";
 String following = "Following";
+String phone = "Phone";
 
 String aboutEvent = "About Event";
 String readMore = "Read more...";
@@ -225,15 +223,40 @@ String cardHolderName = "Card Holder name";
 String cardName = "Card Name";
 String cardNumber = "Card Number";
 String expiryDate = "Expiry Date";
-String cVV = "CVV";
+String cvv = "CVV";
+String add = "Add";
+String reviewSummary = "Review Summary";
+String total = "Total";
+String tax = "Tax";
+String change = "Change";
+String enterYourPin = "Enter Your Pin";
+String enterYourPinToConfirm = "Enter your PIN to confirm payment";
+String viewETicket = "View E-Ticket";
+String eTicket = "E-Ticket";
+String cancel = "Cancel";
+String congratulations = "Congratulations!";
+String successPlaceOrderEvent =
+    "You have successfully placed an order for National Music Festival. Enjoy the event!";
+String failedPlaceOrder =
+    "Your payment failed. Please check your internet connection then try again.";
+String tryAgain = "Try Again";
+String oopsFaild = "Oops, Failed!";
+String downloadTicket = "Download Ticket";
+String country = "Country";
+String paymentMethods = "Payment Methods";
+String orderID = "Order ID";
+String status = "Status";
+String paid = "Paid";
+
+String event = "Event";
+String dateAndHour = "Date and Hour";
+String eventOrganizer = "Event Organizer";
+String enableLocation = "Enable Location";
+String locationDialogSubString =
+    "To use this service, we need permission to access your location.";
 
 //---Dialog--
 //Alert Dialog for Location Permission
-String locationDialogHeadingString = "Enable Location";
-String locationDialogSubString =
-    "To use this service, we need permission to access your location.";
-String locationDialogButtonEnableString = "Enable Location";
-String locationButtonCancelString = "Cancel";
 
 //Alert Dialog for Camera Permission
 String cameraDialogHeadingString = "Enable Camera";

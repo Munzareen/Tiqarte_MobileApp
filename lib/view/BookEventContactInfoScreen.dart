@@ -41,11 +41,7 @@ class _BookEventContactInfoScreenState
 
   Color _iconColorEmail = Colors.grey;
 
-  List<String> genderList = [
-    accountSetupMaleString,
-    accountSetupFemaleString,
-    accountSetupOtherString
-  ];
+  List<String> genderList = [male, female, other];
 
   List<String> locationList = ["United States", "United Kingdom", "Spain"];
 
@@ -184,7 +180,7 @@ class _BookEventContactInfoScreenState
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorFullName,
                             filled: true,
-                            hintText: accountSetupFullNameString,
+                            hintText: fullName,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -214,7 +210,7 @@ class _BookEventContactInfoScreenState
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorNickName,
                             filled: true,
-                            hintText: accountSetupNickNameString,
+                            hintText: nickName,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -272,7 +268,7 @@ class _BookEventContactInfoScreenState
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorEmail,
                             filled: true,
-                            hintText: accountSetupEmailString,
+                            hintText: email,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -340,7 +336,7 @@ class _BookEventContactInfoScreenState
                           ),
                           iconEnabledColor: Colors.grey,
                           hint: Text(
-                            accountSetupGenderString,
+                            gender,
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 15.sp),
                           ),

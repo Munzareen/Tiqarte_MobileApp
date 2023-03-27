@@ -39,6 +39,12 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
     getLocationName(latitude!, longitude!);
   }
 
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
   getMarker() {
     Marker _marker = Marker(
       markerId: MarkerId('myLocation'),
@@ -177,7 +183,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                       10.verticalSpace,
                       InkWell(
                         onTap: () {
-                          customAlertDialog(
+                          customAlertDialogWithSpinkit(
                               context,
                               backgroundLogo,
                               Icons.person,

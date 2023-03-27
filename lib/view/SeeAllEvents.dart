@@ -495,7 +495,8 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              customCardImage("", 110.h, 100.h),
+                                              customCardImage(
+                                                  eventImage, 110.h, 100.h),
                                               8.horizontalSpace,
                                               Column(
                                                 crossAxisAlignment:

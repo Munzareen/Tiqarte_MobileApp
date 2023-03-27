@@ -453,7 +453,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                         BorderRadius.circular(
                                                             20.0)),
                                                 child: Text(
-                                                  ticketViewTicketButtonString,
+                                                  viewETicket,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 14,
@@ -701,7 +701,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                         BorderRadius.circular(
                                                             20.0)),
                                                 child: Text(
-                                                  ticketViewTicketButtonString,
+                                                  viewETicket,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 14,

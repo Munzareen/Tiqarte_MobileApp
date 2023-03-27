@@ -46,11 +46,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
 
   Color _iconColorEmail = Colors.grey;
 
-  List<String> genderList = [
-    accountSetupMaleString,
-    accountSetupFemaleString,
-    accountSetupOtherString
-  ];
+  List<String> genderList = [male, female, other];
 
   String? selectedGender;
 
@@ -129,7 +125,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
           title: Text(
-            accountSetupHeadingString,
+            fillYourProfile,
             style: TextStyle(
                 color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
           ),
@@ -245,7 +241,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorFullName,
                             filled: true,
-                            hintText: accountSetupFullNameString,
+                            hintText: fullName,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -275,7 +271,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorNickName,
                             filled: true,
-                            hintText: accountSetupNickNameString,
+                            hintText: nickName,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -333,7 +329,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorEmail,
                             filled: true,
-                            hintText: accountSetupEmailString,
+                            hintText: email,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -400,7 +396,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                           ),
                           iconEnabledColor: kDisabledColor,
                           hint: Text(
-                            accountSetupGenderString,
+                            gender,
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 15.sp),
                           ),
@@ -437,8 +433,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             checkLocationPermission();
                           }
                         },
-                        child: customButton(
-                            accountSetupButtonString, kPrimaryColor),
+                        child: customButton(continueButton, kPrimaryColor),
                       ),
                       20.verticalSpace,
                     ],
@@ -550,10 +545,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
             context,
             backgroundLogo,
             Icons.location_on,
-            locationDialogHeadingString,
+            enableLocation,
             locationDialogSubString,
-            locationDialogButtonEnableString,
-            locationButtonCancelString, () {
+            enableLocation,
+            cancel, () {
           openAppSettings().then((value) {
             //checkLocationPermission();
           });
@@ -561,14 +556,8 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
         });
       }
     } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(
-          context,
-          backgroundLogo,
-          Icons.location_on,
-          locationDialogHeadingString,
-          locationDialogSubString,
-          locationDialogButtonEnableString,
-          locationButtonCancelString, () {
+      customAlertDialogForPermission(context, backgroundLogo, Icons.location_on,
+          enableLocation, locationDialogSubString, enableLocation, cancel, () {
         openAppSettings().then((value) {
           //checkLocationPermission();
         });

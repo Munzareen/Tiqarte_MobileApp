@@ -491,7 +491,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                             .center,
                                                     children: [
                                                       customCardImage(
-                                                          "", 110.h, 100.h),
+                                                          eventImage,
+                                                          110.h,
+                                                          100.h),
                                                       8.horizontalSpace,
                                                       Column(
                                                         crossAxisAlignment:
@@ -647,7 +649,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              customCardImage("", 110.h, 100.h),
+                              customCardImage(eventImage, 110.h, 100.h),
                               8.horizontalSpace,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

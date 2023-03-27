@@ -1000,10 +1000,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             context,
             backgroundLogo,
             Icons.location_on,
-            locationDialogHeadingString,
+            enableLocation,
             locationDialogSubString,
-            locationDialogButtonEnableString,
-            locationButtonCancelString, () {
+            enableLocation,
+            cancel, () {
           openAppSettings().then((value) {
             //checkLocationPermission();
           });
@@ -1011,14 +1011,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         });
       }
     } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(
-          context,
-          backgroundLogo,
-          Icons.location_on,
-          locationDialogHeadingString,
-          locationDialogSubString,
-          locationDialogButtonEnableString,
-          locationButtonCancelString, () {
+      customAlertDialogForPermission(context, backgroundLogo, Icons.location_on,
+          enableLocation, locationDialogSubString, enableLocation, cancel, () {
         openAppSettings().then((value) {
           //checkLocationPermission();
         });

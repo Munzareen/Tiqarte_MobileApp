@@ -6,6 +6,7 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AddCardScreen.dart';
+import 'package:tiqarte/view/ReviewSummaryScreen.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -139,10 +140,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: InkWell(
-                  // onTap: () {
-                  //   Get.to(() => BookEventContactInfoScreen(),
-                  //       transition: Transition.rightToLeft);
-                  // },
+                  onTap: () {
+                    Get.to(() => ReviewSummaryScreen(),
+                        transition: Transition.rightToLeft);
+                  },
                   child: customButton(continueButton, kPrimaryColor))),
         ));
   }

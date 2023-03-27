@@ -267,11 +267,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   10.verticalSpace,
                   InkWell(
                     onTap: () {
-                      customAlertDialog(
+                      customAlertDialogWithSpinkit(
                           context,
                           backgroundLogo,
                           Icons.verified_user,
-                          newPasswordCongratsString,
+                          congratulations,
                           newPasswordCongratsSubString);
                       Timer(Duration(seconds: 2), () {
                         Get.back();
