@@ -58,10 +58,10 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F5),
+      backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         title: Text(
           locationSetupHeadingString,

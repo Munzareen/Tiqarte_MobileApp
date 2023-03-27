@@ -22,10 +22,10 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
             onPressed: () {

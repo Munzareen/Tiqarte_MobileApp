@@ -40,7 +40,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: kSecondBackgroundColor,
       body: SafeArea(
           child: Container(
         height: 1.sh,
@@ -50,13 +50,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
             : Colors.transparent,
         child: latitude == null
             ? Container(
-                child: Center(
-                  child: Text(
-                    enableLocation,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 30),
-                  ),
-                ),
+                child: Center(child: spinkit
+                    // Text(
+                    //   enableLocation,
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(color: Colors.white, fontSize: 30),
+                    // ),
+                    ),
               )
             : Stack(
                 children: [

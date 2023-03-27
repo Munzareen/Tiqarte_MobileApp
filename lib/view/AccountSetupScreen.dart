@@ -119,10 +119,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kBackgroundColor,
+        backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
             fillYourProfile,
