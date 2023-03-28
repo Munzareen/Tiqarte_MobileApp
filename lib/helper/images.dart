@@ -74,6 +74,23 @@ String workshopIcon = "assets/images/workshopIcon.png";
 String sendIcon = "assets/images/sendIcon.png";
 String copyIcon = "assets/images/copyIcon.png";
 
+String customerSupportIcon = "assets/images/customerSupportIcon.png";
+String whatsappIcon = "assets/images/whatsappIcon.png";
+String instagramIcon = "assets/images/instagramIcon.png";
+String websiteIcon = "assets/images/websiteIcon.png";
+String twitterIcon = "assets/images/twitterIcon.png";
+
+String linkedAccountIcon = "assets/images/linkedAccountIcon.png";
+String paymentIcon = "assets/images/paymentIcon.png";
+String securityIcon = "assets/images/securityIcon.png";
+String languageIcon = "assets/images/languageIcon.png";
+String darkModeIcon = "assets/images/darkModeIcon.png";
+String helpCenterIcon = "assets/images/helpCenterIcon.png";
+String inviteFriendsIcon = "assets/images/inviteFriendsIcon.png";
+String rateUsIcon = "assets/images/rateUsIcon.png";
+String logoutIcon = "assets/images/logoutIcon.png";
+String messageCenterIcon = "assets/images/messageCenterIcon.png";
+
 String notFoundImage = "assets/images/notFoundImage.png";
 String noNotificationImage = "assets/images/noNotificationImage.png";
 String ticketEmptyImage = "assets/images/ticketEmptyImage.png";

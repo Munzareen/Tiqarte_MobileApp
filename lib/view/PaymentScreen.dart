@@ -21,118 +21,127 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kSecondBackgroundColor,
-        body: SafeArea(
-            child: Container(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: kSecondBackgroundColor,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+        ),
+        body: Container(
           height: 1.sh,
           width: 1.sw,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  20.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                20.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                            onPressed: () => Get.back(),
+                            icon: Icon(Icons.arrow_back)),
+                        10.horizontalSpace,
+                        Text(
+                          payments,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    Image.asset(scanIcon),
+                  ],
+                ),
+                20.verticalSpace,
+                SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Row(
-                        children: [
-                          IconButton(
-                              onPressed: () => Get.back(),
-                              icon: Icon(Icons.arrow_back)),
-                          10.horizontalSpace,
-                          Text(
-                            payments,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ],
+                      FittedBox(
+                        child: Text(
+                          selectThePaymentMethod,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        ),
                       ),
-                      Image.asset(scanIcon),
+                      40.verticalSpace,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 15.0),
+                        child: customRadioButton(1, paypalIcon, payPal),
+                      ),
+                      20.verticalSpace,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 15.0),
+                        child: customRadioButton(2, googleIcon, googlePay),
+                      ),
+                      20.verticalSpace,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 15.0),
+                        child: customRadioButton(3, appleIcon, applePay),
+                      ),
+                      20.verticalSpace,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 15.0),
+                        child: customRadioButton(
+                            4, cardLogo, "•••• •••• •••• •••• 4679"),
+                      ),
+                      20.verticalSpace,
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => AddCardScreen(),
+                              transition: Transition.rightToLeft);
+                        },
+                        child: Container(
+                          width: 0.9.sw,
+                          decoration: BoxDecoration(
+                              color: kPrimaryColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(50.0)),
+                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          child: Center(
+                            child: Text(addNewCard,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: kPrimaryColor,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  20.verticalSpace,
-                  FittedBox(
-                    child: Text(
-                      selectThePaymentMethod,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                  ),
-                  40.verticalSpace,
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                    child: customRadioButton(1, paypalIcon, payPal),
-                  ),
-                  20.verticalSpace,
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                    child: customRadioButton(2, googleIcon, googlePay),
-                  ),
-                  20.verticalSpace,
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                    child: customRadioButton(3, appleIcon, applePay),
-                  ),
-                  20.verticalSpace,
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                    child: customRadioButton(
-                        4, cardLogo, "•••• •••• •••• •••• 4679"),
-                  ),
-                  20.verticalSpace,
-                  InkWell(
-                    onTap: () {
-                      Get.to(() => AddCardScreen(),
-                          transition: Transition.rightToLeft);
-                    },
-                    child: Container(
-                      width: 0.9.sw,
-                      decoration: BoxDecoration(
-                          color: kPrimaryColor.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(50.0)),
-                      padding: EdgeInsets.symmetric(vertical: 20.0),
-                      child: Center(
-                        child: Text(addNewCard,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: kPrimaryColor,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
-        )),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: 1.sw,

@@ -34,241 +34,244 @@ class _BookEventScreenState extends State<BookEventScreen>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kSecondBackgroundColor,
-        body: SafeArea(
-          child: Container(
-            height: 1.sh,
-            width: 1.sw,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                children: [
-                  20.verticalSpace,
-                  Row(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: kSecondBackgroundColor,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+        ),
+        body: Container(
+          height: 1.sh,
+          width: 1.sw,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              children: [
+                20.verticalSpace,
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(Icons.arrow_back)),
+                    10.horizontalSpace,
+                    Text(
+                      bookEvent,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+                20.verticalSpace,
+                TabBar(
+                  onTap: (value) {
+                    setState(() {});
+                  },
+                  labelStyle: TextStyle(color: kPrimaryColor),
+                  unselectedLabelStyle: TextStyle(color: kDisabledColor),
+                  labelColor: kPrimaryColor,
+                  //  dividerColor: kDisabledColor,
+                  unselectedLabelColor: Color(0xff9E9E9E),
+                  isScrollable: false,
+                  labelPadding:
+                      EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                  controller: tabController,
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                      color: kPrimaryColor,
+                      width: 3.0,
+                    ),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  // indicator: BoxDecoration(
+                  //     color: Color(0xff3E5164),
+                  //     borderRadius: BorderRadius.circular(8)),
+                  indicatorColor: kPrimaryColor,
+                  indicatorWeight: 3.0,
+                  tabs: [
+                    FittedBox(
+                      child: Text(economy,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                    ),
+                    FittedBox(
+                      child: Text(vip,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                    ),
+                  ],
+                ),
+                20.verticalSpace,
+                Expanded(
+                    child: TabBarView(controller: tabController, children: [
+                  //economy
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                          onPressed: () => Get.back(),
-                          icon: Icon(Icons.arrow_back)),
-                      10.horizontalSpace,
                       Text(
-                        bookEvent,
+                        chooseNumberOfSeats,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
-                    ],
-                  ),
-                  20.verticalSpace,
-                  TabBar(
-                    onTap: (value) {
-                      setState(() {});
-                    },
-                    labelStyle: TextStyle(color: kPrimaryColor),
-                    unselectedLabelStyle: TextStyle(color: kDisabledColor),
-                    labelColor: kPrimaryColor,
-                    //  dividerColor: kDisabledColor,
-                    unselectedLabelColor: Color(0xff9E9E9E),
-                    isScrollable: false,
-                    labelPadding:
-                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-                    controller: tabController,
-                    indicator: UnderlineTabIndicator(
-                      borderSide: BorderSide(
-                        color: kPrimaryColor,
-                        width: 3.0,
-                      ),
-                    ),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    // indicator: BoxDecoration(
-                    //     color: Color(0xff3E5164),
-                    //     borderRadius: BorderRadius.circular(8)),
-                    indicatorColor: kPrimaryColor,
-                    indicatorWeight: 3.0,
-                    tabs: [
-                      FittedBox(
-                        child: Text(economy,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
-                      ),
-                      FittedBox(
-                        child: Text(vip,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
-                      ),
-                    ],
-                  ),
-                  20.verticalSpace,
-                  Expanded(
-                      child: TabBarView(controller: tabController, children: [
-                    //economy
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          chooseNumberOfSeats,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        20.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            MaterialButton(
-                              minWidth: 50.h,
-                              height: 50.h,
-                              elevation: 0,
-                              splashColor: kPrimaryColor,
-                              highlightColor: kPrimaryColor,
-                              onPressed: () {
-                                setState(() {
-                                  if (economySeatCount > 1) {
-                                    economySeatCount--;
-                                    economyPrice =
-                                        economyPrice - baseEconomyPrice;
-                                  }
-                                });
-                              },
-                              // color: Colors.transparent,
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.remove,
-                                size: 20,
-                                color: kPrimaryColor,
-                              ),
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  side: BorderSide(color: Colors.grey)),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30.0),
-                              child: Text(
-                                economySeatCount.toString(),
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            MaterialButton(
-                              minWidth: 50.h,
-                              height: 50.h,
-                              elevation: 0,
-                              splashColor: kPrimaryColor,
-                              highlightColor: kPrimaryColor,
-                              onPressed: () {
-                                setState(() {
-                                  economySeatCount++;
+                      20.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                            minWidth: 50.h,
+                            height: 50.h,
+                            elevation: 0,
+                            splashColor: kPrimaryColor,
+                            highlightColor: kPrimaryColor,
+                            onPressed: () {
+                              setState(() {
+                                if (economySeatCount > 1) {
+                                  economySeatCount--;
                                   economyPrice =
-                                      economyPrice + baseEconomyPrice;
-                                });
-                              },
-                              // color: Colors.transparent,
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.add,
-                                size: 20,
-                                color: kPrimaryColor,
-                              ),
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  side: BorderSide(color: Colors.grey)),
+                                      economyPrice - baseEconomyPrice;
+                                }
+                              });
+                            },
+                            // color: Colors.transparent,
+                            textColor: Colors.white,
+                            child: Icon(
+                              Icons.remove,
+                              size: 20,
+                              color: kPrimaryColor,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                                side: BorderSide(color: Colors.grey)),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Text(
+                              economySeatCount.toString(),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          MaterialButton(
+                            minWidth: 50.h,
+                            height: 50.h,
+                            elevation: 0,
+                            splashColor: kPrimaryColor,
+                            highlightColor: kPrimaryColor,
+                            onPressed: () {
+                              setState(() {
+                                economySeatCount++;
+                                economyPrice = economyPrice + baseEconomyPrice;
+                              });
+                            },
+                            // color: Colors.transparent,
+                            textColor: Colors.white,
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                              color: kPrimaryColor,
+                            ),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                                side: BorderSide(color: Colors.grey)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
 
-                    //VIP
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          chooseNumberOfSeats,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        20.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            MaterialButton(
-                              minWidth: 50.h,
-                              height: 50.h,
-                              elevation: 0,
-                              splashColor: kPrimaryColor,
-                              highlightColor: kPrimaryColor,
-                              onPressed: () {
-                                setState(() {
-                                  if (vipSeatCount > 1) {
-                                    vipSeatCount--;
-                                    vipPrice = vipPrice - baseVipPrice;
-                                  }
-                                });
-                              },
-                              // color: Colors.transparent,
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.remove,
-                                size: 20,
-                                color: kPrimaryColor,
-                              ),
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  side: BorderSide(color: Colors.grey)),
+                  //VIP
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        chooseNumberOfSeats,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      20.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                            minWidth: 50.h,
+                            height: 50.h,
+                            elevation: 0,
+                            splashColor: kPrimaryColor,
+                            highlightColor: kPrimaryColor,
+                            onPressed: () {
+                              setState(() {
+                                if (vipSeatCount > 1) {
+                                  vipSeatCount--;
+                                  vipPrice = vipPrice - baseVipPrice;
+                                }
+                              });
+                            },
+                            // color: Colors.transparent,
+                            textColor: Colors.white,
+                            child: Icon(
+                              Icons.remove,
+                              size: 20,
+                              color: kPrimaryColor,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30.0),
-                              child: Text(
-                                vipSeatCount.toString(),
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                                side: BorderSide(color: Colors.grey)),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Text(
+                              vipSeatCount.toString(),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            MaterialButton(
-                              minWidth: 50.h,
-                              height: 50.h,
-                              elevation: 0,
-                              splashColor: kPrimaryColor,
-                              highlightColor: kPrimaryColor,
-                              onPressed: () {
-                                setState(() {
-                                  vipSeatCount++;
-                                  vipPrice = vipPrice + baseVipPrice;
-                                });
-                              },
-                              // color: Colors.transparent,
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.add,
-                                size: 20,
-                                color: kPrimaryColor,
-                              ),
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  side: BorderSide(color: Colors.grey)),
+                          ),
+                          MaterialButton(
+                            minWidth: 50.h,
+                            height: 50.h,
+                            elevation: 0,
+                            splashColor: kPrimaryColor,
+                            highlightColor: kPrimaryColor,
+                            onPressed: () {
+                              setState(() {
+                                vipSeatCount++;
+                                vipPrice = vipPrice + baseVipPrice;
+                              });
+                            },
+                            // color: Colors.transparent,
+                            textColor: Colors.white,
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                              color: kPrimaryColor,
                             ),
-                          ],
-                        ),
-                      ],
-                    )
-                  ]))
-                ],
-              ),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                                side: BorderSide(color: Colors.grey)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ]))
+              ],
             ),
           ),
         ),

@@ -23,8 +23,13 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kSecondBackgroundColor,
-      body: SafeArea(
-          child: Container(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: kSecondBackgroundColor,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
+      body: Container(
         height: 1.sh,
         width: 1.sw,
         child: Padding(
@@ -109,7 +114,7 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
             ],
           ),
         ),
-      )),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
           width: 1.sw,

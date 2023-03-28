@@ -62,8 +62,13 @@ class _TicketScreenState extends State<TicketScreen>
       child: Scaffold(
         key: _key,
         backgroundColor: kSecondBackgroundColor,
-        body: SafeArea(
-            child: Container(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: kSecondBackgroundColor,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+        ),
+        body: Container(
           height: 1.sh,
           width: 1.sw,
           child: Padding(
@@ -907,7 +912,7 @@ class _TicketScreenState extends State<TicketScreen>
               ],
             ),
           ),
-        )),
+        ),
       ),
     );
   }

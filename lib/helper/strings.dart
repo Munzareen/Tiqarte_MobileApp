@@ -247,13 +247,61 @@ String paymentMethods = "Payment Methods";
 String orderID = "Order ID";
 String status = "Status";
 String paid = "Paid";
-
+String profile = "Profile";
 String event = "Event";
 String dateAndHour = "Date and Hour";
 String eventOrganizer = "Event Organizer";
 String enableLocation = "Enable Location";
 String locationDialogSubString =
     "To use this service, we need permission to access your location.";
+String manageEvents = "Manage Events";
+String messageCenter = "Message Center";
+String notification = "Notification";
+String linkedAccounts = "Linked Accounts";
+String ticketIssues = "Ticket Issues";
+String security = "Security";
+String language = "Language";
+String darkMode = "Dark Mode";
+String helpCenter = "Help Center";
+String inviteFriends = "Invite Friends";
+String invite = "Invite";
+String invited = "Invited";
+
+String rateUs = "Rate us";
+String logout = "Logout";
+String EnableSoundVibrate = "Enable Sound & Vibrate";
+String purchasedTickets = "Purchased Tickets";
+String likedEvents = "Liked Events";
+String followedOrganizer = "Followed Organizer";
+String specialOffers = "Special Offers";
+String reminders = "Reminders";
+String recommendations = "Recommendations";
+String appUpdates = "App Updates";
+String newServiceAvailable = "New Service Available";
+String newTipsAvailable = "LoNew Tips Availablegout";
+String rememberme = "Remember me";
+String faceID = "Face ID";
+String biometricID = "Biometric ID";
+String googleAuthenticator = "Google Authenticator";
+
+String fAQ = "FAQ";
+String contactUs = "Contact us";
+String general = "General";
+String account = "Account";
+String service = "Service";
+String payment = "Payment";
+String google = "Google";
+String facebook = "Facebook";
+String apple = "Apple";
+String connected = "Connected";
+String changePIN = "Change PIN";
+String changePassword = "Change Password";
+String suggested = "Suggested";
+String customerService = "Customer Service";
+String whatsApp = "WhatsApp";
+String website = "Website";
+String twitter = "Twitter";
+String instagram = "Instagram";
 
 //---Dialog--
 //Alert Dialog for Location Permission

@@ -22,6 +22,12 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
     super.initState();
   }
 
+  @override
+  void dispose() {
+    tabController?.dispose();
+    super.dispose();
+  }
+
   List eventList = [
     {
       "id": "1",
@@ -85,8 +91,13 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kSecondBackgroundColor,
-      body: SafeArea(
-          child: Container(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: kSecondBackgroundColor,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
+      body: Container(
         height: 1.sh,
         width: 1.sw,
         child: Padding(
@@ -225,7 +236,6 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                   ],
                 ),
               ),
-              20.verticalSpace,
               Divider(),
               20.verticalSpace,
               Padding(
@@ -331,7 +341,7 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                   ),
                 ],
               ),
-              20.verticalSpace,
+              10.verticalSpace,
               Expanded(
                   child: TabBarView(controller: tabController, children: [
                 //Events
@@ -673,7 +683,7 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
             ],
           ),
         ),
-      )),
+      ),
     );
   }
 }

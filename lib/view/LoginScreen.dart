@@ -8,6 +8,7 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/ForgotPasswordScreen.dart';
+import 'package:tiqarte/view/ForgotPasswordScreenOld.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
           width: 1.sw,
           height: 1.sh,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
