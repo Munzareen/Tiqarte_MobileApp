@@ -574,7 +574,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         text: TextSpan(children: [
                           TextSpan(
                               text:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+                                  "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.",
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,

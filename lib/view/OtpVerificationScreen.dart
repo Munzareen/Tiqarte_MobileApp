@@ -51,7 +51,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  otpVerificationSubString + "+1 111 ******99",
+                  otpVerificationSubString + "andrew_ainsley@yourdomain.com",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 18,

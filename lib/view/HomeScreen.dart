@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tiqarte/controller/NavigationBarController.dart';
 import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   final _homeController = Get.put(HomeController());
+  final nbc = Get.put(NavigationBarController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Row(
                       children: [
-                        customProfileImage(profileImage, 40.h, 40.h),
+                        GestureDetector(
+                          onTap: () {
+                            nbc.navBarChange(4);
+                          },
+                          child: customProfileImage(profileImage, 40.h, 40.h),
+                        ),
                         15.horizontalSpace,
                         Column(
                           children: [

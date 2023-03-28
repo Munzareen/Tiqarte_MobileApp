@@ -18,6 +18,7 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   bool mapType = false;
+  bool eventDetailShow = false;
   String? latitude;
   String? longitude;
   Position? position;
@@ -47,234 +48,256 @@ class _ExploreScreenState extends State<ExploreScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
-      body: Container(
-        height: 1.sh,
-        width: 1.sw,
-        color: latitude == null
-            ? kPrimaryColor.withOpacity(0.8)
-            : Colors.transparent,
-        child: latitude == null
-            ? Container(
-                child: Center(child: spinkit
-                    // Text(
-                    //   enableLocation,
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(color: Colors.white, fontSize: 30),
-                    // ),
-                    ),
-              )
-            : Stack(
-                children: [
-                  Positioned.fill(
-                    child: GoogleMap(
-                      zoomControlsEnabled: false,
-                      mapType: !mapType ? MapType.normal : MapType.satellite,
-                      markers: Set<Marker>.of(
-                        <Marker>[
-                          Marker(
-                            draggable: true,
-                            markerId: MarkerId("My Location"),
-                            position: LatLng(double.parse(latitude!),
-                                double.parse(longitude!)),
-                            icon: BitmapDescriptor.defaultMarker,
-                            infoWindow: const InfoWindow(
-                              title: 'Me',
-                            ),
-                          ),
-                          Marker(
-                            draggable: true,
-                            markerId: MarkerId("My Location"),
-                            position: LatLng(double.parse(latitude!),
-                                double.parse(longitude!)),
-                            icon: BitmapDescriptor.defaultMarker,
-                            infoWindow: const InfoWindow(
-                              title: 'Event',
-                            ),
-                            // onDragEnd: ((newPosition) {
-                            //   setState(() {
-                            //     latitude = newPosition.latitude;
-                            //     longitude = newPosition.longitude;
-                            //     getLocationName(latitude!, longitude!);
-                            //   });
-                            // })
-                          )
-                        ],
+      body: SafeArea(
+        child: Container(
+          height: 1.sh,
+          width: 1.sw,
+          color: latitude == null
+              ? kPrimaryColor.withOpacity(0.8)
+              : Colors.transparent,
+          child: latitude == null
+              ? Container(
+                  child: Center(child: spinkit
+                      // Text(
+                      //   enableLocation,
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(color: Colors.white, fontSize: 30),
+                      // ),
                       ),
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller = controller;
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                            double.parse(latitude!), double.parse(longitude!)),
-                        zoom: 12,
+                )
+              : Stack(
+                  children: [
+                    Positioned.fill(
+                      child: GoogleMap(
+                        zoomControlsEnabled: false,
+                        mapType: !mapType ? MapType.normal : MapType.satellite,
+                        markers: Set<Marker>.of(
+                          <Marker>[
+                            Marker(
+                              draggable: true,
+                              markerId: MarkerId("My Location"),
+                              position: LatLng(double.parse(latitude!),
+                                  double.parse(longitude!)),
+                              icon: BitmapDescriptor.defaultMarker,
+                              infoWindow: const InfoWindow(
+                                title: 'Me',
+                              ),
+                            ),
+                            Marker(
+                              draggable: true,
+                              markerId: MarkerId("My Location"),
+                              position: LatLng(double.parse(latitude!),
+                                  double.parse(longitude!)),
+                              icon: BitmapDescriptor.defaultMarker,
+                              infoWindow: const InfoWindow(
+                                title: 'Event',
+                              ),
+                              // onDragEnd: ((newPosition) {
+                              //   setState(() {
+                              //     latitude = newPosition.latitude;
+                              //     longitude = newPosition.longitude;
+                              //     getLocationName(latitude!, longitude!);
+                              //   });
+                              // })
+                            )
+                          ],
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _controller = controller;
+                        },
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(double.parse(latitude!),
+                              double.parse(longitude!)),
+                          zoom: 12,
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 50,
-                    right: 0,
-                    left: 0,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30.0),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0)),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              FittedBox(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
+                    Positioned(
+                      top: 50,
+                      right: 0,
+                      left: 0,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FittedBox(
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                      Icon(
+                                        Icons.location_on,
+                                        color: kPrimaryColor,
+                                        size: 25,
+                                      ),
+                                      10.horizontalSpace,
+                                      Text(
+                                        "Location (within 10 km)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.black),
+                                      ),
+                                    ])),
+                                10.verticalSpace,
+                                Text(
+                                  "New York, United States",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  mapType = !mapType;
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 10.0),
+                                decoration: BoxDecoration(
+                                    color: kPrimaryColor,
+                                    borderRadius: BorderRadius.circular(20.0)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
                                     Icon(
-                                      Icons.location_on,
-                                      color: kPrimaryColor,
-                                      size: 25,
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 15,
                                     ),
-                                    10.horizontalSpace,
+                                    5.horizontalSpace,
                                     Text(
-                                      "Location (within 10 km)",
+                                      change,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black),
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white),
                                     ),
-                                  ])),
-                              10.verticalSpace,
-                              Text(
-                                "New York, United States",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  ],
+                                ),
                               ),
-                            ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            eventDetailShow = !eventDetailShow;
+                          });
+                        },
+                        child: Center(
+                          child: Container(
+                            height: 200,
+                            child: Image.asset(
+                              exploreImage,
+                            ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                mapType = !mapType;
-                              });
-                            },
+                        ),
+                      ),
+                    ),
+                    eventDetailShow
+                        ? Positioned(
+                            bottom: 30,
+                            right: 0,
+                            left: 0,
                             child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10.0),
+                              margin: EdgeInsets.symmetric(horizontal: 20.0),
+                              padding: EdgeInsets.all(16.0),
                               decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(20.0)),
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: Colors.white),
                               child: Row(
+                                // mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                    size: 15,
-                                  ),
-                                  5.horizontalSpace,
-                                  Text(
-                                    change,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
-                                  ),
+                                  customCardImage(eventImage, 110.h, 100.h),
+                                  8.horizontalSpace,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      FittedBox(
+                                        child: Text(
+                                          "National Music Festival",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      8.verticalSpace,
+                                      FittedBox(
+                                        child: Text(
+                                          "Mon, Dec 24 • 18.00 - 23.00 PM",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: kPrimaryColor),
+                                        ),
+                                      ),
+                                      8.verticalSpace,
+                                      FittedBox(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              color: kPrimaryColor,
+                                              size: 25,
+                                            ),
+                                            5.horizontalSpace,
+                                            Text(
+                                              "Grand Park, New York",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Color(0xff616161)),
+                                            ),
+                                            5.horizontalSpace,
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Image.asset(
+                                                favoriteIconSelected,
+                                                color: kPrimaryColor,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
                           )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 30,
-                    right: 0,
-                    left: 0,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0),
-                      padding: EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.white),
-                      child: Row(
-                        // mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          customCardImage(eventImage, 110.h, 100.h),
-                          8.horizontalSpace,
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              FittedBox(
-                                child: Text(
-                                  "National Music Festival",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                              ),
-                              8.verticalSpace,
-                              FittedBox(
-                                child: Text(
-                                  "Mon, Dec 24 • 18.00 - 23.00 PM",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: kPrimaryColor),
-                                ),
-                              ),
-                              8.verticalSpace,
-                              FittedBox(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: kPrimaryColor,
-                                      size: 25,
-                                    ),
-                                    5.horizontalSpace,
-                                    Text(
-                                      "Grand Park, New York",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff616161)),
-                                    ),
-                                    5.horizontalSpace,
-                                    InkWell(
-                                      onTap: () {},
-                                      child: Image.asset(
-                                        favoriteIconSelected,
-                                        color: kPrimaryColor,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                        : SizedBox(),
+                  ],
+                ),
+        ),
       ),
     );
   }

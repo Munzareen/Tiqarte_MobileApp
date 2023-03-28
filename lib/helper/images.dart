@@ -14,6 +14,7 @@ String galleryEventImage5 = "assets/tempImages/galleryEventImage5.png";
 String galleryEventImage6 = "assets/tempImages/galleryEventImage6.png";
 String galleryEventImage7 = "assets/tempImages/galleryEventImage7.png";
 String qrImage = "assets/tempImages/qrImage.png";
+String exploreImage = "assets/tempImages/exploreImage.png";
 
 String goingUserImage1 = "assets/tempImages/goingUserImage1.png";
 String goingUserImage2 = "assets/tempImages/goingUserImage2.png";

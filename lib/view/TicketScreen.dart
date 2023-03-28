@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
@@ -7,6 +8,7 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/CancelBookingScreen.dart';
+import 'package:tiqarte/view/ViewETicketScreen.dart';
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({super.key});
@@ -447,24 +449,32 @@ class _TicketScreenState extends State<TicketScreen>
                                                 ),
                                               ),
                                               10.horizontalSpace,
-                                              Container(
-                                                width: 0.2.sh,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 0.0,
-                                                    vertical: 10.0),
-                                                decoration: BoxDecoration(
-                                                    color: kPrimaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0)),
-                                                child: Text(
-                                                  viewETicket,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.white),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.to(
+                                                      () => ViewETicketScreen(),
+                                                      transition: Transition
+                                                          .rightToLeft);
+                                                },
+                                                child: Container(
+                                                  width: 0.2.sh,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 0.0,
+                                                      vertical: 10.0),
+                                                  decoration: BoxDecoration(
+                                                      color: kPrimaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0)),
+                                                  child: Text(
+                                                    viewETicket,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white),
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -672,47 +682,60 @@ class _TicketScreenState extends State<TicketScreen>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Container(
-                                                width: 0.2.sh,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 0.0,
-                                                    vertical: 10.0),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: kPrimaryColor,
-                                                        width: 2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0)),
-                                                child: Text(
-                                                  ticketReviewButtonString,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: kPrimaryColor),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  reviewSheet(context);
+                                                },
+                                                child: Container(
+                                                  width: 0.2.sh,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 0.0,
+                                                      vertical: 10.0),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: kPrimaryColor,
+                                                          width: 2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0)),
+                                                  child: Text(
+                                                    leaveAReview,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: kPrimaryColor),
+                                                  ),
                                                 ),
                                               ),
                                               10.horizontalSpace,
-                                              Container(
-                                                width: 0.2.sh,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 0.0,
-                                                    vertical: 10.0),
-                                                decoration: BoxDecoration(
-                                                    color: kPrimaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0)),
-                                                child: Text(
-                                                  viewETicket,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.white),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.to(
+                                                      () => ViewETicketScreen(),
+                                                      transition: Transition
+                                                          .rightToLeft);
+                                                },
+                                                child: Container(
+                                                  width: 0.2.sh,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 0.0,
+                                                      vertical: 10.0),
+                                                  decoration: BoxDecoration(
+                                                      color: kPrimaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0)),
+                                                  child: Text(
+                                                    viewETicket,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white),
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -1010,6 +1033,173 @@ class _TicketScreenState extends State<TicketScreen>
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
                             child: Text(ticketYesCancelButtonString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  20.verticalSpace
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  reviewSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      ),
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  5.verticalSpace,
+                  Container(
+                    height: 5,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: kDisabledColor.withOpacity(0.6)),
+                  ),
+                  15.verticalSpace,
+                  Text(
+                    leaveAReview,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF75555)),
+                  ),
+                  Divider(),
+                  10.verticalSpace,
+                  Text(
+                    leaveAReviewSub,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  20.verticalSpace,
+                  RatingBar.builder(
+                    initialRating: 0,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: kPrimaryColor,
+                    ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    },
+                  ),
+                  10.verticalSpace,
+                  Divider(),
+                  10.verticalSpace,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      writeYourReview,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                  10.verticalSpace,
+                  Container(
+                    height: 120,
+                    child: TextFormField(
+                      // focusNode: _otherReasonFocusNode,
+                      cursorColor: kPrimaryColor,
+                      //  controller: _otherReasonController,
+                      style: const TextStyle(color: Colors.black),
+                      keyboardType: TextInputType.text,
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'Please enter your username';
+                      //   }
+                      //   return null;
+                      // },
+                      textAlign: TextAlign.start,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 90.0, horizontal: 10.0),
+                          errorBorder: customOutlineBorder,
+                          enabledBorder: customOutlineBorder,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.0)),
+                              borderSide: BorderSide(color: kPrimaryColor)),
+                          disabledBorder: customOutlineBorder,
+                          fillColor: kDisabledColor.withOpacity(0.4),
+                          filled: true,
+                          hintText: ticketCancelBookingReasonOthersSubString,
+                          hintStyle: TextStyle(
+                              color: Color(0xff9E9E9E), fontSize: 14)),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(textRegExp),
+                      ],
+                    ),
+                  ),
+                  10.verticalSpace,
+                  Divider(),
+                  10.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 55,
+                          width: 0.4.sw,
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          decoration: BoxDecoration(
+                              color: kPrimaryColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(50.0)),
+                          child: Center(
+                            child: Text(maybeLater,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: kPrimaryColor,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ),
+                      20.horizontalSpace,
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 55,
+                          width: 0.4.sw,
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(50.0)),
+                          child: Center(
+                            child: Text(submit,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white)),

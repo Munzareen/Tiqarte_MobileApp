@@ -6,15 +6,15 @@ String welcomeSubString =
 //Get Started Screen Strings
 String getStarted1HeadingString = "Grab all events now only in your hands";
 String getStarted1SubString =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
+    "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.";
 String getStarted1ButtonString = "Next";
 String getStarted2HeadingString = "Easy payment & fast event ticketing";
 String getStarted2SubString =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
+    "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.";
 String getStarted2ButtonString = "Next";
 String getStarted3HeadingString = "Let's go to your favorite event right now!";
 String getStarted3SubString =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
+    "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.";
 String getStarted3ButtonString = "Get Started";
 
 //Pre Login Screen Strings
@@ -302,6 +302,15 @@ String whatsApp = "WhatsApp";
 String website = "Website";
 String twitter = "Twitter";
 String instagram = "Instagram";
+String logoutSub = "Are you sure you want to log out?";
+String yesLogout = "Yes, Logout";
+String leaveAReview = "Leave a Review";
+String leaveAReviewSub =
+    "How was your experience with Art & Painting Training?";
+String writeYourReview = "Write Your Review";
+String yourReviewHere = "Your review here...";
+String maybeLater = "Maybe Later";
+String submit = "Submit";
 
 //---Dialog--
 //Alert Dialog for Location Permission

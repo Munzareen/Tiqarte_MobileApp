@@ -12,6 +12,7 @@ import 'package:tiqarte/view/InviteFriendScreen.dart';
 import 'package:tiqarte/view/LanguageScreen.dart';
 import 'package:tiqarte/view/LinkedAccountScreen.dart';
 import 'package:tiqarte/view/NotificationSettingScreen.dart';
+import 'package:tiqarte/view/PreLoginScreen.dart';
 import 'package:tiqarte/view/SecurityScreen.dart';
 import 'package:tiqarte/view/ViewPaymentsScreen.dart';
 
@@ -329,23 +330,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   20.verticalSpace,
                   customRow(rateUsIcon, rateUs),
                   20.verticalSpace,
-                  Row(
-                    children: [
-                      Image.asset(
-                        logoutIcon,
-                        height: 28,
-                        color: Color(0xffF75555),
-                      ),
-                      10.horizontalSpace,
-                      Text(
-                        logout,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xffF75555)),
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      logoutSheet(context);
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          logoutIcon,
+                          height: 28,
+                          color: Color(0xffF75555),
+                        ),
+                        10.horizontalSpace,
+                        Text(
+                          logout,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xffF75555)),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               )),
@@ -385,6 +391,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
           size: 30,
         )
       ],
+    );
+  }
+
+  logoutSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      ),
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  5.verticalSpace,
+                  Container(
+                    height: 5,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: kDisabledColor.withOpacity(0.6)),
+                  ),
+                  15.verticalSpace,
+                  Text(
+                    logout,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF75555)),
+                  ),
+                  Divider(),
+                  10.verticalSpace,
+                  Text(
+                    logoutSub,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  20.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 55,
+                          width: 0.4.sw,
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          decoration: BoxDecoration(
+                              color: kPrimaryColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(50.0)),
+                          child: Center(
+                            child: Text(cancel,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: kPrimaryColor,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ),
+                      20.horizontalSpace,
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                          Get.offAll(() => PreLoginScreen(),
+                              transition: Transition.leftToRight);
+                        },
+                        child: Container(
+                          height: 55,
+                          width: 0.4.sw,
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(50.0)),
+                          child: Center(
+                            child: Text(yesLogout,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  20.verticalSpace
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
