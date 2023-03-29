@@ -393,13 +393,13 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                               childAspectRatio: 1,
                                               crossAxisSpacing: 10,
                                               mainAxisSpacing: 20,
-                                              mainAxisExtent: 255),
+                                              mainAxisExtent: 240),
                                       itemCount: eventList.length,
                                       shrinkWrap: true,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return Container(
-                                          padding: EdgeInsets.all(16.0),
+                                          padding: EdgeInsets.all(12.0),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
@@ -408,7 +408,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                             child: Column(
                                               // mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 customCardImage(
                                                     eventImage, 120.h, 100.h),
@@ -498,7 +498,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.start,
                                             children: [
                                               customCardImage(
                                                   eventImage, 110.h, 100.h),

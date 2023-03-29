@@ -388,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   childAspectRatio: 1,
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 20,
-                                  mainAxisExtent: 255),
+                                  mainAxisExtent: 240),
                           itemCount: _homeController.eventList.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
@@ -399,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ));
                               },
                               child: Container(
-                                padding: EdgeInsets.all(16.0),
+                                padding: EdgeInsets.all(12.0),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30.0),
                                     color: Colors.white),
@@ -407,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     // mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       customCardImage(eventImage, 120.h, 100.h),
                                       8.verticalSpace,

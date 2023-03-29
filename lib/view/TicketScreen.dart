@@ -311,7 +311,7 @@ class _TicketScreenState extends State<TicketScreen>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.start,
                                             children: [
                                               customCardImage(
                                                   eventImage, 110.h, 100.h),
@@ -573,7 +573,7 @@ class _TicketScreenState extends State<TicketScreen>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.start,
                                             children: [
                                               customCardImage(
                                                   eventImage, 110.h, 100.h),
@@ -832,7 +832,7 @@ class _TicketScreenState extends State<TicketScreen>
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.start,
                                         children: [
                                           customCardImage(
                                               eventImage, 110.h, 100.h),

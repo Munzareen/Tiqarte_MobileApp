@@ -358,7 +358,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                   childAspectRatio: 1,
                                                   crossAxisSpacing: 10,
                                                   mainAxisSpacing: 20,
-                                                  mainAxisExtent: 255),
+                                                  mainAxisExtent: 240),
                                           itemCount: _hc.favEventList.length,
                                           shrinkWrap: true,
                                           itemBuilder: (BuildContext context,
@@ -380,7 +380,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     // mainAxisSize: MainAxisSize.min,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
-                                                            .start,
+                                                            .center,
                                                     children: [
                                                       customCardImage(
                                                           eventImage,
@@ -494,8 +494,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       customCardImage(
                                                           eventImage,
