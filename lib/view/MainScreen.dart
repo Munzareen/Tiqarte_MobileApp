@@ -85,8 +85,7 @@ class _MainScreenState extends State<MainScreen> {
                                   color: bt.navigationBarIndexValue == 0
                                       ? kPrimaryColor
                                       : Colors.grey,
-                                  fontSize:
-                                      bt.navigationBarIndexValue == 0 ? 12 : 10,
+                                  fontSize: 10,
                                   fontWeight: bt.navigationBarIndexValue == 0
                                       ? FontWeight.bold
                                       : FontWeight.w300,
@@ -114,8 +113,7 @@ class _MainScreenState extends State<MainScreen> {
                                   color: bt.navigationBarIndexValue == 1
                                       ? kPrimaryColor
                                       : Colors.grey,
-                                  fontSize:
-                                      bt.navigationBarIndexValue == 1 ? 12 : 10,
+                                  fontSize: 10,
                                   fontWeight: bt.navigationBarIndexValue == 1
                                       ? FontWeight.bold
                                       : FontWeight.w300,
@@ -143,8 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                                   color: bt.navigationBarIndexValue == 2
                                       ? kPrimaryColor
                                       : Colors.grey,
-                                  fontSize:
-                                      bt.navigationBarIndexValue == 2 ? 12 : 10,
+                                  fontSize: 10,
                                   fontWeight: bt.navigationBarIndexValue == 2
                                       ? FontWeight.bold
                                       : FontWeight.w300,
@@ -172,8 +169,7 @@ class _MainScreenState extends State<MainScreen> {
                                   color: bt.navigationBarIndexValue == 3
                                       ? kPrimaryColor
                                       : Colors.grey,
-                                  fontSize:
-                                      bt.navigationBarIndexValue == 3 ? 12 : 10,
+                                  fontSize: 10,
                                   fontWeight: bt.navigationBarIndexValue == 3
                                       ? FontWeight.bold
                                       : FontWeight.w300,
@@ -201,8 +197,7 @@ class _MainScreenState extends State<MainScreen> {
                                   color: bt.navigationBarIndexValue == 4
                                       ? kPrimaryColor
                                       : Colors.grey,
-                                  fontSize:
-                                      bt.navigationBarIndexValue == 4 ? 12 : 10,
+                                  fontSize: 10,
                                   fontWeight: bt.navigationBarIndexValue == 4
                                       ? FontWeight.bold
                                       : FontWeight.w300,

@@ -103,7 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   40.verticalSpace,
-                  Image.asset(appLogo),
+                  Image.asset(
+                    appLogo,
+                    height: 60.h,
+                  ),
                   40.verticalSpace,
                   Text(
                     LoginHeadingString,

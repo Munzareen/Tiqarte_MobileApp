@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Image.asset(
                         appLogo,
-                        height: 20,
+                        height: 25.h,
                       ),
                       20.horizontalSpace,
                       Text(

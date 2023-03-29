@@ -88,7 +88,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           children: [
                             Image.asset(
                               appLogo,
-                              height: 20,
+                              height: 25.h,
                             ),
                             10.horizontalSpace,
                             Expanded(
@@ -150,7 +150,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               children: [
                                 Image.asset(
                                   appLogo,
-                                  height: 20,
+                                  height: 25.h,
                                 ),
                                 20.horizontalSpace,
                                 Text(
@@ -383,7 +383,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                             .start,
                                                     children: [
                                                       customCardImage(
-                                                          "", 120.h, 100.h),
+                                                          eventImage,
+                                                          120.h,
+                                                          100.h),
                                                       8.verticalSpace,
                                                       FittedBox(
                                                         child: Text(

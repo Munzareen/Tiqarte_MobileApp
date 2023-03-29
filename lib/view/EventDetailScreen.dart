@@ -18,6 +18,7 @@ import 'package:tiqarte/view/EventLocationScreen.dart';
 import 'package:tiqarte/view/GalleryScreen.dart';
 import 'package:tiqarte/view/GoingScreen.dart';
 import 'package:tiqarte/view/OrganizerProfileScreen.dart';
+import 'package:tiqarte/view/SeeAllEvents.dart';
 
 class EventDetailScreen extends StatefulWidget {
   final dynamic data;
@@ -600,10 +601,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 color: Colors.black),
                           ),
                           InkWell(
-                            // onTap: () => Get.to(
-                            //     () => SeeAllEvents(
-                            //         name: homeFeaturedString, img: ''),
-                            //     transition: Transition.rightToLeft),
+                            onTap: () {
+                              Get.to(() => GalleryScreen(),
+                                  transition: Transition.rightToLeft);
+                            },
                             child: Text(
                               seeAll,
                               textAlign: TextAlign.center,
@@ -705,10 +706,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 color: Colors.black),
                           ),
                           InkWell(
-                            // onTap: () => Get.to(
-                            //     () => SeeAllEvents(
-                            //         name: homeFeaturedString, img: ''),
-                            //     transition: Transition.rightToLeft),
+                            onTap: () => Get.to(
+                                () => SeeAllEvents(name: "Events", img: ''),
+                                transition: Transition.rightToLeft),
                             child: Text(
                               seeAll,
                               textAlign: TextAlign.center,
@@ -724,7 +724,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       GetBuilder<HomeController>(builder: (_hc) {
                         return CarouselSlider.builder(
                             options: CarouselOptions(
-                                height: 0.45.sh,
+                                height: 0.425.sh,
                                 enlargeCenterPage: true,
                                 scrollDirection: Axis.horizontal,
                                 enableInfiniteScroll: false,
@@ -901,23 +901,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         ? CachedNetworkImage(
             imageUrl: url,
             imageBuilder: (context, imageProvider) {
-              return InkWell(
-                onTap: () {
-                  Get.to(() => GalleryScreen(),
-                      transition: Transition.rightToLeft);
-                },
-                child: Container(
-                    width: width,
-                    height: height,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        // border: Border.all(
-                        //   color: kPrimaryColor,
-                        //   style: BorderStyle.solid,
-                        // ),
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover))),
-              );
+              return Container(
+                  width: width,
+                  height: height,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      // border: Border.all(
+                      //   color: kPrimaryColor,
+                      //   style: BorderStyle.solid,
+                      // ),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover)));
             },
             placeholder: (context, url) => InkWell(
               onTap: () {
@@ -954,33 +948,28 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           image: AssetImage(eventImage), fit: BoxFit.cover))),
             ),
           )
-        : InkWell(
-            onTap: () {
-              Get.to(() => GalleryScreen(), transition: Transition.rightToLeft);
-            },
-            child: Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  // border: Border.all(
-                  //   color: kPrimaryColor,
-                  //   style: BorderStyle.solid,
-                  // ),
-                  color: Colors.black.withOpacity(0.2),
-                  image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.5), BlendMode.darken),
-                      image: AssetImage(eventImage),
-                      fit: BoxFit.cover)),
-              child: Center(
-                child: Text(
-                  "20+",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
+        : Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                // border: Border.all(
+                //   color: kPrimaryColor,
+                //   style: BorderStyle.solid,
+                // ),
+                color: Colors.black.withOpacity(0.2),
+                image: DecorationImage(
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.5), BlendMode.darken),
+                    image: AssetImage(eventImage),
+                    fit: BoxFit.cover)),
+            child: Center(
+              child: Text(
+                "20+",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
             ),
           ); //AssetImage(placeholder)

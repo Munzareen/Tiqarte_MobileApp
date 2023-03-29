@@ -84,7 +84,7 @@ class _TicketScreenState extends State<TicketScreen>
                         children: [
                           Image.asset(
                             appLogo,
-                            height: 20,
+                            height: 25.h,
                           ),
                           10.horizontalSpace,
                           Expanded(
@@ -143,14 +143,14 @@ class _TicketScreenState extends State<TicketScreen>
                             children: [
                               Image.asset(
                                 appLogo,
-                                height: 20,
+                                height: 25.h,
                               ),
                               20.horizontalSpace,
                               Text(
                                 ticketHeadingString,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
@@ -426,7 +426,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                       context);
                                                 },
                                                 child: Container(
-                                                  width: 0.2.sh,
+                                                  width: 0.4.sw,
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 0.0,
                                                       vertical: 10.0),
@@ -457,7 +457,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                           .rightToLeft);
                                                 },
                                                 child: Container(
-                                                  width: 0.2.sh,
+                                                  width: 0.4.sw,
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 0.0,
                                                       vertical: 10.0),
@@ -687,7 +687,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                   reviewSheet(context);
                                                 },
                                                 child: Container(
-                                                  width: 0.2.sh,
+                                                  width: 0.4.sw,
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 0.0,
                                                       vertical: 10.0),
@@ -718,7 +718,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                           .rightToLeft);
                                                 },
                                                 child: Container(
-                                                  width: 0.2.sh,
+                                                  width: 0.4.sw,
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 0.0,
                                                       vertical: 10.0),
@@ -1081,7 +1081,7 @@ class _TicketScreenState extends State<TicketScreen>
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xffF75555)),
+                        color: Colors.black),
                   ),
                   Divider(),
                   10.verticalSpace,
@@ -1098,7 +1098,7 @@ class _TicketScreenState extends State<TicketScreen>
                     initialRating: 0,
                     minRating: 1,
                     direction: Axis.horizontal,
-                    allowHalfRating: false,
+                    allowHalfRating: true,
                     itemCount: 5,
                     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                     itemBuilder: (context, _) => Icon(

@@ -31,7 +31,25 @@ class _SplashScreenState extends State<SplashScreen> {
         height: 1.sh,
         child: Stack(
           children: [
-            Center(child: Image.asset(appLogoWithName)),
+            Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  appLogo,
+                  height: 70.h,
+                ),
+                20.horizontalSpace,
+                Text(
+                  "Tiqarte",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                )
+              ],
+            )),
             Positioned(bottom: 150, width: 1.sw, child: spinkit)
           ],
         ),

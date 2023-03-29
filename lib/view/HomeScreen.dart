@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GetBuilder<HomeController>(builder: (_hc) {
                         return CarouselSlider.builder(
                             options: CarouselOptions(
-                                height: 0.45.sh,
+                                height: 0.425.sh,
                                 enlargeCenterPage: true,
                                 scrollDirection: Axis.horizontal,
                                 enableInfiniteScroll: false,

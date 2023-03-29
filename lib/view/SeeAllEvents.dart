@@ -411,7 +411,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 customCardImage(
-                                                    "", 120.h, 100.h),
+                                                    eventImage, 120.h, 100.h),
                                                 8.verticalSpace,
                                                 FittedBox(
                                                   child: Text(

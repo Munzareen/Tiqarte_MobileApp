@@ -103,7 +103,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   40.verticalSpace,
-                  Image.asset(appLogo),
+                  Image.asset(
+                    appLogo,
+                    height: 60.h,
+                  ),
                   40.verticalSpace,
                   Text(
                     createAccountHeadingString,
