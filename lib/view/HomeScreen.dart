@@ -12,7 +12,8 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
-import 'package:tiqarte/view/SeeAllEvents.dart';
+import 'package:tiqarte/view/SeeAllEventsScreen.dart';
+import 'package:tiqarte/view/ShopDetailScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
 
-  List popularEventsCatergoryList = [
+  List upcomingEventsCatergoryList = [
     {"name": homeAllString, "icon": allIcon, "isSelected": true},
     {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
     {"name": homeArtString, "icon": artIcon, "isSelected": false},
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           InkWell(
                             onTap: () => Get.to(
-                                () => SeeAllEvents(
+                                () => SeeAllEventsScreen(
                                     name: homeFeaturedString, img: ''),
                                 transition: Transition.rightToLeft),
                             child: Text(
@@ -292,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             children: [
                               Text(
-                                homePopularEventString,
+                                upcomingEvent,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20,
@@ -305,9 +306,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           InkWell(
                             onTap: () => Get.to(
-                                () => SeeAllEvents(
-                                    name: homePopularEventString,
-                                    img: fireIcon),
+                                () => SeeAllEventsScreen(
+                                    name: upcomingEvent, img: fireIcon),
                                 transition: Transition.rightToLeft),
                             child: Text(
                               homeSeeAllString,
@@ -326,15 +326,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: popularEventsCatergoryList.length,
+                          itemCount: upcomingEventsCatergoryList.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
                                 setState(() {
-                                  popularEventsCatergoryList.forEach((element) {
+                                  upcomingEventsCatergoryList
+                                      .forEach((element) {
                                     element['isSelected'] = false;
                                   });
-                                  popularEventsCatergoryList[index]
+                                  upcomingEventsCatergoryList[index]
                                       ['isSelected'] = true;
                                 });
                               },
@@ -342,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 margin: EdgeInsets.symmetric(horizontal: 5.0),
                                 padding: EdgeInsets.symmetric(horizontal: 15.0),
                                 decoration: BoxDecoration(
-                                  color: popularEventsCatergoryList[index]
+                                  color: upcomingEventsCatergoryList[index]
                                           ['isSelected']
                                       ? kPrimaryColor
                                       : Colors.transparent,
@@ -355,17 +356,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                          popularEventsCatergoryList[index]
+                                          upcomingEventsCatergoryList[index]
                                               ['icon']),
                                       5.horizontalSpace,
                                       Text(
-                                        popularEventsCatergoryList[index]
+                                        upcomingEventsCatergoryList[index]
                                             ['name'],
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400,
-                                            color: popularEventsCatergoryList[
+                                            color: upcomingEventsCatergoryList[
                                                     index]['isSelected']
                                                 ? Colors.white
                                                 : kPrimaryColor),
@@ -465,6 +466,159 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )
                                     ],
                                   ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+                      //
+                      20.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            shop,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          InkWell(
+                            onTap: () => Get.to(() => ShopDetailScreen(),
+                                transition: Transition.rightToLeft),
+                            child: Text(
+                              homeSeeAllString,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: kPrimaryColor),
+                            ),
+                          ),
+                        ],
+                      ),
+                      20.verticalSpace,
+                      Container(
+                        height: 45,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: upcomingEventsCatergoryList.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  upcomingEventsCatergoryList
+                                      .forEach((element) {
+                                    element['isSelected'] = false;
+                                  });
+                                  upcomingEventsCatergoryList[index]
+                                      ['isSelected'] = true;
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                decoration: BoxDecoration(
+                                  color: upcomingEventsCatergoryList[index]
+                                          ['isSelected']
+                                      ? kPrimaryColor
+                                      : Colors.transparent,
+                                  border: Border.all(
+                                      width: 2, color: kPrimaryColor),
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                          upcomingEventsCatergoryList[index]
+                                              ['icon']),
+                                      5.horizontalSpace,
+                                      Text(
+                                        upcomingEventsCatergoryList[index]
+                                            ['name'],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: upcomingEventsCatergoryList[
+                                                    index]['isSelected']
+                                                ? Colors.white
+                                                : kPrimaryColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      20.verticalSpace,
+                      Container(
+                        child: GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 1,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 20,
+                                  mainAxisExtent: 240),
+                          itemCount: 10,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              padding: EdgeInsets.all(12.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: Colors.white),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  // mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    customCardImage(tshirtImage, 120.h, 120.h),
+                                    8.verticalSpace,
+                                    FittedBox(
+                                      child: Text(
+                                        "R.Madrid T-Shirt",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                    8.verticalSpace,
+                                    FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Icon(
+                                            Icons.text_format,
+                                            color: kPrimaryColor,
+                                            size: 25,
+                                          ),
+                                          5.horizontalSpace,
+                                          Text(
+                                            "Starting from 70,00€",
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: kPrimaryColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );

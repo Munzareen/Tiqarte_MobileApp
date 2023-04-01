@@ -95,7 +95,6 @@ String homeGoodMorningString = "Good Morning";
 String homeSearchFieldString = "What event are you looking for...";
 String homeFeaturedString = "Featured";
 String homeSeeAllString = "See All";
-String homePopularEventString = "Popular Event";
 String homeAllString = "All";
 String homeMusicString = "Music";
 String homeArtString = "Art";
@@ -311,6 +310,8 @@ String writeYourReview = "Write Your Review";
 String yourReviewHere = "Your review here...";
 String maybeLater = "Maybe Later";
 String submit = "Submit";
+String upcomingEvent = "Upcoming Event";
+String shop = "Shop";
 
 //---Dialog--
 //Alert Dialog for Location Permission

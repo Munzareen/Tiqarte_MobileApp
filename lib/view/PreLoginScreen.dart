@@ -10,6 +10,7 @@ import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 
 class PreLoginScreen extends StatefulWidget {
   const PreLoginScreen({super.key});
@@ -54,142 +55,154 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                     color: Colors.black),
               ),
               20.verticalSpace,
-              Container(
-                height: 60,
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    border: Border.all(
-                      color: kDisabledColor,
-                      width: 1,
-                    )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(facebookIcon),
-                    10.horizontalSpace,
-                    Text(
-                      preLoginFacebookString,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    )
-                  ],
+              GestureDetector(
+                onTap: () => Get.to(() => MainScreen(),
+                    transition: Transition.rightToLeft),
+                child: Container(
+                  height: 60,
+                  margin: EdgeInsets.symmetric(horizontal: 25.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      border: Border.all(
+                        color: kDisabledColor,
+                        width: 1,
+                      )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(facebookIcon),
+                      10.horizontalSpace,
+                      Text(
+                        preLoginFacebookString,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      )
+                    ],
+                  ),
                 ),
               ),
               20.verticalSpace,
-              Container(
-                height: 60,
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    border: Border.all(
-                      color: kDisabledColor,
-                      width: 1,
-                    )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(googleIcon),
-                    10.horizontalSpace,
-                    Text(
-                      preLoginGoogleString,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    )
-                  ],
+              GestureDetector(
+                onTap: () => Get.to(() => MainScreen(),
+                    transition: Transition.rightToLeft),
+                child: Container(
+                  height: 60,
+                  margin: EdgeInsets.symmetric(horizontal: 25.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      border: Border.all(
+                        color: kDisabledColor,
+                        width: 1,
+                      )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(googleIcon),
+                      10.horizontalSpace,
+                      Text(
+                        preLoginGoogleString,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Platform.isIOS
                   ? Column(
                       children: [
                         20.verticalSpace,
-                        Container(
-                          height: 60,
-                          margin: EdgeInsets.symmetric(horizontal: 25.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(
-                                color: kDisabledColor,
-                                width: 1,
-                              )),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(appleIcon),
-                              10.horizontalSpace,
-                              Text(
-                                preLoginAppleString,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              )
-                            ],
+                        GestureDetector(
+                          onTap: () => Get.to(() => MainScreen(),
+                              transition: Transition.rightToLeft),
+                          child: Container(
+                            height: 60,
+                            margin: EdgeInsets.symmetric(horizontal: 25.0),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: kDisabledColor,
+                                  width: 1,
+                                )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(appleIcon),
+                                10.horizontalSpace,
+                                Text(
+                                  preLoginAppleString,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     )
                   : SizedBox(),
-              30.verticalSpace,
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(children: <Widget>[
-                    Expanded(child: Divider()),
-                    10.horizontalSpace,
-                    Text(
-                      preLoginOrString,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff616161)),
-                    ),
-                    10.horizontalSpace,
-                    Expanded(child: Divider()),
-                  ])),
-              30.verticalSpace,
-              InkWell(
-                onTap: () {
-                  Get.to(() => LoginScreen(),
-                      transition: Transition.rightToLeft);
-                },
-                child: customButton(preLoginButtonString, kPrimaryColor),
-              ),
-              30.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    preLoginDontHaveAccountString,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xff9E9E9E)),
-                  ),
-                  5.horizontalSpace,
-                  TextButton(
-                    child: Text(preLoginSignUpString,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: kPrimaryColor)),
-                    onPressed: () {
-                      Get.to(() => CreateAccountScreen(),
-                          transition: Transition.rightToLeft);
-                    },
-                  ),
-                ],
-              ),
-              30.verticalSpace,
+              // 30.verticalSpace,
+              // Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              //     child: Row(children: <Widget>[
+              //       Expanded(child: Divider()),
+              //       10.horizontalSpace,
+              //       Text(
+              //         preLoginOrString,
+              //         textAlign: TextAlign.center,
+              //         style: TextStyle(
+              //             fontSize: 16,
+              //             fontWeight: FontWeight.bold,
+              //             color: Color(0xff616161)),
+              //       ),
+              //       10.horizontalSpace,
+              //       Expanded(child: Divider()),
+              //     ])),
+              // 30.verticalSpace,
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(() => LoginScreen(),
+              //         transition: Transition.rightToLeft);
+              //   },
+              //   child: customButton(preLoginButtonString, kPrimaryColor),
+              // ),
+              // 30.verticalSpace,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text(
+              //       preLoginDontHaveAccountString,
+              //       textAlign: TextAlign.center,
+              //       style: TextStyle(
+              //           fontSize: 16,
+              //           fontWeight: FontWeight.w300,
+              //           color: Color(0xff9E9E9E)),
+              //     ),
+              //     5.horizontalSpace,
+              //     TextButton(
+              //       child: Text(preLoginSignUpString,
+              //           textAlign: TextAlign.center,
+              //           style: TextStyle(
+              //               fontSize: 14,
+              //               fontWeight: FontWeight.w600,
+              //               color: kPrimaryColor)),
+              //       onPressed: () {
+              //         Get.to(() => CreateAccountScreen(),
+              //             transition: Transition.rightToLeft);
+              //       },
+              //     ),
+              //   ],
+              // ),
+              // 30.verticalSpace,
             ],
           ),
         ),

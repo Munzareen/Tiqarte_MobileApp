@@ -18,7 +18,7 @@ import 'package:tiqarte/view/EventLocationScreen.dart';
 import 'package:tiqarte/view/GalleryScreen.dart';
 import 'package:tiqarte/view/GoingScreen.dart';
 import 'package:tiqarte/view/OrganizerProfileScreen.dart';
-import 'package:tiqarte/view/SeeAllEvents.dart';
+import 'package:tiqarte/view/SeeAllEventsScreen.dart';
 
 class EventDetailScreen extends StatefulWidget {
   final dynamic data;
@@ -707,7 +707,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           ),
                           InkWell(
                             onTap: () => Get.to(
-                                () => SeeAllEvents(name: "Events", img: ''),
+                                () =>
+                                    SeeAllEventsScreen(name: "Events", img: ''),
                                 transition: Transition.rightToLeft),
                             child: Text(
                               seeAll,

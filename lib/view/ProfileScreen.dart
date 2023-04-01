@@ -98,81 +98,85 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 10.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              "12",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            5.verticalSpace,
-                            Text(
-                              events,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff616161)),
-                            ),
-                          ],
-                        ),
                         Container(
                           height: 50.h,
                           width: 0.5.w,
                           color: kDisabledColor,
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              "7,389",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            5.verticalSpace,
-                            Text(
-                              followers,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff616161)),
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "12",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                              5.verticalSpace,
+                              Text(
+                                events,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff616161)),
+                              ),
+                            ],
+                          ),
                         ),
+
+                        // Column(
+                        //   children: [
+                        //     Text(
+                        //       "7,389",
+                        //       textAlign: TextAlign.start,
+                        //       style: TextStyle(
+                        //           fontSize: 32,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Colors.black),
+                        //     ),
+                        //     5.verticalSpace,
+                        //     Text(
+                        //       followers,
+                        //       textAlign: TextAlign.start,
+                        //       style: TextStyle(
+                        //           fontSize: 16,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Color(0xff616161)),
+                        //     ),
+                        //   ],
+                        // ),
                         Container(
                           height: 50.h,
                           width: 0.5.w,
                           color: kDisabledColor,
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              "125",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            5.verticalSpace,
-                            Text(
-                              following,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff616161)),
-                            ),
-                          ],
-                        ),
+                        // Column(
+                        //   children: [
+                        //     Text(
+                        //       "125",
+                        //       textAlign: TextAlign.start,
+                        //       style: TextStyle(
+                        //           fontSize: 32,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Colors.black),
+                        //     ),
+                        //     5.verticalSpace,
+                        //     Text(
+                        //       following,
+                        //       textAlign: TextAlign.start,
+                        //       style: TextStyle(
+                        //           fontSize: 16,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Color(0xff616161)),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -218,14 +222,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   20.verticalSpace,
                   customRow(ticketIcon, ticketIssues),
                   20.verticalSpace,
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => SecurityScreen(),
-                          transition: Transition.rightToLeft);
-                    },
-                    child: customRow(securityIcon, security),
-                  ),
-                  20.verticalSpace,
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Get.to(() => SecurityScreen(),
+                  //         transition: Transition.rightToLeft);
+                  //   },
+                  //   child: customRow(securityIcon, security),
+                  // ),
+                  // 20.verticalSpace,
                   GestureDetector(
                     onTap: () {
                       Get.to(() => LanguageScreen(),

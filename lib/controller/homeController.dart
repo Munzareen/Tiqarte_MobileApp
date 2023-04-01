@@ -48,13 +48,6 @@ class HomeController extends GetxController {
       "location": "New Avenue, Wa...",
       "isFavorite": false,
     },
-    {
-      "id": "7",
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "isFavorite": false,
-    },
   ];
 
   List favEventList = [];

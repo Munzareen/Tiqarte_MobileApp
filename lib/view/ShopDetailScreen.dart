@@ -7,102 +7,112 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 
-class SeeAllEvents extends StatefulWidget {
-  final String name;
-  final String img;
-  const SeeAllEvents({super.key, required this.name, required this.img});
+class ShopDetailScreen extends StatefulWidget {
+  const ShopDetailScreen({
+    super.key,
+  });
 
   @override
-  State<SeeAllEvents> createState() => _SeeAllEventsState();
+  State<ShopDetailScreen> createState() => _ShopDetailScreenState();
 }
 
-class _SeeAllEventsState extends State<SeeAllEvents> {
+class _ShopDetailScreenState extends State<ShopDetailScreen> {
   bool isSearch = false;
   final _searchController = TextEditingController();
   Color filledColorSearch = kDisabledColor.withOpacity(0.4);
   Color iconColorSearch = kDisabledColor;
   final _searchFocusNode = FocusNode();
 
-  List popularEventsCatergoryList = [
+  List eventsCatergoryList = [
     {"name": homeAllString, "icon": allIcon, "isSelected": true},
     {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
     {"name": homeArtString, "icon": artIcon, "isSelected": false},
     {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
   ];
 
-  List eventList = [
+  List shopList = [
     {
-      "name": "International Concert",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Jazz Music Festival",
-      "date": "Tue, Dec 19 • 19.00 - 22.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "DJ Music Competition",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "Central Park, Ne..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "National Music Fest",
-      "date": "Sun, Dec 16 • 11.00 - 13.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Art Workshops",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Tech Seminar",
-      "date": "Sat, Dec 22 • 10.00 - 12.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
+    },
+    {
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
   ];
 
-  List allEventList = [
+  List allShopList = [
     {
-      "name": "International Concert",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Jazz Music Festival",
-      "date": "Tue, Dec 19 • 19.00 - 22.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "DJ Music Competition",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "Central Park, Ne..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "National Music Fest",
-      "date": "Sun, Dec 16 • 11.00 - 13.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Art Workshops",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Tech Seminar",
-      "date": "Sat, Dec 22 • 10.00 - 12.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
     {
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa..."
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
+    },
+    {
+      "image": tshirtImage,
+      "name": "R.Madrid T-Shirt",
+      "price": "70,00€",
     },
   ];
 
@@ -212,7 +222,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                 setState(() {
                                   isSearch = false;
                                   _searchController.clear();
-                                  eventList = allEventList;
+                                  shopList = allShopList;
                                 });
                               },
                               icon: Icon(Icons.close))
@@ -227,17 +237,13 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                   onPressed: () => Get.back(),
                                   icon: Icon(Icons.arrow_back)),
                               Text(
-                                widget.name,
+                                shop,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
-                              5.horizontalSpace,
-                              widget.img == ''
-                                  ? SizedBox()
-                                  : Image.asset(widget.img),
                             ],
                           ),
                           IconButton(
@@ -255,24 +261,22 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: popularEventsCatergoryList.length,
+                    itemCount: eventsCatergoryList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
                           setState(() {
-                            popularEventsCatergoryList.forEach((element) {
+                            eventsCatergoryList.forEach((element) {
                               element['isSelected'] = false;
                             });
-                            popularEventsCatergoryList[index]['isSelected'] =
-                                true;
+                            eventsCatergoryList[index]['isSelected'] = true;
                           });
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 5.0),
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           decoration: BoxDecoration(
-                            color: popularEventsCatergoryList[index]
-                                    ['isSelected']
+                            color: eventsCatergoryList[index]['isSelected']
                                 ? kPrimaryColor
                                 : Colors.transparent,
                             border: Border.all(width: 2, color: kPrimaryColor),
@@ -282,16 +286,15 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                             padding: const EdgeInsets.all(4.0),
                             child: Row(
                               children: [
-                                Image.asset(
-                                    popularEventsCatergoryList[index]['icon']),
+                                Image.asset(eventsCatergoryList[index]['icon']),
                                 5.horizontalSpace,
                                 Text(
-                                  popularEventsCatergoryList[index]['name'],
+                                  eventsCatergoryList[index]['name'],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
-                                      color: popularEventsCatergoryList[index]
+                                      color: eventsCatergoryList[index]
                                               ['isSelected']
                                           ? Colors.white
                                           : kPrimaryColor),
@@ -309,9 +312,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      eventList.length.toString() +
-                          " " +
-                          seeAllEventFoundString,
+                      shopList.length.toString() + " " + seeAllEventFoundString,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,
@@ -352,7 +353,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                   ],
                 ),
                 5.verticalSpace,
-                eventList.isEmpty
+                shopList.isEmpty
                     ? Expanded(
                         child: ListView(
                           children: [
@@ -394,7 +395,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                               crossAxisSpacing: 10,
                                               mainAxisSpacing: 20,
                                               mainAxisExtent: 240),
-                                      itemCount: eventList.length,
+                                      itemCount: shopList.length,
                                       shrinkWrap: true,
                                       itemBuilder:
                                           (BuildContext context, int index) {
@@ -411,11 +412,13 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 customCardImage(
-                                                    eventImage, 120.h, 100.h),
+                                                    shopList[index]['image'],
+                                                    120.h,
+                                                    120.h),
                                                 8.verticalSpace,
                                                 FittedBox(
                                                   child: Text(
-                                                    eventList[index]['name'],
+                                                    shopList[index]['name'],
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 18,
@@ -426,52 +429,33 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                                 ),
                                                 8.verticalSpace,
                                                 FittedBox(
-                                                  child: Text(
-                                                    eventList[index]['date'],
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: kPrimaryColor),
-                                                  ),
-                                                ),
-                                                8.verticalSpace,
-                                                FittedBox(
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceEvenly,
                                                     children: [
                                                       Icon(
-                                                        Icons.location_on,
+                                                        Icons.text_format,
                                                         color: kPrimaryColor,
                                                         size: 25,
                                                       ),
                                                       5.horizontalSpace,
                                                       Text(
-                                                        eventList[index]
-                                                            ['location'],
+                                                        "Starting from " +
+                                                            shopList[index]
+                                                                ['price'],
                                                         textAlign:
-                                                            TextAlign.center,
+                                                            TextAlign.start,
                                                         style: TextStyle(
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w400,
-                                                            color: Color(
-                                                                0xff616161)),
+                                                            color:
+                                                                kPrimaryColor),
                                                       ),
-                                                      5.horizontalSpace,
-                                                      InkWell(
-                                                        onTap: () {},
-                                                        child: Image.asset(
-                                                          favoriteIcon,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      )
                                                     ],
                                                   ),
-                                                )
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -481,7 +465,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                   )
                                 : ListView.builder(
                                     physics: BouncingScrollPhysics(),
-                                    itemCount: eventList.length,
+                                    itemCount: shopList.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return Padding(
@@ -501,7 +485,9 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               customCardImage(
-                                                  eventImage, 110.h, 100.h),
+                                                  shopList[index]['image'],
+                                                  110.h,
+                                                  100.h),
                                               8.horizontalSpace,
                                               Column(
                                                 crossAxisAlignment:
@@ -509,7 +495,7 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                                 children: [
                                                   FittedBox(
                                                     child: Text(
-                                                      eventList[index]['name'],
+                                                      shopList[index]['name'],
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -521,55 +507,34 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
                                                   ),
                                                   8.verticalSpace,
                                                   FittedBox(
-                                                    child: Text(
-                                                      eventList[index]['date'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceEvenly,
                                                       children: [
                                                         Icon(
-                                                          Icons.location_on,
+                                                          Icons.text_format,
                                                           color: kPrimaryColor,
                                                           size: 25,
                                                         ),
                                                         5.horizontalSpace,
                                                         Text(
-                                                          eventList[index]
-                                                              ['location'],
+                                                          "Starting from " +
+                                                              shopList[index]
+                                                                  ['price'],
                                                           textAlign:
-                                                              TextAlign.center,
+                                                              TextAlign.start,
                                                           style: TextStyle(
                                                               fontSize: 12,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              color: Color(
-                                                                  0xff616161)),
+                                                              color:
+                                                                  kPrimaryColor),
                                                         ),
-                                                        5.horizontalSpace,
-                                                        InkWell(
-                                                          onTap: () {},
-                                                          child: Image.asset(
-                                                            favoriteIcon,
-                                                            color:
-                                                                kPrimaryColor,
-                                                          ),
-                                                        )
                                                       ],
                                                     ),
-                                                  )
+                                                  ),
                                                 ],
                                               )
                                             ],
@@ -590,14 +555,14 @@ class _SeeAllEventsState extends State<SeeAllEvents> {
   }
 
   void searchEvent(String query) {
-    eventList = allEventList;
-    final suggestion = eventList.where((element) {
+    shopList = allShopList;
+    final suggestion = shopList.where((element) {
       final eventName = element['name']!.toLowerCase();
       final input = query.toLowerCase();
       return eventName.contains(input);
     }).toList();
     setState(() {
-      eventList = suggestion;
+      shopList = suggestion;
       // searchDoc = true;
     });
   }
