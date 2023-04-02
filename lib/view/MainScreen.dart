@@ -56,12 +56,11 @@ class _MainScreenState extends State<MainScreen> {
                   //  height: 50.h,
                   width: 1.sw,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Theme.of(context).colorScheme.background
-                        : Theme.of(context).primaryColor,
-                    // border: Border(
-                    //     top: BorderSide(color: kDisabledColor, width: 0.3))
-                  ),
+                      color: Theme.of(context).secondaryHeaderColor
+
+                      // border: Border(
+                      //     top: BorderSide(color: kDisabledColor, width: 0.3))
+                      ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: Row(

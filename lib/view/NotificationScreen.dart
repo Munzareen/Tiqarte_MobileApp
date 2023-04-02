@@ -117,11 +117,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     width: 30,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        width: 1,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Theme.of(context).colorScheme.surface
-                            : Theme.of(context).colorScheme.background,
-                      ),
+                          width: 1,
+                          color: Theme.of(context).colorScheme.background),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     child: Icon(

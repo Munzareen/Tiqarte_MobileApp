@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tiqarte/helper/common.dart';
 
 class EventDetailController extends GetxController {
   final scrollController = ScrollController();
@@ -9,13 +10,16 @@ class EventDetailController extends GetxController {
 
   @override
   void onInit() {
-    scrollController.addListener(() {
-      if (scrollController.offset >= 300) {
-        changeColor(Colors.black);
-      } else {
-        changeColor(Colors.white);
-      }
-    });
+    if (!isDarkTheme.value) {
+      scrollController.addListener(() {
+        if (scrollController.offset >= 300) {
+          changeColor(Colors.black);
+        } else {
+          changeColor(Colors.white);
+        }
+      });
+    }
+
     super.onInit();
   }
 

@@ -29,10 +29,10 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //   backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //    backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -55,9 +55,9 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         notification,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -71,12 +71,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(EnableSoundVibrate,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -97,12 +98,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(purchasedTickets,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -123,12 +125,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(likedEvents,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -149,12 +152,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(followedOrganizer,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -175,12 +179,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(specialOffers,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -201,12 +206,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(payment,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -227,12 +233,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(reminders,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -253,12 +260,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(recommendations,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -279,12 +287,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(appUpdates,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -305,12 +314,13 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(newServiceAvailable,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black)),
+                              fontSize: 18,
+                            )),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -331,14 +341,12 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                         Text(newTipsAvailable,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
+                                fontSize: 18, fontWeight: FontWeight.w500)),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track
+                            // thumb
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -369,12 +377,12 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
   //         children: [
   //           Text(name,
   //               textAlign: TextAlign.center,
-  //               style: const TextStyle(fontSize: 18, color: Colors.black)),
+  //               style: const TextStyle(fontSize: 18, )),
   //           Transform.scale(
   //             scale: 0.7,
   //             child: CupertinoSwitch(
-  //               // trackColor: Colors.black,
-  //               // thumbColor: Colors.black,
+  //               // track
+  //               // thumb
   //               activeColor: kPrimaryColor,
   //               onChanged: (value) {
   //                 setState(

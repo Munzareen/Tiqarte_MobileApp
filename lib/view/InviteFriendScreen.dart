@@ -41,10 +41,10 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      //   backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //   backgroundColor: kSecondBackgroundColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -66,9 +66,9 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                     inviteFriends,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -86,9 +86,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                         title: Text(
                           inviteList[index]['name'],
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         trailing: inviteList[index]['isFollowed'] == true
                             ? InkWell(

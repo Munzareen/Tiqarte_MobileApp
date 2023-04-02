@@ -16,10 +16,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //    backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //    backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -44,9 +44,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                             language,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
@@ -60,9 +60,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                 suggested,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               18.verticalSpace,
                               customRadioButton(1, "English (US)"),
@@ -75,9 +75,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                 language,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               18.verticalSpace,
                               customRadioButton(3, "German"),
@@ -101,7 +101,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
         name,
         textAlign: TextAlign.start,
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       value: value,
       groupValue: _selectedValue,

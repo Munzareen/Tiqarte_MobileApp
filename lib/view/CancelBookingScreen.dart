@@ -51,10 +51,10 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //   backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -78,9 +78,9 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                       ticketCancelBookingHeadingString,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -93,9 +93,9 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                         ticketCancelBookingSelectReasonString,
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                     10.verticalSpace,
@@ -113,9 +113,9 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                       ticketCancelBookingReasonOthersString,
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     20.verticalSpace,
                     Container(
@@ -124,7 +124,6 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                         focusNode: _otherReasonFocusNode,
                         cursorColor: kPrimaryColor,
                         controller: _otherReasonController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         // validator: (value) {
                         //   if (value!.isEmpty) {
@@ -143,7 +142,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: filledColorOther,
+                            //  fillColor: filledColorOther,
                             filled: true,
                             hintText: ticketCancelBookingReasonOthersSubString,
                             hintStyle: TextStyle(
@@ -192,7 +191,9 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
         name,
         textAlign: TextAlign.start,
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       value: value,
       groupValue: _selectedValue,

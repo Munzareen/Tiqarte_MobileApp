@@ -81,7 +81,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<EventDetailController>(builder: (_edc) {
       return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -179,9 +179,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           widget.data['name'],
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       10.verticalSpace,
@@ -217,9 +217,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             "20,000+ going",
                             textAlign: TextAlign.start,
                             style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff424242)),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
                           10.verticalSpace,
                           IconButton(
@@ -229,7 +229,6 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             },
                             icon: Icon(
                               Icons.arrow_forward,
-                              color: Color(0xff424242),
                               size: 20,
                             ),
                           ),
@@ -242,7 +241,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
                             //   borderRadius: BorderRadius.circular(30.0),
-                            color: kSecondBackgroundColor),
+                            color: Theme.of(context).scaffoldBackgroundColor),
                         child: Row(
                           // mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,7 +251,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               padding: EdgeInsets.all(12.0),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50.0),
-                                  color: kPrimaryColor.withOpacity(0.2)),
+                                  color: kPrimaryColor.withOpacity(0.3)),
                               child: Icon(
                                 Icons.calendar_month,
                                 color: kPrimaryColor,
@@ -270,9 +269,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     textAlign: TextAlign.start,
                                     maxLines: 1,
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 8.verticalSpace,
@@ -282,9 +281,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     "18.00 - 23.00 PM (GMT +07:00)",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff212121)),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                   ),
                                 ),
                                 15.verticalSpace,
@@ -326,7 +325,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
                             //   borderRadius: BorderRadius.circular(30.0),
-                            color: kSecondBackgroundColor),
+                            color: Theme.of(context).scaffoldBackgroundColor),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -335,7 +334,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               padding: EdgeInsets.all(12.0),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50.0),
-                                  color: kPrimaryColor.withOpacity(0.2)),
+                                  color: kPrimaryColor.withOpacity(0.3)),
                               child: Icon(
                                 Icons.location_on,
                                 color: kPrimaryColor,
@@ -353,9 +352,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     textAlign: TextAlign.start,
                                     maxLines: 1,
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 8.verticalSpace,
@@ -365,9 +364,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     "Grand City St. 100, New York, United States.",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff212121)),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                   ),
                                 ),
                                 15.verticalSpace,
@@ -423,7 +422,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
                             //   borderRadius: BorderRadius.circular(30.0),
-                            color: kSecondBackgroundColor),
+                            color: Theme.of(context).scaffoldBackgroundColor),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -432,7 +431,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 padding: EdgeInsets.all(12.0),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50.0),
-                                    color: kPrimaryColor.withOpacity(0.2)),
+                                    color: kPrimaryColor.withOpacity(0.3)),
                                 child: Image.asset(
                                   ticketIconSelected,
                                   color: kPrimaryColor,
@@ -449,9 +448,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     textAlign: TextAlign.start,
                                     maxLines: 1,
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 8.verticalSpace,
@@ -461,9 +460,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     "Ticket price depends on package.",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff212121)),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -493,21 +492,24 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "World of Music",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
+                                  SizedBox(
+                                    width: 0.4.sw,
+                                    child: Text(
+                                      "World of Music",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                      ),
+                                    ),
                                   ),
                                   Text(
                                     "Organizer",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff616161)),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -566,9 +568,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         aboutEvent,
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       10.verticalSpace,
                       RichText(
@@ -578,8 +580,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.",
                               style: TextStyle(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff424242))),
+                                  fontWeight: FontWeight.w300,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background)),
                           TextSpan(
                               text: " " + readMore,
                               style: TextStyle(
@@ -650,9 +654,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             child: Text(
                                 "Grand City St. 100, New York, United States",
                                 style: TextStyle(
-                                    color: Color(0xff616161),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14)),
+                                    fontWeight: FontWeight.w300, fontSize: 14)),
                           ),
                         ],
                       ),
@@ -701,9 +703,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             moreEventsLikeThis,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           InkWell(
                             onTap: () => Get.to(
@@ -743,21 +745,27 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   padding: EdgeInsets.all(16.0),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      color: Colors.white),
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor),
                                   child: SingleChildScrollView(
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         customCardImage(
                                             eventImage, 250.w, 160.h),
                                         12.verticalSpace,
-                                        FittedBox(
+                                        SizedBox(
+                                          width: 0.7.sw,
                                           child: Text(
                                             _hc.eventList[itemIndex]['name'],
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
                                             style: TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                         12.verticalSpace,
@@ -772,44 +780,53 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                           ),
                                         ),
                                         12.verticalSpace,
-                                        FittedBox(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on,
-                                                color: kPrimaryColor,
-                                                size: 25,
-                                              ),
-                                              10.horizontalSpace,
-                                              Text(
-                                                _hc.eventList[itemIndex]
-                                                    ['location'],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff616161)),
-                                              ),
-                                              10.horizontalSpace,
-                                              InkWell(
-                                                onTap: () {
-                                                  _hc.addRemoveToFavorite(
-                                                      itemIndex,
-                                                      _hc.eventList[itemIndex]);
-                                                },
-                                                child: Image.asset(
-                                                  _hc.eventList[itemIndex]
-                                                              ['isFavorite'] ==
-                                                          true
-                                                      ? favoriteIconSelected
-                                                      : favoriteIcon,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
                                                   color: kPrimaryColor,
+                                                  size: 25,
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                                10.horizontalSpace,
+                                                SizedBox(
+                                                  width: 0.4.sw,
+                                                  child: Text(
+                                                    _hc.eventList[itemIndex]
+                                                        ['location'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.start,
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      //color: Color(0xff616161)
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                _hc.addRemoveToFavorite(
+                                                    itemIndex,
+                                                    _hc.eventList[itemIndex]);
+                                              },
+                                              child: Image.asset(
+                                                _hc.eventList[itemIndex]
+                                                            ['isFavorite'] ==
+                                                        true
+                                                    ? favoriteIconSelected
+                                                    : favoriteIcon,
+                                                color: kPrimaryColor,
+                                              ),
+                                            )
+                                          ],
                                         )
                                       ],
                                     ),
@@ -829,7 +846,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: 1.sw,
-          color: Colors.white,
+          color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: InkWell(
@@ -1019,8 +1036,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         desiredAccuracy: LocationAccuracy.high);
 
     if (position != null) {
-      latitude = position?.latitude.toString();
-      longitude = position?.longitude.toString();
+      setState(() {
+        latitude = position?.latitude.toString();
+        longitude = position?.longitude.toString();
+      });
     }
   }
 }

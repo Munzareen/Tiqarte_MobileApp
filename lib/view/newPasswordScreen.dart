@@ -80,15 +80,14 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //   backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
             newPasswordHeadingString,
-            style: TextStyle(
-                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
               onPressed: () {
@@ -96,7 +95,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
               )),
         ),
         body: Container(
@@ -120,9 +118,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       newPasswordSubString,
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   20.verticalSpace,
@@ -133,7 +131,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _passwordController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         obscureText: visiblePass,
                         focusNode: _passwordFocusNode,
@@ -172,7 +169,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorPass,
+                            // fillColor: _filledColorPass,
                             filled: true,
                             hintText: newPasswordNewPasswordString,
                             hintStyle: TextStyle(
@@ -185,7 +182,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _confirmPasswordController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         obscureText: visibleConfirmPass,
                         focusNode: _confirmPasswordFocusNode,
@@ -224,7 +220,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorConfirmPassword,
+                            // fillColor: _filledColorConfirmPassword,
                             filled: true,
                             hintText: newPasswordConfirmPasswordString,
                             hintStyle: TextStyle(
@@ -249,9 +245,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       title: Text(
                         LoginRememberMeString,
                         style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
+                            fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       controlAffinity: ListTileControlAffinity.leading,
                       checkColor: Colors.white,

@@ -7,7 +7,7 @@ import 'package:tiqarte/controller/otpVerificationController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/newPasswordScreen.dart';
+import 'package:tiqarte/view/NewPasswordScreen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
@@ -23,15 +23,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //    backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
             otpVerificationHeadingString,
-            style: TextStyle(
-                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
               onPressed: () {
@@ -39,7 +38,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
               )),
         ),
         body: Container(
@@ -54,9 +52,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   otpVerificationSubString + "andrew_ainsley@yourdomain.com",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
                 50.verticalSpace,
                 PinCodeTextField(
@@ -65,6 +63,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                   ],
                   textStyle: const TextStyle(color: Colors.black),
+
                   cursorColor: kPrimaryColor,
                   length: 4,
                   obscureText: false,
@@ -125,7 +124,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.black)),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background)),
                             TextSpan(
                                 text: otpVerificationController.time.value
                                     .toString(),
@@ -138,7 +139,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.black))
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background))
                           ]),
                         ),
                 ),

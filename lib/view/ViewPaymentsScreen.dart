@@ -20,10 +20,10 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //  backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -49,9 +49,9 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                           payments,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
@@ -66,7 +66,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.white,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
@@ -76,7 +76,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.white,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
@@ -89,7 +89,8 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                                   Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12.0),
-                                      color: Colors.white,
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
                                     ),
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 15.0),
@@ -102,7 +103,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.white,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
@@ -113,7 +114,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.white,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
@@ -124,7 +125,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.white,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
@@ -142,7 +143,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: 1.sw,
-          color: Colors.white,
+          color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: InkWell(
@@ -166,9 +167,9 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
               name,
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),

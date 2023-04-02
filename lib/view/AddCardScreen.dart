@@ -139,281 +139,114 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-      ),
-      body: Container(
-        height: 1.sh,
-        width: 1.sw,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                20.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () => Get.back(),
-                            icon: Icon(Icons.arrow_back)),
-                        10.horizontalSpace,
-                        Text(
-                          addNewCard,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    Image.asset(scanIcon),
-                  ],
-                ),
-                20.verticalSpace,
-                Container(
-                  height: 0.3.sh,
-                  width: 1.sw,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      image: DecorationImage(
-                        image: AssetImage(cardBackgroundImage),
-                        fit: BoxFit.fill,
-                      )),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 50.0, vertical: 25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        //  backgroundColor: kSecondBackgroundColor,
+        appBar: AppBar(
+          toolbarHeight: 0,
+          //    backgroundColor: kSecondBackgroundColor,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+        ),
+        body: Container(
+          height: 1.sh,
+          width: 1.sw,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  20.verticalSpace,
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          IconButton(
+                              onPressed: () => Get.back(),
+                              icon: Icon(Icons.arrow_back)),
+                          10.horizontalSpace,
                           Text(
-                            "Mocard",
+                            addNewCard,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "Amazon",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 0.8.sw,
-                        child: TextField(
-                          controller: _cardNumberController,
-                          enabled: false,
-                          //   initialValue: '',
-                          obscureText: true,
-                          style: TextStyle(
-                              fontSize: 48,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          decoration: InputDecoration(
-                            isDense: false,
-                            border: InputBorder.none,
+                            ),
                           ),
-                        ),
-                      ),
-                      // Text(
-                      //   _cardNameController.text,
-                      //   textAlign: TextAlign.center,
-                      // style: TextStyle(
-                      //     fontSize: 48,
-                      //     fontWeight: FontWeight.bold,
-                      //     color: Colors.white),
-                      // ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                cardHolderName,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              Container(
-                                width: 0.3.sw,
-                                child: TextField(
-                                  controller: _cardNameController,
-                                  enabled: false,
-                                  //   initialValue: '',
-                                  obscureText: true,
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                  decoration: InputDecoration(
-                                    isDense: false,
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                              // Text(
-                              //   "...........",
-                              //   textAlign: TextAlign.center,
-                              //   style: TextStyle(
-                              //       fontSize: 10,
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.white),
-                              // ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                expiryDate,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              Container(
-                                width: 0.2.sw,
-                                child: TextField(
-                                  controller: _expiryDateController,
-                                  enabled: false,
-                                  //   initialValue: '',
-                                  obscureText: true,
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                  decoration: InputDecoration(
-                                    isDense: false,
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                              // Text(
-                              //   "...........",
-                              //   textAlign: TextAlign.center,
-                              //   style: TextStyle(
-                              //       fontSize: 10,
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.white),
-                              // ),
-                            ],
-                          ),
-                          Image.asset(emptyCardLogo),
                         ],
-                      )
+                      ),
+                      Image.asset(
+                        scanIcon,
+                        color: Theme.of(context).colorScheme.background,
+                      ),
                     ],
                   ),
-                ),
-                10.verticalSpace,
-                Form(
-                    key: _formKey,
+                  20.verticalSpace,
+                  Container(
+                    height: 0.3.sh,
+                    width: 1.sw,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        image: DecorationImage(
+                          image: AssetImage(cardBackgroundImage),
+                          fit: BoxFit.fill,
+                        )),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 50.0, vertical: 25.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          cardName,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        10.verticalSpace,
-                        TextFormField(
-                          cursorColor: kPrimaryColor,
-                          controller: _cardNameController,
-                          style: const TextStyle(color: Colors.black),
-                          keyboardType: TextInputType.text,
-                          focusNode: _cardNameFocusNode,
-                          validator: (value) {
-                            if (value!.isEmpty || !value.contains(' ')) {
-                              return 'Please enter full name';
-                            }
-
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              errorBorder: customOutlineBorder,
-                              enabledBorder: customOutlineBorder,
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12.0)),
-                                  borderSide: BorderSide(color: kPrimaryColor)),
-                              disabledBorder: customOutlineBorder,
-                              focusedErrorBorder: customOutlineBorder,
-                              fillColor: _filledColorCardName,
-                              filled: true,
-                              hintText: cardName,
-                              hintStyle: TextStyle(
-                                  color: Color(0xff9E9E9E), fontSize: 14)),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(textRegExp),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Mocard",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              "Amazon",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                           ],
                         ),
-                        10.verticalSpace,
-                        Text(
-                          cardNumber,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                        Container(
+                          width: 0.8.sw,
+                          child: TextField(
+                            controller: _cardNumberController,
+                            enabled: false,
+                            //   initialValue: '',
+                            obscureText: true,
+                            style: TextStyle(
+                                fontSize: 48,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            decoration: InputDecoration(
+                              isDense: false,
+                              border: InputBorder.none,
+                            ),
+                          ),
                         ),
-                        10.verticalSpace,
-                        TextFormField(
-                          enabled: _isCardNumberEnabled,
-                          cursorColor: kPrimaryColor,
-                          controller: _cardNumberController,
-                          style: const TextStyle(color: Colors.black),
-                          keyboardType: TextInputType.number,
-                          focusNode: _cardNumberFocusNode,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter card number';
-                            } else if (value.length != 19) {
-                              return 'Please enter valid card number';
-                            }
-
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              errorBorder: customOutlineBorder,
-                              enabledBorder: customOutlineBorder,
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12.0)),
-                                  borderSide: BorderSide(color: kPrimaryColor)),
-                              disabledBorder: customOutlineBorder,
-                              focusedErrorBorder: customOutlineBorder,
-                              fillColor: _filledColorCardNumber,
-                              filled: true,
-                              hintText: cardNumber,
-                              hintStyle: TextStyle(
-                                  color: Color(0xff9E9E9E), fontSize: 14)),
-                          inputFormatters: _cardNumberFormatter,
-                        ),
-                        10.verticalSpace,
+                        // Text(
+                        //   _cardNameController.text,
+                        //   textAlign: TextAlign.center,
+                        // style: TextStyle(
+                        //     fontSize: 48,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.white),
+                        // ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -421,118 +254,285 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  expiryDate,
+                                  cardHolderName,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
-                                10.verticalSpace,
-                                InkWell(
-                                  onTap: () {
-                                    _isExpiryDateEnabled
-                                        ? _selectDate(context)
-                                        : null;
-                                  },
-                                  child: Container(
-                                    width: 0.4.sw,
-                                    child: TextFormField(
-                                      controller: _expiryDateController,
-                                      enabled: false,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      cursorColor: kPrimaryColor,
-                                      decoration: InputDecoration(
-                                        hintText: expiryDate,
-                                        hintStyle: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                        suffixIcon: Image.asset(
-                                          calendarIcon,
-                                          color: Colors.grey,
-                                        ),
-                                        errorBorder: customOutlineBorder,
-                                        enabledBorder: customOutlineBorder,
-                                        focusedBorder: customOutlineBorder,
-                                        disabledBorder: customOutlineBorder,
-                                        focusedErrorBorder: customOutlineBorder,
-                                        fillColor:
-                                            kDisabledColor.withOpacity(0.4),
-                                        filled: true,
-                                      ),
+                                Container(
+                                  width: 0.3.sw,
+                                  child: TextField(
+                                    controller: _cardNameController,
+                                    enabled: false,
+                                    //   initialValue: '',
+                                    obscureText: true,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    decoration: InputDecoration(
+                                      isDense: false,
+                                      border: InputBorder.none,
                                     ),
                                   ),
                                 ),
+                                // Text(
+                                //   "...........",
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 10,
+                                //       fontWeight: FontWeight.bold,
+                                //       color: Colors.white),
+                                // ),
                               ],
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  cvv,
+                                  expiryDate,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
-                                10.verticalSpace,
                                 Container(
-                                  width: 0.4.sw,
-                                  child: TextFormField(
-                                    enabled: _isCvvEnabled,
-                                    cursorColor: kPrimaryColor,
-                                    controller: _cvvController,
-                                    style: const TextStyle(color: Colors.black),
-                                    keyboardType: TextInputType.number,
-                                    focusNode: _cvvFocusNode,
-                                    validator: (value) {
-                                      if (value!.isEmpty || value.length != 3) {
-                                        return 'Please enter 3 digit cvv';
-                                      }
-
-                                      return null;
-                                    },
+                                  width: 0.2.sw,
+                                  child: TextField(
+                                    controller: _expiryDateController,
+                                    enabled: false,
+                                    //   initialValue: '',
+                                    obscureText: true,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                     decoration: InputDecoration(
-                                        errorBorder: customOutlineBorder,
-                                        enabledBorder: customOutlineBorder,
-                                        focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(12.0)),
-                                            borderSide: BorderSide(
-                                                color: kPrimaryColor)),
-                                        disabledBorder: customOutlineBorder,
-                                        focusedErrorBorder: customOutlineBorder,
-                                        fillColor: _filledColorCvv,
-                                        filled: true,
-                                        hintText: cvv,
-                                        hintStyle: TextStyle(
-                                            color: Color(0xff9E9E9E),
-                                            fontSize: 14)),
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                          numberRegExp),
-                                      LengthLimitingTextInputFormatter(3),
-                                    ],
+                                      isDense: false,
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
+                                // Text(
+                                //   "...........",
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 10,
+                                //       fontWeight: FontWeight.bold,
+                                //       color: Colors.white),
+                                // ),
                               ],
                             ),
+                            Image.asset(emptyCardLogo),
                           ],
-                        ),
+                        )
                       ],
-                    )),
-                20.verticalSpace,
-                InkWell(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.off(() => PaymentScreen(),
-                            transition: Transition.leftToRight,
-                            preventDuplicates: false);
-                      }
-                    },
-                    child: customButton(add, kPrimaryColor))
-              ],
+                    ),
+                  ),
+                  10.verticalSpace,
+                  Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            cardName,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          10.verticalSpace,
+                          TextFormField(
+                            cursorColor: kPrimaryColor,
+                            controller: _cardNameController,
+                            keyboardType: TextInputType.text,
+                            focusNode: _cardNameFocusNode,
+                            validator: (value) {
+                              if (value!.isEmpty || !value.contains(' ')) {
+                                return 'Please enter full name';
+                              }
+
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                errorBorder: customOutlineBorder,
+                                enabledBorder: customOutlineBorder,
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12.0)),
+                                    borderSide:
+                                        BorderSide(color: kPrimaryColor)),
+                                disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+                                //  fillColor: _filledColorCardName,
+                                filled: true,
+                                hintText: cardName,
+                                hintStyle: TextStyle(
+                                    color: Color(0xff9E9E9E), fontSize: 14)),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(textRegExp),
+                            ],
+                          ),
+                          10.verticalSpace,
+                          Text(
+                            cardNumber,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          10.verticalSpace,
+                          TextFormField(
+                            enabled: _isCardNumberEnabled,
+                            cursorColor: kPrimaryColor,
+                            controller: _cardNumberController,
+                            keyboardType: TextInputType.number,
+                            focusNode: _cardNumberFocusNode,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter card number';
+                              } else if (value.length != 19) {
+                                return 'Please enter valid card number';
+                              }
+
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                errorBorder: customOutlineBorder,
+                                enabledBorder: customOutlineBorder,
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12.0)),
+                                    borderSide:
+                                        BorderSide(color: kPrimaryColor)),
+                                disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+                                // fillColor: _filledColorCardNumber,
+                                filled: true,
+                                hintText: cardNumber,
+                                hintStyle: TextStyle(
+                                    color: Color(0xff9E9E9E), fontSize: 14)),
+                            inputFormatters: _cardNumberFormatter,
+                          ),
+                          10.verticalSpace,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    expiryDate,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  10.verticalSpace,
+                                  InkWell(
+                                    onTap: () {
+                                      _isExpiryDateEnabled
+                                          ? _selectDate(context)
+                                          : null;
+                                    },
+                                    child: Container(
+                                      width: 0.4.sw,
+                                      child: TextFormField(
+                                        controller: _expiryDateController,
+                                        enabled: false,
+                                        style: const TextStyle(),
+                                        cursorColor: kPrimaryColor,
+                                        decoration: InputDecoration(
+                                          hintText: expiryDate,
+                                          hintStyle: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                          suffixIcon: Image.asset(
+                                            calendarIcon,
+                                            color: Colors.grey,
+                                          ),
+                                          errorBorder: customOutlineBorder,
+                                          enabledBorder: customOutlineBorder,
+                                          focusedBorder: customOutlineBorder,
+                                          disabledBorder: customOutlineBorder,
+                                          focusedErrorBorder:
+                                              customOutlineBorder,
+                                          // fillColor:
+                                          //     kDisabledColor.withOpacity(0.4),
+                                          filled: true,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    cvv,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  10.verticalSpace,
+                                  Container(
+                                    width: 0.4.sw,
+                                    child: TextFormField(
+                                      enabled: _isCvvEnabled,
+                                      cursorColor: kPrimaryColor,
+                                      controller: _cvvController,
+                                      keyboardType: TextInputType.number,
+                                      focusNode: _cvvFocusNode,
+                                      validator: (value) {
+                                        if (value!.isEmpty ||
+                                            value.length != 3) {
+                                          return 'Please enter 3 digit cvv';
+                                        }
+
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                          errorBorder: customOutlineBorder,
+                                          enabledBorder: customOutlineBorder,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(12.0)),
+                                              borderSide: BorderSide(
+                                                  color: kPrimaryColor)),
+                                          disabledBorder: customOutlineBorder,
+                                          focusedErrorBorder:
+                                              customOutlineBorder,
+                                          //fillColor: _filledColorCvv,
+                                          filled: true,
+                                          hintText: cvv,
+                                          hintStyle: TextStyle(
+                                              color: Color(0xff9E9E9E),
+                                              fontSize: 14)),
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            numberRegExp),
+                                        LengthLimitingTextInputFormatter(3),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      )),
+                  20.verticalSpace,
+                  InkWell(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          Get.off(() => PaymentScreen(),
+                              transition: Transition.leftToRight,
+                              preventDuplicates: false);
+                        }
+                      },
+                      child: customButton(add, kPrimaryColor))
+                ],
+              ),
             ),
           ),
         ),
@@ -550,11 +550,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
-                primary: kPrimaryColor,
-                onPrimary: Colors.white,
-                onSurface: kPrimaryColor,
-              ),
+              colorScheme: Theme.of(context).colorScheme,
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                   foregroundColor: kPrimaryColor,

@@ -116,10 +116,10 @@ class _BookEventContactInfoScreenState
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //    backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -142,9 +142,9 @@ class _BookEventContactInfoScreenState
                       bookEvent,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -153,9 +153,9 @@ class _BookEventContactInfoScreenState
                   contactInformation,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 20.verticalSpace,
                 Expanded(
@@ -166,7 +166,6 @@ class _BookEventContactInfoScreenState
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _fullNameController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         focusNode: _fullNameFocusNode,
                         // validator: (value) {
@@ -183,7 +182,7 @@ class _BookEventContactInfoScreenState
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorFullName,
+                            // fillColor: _filledColorFullName,
                             filled: true,
                             hintText: fullName,
                             hintStyle: TextStyle(
@@ -196,7 +195,6 @@ class _BookEventContactInfoScreenState
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _nickNameController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         focusNode: _nickNameFocusNode,
                         // validator: (value) {
@@ -213,7 +211,7 @@ class _BookEventContactInfoScreenState
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorNickName,
+                            // fillColor: _filledColorNickName,
                             filled: true,
                             hintText: nickName,
                             hintStyle: TextStyle(
@@ -230,9 +228,7 @@ class _BookEventContactInfoScreenState
                         child: TextFormField(
                           controller: _dobController,
                           enabled: false,
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: const TextStyle(),
                           cursorColor: kPrimaryColor,
                           decoration: InputDecoration(
                             hintText: "Date of Birth",
@@ -247,7 +243,7 @@ class _BookEventContactInfoScreenState
                             enabledBorder: customOutlineBorder,
                             focusedBorder: customOutlineBorder,
                             disabledBorder: customOutlineBorder,
-                            fillColor: kDisabledColor.withOpacity(0.4),
+                            // fillColor: kDisabledColor.withOpacity(0.4),
                             filled: true,
                           ),
                         ),
@@ -256,7 +252,6 @@ class _BookEventContactInfoScreenState
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _emailController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         focusNode: _emailFocusNode,
                         decoration: InputDecoration(
@@ -271,7 +266,7 @@ class _BookEventContactInfoScreenState
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorEmail,
+                            // fillColor: _filledColorEmail,
                             filled: true,
                             hintText: email,
                             hintStyle: TextStyle(
@@ -287,25 +282,20 @@ class _BookEventContactInfoScreenState
                         // controller: _phoneController,
                         flagsButtonPadding:
                             const EdgeInsets.symmetric(horizontal: 20),
-                        cursorColor: Colors.black,
                         showDropdownIcon: false,
                         showCountryFlag: true, //showFlag
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                         ],
-                        style: const TextStyle(
-                            color: Colors.black, letterSpacing: 3),
+                        style: const TextStyle(letterSpacing: 3),
                         keyboardType: TextInputType.number,
                         autovalidateMode: AutovalidateMode.disabled,
                         dropdownTextStyle: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15),
+                            fontWeight: FontWeight.w400, fontSize: 15),
                         decoration: InputDecoration(
-                            counterStyle: TextStyle(color: Colors.black),
                             hintText: '000 000 000',
                             hintStyle: TextStyle(color: Colors.grey),
-                            fillColor: _filledColorPhone,
+                            // fillColor: _filledColorPhone,
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
@@ -323,11 +313,12 @@ class _BookEventContactInfoScreenState
                       Container(
                         height: 48.h,
                         decoration: BoxDecoration(
-                          color: kDisabledColor.withOpacity(0.4),
+                          color: Theme.of(context).colorScheme.onSecondary,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: DropdownButtonFormField(
-                          dropdownColor: kDisabledColor,
+                          dropdownColor:
+                              Theme.of(context).colorScheme.secondary,
                           borderRadius: BorderRadius.circular(12.0),
                           decoration: InputDecoration(
                               constraints: BoxConstraints(),
@@ -342,8 +333,7 @@ class _BookEventContactInfoScreenState
                           iconEnabledColor: Colors.grey,
                           hint: Text(
                             gender,
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 15.sp),
+                            style: TextStyle(fontSize: 15.sp),
                           ),
                           value: selectedGender,
                           onChanged: (value) {
@@ -357,7 +347,6 @@ class _BookEventContactInfoScreenState
                                     item.toString(),
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
                                         fontWeight: FontWeight.w400),
                                   ),
                                 ),
@@ -369,11 +358,12 @@ class _BookEventContactInfoScreenState
                       Container(
                         height: 48.h,
                         decoration: BoxDecoration(
-                          color: kDisabledColor.withOpacity(0.4),
+                          color: Theme.of(context).colorScheme.onSecondary,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: DropdownButtonFormField(
-                          dropdownColor: kDisabledColor,
+                          dropdownColor:
+                              Theme.of(context).colorScheme.secondary,
                           borderRadius: BorderRadius.circular(12.0),
                           decoration: InputDecoration(
                               constraints: BoxConstraints(),
@@ -403,7 +393,6 @@ class _BookEventContactInfoScreenState
                                     item.toString(),
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
                                         fontWeight: FontWeight.w400),
                                   ),
                                 ),
@@ -429,7 +418,9 @@ class _BookEventContactInfoScreenState
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
                               TextSpan(
                                   text: termsOfService,
                                   style: TextStyle(
@@ -441,7 +432,9 @@ class _BookEventContactInfoScreenState
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
                               TextSpan(
                                   text: communityGuidelines,
                                   style: TextStyle(
@@ -453,7 +446,9 @@ class _BookEventContactInfoScreenState
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
                               TextSpan(
                                   text: privacyPolicy,
                                   style: TextStyle(
@@ -465,7 +460,9 @@ class _BookEventContactInfoScreenState
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black))
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background))
                             ]),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
@@ -509,11 +506,7 @@ class _BookEventContactInfoScreenState
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
-                primary: kPrimaryColor,
-                onPrimary: Colors.white,
-                onSurface: kPrimaryColor,
-              ),
+              colorScheme: Theme.of(context).colorScheme,
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                   foregroundColor: kPrimaryColor,

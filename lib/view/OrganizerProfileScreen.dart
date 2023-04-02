@@ -91,36 +91,39 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      //  backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         //toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         title: Text(
           organizer,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0,
         leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
             )),
         actions: [
-          Container(
-            height: 30,
-            width: 30,
-            margin: EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 1),
-              borderRadius: BorderRadius.circular(50.0),
-            ),
-            child: Icon(
-              Icons.more_horiz_sharp,
-              color: Colors.black,
-              size: 25,
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Container(
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                border: Border.all(
+                    width: 1, color: Theme.of(context).colorScheme.background),
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+              child: Icon(
+                Icons.more_horiz_sharp,
+                size: 25,
+              ),
             ),
           )
         ],
@@ -177,12 +180,14 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                   "World of Music",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 20.verticalSpace,
-                Divider(),
+                Divider(
+                  color: kDisabledColor,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 10.0),
@@ -202,9 +207,7 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                               "12",
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                  fontSize: 32, fontWeight: FontWeight.bold),
                             ),
                             5.verticalSpace,
                             Text(
@@ -269,7 +272,9 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                     ],
                   ),
                 ),
-                Divider(),
+                Divider(
+                  color: kDisabledColor,
+                ),
                 20.verticalSpace,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -389,7 +394,7 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                           padding: EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              color: Colors.white),
+                              color: Theme.of(context).secondaryHeaderColor),
                           child: Row(
                             // mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -429,14 +434,17 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FittedBox(
+                                  SizedBox(
+                                    width: 0.5.sw,
                                     child: Text(
                                       eventList[index]['name'],
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   8.verticalSpace,
@@ -462,13 +470,18 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                                           size: 25,
                                         ),
                                         5.horizontalSpace,
-                                        Text(
-                                          eventList[index]['location'],
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                        SizedBox(
+                                          width: 0.3.sw,
+                                          child: Text(
+                                            eventList[index]['location'],
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xff616161)),
+                                            ),
+                                          ),
                                         ),
                                         5.horizontalSpace,
                                         InkWell(
@@ -529,13 +542,13 @@ class _OrganizerProfileScreenState extends State<OrganizerProfileScreen>
                           padding: EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              color: Colors.white),
+                              color: Theme.of(context).secondaryHeaderColor),
                           child: Text(
                               "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.",
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff424242))),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                              )),
                         ),
                       );
                     },

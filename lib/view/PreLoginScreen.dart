@@ -23,10 +23,10 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      //  backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //   backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
             onPressed: () {
@@ -34,7 +34,6 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
             )),
       ),
       body: Container(
@@ -45,14 +44,14 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(preLoginLogo),
-              20.verticalSpace,
+              30.verticalSpace,
               Text(
                 preLoginHeadingString,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               20.verticalSpace,
               GestureDetector(
@@ -76,9 +75,9 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                         preLoginFacebookString,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       )
                     ],
                   ),
@@ -106,9 +105,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                         preLoginGoogleString,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       )
                     ],
                   ),
@@ -139,9 +136,9 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                                   preLoginAppleString,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 )
                               ],
                             ),

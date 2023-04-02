@@ -79,10 +79,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //   backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           leading: IconButton(
               onPressed: () {
@@ -90,7 +90,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
               )),
         ),
         body: Container(
@@ -111,10 +110,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   Text(
                     createAccountHeadingString,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                   40.verticalSpace,
                   Form(
@@ -124,7 +120,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _emailController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         focusNode: _emailFocusNode,
                         decoration: InputDecoration(
@@ -139,7 +134,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorEmail,
+                            //   fillColor: _filledColorEmail,
                             filled: true,
                             hintText: createAccountEmailString,
                             hintStyle: TextStyle(
@@ -152,7 +147,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       TextFormField(
                         cursorColor: kPrimaryColor,
                         controller: _passwordController,
-                        style: const TextStyle(color: Colors.black),
                         keyboardType: TextInputType.text,
                         obscureText: visiblePass,
                         focusNode: _passwordFocusNode,
@@ -191,7 +185,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                     BorderRadius.all(Radius.circular(12.0)),
                                 borderSide: BorderSide(color: kPrimaryColor)),
                             disabledBorder: customOutlineBorder,
-                            fillColor: _filledColorPass,
+                            //   fillColor: _filledColorPass,
                             filled: true,
                             hintText: createAccountPasswordString,
                             hintStyle: TextStyle(
@@ -216,9 +210,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       title: Text(
                         createAccountRememberMeString,
                         style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
+                            fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       controlAffinity: ListTileControlAffinity.leading,
                       checkColor: Colors.white,
@@ -244,7 +236,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(children: <Widget>[
-                        Expanded(child: Divider()),
+                        Expanded(
+                            child: Divider(
+                          color: kDisabledColor,
+                        )),
                         10.horizontalSpace,
                         Text(
                           createAccountOrContinueWithString,
@@ -255,7 +250,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                               color: Color(0xff616161)),
                         ),
                         10.horizontalSpace,
-                        Expanded(child: Divider()),
+                        Expanded(
+                            child: Divider(
+                          color: kDisabledColor,
+                        )),
                       ])),
                   30.verticalSpace,
                   Row(

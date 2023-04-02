@@ -113,13 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           // )
                         ),
                         child: Center(
-                          child: Image.asset(
-                            notificationIcon,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Theme.of(context).colorScheme.onSurface
-                                    : Theme.of(context).primaryColor,
-                          ),
+                          child: Image.asset(notificationIcon,
+                              color: Theme.of(context).colorScheme.background),
                         ),
                       ),
                     )

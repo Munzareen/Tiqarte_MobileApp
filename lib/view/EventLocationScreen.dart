@@ -38,15 +38,14 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      // backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         title: Text(
           isDirection ? direction : eventLocation,
-          style: TextStyle(
-              color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
             onPressed: () {
@@ -54,7 +53,6 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
             )),
       ),
       body: Container(
@@ -121,7 +119,7 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         width: 1.sw,
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
             child: InkWell(

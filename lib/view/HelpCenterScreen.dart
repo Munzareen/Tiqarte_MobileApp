@@ -70,7 +70,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 0,
-            backgroundColor: kSecondBackgroundColor,
+            //   backgroundColor: kSecondBackgroundColor,
             elevation: 0,
             automaticallyImplyLeading: false,
           ),
@@ -93,9 +93,9 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                               helpCenter,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -103,12 +103,14 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1),
+                            border: Border.all(
+                                width: 1,
+                                color:
+                                    Theme.of(context).colorScheme.background),
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           child: Icon(
                             Icons.more_horiz_sharp,
-                            color: Colors.black,
                             size: 25,
                           ),
                         )
@@ -213,7 +215,6 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                               focusNode: _searchFocusNode,
                               cursorColor: kPrimaryColor,
                               controller: _searchController,
-                              style: const TextStyle(color: Colors.black),
                               keyboardType: TextInputType.text,
                               // validator: (value) {
                               //   if (value!.isEmpty) {
@@ -235,7 +236,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                       borderSide:
                                           BorderSide(color: kPrimaryColor)),
                                   disabledBorder: customOutlineBorder,
-                                  fillColor: filledColorSearch,
+                                  //  fillColor: filledColorSearch,
                                   filled: true,
                                   hintText: "Search",
                                   hintStyle: TextStyle(
@@ -250,7 +251,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                             child: ListView.builder(
                               itemCount: faqDataList.length,
                               itemBuilder: (context, index) {
-                                return customExpandableCardForAddedList(index);
+                                return customExpandableCard(index);
                               },
                             ),
                           )
@@ -284,7 +285,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0), color: Colors.white),
+          borderRadius: BorderRadius.circular(16.0),
+          color: Theme.of(context).secondaryHeaderColor),
       child: Row(
         children: [
           Image.asset(
@@ -299,32 +301,31 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
     );
   }
 
-  customExpandableCardForAddedList(int index) {
+  customExpandableCard(int index) {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      color: Colors.white,
+      color: Theme.of(context).secondaryHeaderColor,
       child: ExpansionTile(
         collapsedShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20), side: BorderSide.none),
         tilePadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         title: Text(
           faqDataList[index],
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         trailing: Icon(
           Icons.arrow_drop_down,
           color: kPrimaryColor,
           size: 25,
         ),
-        children: [buildHeaderCardForAddedList(index)],
+        children: [expandedCard(index)],
       ),
     );
   }
 
-  buildHeaderCardForAddedList(int index) {
+  expandedCard(int index) {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
         child: Column(
@@ -337,10 +338,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
             ),
             Text(
               'This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.',
-              style: TextStyle(
-                  color: Color(0xff424242),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
             ),
           ],
         ));

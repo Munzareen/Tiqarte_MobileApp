@@ -58,15 +58,14 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      // backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         title: Text(
           locationSetupHeadingString,
-          style: TextStyle(
-              color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
             onPressed: () {
@@ -74,7 +73,6 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
             )),
       ),
       body: Container(
@@ -144,9 +142,9 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                         locationSetupLocationString,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Divider(),
                       10.verticalSpace,
@@ -166,13 +164,12 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                                   maxLines: 2,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black)),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  )),
                             ),
                             Icon(
                               Icons.location_on,
-                              color: Colors.black,
                               size: 30,
                             )
                           ],

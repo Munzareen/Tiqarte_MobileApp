@@ -6,12 +6,15 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/EditProfileScreen.dart';
 import 'package:tiqarte/view/HelpCenterScreen.dart';
 import 'package:tiqarte/view/InviteFriendScreen.dart';
 import 'package:tiqarte/view/LanguageScreen.dart';
 import 'package:tiqarte/view/LinkedAccountScreen.dart';
+import 'package:tiqarte/view/LoginScreen.dart';
 import 'package:tiqarte/view/NotificationSettingScreen.dart';
+import 'package:tiqarte/view/OtpVerificationScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
 import 'package:tiqarte/view/SecurityScreen.dart';
 import 'package:tiqarte/view/ViewPaymentsScreen.dart';
@@ -67,11 +70,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 30,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        width: 1,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Theme.of(context).colorScheme.surface
-                            : Theme.of(context).colorScheme.background,
-                      ),
+                          width: 1,
+                          color: Theme.of(context).colorScheme.background),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     child: Icon(
@@ -249,14 +249,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              languageIcon,
-                              height: 28,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Theme.of(context).colorScheme.onSurface
-                                  : Theme.of(context).primaryColor,
-                            ),
+                            Image.asset(languageIcon,
+                                height: 28,
+                                color:
+                                    Theme.of(context).colorScheme.background),
                             10.horizontalSpace,
                             Text(
                               language,
@@ -297,10 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Image.asset(
                             darkModeIcon,
                             height: 28,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Theme.of(context).colorScheme.onSurface
-                                    : Theme.of(context).primaryColor,
+                            color: Theme.of(context).colorScheme.background,
                           ),
                           10.horizontalSpace,
                           Text(
@@ -319,13 +312,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: CupertinoSwitch(
                             activeColor: kPrimaryColor,
                             onChanged: (val) {
+                              isDarkTheme.value = val;
+
                               Get.changeThemeMode(
                                 //ThemeMode.dark
-                                isLightTheme.value
-                                    ? ThemeMode.light
-                                    : ThemeMode.dark,
+
+                                isDarkTheme.value
+                                    ? ThemeMode.dark
+                                    : ThemeMode.light,
                               );
-                              isLightTheme.value = val;
 
                               // setState(
                               //   () {
@@ -333,7 +328,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //   },
                               // );
                             },
-                            value: isLightTheme.value,
+                            value: isDarkTheme.value,
                           ),
                         ),
                         false.obs,
@@ -398,13 +393,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Row(
           children: [
-            Image.asset(
-              iconImage,
-              height: 28,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).colorScheme.onSurface
-                  : Theme.of(context).primaryColor,
-            ),
+            Image.asset(iconImage,
+                height: 28, color: Theme.of(context).colorScheme.background),
             10.horizontalSpace,
             Text(
               name,

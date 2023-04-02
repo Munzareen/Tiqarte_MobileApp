@@ -100,10 +100,10 @@ class _GoingScreenState extends State<GoingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      //    backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -127,7 +127,6 @@ class _GoingScreenState extends State<GoingScreen> {
                             focusNode: _searchFocusNode,
                             cursorColor: kPrimaryColor,
                             controller: _searchController,
-                            style: const TextStyle(color: Colors.black),
                             keyboardType: TextInputType.text,
                             // validator: (value) {
                             //   if (value!.isEmpty) {
@@ -149,7 +148,6 @@ class _GoingScreenState extends State<GoingScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
-                                fillColor: filledColorSearch,
                                 filled: true,
                                 hintText: "Search",
                                 hintStyle: TextStyle(
@@ -184,9 +182,9 @@ class _GoingScreenState extends State<GoingScreen> {
                               "20,000+ Going",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -214,15 +212,17 @@ class _GoingScreenState extends State<GoingScreen> {
                             seeAllEventNotFoundString,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           10.verticalSpace,
                           Text(
                             seeAllEventNotFoundSubString,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
                         ],
                       ),
@@ -240,9 +240,7 @@ class _GoingScreenState extends State<GoingScreen> {
                               title: Text(
                                 goingList[index]['name'],
                                 style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               trailing: goingList[index]['isFollowed'] == true
                                   ? InkWell(

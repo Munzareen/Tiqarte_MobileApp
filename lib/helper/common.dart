@@ -11,7 +11,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 
-RxBool isLightTheme = false.obs;
+RxBool isDarkTheme = false.obs;
 
 SpinKitCircle spinkit = SpinKitCircle(
   color: kPrimaryColor,
@@ -61,7 +61,7 @@ customAlertDialogWithSpinkit(
               contentPadding: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0)),
-              backgroundColor: kBackgroundColor,
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               actionsPadding: EdgeInsets.symmetric(vertical: 0),
               actionsAlignment: MainAxisAlignment.end,
               buttonPadding: EdgeInsets.zero,
@@ -103,10 +103,8 @@ customAlertDialogWithSpinkit(
                     child: Text(
                       contentMsg,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -135,7 +133,7 @@ customAlertDialogWithOneButton(BuildContext context, String logo, IconData icon,
               contentPadding: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0)),
-              backgroundColor: kBackgroundColor,
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               actionsPadding: EdgeInsets.symmetric(vertical: 0),
               actionsAlignment: MainAxisAlignment.end,
               buttonPadding: EdgeInsets.zero,
@@ -177,10 +175,8 @@ customAlertDialogWithOneButton(BuildContext context, String logo, IconData icon,
                     child: Text(
                       contentMsg,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -233,7 +229,7 @@ customAlertDialogForPermission(
               contentPadding: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0)),
-              backgroundColor: kBackgroundColor,
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               actionsPadding: EdgeInsets.symmetric(vertical: 0),
               actionsAlignment: MainAxisAlignment.end,
               buttonPadding: EdgeInsets.zero,
@@ -275,10 +271,8 @@ customAlertDialogForPermission(
                     child: Text(
                       contentMsg,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -389,7 +383,7 @@ customAlertDialogWithTwoButtons(
               contentPadding: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0)),
-              backgroundColor: kBackgroundColor,
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               actionsPadding: EdgeInsets.symmetric(vertical: 0),
               actionsAlignment: MainAxisAlignment.end,
               buttonPadding: EdgeInsets.zero,
@@ -431,10 +425,8 @@ customAlertDialogWithTwoButtons(
                     child: Text(
                       contentMsg,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -760,11 +752,11 @@ filterBottomSheet(
                     Container(
                       height: 48.h,
                       decoration: BoxDecoration(
-                        color: kDisabledColor.withOpacity(0.4),
+                        color: Theme.of(context).colorScheme.onSecondary,
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: DropdownButtonFormField(
-                        dropdownColor: kDisabledColor,
+                        dropdownColor: Theme.of(context).colorScheme.secondary,
                         borderRadius: BorderRadius.circular(12.0),
                         decoration: InputDecoration(
                             constraints: BoxConstraints(),
@@ -793,9 +785,9 @@ filterBottomSheet(
                                 child: Text(
                                   item.toString(),
                                   style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             )

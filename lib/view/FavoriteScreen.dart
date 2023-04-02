@@ -357,7 +357,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                   childAspectRatio: 1,
                                                   crossAxisSpacing: 10,
                                                   mainAxisSpacing: 20,
-                                                  mainAxisExtent: 240),
+                                                  mainAxisExtent: 245),
                                           itemCount: _hc.favEventList.length,
                                           shrinkWrap: true,
                                           itemBuilder: (BuildContext context,
@@ -379,106 +379,98 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                             30.0),
                                                     color: Theme.of(context)
                                                         .secondaryHeaderColor),
-                                                child: SingleChildScrollView(
-                                                  child: Column(
-                                                    // mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      customCardImage(
-                                                          eventImage,
-                                                          140.h,
-                                                          100.h),
-                                                      8.verticalSpace,
-                                                      SizedBox(
-                                                        width: 0.5.sw,
-                                                        child: Text(
-                                                          _hc.favEventList[
-                                                              index]['name'],
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontSize: 18,
+                                                child: Column(
+                                                  // mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    customCardImage(eventImage,
+                                                        140.h, 100.h),
+                                                    8.verticalSpace,
+                                                    SizedBox(
+                                                      width: 0.5.sw,
+                                                      child: Text(
+                                                        _hc.favEventList[index]
+                                                            ['name'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    8.verticalSpace,
+                                                    FittedBox(
+                                                      child: Text(
+                                                        _hc.favEventList[index]
+                                                            ['date'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
                                                             fontWeight:
-                                                                FontWeight.bold,
+                                                                FontWeight.w400,
+                                                            color:
+                                                                kPrimaryColor),
+                                                      ),
+                                                    ),
+                                                    8.verticalSpace,
+                                                    FittedBox(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.location_on,
+                                                            color:
+                                                                kPrimaryColor,
+                                                            size: 25,
                                                           ),
-                                                        ),
-                                                      ),
-                                                      8.verticalSpace,
-                                                      FittedBox(
-                                                        child: Text(
-                                                          _hc.favEventList[
-                                                              index]['date'],
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      ),
-                                                      8.verticalSpace,
-                                                      FittedBox(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          children: [
-                                                            Icon(
-                                                              Icons.location_on,
+                                                          5.horizontalSpace,
+                                                          SizedBox(
+                                                            width: 0.3.sw,
+                                                            child: Text(
+                                                              _hc.favEventList[
+                                                                      index]
+                                                                  ['location'],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          5.horizontalSpace,
+                                                          InkWell(
+                                                            onTap: () {
+                                                              removeFavoriteBottomSheet(
+                                                                  context,
+                                                                  index);
+                                                            },
+                                                            child: Image.asset(
+                                                              favoriteIconSelected,
                                                               color:
                                                                   kPrimaryColor,
-                                                              size: 25,
                                                             ),
-                                                            5.horizontalSpace,
-                                                            SizedBox(
-                                                              width: 0.3.sw,
-                                                              child: Text(
-                                                                _hc.favEventList[
-                                                                        index][
-                                                                    'location'],
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            5.horizontalSpace,
-                                                            InkWell(
-                                                              onTap: () {
-                                                                removeFavoriteBottomSheet(
-                                                                    context,
-                                                                    index);
-                                                              },
-                                                              child:
-                                                                  Image.asset(
-                                                                favoriteIconSelected,
-                                                                color:
-                                                                    kPrimaryColor,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               ),
                                             );

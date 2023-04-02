@@ -19,10 +19,10 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          // backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -45,9 +45,9 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                         reviewSummary,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -58,11 +58,11 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                       padding: EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.white),
+                          color: Theme.of(context).secondaryHeaderColor),
                       child: Row(
                         // mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           customCardImage(eventImage, 110.h, 110.h),
                           8.horizontalSpace,
@@ -72,11 +72,11 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                               FittedBox(
                                 child: Text(
                                   "National Music Festival",
-                                  textAlign: TextAlign.center,
+                                  textAlign: TextAlign.start,
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               8.verticalSpace,
@@ -104,11 +104,11 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                                     5.horizontalSpace,
                                     Text(
                                       "Grand Park, New York",
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff616161)),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -123,9 +123,8 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                   Container(
                     padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                    ),
+                        borderRadius: BorderRadius.circular(12.0),
+                        color: Theme.of(context).secondaryHeaderColor),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +142,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                     padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
+                      color: Theme.of(context).secondaryHeaderColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +152,9 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                         10.verticalSpace,
                         customRow(tax, "\$5.00"),
                         10.verticalSpace,
-                        Divider(),
+                        Divider(
+                          color: kDisabledColor,
+                        ),
                         10.verticalSpace,
                         customRow(total, "\$55.00"),
                       ],
@@ -163,7 +164,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
+                      color: Theme.of(context).secondaryHeaderColor,
                     ),
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
@@ -178,9 +179,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                               "•••• •••• •••• •••• 4679",
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -209,7 +208,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: 1.sw,
-          color: Colors.white,
+          color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: InkWell(
@@ -227,17 +226,11 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
       children: [
         Text(
           name,
-          style: TextStyle(
-              color: Color(
-                0xff616161,
-              ),
-              fontSize: 14,
-              fontWeight: FontWeight.w400),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
         ),
         Text(
           data,
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         )
       ],
     );

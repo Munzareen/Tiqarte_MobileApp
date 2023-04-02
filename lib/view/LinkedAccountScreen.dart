@@ -23,10 +23,10 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //  backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -50,9 +50,9 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                           linkedAccounts,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
@@ -67,14 +67,15 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                             Text(google,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                                  fontSize: 18,
+                                )),
                           ],
                         ),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track,
+                            // thumb,
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -103,15 +104,15 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                                       Text(apple,
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.black)),
+                                            fontSize: 18,
+                                          )),
                                     ],
                                   ),
                                   Transform.scale(
                                     scale: 0.7,
                                     child: CupertinoSwitch(
-                                      // trackColor: Colors.black,
-                                      // thumbColor: Colors.black,
+                                      // track,
+                                      // thumb,
                                       activeColor: kPrimaryColor,
                                       onChanged: (value) {
                                         setState(
@@ -139,14 +140,15 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                             Text(facebook,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                                  fontSize: 18,
+                                )),
                           ],
                         ),
                         Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            // trackColor: Colors.black,
-                            // thumbColor: Colors.black,
+                            // track,
+                            // thumb,
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
                               setState(
@@ -177,12 +179,12 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
   //         children: [
   //           Text(name,
   //               textAlign: TextAlign.center,
-  //               style: const TextStyle(fontSize: 18, color: Colors.black)),
+  //               style: const TextStyle(fontSize: 18, )),
   //           Transform.scale(
   //             scale: 0.7,
   //             child: CupertinoSwitch(
-  //               // trackColor: Colors.black,
-  //               // thumbColor: Colors.black,
+  //               // track,
+  //               // thumb,
   //               activeColor: kPrimaryColor,
   //               onChanged: (value) {
   //                 setState(

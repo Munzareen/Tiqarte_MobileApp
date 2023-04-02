@@ -20,10 +20,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //  backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -49,13 +49,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           payments,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
-                    Image.asset(scanIcon),
+                    Image.asset(
+                      scanIcon,
+                      color: Theme.of(context).colorScheme.background,
+                    ),
                   ],
                 ),
                 20.verticalSpace,
@@ -67,16 +70,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           selectThePaymentMethod,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       40.verticalSpace,
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.white,
+                          color: Theme.of(context).secondaryHeaderColor,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
@@ -86,7 +89,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.white,
+                          color: Theme.of(context).secondaryHeaderColor,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
@@ -96,7 +99,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.white,
+                          color: Theme.of(context).secondaryHeaderColor,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
@@ -106,7 +109,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.white,
+                          color: Theme.of(context).secondaryHeaderColor,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
@@ -145,7 +148,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: 1.sw,
-          color: Colors.white,
+          color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: InkWell(
@@ -171,7 +174,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
             name,
             textAlign: TextAlign.start,
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

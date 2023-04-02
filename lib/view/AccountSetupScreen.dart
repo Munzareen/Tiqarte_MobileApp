@@ -457,11 +457,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
-                primary: kPrimaryColor,
-                onPrimary: Colors.white,
-                onSurface: kPrimaryColor,
-              ),
+              colorScheme: Theme.of(context).colorScheme,
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                   foregroundColor: kPrimaryColor,

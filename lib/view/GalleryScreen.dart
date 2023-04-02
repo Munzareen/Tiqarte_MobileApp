@@ -48,10 +48,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      // backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -76,9 +76,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         galleryPreEvent,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -86,12 +86,13 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 1),
+                      border: Border.all(
+                          width: 1,
+                          color: Theme.of(context).colorScheme.background),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     child: Icon(
                       Icons.more_horiz_sharp,
-                      color: Colors.black,
                       size: 25,
                     ),
                   )

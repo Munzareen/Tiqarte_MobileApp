@@ -9,30 +9,21 @@ class MyTheme {
         colorScheme: ColorScheme.dark(
             brightness: Brightness.dark,
             primary: kPrimaryColor,
-            onPrimary: kPrimaryColor,
-            secondary: kPrimaryColor,
-            onSecondary: kPrimaryColor,
+            onPrimary: Colors.white,
+            secondary: Color(0xff1F222A), //for drop down Menu
+            onSecondary: Color(0xff1F222A), //for drop down field
             error: Colors.red,
             onError: Colors.red,
-            background: Color(0xff1F222A),
+            background: Colors
+                .white, //for swap (if dark then white if light then black)
             onBackground: Color(0xff1F222A),
-            surface: Colors.white,
+            surface: Color(0xff1F222A),
             onSurface: Colors.white),
-
-        //--for text field--
-
         inputDecorationTheme: InputDecorationTheme(
           fillColor: Color(0xff1F222A),
-          // border: OutlineInputBorder(
-          //   borderSide: BorderSide(
-          //     color: Colors.white,
-          //     width: 2.0,
-          //   ),
-          // ),
         ),
-        // colorScheme: ColorScheme.dark(primaryContainer: Colors.white),
         appBarTheme: AppBarTheme(
-            color: Colors.black, // Color(0xff1F222A),
+            color: Colors.black,
             systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarIconBrightness: Brightness.light,
                 statusBarColor: Colors.transparent,
@@ -44,7 +35,7 @@ class MyTheme {
         brightness: Brightness.dark,
         primaryColor: kPrimaryColor,
         secondaryHeaderColor: Color(0xff1F222A),
-        scaffoldBackgroundColor: Colors.black); //Color(0xff1F222A));
+        scaffoldBackgroundColor: Colors.black);
   }
 
   ThemeData lightTheme(BuildContext context) {
@@ -52,23 +43,18 @@ class MyTheme {
         colorScheme: ColorScheme.light(
             brightness: Brightness.light,
             primary: kPrimaryColor,
-            onPrimary: kPrimaryColor,
-            secondary: kPrimaryColor,
-            onSecondary: kPrimaryColor,
+            onPrimary: Colors.white,
+            secondary: kDisabledColor, //for drop down Menu
+            onSecondary: kDisabledColor.withOpacity(0.4), //for drop down field
             error: Colors.red,
             onError: Colors.red,
-            background: Colors.white,
+            background: Colors
+                .black, //for swap (if dark then white if light then black)
             onBackground: Colors.white,
-            surface: Color(0xff1F222A),
-            onSurface: Color(0xff1F222A)),
+            surface: kPrimaryColor,
+            onSurface: Colors.black),
         inputDecorationTheme: InputDecorationTheme(
           fillColor: kDisabledColor.withOpacity(0.3),
-          // border: OutlineInputBorder(
-          //   borderSide: BorderSide(
-          //     color: Colors.white,
-          //     width: 2.0,
-          //   ),
-          // ),
         ),
         appBarTheme: AppBarTheme(
             color: kSecondBackgroundColor,

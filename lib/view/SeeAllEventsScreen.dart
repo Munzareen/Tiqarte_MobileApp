@@ -6,6 +6,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class SeeAllEventsScreen extends StatefulWidget {
   final String name;
@@ -139,10 +140,10 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //  backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -166,7 +167,6 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                               focusNode: _searchFocusNode,
                               cursorColor: kPrimaryColor,
                               controller: _searchController,
-                              style: const TextStyle(color: Colors.black),
                               keyboardType: TextInputType.text,
                               // validator: (value) {
                               //   if (value!.isEmpty) {
@@ -196,7 +196,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                       borderSide:
                                           BorderSide(color: kPrimaryColor)),
                                   disabledBorder: customOutlineBorder,
-                                  fillColor: filledColorSearch,
+                                  //  fillColor: filledColorSearch,
                                   filled: true,
                                   hintText: "Search",
                                   hintStyle: TextStyle(
@@ -230,9 +230,9 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                 widget.name,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               5.horizontalSpace,
                               widget.img == ''
@@ -314,9 +314,9 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                           seeAllEventFoundString,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Row(
                       children: [
@@ -366,16 +366,17 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                               seeAllEventNotFoundString,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             10.verticalSpace,
                             Text(
                               seeAllEventNotFoundSubString,
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
                             ),
                           ],
                         ),
@@ -386,193 +387,233 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                             !isListSelected
                                 ? Container(
                                     child: GridView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              childAspectRatio: 1,
-                                              crossAxisSpacing: 10,
-                                              mainAxisSpacing: 20,
-                                              mainAxisExtent: 240),
-                                      itemCount: eventList.length,
-                                      shrinkWrap: true,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Container(
-                                          padding: EdgeInsets.all(12.0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              color: Colors.white),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              // mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                customCardImage(
-                                                    eventImage, 120.h, 100.h),
-                                                8.verticalSpace,
-                                                FittedBox(
-                                                  child: Text(
-                                                    eventList[index]['name'],
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                                8.verticalSpace,
-                                                FittedBox(
-                                                  child: Text(
-                                                    eventList[index]['date'],
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: kPrimaryColor),
-                                                  ),
-                                                ),
-                                                8.verticalSpace,
-                                                FittedBox(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.location_on,
-                                                        color: kPrimaryColor,
-                                                        size: 25,
-                                                      ),
-                                                      5.horizontalSpace,
-                                                      Text(
-                                                        eventList[index]
-                                                            ['location'],
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xff616161)),
-                                                      ),
-                                                      5.horizontalSpace,
-                                                      InkWell(
-                                                        onTap: () {},
-                                                        child: Image.asset(
-                                                          favoriteIcon,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    physics: BouncingScrollPhysics(),
+                                    physics: NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            childAspectRatio: 1,
+                                            crossAxisSpacing: 10,
+                                            mainAxisSpacing: 20,
+                                            mainAxisExtent: 245),
                                     itemCount: eventList.length,
                                     shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10.0),
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Get.to(
+                                              () => EventDetailScreen(
+                                                  data: eventList[index]),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
                                         child: Container(
                                           padding: EdgeInsets.all(16.0),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
-                                              color: Colors.white),
-                                          child: Row(
+                                              color: Theme.of(context)
+                                                  .secondaryHeaderColor),
+                                          child: Column(
                                             // mainAxisSize: MainAxisSize.min,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               customCardImage(
-                                                  eventImage, 110.h, 100.h),
-                                              8.horizontalSpace,
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  FittedBox(
-                                                    child: Text(
-                                                      eventList[index]['name'],
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
-                                                    ),
+                                                  eventImage, 140.h, 100.h),
+                                              8.verticalSpace,
+                                              SizedBox(
+                                                width: 0.5.sw,
+                                                child: Text(
+                                                  eventList[index]['name'],
+                                                  textAlign: TextAlign.start,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Text(
-                                                      eventList[index]['date'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
+                                                ),
+                                              ),
+                                              8.verticalSpace,
+                                              FittedBox(
+                                                child: Text(
+                                                  eventList[index]['date'],
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: kPrimaryColor),
+                                                ),
+                                              ),
+                                              8.verticalSpace,
+                                              FittedBox(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.location_on,
+                                                      color: kPrimaryColor,
+                                                      size: 25,
+                                                    ),
+                                                    5.horizontalSpace,
+                                                    SizedBox(
+                                                      width: 0.3.sw,
+                                                      child: Text(
+                                                        eventList[index]
+                                                            ['location'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w400,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          color: kPrimaryColor,
-                                                          size: 25,
                                                         ),
-                                                        5.horizontalSpace,
-                                                        Text(
-                                                          eventList[index]
-                                                              ['location'],
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color: Color(
-                                                                  0xff616161)),
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        InkWell(
-                                                          onTap: () {},
-                                                          child: Image.asset(
-                                                            favoriteIcon,
-                                                            color:
-                                                                kPrimaryColor,
-                                                          ),
-                                                        )
-                                                      ],
+                                                      ),
                                                     ),
-                                                  )
-                                                ],
+                                                    5.horizontalSpace,
+                                                    InkWell(
+                                                      onTap: () {},
+                                                      child: Image.asset(
+                                                        favoriteIcon,
+                                                        color: kPrimaryColor,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               )
                                             ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ))
+                                : ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: eventList.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Get.to(
+                                              () => EventDetailScreen(
+                                                  data: eventList[index]),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0),
+                                          child: Container(
+                                            padding: EdgeInsets.all(16.0),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor),
+                                            child: Row(
+                                              // mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                customCardImage(
+                                                    eventImage, 110.h, 100.h),
+                                                8.horizontalSpace,
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 0.5.sw,
+                                                      child: Text(
+                                                        eventList[index]
+                                                            ['name'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    8.verticalSpace,
+                                                    FittedBox(
+                                                      child: Text(
+                                                        eventList[index]
+                                                            ['date'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color:
+                                                                kPrimaryColor),
+                                                      ),
+                                                    ),
+                                                    8.verticalSpace,
+                                                    FittedBox(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.location_on,
+                                                            color:
+                                                                kPrimaryColor,
+                                                            size: 25,
+                                                          ),
+                                                          5.horizontalSpace,
+                                                          SizedBox(
+                                                            width: 0.3.sw,
+                                                            child: Text(
+                                                              eventList[index]
+                                                                  ['location'],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          5.horizontalSpace,
+                                                          InkWell(
+                                                            onTap: () {},
+                                                            child: Image.asset(
+                                                              favoriteIcon,
+                                                              color:
+                                                                  kPrimaryColor,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );

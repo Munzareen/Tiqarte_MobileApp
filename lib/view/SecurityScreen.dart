@@ -20,10 +20,10 @@ class _SecurityScreenState extends State<SecurityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //      backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -46,9 +46,9 @@ class _SecurityScreenState extends State<SecurityScreen> {
                         security,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -63,7 +63,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
                             Text(rememberme,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                                  fontSize: 18,
+                                )),
                             Transform.scale(
                               scale: 0.7,
                               child: CupertinoSwitch(
@@ -89,7 +90,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
                             Text(faceID,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                                  fontSize: 18,
+                                )),
                             Transform.scale(
                               scale: 0.7,
                               child: CupertinoSwitch(
@@ -115,7 +117,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
                             Text(biometricID,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                                  fontSize: 18,
+                                )),
                             Transform.scale(
                               scale: 0.7,
                               child: CupertinoSwitch(
@@ -142,13 +145,12 @@ class _SecurityScreenState extends State<SecurityScreen> {
                               googleAuthenticator,
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             Icon(
                               Icons.keyboard_arrow_right_outlined,
-                              color: Colors.black,
                               size: 30,
                             )
                           ],

@@ -44,9 +44,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   "Tiqarte",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                  ),
                 )
               ],
             )),
