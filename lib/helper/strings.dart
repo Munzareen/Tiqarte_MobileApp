@@ -1,5 +1,5 @@
 //Welcome Screen Strings
-String welcomeHeadingString = "Welcome to Eveno!";
+String welcomeHeadingString = "Welcome to Tiqarte!";
 String welcomeSubString =
     "The best event booking and online ticketing application in this century.";
 
