@@ -79,10 +79,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      // backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -106,9 +106,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         notificationHeadingSrting,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -116,12 +116,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 1),
+                      border: Border.all(
+                        width: 1,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).colorScheme.surface
+                            : Theme.of(context).colorScheme.background,
+                      ),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     child: Icon(
                       Icons.more_horiz_sharp,
-                      color: Colors.black,
                       size: 25,
                     ),
                   )
@@ -144,17 +148,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             notificationEmptySrting,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           10.verticalSpace,
                           FittedBox(
                             child: Text(
                               notificationSubSrting,
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ],
@@ -182,7 +187,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           decoration: BoxDecoration(
                                               color: notificationList[index]
                                                       ['color']
-                                                  .withOpacity(0.1),
+                                                  .withOpacity(0.3),
                                               borderRadius:
                                                   BorderRadius.circular(50.0)),
                                           child: Icon(
@@ -203,9 +208,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                     ['title'],
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
                                             5.verticalSpace,
@@ -217,11 +222,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                         ['date'],
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        color:
-                                                            Color(0xff616161)),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
                                                   ),
                                                 ),
                                                 Container(
@@ -230,7 +234,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                   height: 15,
                                                   width: 1,
                                                   decoration: BoxDecoration(
-                                                      color: Color(0xff616161),
+                                                      color: kDisabledColor,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.0)),
@@ -241,11 +245,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                         ['time'],
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color:
-                                                            Color(0xff616161)),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -281,9 +284,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   notificationList[index]['body'],
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff616161)),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ],
                             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -24,14 +24,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool isDarkMode = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      //   backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //backgroundColor: kSecondBackgroundColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -57,9 +56,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         profile,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -67,12 +66,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 1),
+                      border: Border.all(
+                        width: 1,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).colorScheme.surface
+                            : Theme.of(context).colorScheme.background,
+                      ),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     child: Icon(
                       Icons.more_horiz_sharp,
-                      color: Colors.black,
                       size: 25,
                     ),
                   )
@@ -85,15 +88,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "Andrew Ainsley",
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               20.verticalSpace,
               Expanded(
                   child: ListView(
                 children: [
-                  Divider(),
+                  Divider(
+                    color: kDisabledColor,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 10.0),
@@ -113,9 +118,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 "12",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               5.verticalSpace,
                               Text(
@@ -123,8 +128,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff616161)),
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.grey),
                               ),
                             ],
                           ),
@@ -180,13 +185,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                  Divider(),
+                  Divider(
+                    color: kDisabledColor,
+                  ),
                   20.verticalSpace,
                   customRow(calendarIcon, manageEvents),
                   20.verticalSpace,
                   customRow(messageCenterIcon, messageCenter),
                   20.verticalSpace,
-                  Divider(),
+                  Divider(
+                    color: kDisabledColor,
+                  ),
                   20.verticalSpace,
                   GestureDetector(
                     onTap: () {
@@ -243,16 +252,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Image.asset(
                               languageIcon,
                               height: 28,
-                              color: Colors.black,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Theme.of(context).colorScheme.onSurface
+                                  : Theme.of(context).primaryColor,
                             ),
                             10.horizontalSpace,
                             Text(
                               language,
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
@@ -262,14 +274,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               "English (US)",
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             10.horizontalSpace,
                             Icon(
                               Icons.keyboard_arrow_right_outlined,
-                              color: Colors.black,
                               size: 30,
                             )
                           ],
@@ -286,33 +297,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Image.asset(
                             darkModeIcon,
                             height: 28,
-                            color: Colors.black,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Theme.of(context).colorScheme.onSurface
+                                    : Theme.of(context).primaryColor,
                           ),
                           10.horizontalSpace,
                           Text(
                             darkMode,
                             textAlign: TextAlign.start,
                             style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
-                      Transform.scale(
-                        scale: 0.7,
-                        child: CupertinoSwitch(
-                          activeColor: kPrimaryColor,
-                          onChanged: (value) {
-                            setState(
-                              () {
-                                isDarkMode = value;
-                              },
-                            );
-                          },
-                          value: isDarkMode,
+                      ObxValue(
+                        (data) => Transform.scale(
+                          scale: 0.7,
+                          child: CupertinoSwitch(
+                            activeColor: kPrimaryColor,
+                            onChanged: (val) {
+                              Get.changeThemeMode(
+                                //ThemeMode.dark
+                                isLightTheme.value
+                                    ? ThemeMode.light
+                                    : ThemeMode.dark,
+                              );
+                              isLightTheme.value = val;
+
+                              // setState(
+                              //   () {
+                              //     isDarkMode = value;
+                              //   },
+                              // );
+                            },
+                            value: isLightTheme.value,
+                          ),
                         ),
-                      )
+                        false.obs,
+                      ),
                     ],
                   ),
                   20.verticalSpace,
@@ -376,22 +401,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Image.asset(
               iconImage,
               height: 28,
-              color: Colors.black,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).colorScheme.onSurface
+                  : Theme.of(context).primaryColor,
             ),
             10.horizontalSpace,
             Text(
               name,
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
         Icon(
           Icons.keyboard_arrow_right_outlined,
-          color: Colors.black,
           size: 30,
         )
       ],

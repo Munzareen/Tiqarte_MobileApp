@@ -7,6 +7,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({
@@ -66,10 +67,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //      backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          //     backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -96,7 +97,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 focusNode: _searchFocusNode,
                                 cursorColor: kPrimaryColor,
                                 controller: _searchController,
-                                style: const TextStyle(color: Colors.black),
+                                //  style: const TextStyle(color: Colors.black),
                                 keyboardType: TextInputType.text,
                                 // validator: (value) {
                                 //   if (value!.isEmpty) {
@@ -118,7 +119,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         borderSide:
                                             BorderSide(color: kPrimaryColor)),
                                     disabledBorder: customOutlineBorder,
-                                    fillColor: filledColorSearch,
+                                    //  fillColor: filledColorSearch,
                                     filled: true,
                                     hintText: "Search",
                                     hintStyle: TextStyle(
@@ -154,12 +155,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 ),
                                 20.horizontalSpace,
                                 Text(
-                                  favoriteHeadingString,
+                                  favorites,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
@@ -183,7 +184,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         currentRangeValues),
                                     child: Image.asset(
                                       filterIcon,
-                                      color: Colors.black,
                                     )),
                               ],
                             )
@@ -252,12 +252,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       Text(
                         _hc.favEventList.length.toString() +
                             " " +
-                            favoriteHeadingString.toLowerCase(),
+                            favorites.toLowerCase(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Row(
                         children: [
@@ -303,16 +303,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 seeAllEventNotFoundString,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               10.verticalSpace,
                               Text(
                                 seeAllEventNotFoundSubString,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.black),
+                                style: TextStyle(fontSize: 18),
                               ),
                             ],
                           ),
@@ -332,15 +331,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   // 20.verticalSpace,
                                   // Text(
                                   //   notificationEmptySrting,
                                   //   textAlign: TextAlign.center,
                                   //   style: TextStyle(
-                                  //       fontSize: 18, color: Colors.black),
+                                  //     fontSize: 18,
+                                  //   ),
                                   // ),
                                 ],
                               ),
@@ -365,8 +364,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                               int index) {
                                             return InkWell(
                                               onTap: () {
-                                                removeFavoriteBottomSheet(
-                                                    context, index);
+                                                Get.to(
+                                                    () => EventDetailScreen(
+                                                        data: _hc.favEventList[
+                                                            index]),
+                                                    transition:
+                                                        Transition.rightToLeft);
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.all(16.0),
@@ -374,32 +377,35 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             30.0),
-                                                    color: Colors.white),
+                                                    color: Theme.of(context)
+                                                        .secondaryHeaderColor),
                                                 child: SingleChildScrollView(
                                                   child: Column(
                                                     // mainAxisSize: MainAxisSize.min,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
-                                                            .center,
+                                                            .start,
                                                     children: [
                                                       customCardImage(
                                                           eventImage,
-                                                          120.h,
+                                                          140.h,
                                                           100.h),
                                                       8.verticalSpace,
-                                                      FittedBox(
+                                                      SizedBox(
+                                                        width: 0.5.sw,
                                                         child: Text(
                                                           _hc.favEventList[
                                                               index]['name'],
                                                           textAlign:
-                                                              TextAlign.center,
+                                                              TextAlign.start,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                           style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                         ),
                                                       ),
                                                       8.verticalSpace,
@@ -432,24 +438,35 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                               size: 25,
                                                             ),
                                                             5.horizontalSpace,
-                                                            Text(
-                                                              _hc.favEventList[
-                                                                      index]
-                                                                  ['location'],
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
+                                                            SizedBox(
+                                                              width: 0.3.sw,
+                                                              child: Text(
+                                                                _hc.favEventList[
+                                                                        index][
+                                                                    'location'],
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
-                                                                  color: Color(
-                                                                      0xff616161)),
+                                                                ),
+                                                              ),
                                                             ),
                                                             5.horizontalSpace,
                                                             InkWell(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                                removeFavoriteBottomSheet(
+                                                                    context,
+                                                                    index);
+                                                              },
                                                               child:
                                                                   Image.asset(
                                                                 favoriteIconSelected,
@@ -474,8 +491,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           itemBuilder: (context, index) {
                                             return InkWell(
                                               onTap: () {
-                                                removeFavoriteBottomSheet(
-                                                    context, index);
+                                                Get.to(
+                                                    () => EventDetailScreen(
+                                                        data: _hc.favEventList[
+                                                            index]),
+                                                    transition:
+                                                        Transition.rightToLeft);
                                               },
                                               child: Padding(
                                                 padding:
@@ -487,7 +508,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               30.0),
-                                                      color: Colors.white),
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor),
                                                   child: Row(
                                                     // mainAxisSize: MainAxisSize.min,
                                                     crossAxisAlignment:
@@ -506,21 +528,25 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          FittedBox(
+                                                          SizedBox(
+                                                            width: 0.5.sw,
                                                             child: Text(
                                                               _hc.favEventList[
                                                                       index]
                                                                   ['name'],
                                                               textAlign:
                                                                   TextAlign
-                                                                      .center,
+                                                                      .start,
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .black),
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                             ),
                                                           ),
                                                           8.verticalSpace,
@@ -556,26 +582,37 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                   size: 25,
                                                                 ),
                                                                 5.horizontalSpace,
-                                                                Text(
-                                                                  _hc.favEventList[
-                                                                          index]
-                                                                      [
-                                                                      'location'],
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
+                                                                SizedBox(
+                                                                  width: 0.3.sw,
+                                                                  child: Text(
+                                                                    _hc.favEventList[
+                                                                            index]
+                                                                        [
+                                                                        'location'],
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style:
+                                                                        TextStyle(
                                                                       fontSize:
                                                                           12,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
-                                                                      color: Color(
-                                                                          0xff616161)),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                                 5.horizontalSpace,
                                                                 InkWell(
-                                                                  onTap: () {},
+                                                                  onTap: () {
+                                                                    removeFavoriteBottomSheet(
+                                                                        context,
+                                                                        index);
+                                                                  },
                                                                   child: Image
                                                                       .asset(
                                                                     favoriteIconSelected,
@@ -610,6 +647,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   removeFavoriteBottomSheet(BuildContext context, int index) {
     showModalBottomSheet(
       context: context,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -634,12 +672,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       ),
                       15.verticalSpace,
                       Text(
-                        favoriteRemoveFavoriteString,
+                        removeFromFavorites,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Divider(),
                       10.verticalSpace,
@@ -649,26 +687,29 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           padding: EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              color: Colors.white),
+                              color: Theme.of(context).secondaryHeaderColor),
                           child: Row(
                             // mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               customCardImage(eventImage, 110.h, 100.h),
                               8.horizontalSpace,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FittedBox(
+                                  SizedBox(
+                                    width: 0.4.sw,
                                     child: Text(
                                       _homeController.favEventList[index]
                                           ['name'],
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   8.verticalSpace,
@@ -695,18 +736,26 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           size: 25,
                                         ),
                                         5.horizontalSpace,
-                                        Text(
-                                          _homeController.favEventList[index]
-                                              ['location'],
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                        SizedBox(
+                                          width: 0.3.sw,
+                                          child: Text(
+                                            _homeController.favEventList[index]
+                                                ['location'],
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xff616161)),
+                                            ),
+                                          ),
                                         ),
                                         5.horizontalSpace,
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            removeFavoriteBottomSheet(
+                                                context, index);
+                                          },
                                           child: Image.asset(
                                             favoriteIconSelected,
                                             color: kPrimaryColor,
@@ -736,7 +785,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   color: kPrimaryColor.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(50.0)),
                               child: Center(
-                                child: Text(favoriteButtonCancelString,
+                                child: Text(cancel,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 16, color: Colors.white)),
@@ -758,7 +807,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   color: kPrimaryColor,
                                   borderRadius: BorderRadius.circular(50.0)),
                               child: Center(
-                                child: Text(favoriteButtonRemoveString,
+                                child: Text(yesRemove,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 16, color: Colors.white)),

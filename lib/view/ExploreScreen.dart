@@ -8,6 +8,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -41,10 +42,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondBackgroundColor,
+      //    backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: kSecondBackgroundColor,
+        //    backgroundColor: kSecondBackgroundColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -119,7 +120,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 30.0),
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).secondaryHeaderColor,
                             borderRadius: BorderRadius.circular(20.0)),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20.0),
@@ -142,21 +143,23 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                       10.horizontalSpace,
                                       Text(
                                         "Location (within 10 km)",
-                                        textAlign: TextAlign.center,
+                                        textAlign: TextAlign.start,
                                         style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.black),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ])),
                                 10.verticalSpace,
-                                Text(
-                                  "New York, United States",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                FittedBox(
+                                  child: Text(
+                                    "New York, United States",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -219,78 +222,101 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             bottom: 30,
                             right: 0,
                             left: 0,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20.0),
-                              padding: EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  color: Colors.white),
-                              child: Row(
-                                // mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customCardImage(eventImage, 110.h, 100.h),
-                                  8.horizontalSpace,
-                                  Column(
+                            child: InkWell(
+                              onTap: () {
+                                // Get.to(
+                                //     () => EventDetailScreen(
+                                //         data: _hc.favEventList[index]),
+                                //     transition: Transition.rightToLeft);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor),
+                                  child: Row(
+                                    // mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      FittedBox(
-                                        child: Text(
-                                          "National Music Festival",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                      8.verticalSpace,
-                                      FittedBox(
-                                        child: Text(
-                                          "Mon, Dec 24 • 18.00 - 23.00 PM",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: kPrimaryColor),
-                                        ),
-                                      ),
-                                      8.verticalSpace,
-                                      FittedBox(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: kPrimaryColor,
-                                              size: 25,
+                                      customCardImage(eventImage, 110.h, 100.h),
+                                      8.horizontalSpace,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: 0.5.sw,
+                                            child: Text(
+                                              "National Music Festival",
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                            5.horizontalSpace,
-                                            Text(
-                                              "Grand Park, New York",
-                                              textAlign: TextAlign.center,
+                                          ),
+                                          8.verticalSpace,
+                                          FittedBox(
+                                            child: Text(
+                                              "Mon, Dec 24 • 18.00 - 23.00 PM",
+                                              textAlign: TextAlign.start,
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
-                                                  color: Color(0xff616161)),
+                                                  color: kPrimaryColor),
                                             ),
-                                            5.horizontalSpace,
-                                            InkWell(
-                                              onTap: () {},
-                                              child: Image.asset(
-                                                favoriteIconSelected,
-                                                color: kPrimaryColor,
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                          ),
+                                          8.verticalSpace,
+                                          FittedBox(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
+                                                  color: kPrimaryColor,
+                                                  size: 25,
+                                                ),
+                                                5.horizontalSpace,
+                                                SizedBox(
+                                                  width: 0.3.sw,
+                                                  child: Text(
+                                                    "Grand Park, New York",
+                                                    textAlign: TextAlign.start,
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                                5.horizontalSpace,
+                                                InkWell(
+                                                  onTap: () {},
+                                                  child: Image.asset(
+                                                    favoriteIconSelected,
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
                                       )
                                     ],
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
                             ),
                           )

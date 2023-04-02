@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+
+RxBool isLightTheme = false.obs;
 
 SpinKitCircle spinkit = SpinKitCircle(
   color: kPrimaryColor,
@@ -626,6 +629,7 @@ filterBottomSheet(
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
@@ -649,14 +653,16 @@ filterBottomSheet(
                     ),
                     15.verticalSpace,
                     Text(
-                      filterHeadingString,
+                      filter,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    Divider(),
+                    Divider(
+                      color: kDisabledColor,
+                    ),
                     10.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -665,12 +671,12 @@ filterBottomSheet(
                           filterEventCategoryString,
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(
-                          filterSeeAllString,
+                          seeAll,
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontSize: 16,
@@ -742,12 +748,12 @@ filterBottomSheet(
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        filterLocationString,
+                        location,
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     10.verticalSpace,
@@ -769,12 +775,12 @@ filterBottomSheet(
                         icon: Icon(
                           Icons.arrow_drop_down,
                           size: 30,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         iconEnabledColor: kDisabledColor,
                         hint: Text(
                           "New York, United States",
-                          style: TextStyle(color: Colors.grey, fontSize: 15.sp),
+                          style: TextStyle(fontSize: 15.sp),
                         ),
                         value: selectedLocation,
                         onChanged: (value) {
@@ -788,8 +794,8 @@ filterBottomSheet(
                                   item.toString(),
                                   style: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black),
                                 ),
                               ),
                             )
@@ -803,9 +809,9 @@ filterBottomSheet(
                         filterLocationRangeString,
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     10.verticalSpace,

@@ -48,6 +48,14 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 
+	<!--for light / dark mode-->
+	<key>UIUserInterfaceStyle</key>
+<string>Light</string>
+<key>UIViewControllerBasedStatusBarAppearance</key>
+<true/>
+	<!--for light / dark mode-->
+
+
 	<!-- Access Gallery and Camera Permission-->
 <key>NSPhotoLibraryUsageDescription</key>
 <string>This app require permission to access gallery</string>

@@ -40,10 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: kSecondBackgroundColor,
+        //  backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          // backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: kFlutterMemoryAllocationsEnabled,
         ),
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               children: [
                                 Text(
-                                  homeGoodMorningString,
+                                  goodMorning,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16,
@@ -91,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Andrew Ainsley",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -106,10 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 50,
                         width: 50,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
-                            border: Border.all(color: kDisabledColor, width: 1),
-                            image: DecorationImage(
-                                image: AssetImage(notificationIconWithBadge))),
+                          borderRadius: BorderRadius.circular(50.0),
+                          border: Border.all(color: kDisabledColor, width: 1),
+                          // image: DecorationImage(
+                          //   image: AssetImage(notificationIconWithBadge),
+                          // )
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            notificationIcon,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Theme.of(context).colorScheme.onSurface
+                                    : Theme.of(context).primaryColor,
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -148,9 +159,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       //         BorderRadius.all(Radius.circular(12.0)),
                       //     borderSide: BorderSide(color: kPrimaryColor)),
                       disabledBorder: customOutlineBorder,
-                      fillColor: kDisabledColor.withOpacity(0.3),
                       filled: true,
-                      hintText: homeSearchFieldString,
+                      hintText: whatEventAreYouLookingFor,
                       hintStyle:
                           TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
                   inputFormatters: [
@@ -166,20 +176,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            homeFeaturedString,
+                            featured,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           InkWell(
                             onTap: () => Get.to(
-                                () => SeeAllEventsScreen(
-                                    name: homeFeaturedString, img: ''),
+                                () =>
+                                    SeeAllEventsScreen(name: featured, img: ''),
                                 transition: Transition.rightToLeft),
                             child: Text(
-                              homeSeeAllString,
+                              seeAll,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
@@ -211,21 +221,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: EdgeInsets.all(16.0),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      color: Colors.white),
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor),
                                   child: SingleChildScrollView(
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         customCardImage(
                                             eventImage, 250.w, 160.h),
                                         12.verticalSpace,
-                                        FittedBox(
+                                        SizedBox(
+                                          width: 0.7.sw,
                                           child: Text(
                                             _hc.eventList[itemIndex]['name'],
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
                                             style: TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                         12.verticalSpace,
@@ -240,44 +256,53 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         12.verticalSpace,
-                                        FittedBox(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on,
-                                                color: kPrimaryColor,
-                                                size: 25,
-                                              ),
-                                              10.horizontalSpace,
-                                              Text(
-                                                _hc.eventList[itemIndex]
-                                                    ['location'],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff616161)),
-                                              ),
-                                              10.horizontalSpace,
-                                              InkWell(
-                                                onTap: () {
-                                                  _hc.addRemoveToFavorite(
-                                                      itemIndex,
-                                                      _hc.eventList[itemIndex]);
-                                                },
-                                                child: Image.asset(
-                                                  _hc.eventList[itemIndex]
-                                                              ['isFavorite'] ==
-                                                          true
-                                                      ? favoriteIconSelected
-                                                      : favoriteIcon,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
                                                   color: kPrimaryColor,
+                                                  size: 25,
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                                10.horizontalSpace,
+                                                SizedBox(
+                                                  width: 0.5.sw,
+                                                  child: Text(
+                                                    _hc.eventList[itemIndex]
+                                                        ['location'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.start,
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      //color: Color(0xff616161)
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                _hc.addRemoveToFavorite(
+                                                    itemIndex,
+                                                    _hc.eventList[itemIndex]);
+                                              },
+                                              child: Image.asset(
+                                                _hc.eventList[itemIndex]
+                                                            ['isFavorite'] ==
+                                                        true
+                                                    ? favoriteIconSelected
+                                                    : favoriteIcon,
+                                                color: kPrimaryColor,
+                                              ),
+                                            )
+                                          ],
                                         )
                                       ],
                                     ),
@@ -296,9 +321,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 upcomingEvent,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               5.horizontalSpace,
                               Image.asset(fireIcon),
@@ -310,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     name: upcomingEvent, img: fireIcon),
                                 transition: Transition.rightToLeft),
                             child: Text(
-                              homeSeeAllString,
+                              seeAll,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
@@ -403,23 +428,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.all(12.0),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30.0),
-                                    color: Colors.white),
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor),
                                 child: SingleChildScrollView(
                                   child: Column(
                                     // mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      customCardImage(eventImage, 120.h, 100.h),
+                                      customCardImage(eventImage, 140.h, 100.h),
                                       8.verticalSpace,
-                                      FittedBox(
+                                      SizedBox(
+                                        width: 0.5.sw,
                                         child: Text(
                                           "Art Workshops",
-                                          textAlign: TextAlign.center,
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                           style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                       8.verticalSpace,
@@ -445,13 +474,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                               size: 25,
                                             ),
                                             5.horizontalSpace,
-                                            Text(
-                                              "Grand Park, New York",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                            SizedBox(
+                                              width: 0.3.sw,
+                                              child: Text(
+                                                "Grand Park, New York",
+                                                textAlign: TextAlign.start,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
-                                                  color: Color(0xff616161)),
+                                                ),
+                                              ),
                                             ),
                                             5.horizontalSpace,
                                             InkWell(
@@ -482,15 +516,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             shop,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           InkWell(
                             onTap: () => Get.to(() => ShopDetailScreen(),
                                 transition: Transition.rightToLeft),
                             child: Text(
-                              homeSeeAllString,
+                              seeAll,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
@@ -577,22 +611,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(12.0),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30.0),
-                                  color: Colors.white),
+                                  color:
+                                      Theme.of(context).secondaryHeaderColor),
                               child: SingleChildScrollView(
                                 child: Column(
                                   // mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    customCardImage(tshirtImage, 120.h, 120.h),
+                                    customCardImage(tshirtImage, 140.h, 120.h),
                                     8.verticalSpace,
-                                    FittedBox(
+                                    SizedBox(
+                                      width: 0.5.sw,
                                       child: Text(
-                                        "R.Madrid T-Shirt",
-                                        textAlign: TextAlign.center,
+                                        "R.Madrid T-Shirtk",
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                         style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     8.verticalSpace,

@@ -63,10 +63,10 @@ class _TicketScreenState extends State<TicketScreen>
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: _key,
-        backgroundColor: kSecondBackgroundColor,
+        // backgroundColor: kSecondBackgroundColor,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: kSecondBackgroundColor,
+          // backgroundColor: kSecondBackgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
         ),
@@ -92,7 +92,6 @@ class _TicketScreenState extends State<TicketScreen>
                               focusNode: _searchFocusNode,
                               cursorColor: kPrimaryColor,
                               controller: _searchController,
-                              style: const TextStyle(color: Colors.black),
                               keyboardType: TextInputType.text,
                               // validator: (value) {
                               //   if (value!.isEmpty) {
@@ -114,7 +113,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       borderSide:
                                           BorderSide(color: kPrimaryColor)),
                                   disabledBorder: customOutlineBorder,
-                                  fillColor: filledColorSearch,
+                                  // fillColor: filledColorSearch,
                                   filled: true,
                                   hintText: "Search",
                                   hintStyle: TextStyle(
@@ -150,9 +149,9 @@ class _TicketScreenState extends State<TicketScreen>
                                 ticketHeadingString,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
@@ -170,16 +169,22 @@ class _TicketScreenState extends State<TicketScreen>
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.black, width: 1),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                  ),
                                   borderRadius: BorderRadius.circular(50.0),
                                 ),
                                 child: Icon(
                                   Icons.more_horiz_sharp,
-                                  color: Colors.black,
                                   size: 25,
                                 ),
-                              ),
+                              )
                             ],
                           )
                         ],
@@ -226,69 +231,67 @@ class _TicketScreenState extends State<TicketScreen>
                   children: [
                     //Upcoming
                     isSearch && ticketList.isEmpty
-                        ? Expanded(
-                            child: ListView(
-                              children: [
-                                30.verticalSpace,
-                                Image.asset(
-                                  notFoundImage,
-                                  height: 250,
+                        ? ListView(
+                            children: [
+                              30.verticalSpace,
+                              Image.asset(
+                                notFoundImage,
+                                height: 250,
+                              ),
+                              10.verticalSpace,
+                              Text(
+                                seeAllEventNotFoundString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                10.verticalSpace,
-                                Text(
-                                  seeAllEventNotFoundString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                              ),
+                              10.verticalSpace,
+                              Text(
+                                seeAllEventNotFoundSubString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
                                 ),
-                                10.verticalSpace,
-                                Text(
-                                  seeAllEventNotFoundSubString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           )
                         : !isSearch && ticketList.isEmpty
-                            ? Expanded(
-                                child: ListView(
-                                  children: [
-                                    30.verticalSpace,
-                                    Image.asset(
-                                      ticketEmptyImage,
-                                      height: 250,
+                            ? ListView(
+                                children: [
+                                  30.verticalSpace,
+                                  Image.asset(
+                                    ticketEmptyImage,
+                                    height: 250,
+                                  ),
+                                  20.verticalSpace,
+                                  Text(
+                                    ticketEmptyTicketsString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    20.verticalSpace,
-                                    Text(
-                                      ticketEmptyTicketsString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                  ),
+                                  20.verticalSpace,
+                                  Text(
+                                    ticketEmptyTicketSubString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18,
                                     ),
-                                    20.verticalSpace,
-                                    Text(
-                                      ticketEmptyTicketSubString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.black),
-                                    ),
-                                    30.verticalSpace,
-                                    Text(
-                                      ticketFindEventsString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: kPrimaryColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  30.verticalSpace,
+                                  Text(
+                                    ticketFindEventsString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: kPrimaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               )
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
@@ -303,7 +306,8 @@ class _TicketScreenState extends State<TicketScreen>
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(30.0),
-                                          color: Colors.white),
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor),
                                       child: Column(
                                         children: [
                                           Row(
@@ -320,19 +324,20 @@ class _TicketScreenState extends State<TicketScreen>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  FittedBox(
+                                                  SizedBox(
+                                                    width: 0.5.sw,
                                                     child: Text(
                                                       ticketList[index]['name'],
                                                       textAlign:
-                                                          TextAlign.center,
+                                                          TextAlign.start,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       maxLines: 1,
                                                       style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
                                                   8.verticalSpace,
@@ -361,18 +366,24 @@ class _TicketScreenState extends State<TicketScreen>
                                                           size: 25,
                                                         ),
                                                         5.horizontalSpace,
-                                                        Text(
-                                                          ticketList[index]
-                                                              ['location'],
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
+                                                        SizedBox(
+                                                          width: 0.3.sw,
+                                                          child: Text(
+                                                            ticketList[index]
+                                                                ['location'],
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
                                                               fontSize: 12,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              color: Color(
-                                                                  0xff616161)),
+                                                            ),
+                                                          ),
                                                         ),
                                                         5.horizontalSpace,
                                                         Container(
@@ -488,69 +499,67 @@ class _TicketScreenState extends State<TicketScreen>
 
                     //Completed
                     isSearch && ticketList.isEmpty
-                        ? Expanded(
-                            child: ListView(
-                              children: [
-                                30.verticalSpace,
-                                Image.asset(
-                                  notFoundImage,
-                                  height: 250,
+                        ? ListView(
+                            children: [
+                              30.verticalSpace,
+                              Image.asset(
+                                notFoundImage,
+                                height: 250,
+                              ),
+                              10.verticalSpace,
+                              Text(
+                                seeAllEventNotFoundString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                10.verticalSpace,
-                                Text(
-                                  seeAllEventNotFoundString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                              ),
+                              10.verticalSpace,
+                              Text(
+                                seeAllEventNotFoundSubString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
                                 ),
-                                10.verticalSpace,
-                                Text(
-                                  seeAllEventNotFoundSubString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           )
                         : !isSearch && ticketList.isEmpty
-                            ? Expanded(
-                                child: ListView(
-                                  children: [
-                                    30.verticalSpace,
-                                    Image.asset(
-                                      ticketEmptyImage,
-                                      height: 250,
+                            ? ListView(
+                                children: [
+                                  30.verticalSpace,
+                                  Image.asset(
+                                    ticketEmptyImage,
+                                    height: 250,
+                                  ),
+                                  20.verticalSpace,
+                                  Text(
+                                    ticketEmptyTicketsString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    20.verticalSpace,
-                                    Text(
-                                      ticketEmptyTicketsString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                  ),
+                                  20.verticalSpace,
+                                  Text(
+                                    ticketEmptyTicketSubString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18,
                                     ),
-                                    20.verticalSpace,
-                                    Text(
-                                      ticketEmptyTicketSubString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.black),
-                                    ),
-                                    30.verticalSpace,
-                                    Text(
-                                      ticketFindEventsString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: kPrimaryColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  30.verticalSpace,
+                                  Text(
+                                    ticketFindEventsString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: kPrimaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               )
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
@@ -565,7 +574,8 @@ class _TicketScreenState extends State<TicketScreen>
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(30.0),
-                                          color: Colors.white),
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor),
                                       child: Column(
                                         children: [
                                           Row(
@@ -582,19 +592,20 @@ class _TicketScreenState extends State<TicketScreen>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  FittedBox(
+                                                  SizedBox(
+                                                    width: 0.5.sw,
                                                     child: Text(
                                                       ticketList[index]['name'],
                                                       textAlign:
-                                                          TextAlign.center,
+                                                          TextAlign.start,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       maxLines: 1,
                                                       style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
                                                   8.verticalSpace,
@@ -623,18 +634,24 @@ class _TicketScreenState extends State<TicketScreen>
                                                           size: 25,
                                                         ),
                                                         5.horizontalSpace,
-                                                        Text(
-                                                          ticketList[index]
-                                                              ['location'],
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
+                                                        SizedBox(
+                                                          width: 0.25.sw,
+                                                          child: Text(
+                                                            ticketList[index]
+                                                                ['location'],
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
                                                               fontSize: 12,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              color: Color(
-                                                                  0xff616161)),
+                                                            ),
+                                                          ),
                                                         ),
                                                         5.horizontalSpace,
                                                         Container(
@@ -749,69 +766,67 @@ class _TicketScreenState extends State<TicketScreen>
 
                     //Cancelled
                     isSearch && ticketList.isEmpty
-                        ? Expanded(
-                            child: ListView(
-                              children: [
-                                30.verticalSpace,
-                                Image.asset(
-                                  notFoundImage,
-                                  height: 250,
+                        ? ListView(
+                            children: [
+                              30.verticalSpace,
+                              Image.asset(
+                                notFoundImage,
+                                height: 250,
+                              ),
+                              10.verticalSpace,
+                              Text(
+                                seeAllEventNotFoundString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                10.verticalSpace,
-                                Text(
-                                  seeAllEventNotFoundString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                              ),
+                              10.verticalSpace,
+                              Text(
+                                seeAllEventNotFoundSubString,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
                                 ),
-                                10.verticalSpace,
-                                Text(
-                                  seeAllEventNotFoundSubString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           )
                         : !isSearch && ticketList.isEmpty
-                            ? Expanded(
-                                child: ListView(
-                                  children: [
-                                    30.verticalSpace,
-                                    Image.asset(
-                                      ticketEmptyImage,
-                                      height: 250,
+                            ? ListView(
+                                children: [
+                                  30.verticalSpace,
+                                  Image.asset(
+                                    ticketEmptyImage,
+                                    height: 250,
+                                  ),
+                                  20.verticalSpace,
+                                  Text(
+                                    ticketEmptyTicketsString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    20.verticalSpace,
-                                    Text(
-                                      ticketEmptyTicketsString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                  ),
+                                  20.verticalSpace,
+                                  Text(
+                                    ticketEmptyTicketSubString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18,
                                     ),
-                                    20.verticalSpace,
-                                    Text(
-                                      ticketEmptyTicketSubString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.black),
-                                    ),
-                                    30.verticalSpace,
-                                    Text(
-                                      ticketFindEventsString,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: kPrimaryColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  30.verticalSpace,
+                                  Text(
+                                    ticketFindEventsString,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: kPrimaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               )
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
@@ -826,104 +841,124 @@ class _TicketScreenState extends State<TicketScreen>
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(30.0),
-                                          color: Colors.white),
-                                      child: Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor),
+                                      child: Column(
                                         children: [
-                                          customCardImage(
-                                              eventImage, 110.h, 100.h),
-                                          8.horizontalSpace,
-                                          Column(
+                                          Row(
+                                            // mainAxisSize: MainAxisSize.min,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              FittedBox(
-                                                child: Text(
-                                                  ticketList[index]['name'],
-                                                  textAlign: TextAlign.center,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              8.verticalSpace,
-                                              FittedBox(
-                                                child: Text(
-                                                  ticketList[index]['date'],
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: kPrimaryColor),
-                                                ),
-                                              ),
-                                              8.verticalSpace,
-                                              FittedBox(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      color: kPrimaryColor,
-                                                      size: 25,
-                                                    ),
-                                                    5.horizontalSpace,
-                                                    Text(
-                                                      ticketList[index]
-                                                          ['location'],
+                                              customCardImage(
+                                                  eventImage, 110.h, 100.h),
+                                              8.horizontalSpace,
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 0.5.sw,
+                                                    child: Text(
+                                                      ticketList[index]['name'],
                                                       textAlign:
-                                                          TextAlign.center,
+                                                          TextAlign.start,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
                                                       style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: Color(
-                                                              0xff616161)),
-                                                    ),
-                                                    5.horizontalSpace,
-                                                    Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 5.0,
-                                                              vertical: 5.0),
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xffF75555),
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0)),
-                                                      child: Text(
-                                                        ticketCancelledString,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xffF75555)),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
+                                                    ),
+                                                  ),
+                                                  8.verticalSpace,
+                                                  FittedBox(
+                                                    child: Text(
+                                                      ticketList[index]['date'],
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: kPrimaryColor),
+                                                    ),
+                                                  ),
+                                                  8.verticalSpace,
+                                                  FittedBox(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.location_on,
+                                                          color: kPrimaryColor,
+                                                          size: 25,
+                                                        ),
+                                                        5.horizontalSpace,
+                                                        SizedBox(
+                                                          width: 0.25.sw,
+                                                          child: Text(
+                                                            ticketList[index]
+                                                                ['location'],
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        5.horizontalSpace,
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.0,
+                                                                  vertical:
+                                                                      5.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: Color(
+                                                                        0xffF75555),
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0)),
+                                                          child: Text(
+                                                            ticketCancelledString,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: Color(
+                                                                    0xffF75555)),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
                                               )
                                             ],
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -944,6 +979,7 @@ class _TicketScreenState extends State<TicketScreen>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
@@ -968,9 +1004,9 @@ class _TicketScreenState extends State<TicketScreen>
                     ticketCancelBookingHeadingString,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Divider(),
                   10.verticalSpace,
@@ -978,18 +1014,18 @@ class _TicketScreenState extends State<TicketScreen>
                     ticketCancelBookingSubString,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   20.verticalSpace,
                   Text(
                     ticketCancelBookingRefundString,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   20.verticalSpace,
                   Row(
@@ -1055,6 +1091,7 @@ class _TicketScreenState extends State<TicketScreen>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
@@ -1079,9 +1116,9 @@ class _TicketScreenState extends State<TicketScreen>
                     leaveAReview,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Divider(),
                   10.verticalSpace,
@@ -1089,9 +1126,9 @@ class _TicketScreenState extends State<TicketScreen>
                     leaveAReviewSub,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   20.verticalSpace,
                   RatingBar.builder(
@@ -1118,9 +1155,9 @@ class _TicketScreenState extends State<TicketScreen>
                       writeYourReview,
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   10.verticalSpace,
@@ -1149,7 +1186,7 @@ class _TicketScreenState extends State<TicketScreen>
                                   BorderRadius.all(Radius.circular(12.0)),
                               borderSide: BorderSide(color: kPrimaryColor)),
                           disabledBorder: customOutlineBorder,
-                          fillColor: kDisabledColor.withOpacity(0.4),
+                          //  fillColor: kDisabledColor.withOpacity(0.4),
                           filled: true,
                           hintText: ticketCancelBookingReasonOthersSubString,
                           hintStyle: TextStyle(

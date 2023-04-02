@@ -91,10 +91,7 @@ String bottomNavBarTicketsString = "Tickets";
 String bottomNavBarProfileString = "Profile";
 
 //Home Screen Strings
-String homeGoodMorningString = "Good Morning";
-String homeSearchFieldString = "What event are you looking for...";
-String homeFeaturedString = "Featured";
-String homeSeeAllString = "See All";
+
 String homeAllString = "All";
 String homeMusicString = "Music";
 String homeArtString = "Art";
@@ -107,10 +104,8 @@ String seeAllEventNotFoundSubString =
     "Sorry, the keyword you entered cannot be found, please check again or search with another keyword.";
 
 //Filter Strings
-String filterHeadingString = "Filter";
+String filter = "Filter";
 String filterEventCategoryString = "Event Category";
-String filterSeeAllString = "See All";
-String filterLocationString = "Location";
 String filterLocationRangeString = "Event Location Range (km)";
 String filterButtonResetString = "Reset";
 String filterButtonApplyString = "Apply";
@@ -119,12 +114,6 @@ String filterButtonApplyString = "Apply";
 String notificationHeadingSrting = "Notification";
 String notificationEmptySrting = "Empty";
 String notificationSubSrting = "You don't have any notifications at this time";
-
-//Favorites Screen Strings
-String favoriteHeadingString = "Favorites";
-String favoriteRemoveFavoriteString = "Remove from Favorites?";
-String favoriteButtonCancelString = "Cancel";
-String favoriteButtonRemoveString = "Yes, Remove";
 
 //Tickets Screen Strings
 String ticketHeadingString = "Tickets";
@@ -169,6 +158,12 @@ String ticketCancelBookingSuccessfulString = "Successful!";
 String ticketCancelBookingOKString = "OK";
 
 //by name original
+String favorites = "Favorites";
+String removeFromFavorites = "Remove from Favorites?";
+String yesRemove = "Yes, Remove";
+String goodMorning = "Good Morning";
+String whatEventAreYouLookingFor = "What event are you looking for...";
+String featured = "Featured";
 String fillYourProfile = "Fill Your Profile";
 String fullName = "Full Name";
 String nickName = "Nickname";
