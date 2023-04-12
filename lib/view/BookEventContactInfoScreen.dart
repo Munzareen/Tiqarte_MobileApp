@@ -32,7 +32,6 @@ class _BookEventContactInfoScreenState
   final _fullNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _nickNameFocusNode = FocusNode();
-  final _phoneFocusNode = FocusNode();
 
   Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
   Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
@@ -84,18 +83,6 @@ class _BookEventContactInfoScreenState
         setState(() {
           _filledColorEmail = kDisabledColor.withOpacity(0.4);
           _iconColorEmail = Colors.grey;
-        });
-      }
-    });
-
-    _phoneFocusNode.addListener(() {
-      if (_phoneFocusNode.hasFocus) {
-        setState(() {
-          _filledColorPhone = kPrimaryColor.withOpacity(0.2);
-        });
-      } else {
-        setState(() {
-          _filledColorPhone = kDisabledColor.withOpacity(0.4);
         });
       }
     });
@@ -278,7 +265,6 @@ class _BookEventContactInfoScreenState
                       20.verticalSpace,
                       IntlPhoneField(
                         initialValue: "1467378399",
-                        focusNode: _phoneFocusNode,
                         // controller: _phoneController,
                         flagsButtonPadding:
                             const EdgeInsets.symmetric(horizontal: 20),

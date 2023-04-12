@@ -6,17 +6,18 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/ViewProductScreen.dart';
 
-class ShopDetailScreen extends StatefulWidget {
-  const ShopDetailScreen({
+class SeeAllProductsScreen extends StatefulWidget {
+  const SeeAllProductsScreen({
     super.key,
   });
 
   @override
-  State<ShopDetailScreen> createState() => _ShopDetailScreenState();
+  State<SeeAllProductsScreen> createState() => _SeeAllProductsScreenState();
 }
 
-class _ShopDetailScreenState extends State<ShopDetailScreen> {
+class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
   bool isSearch = false;
   final _searchController = TextEditingController();
   Color filledColorSearch = kDisabledColor.withOpacity(0.4);
@@ -394,71 +395,79 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                                               childAspectRatio: 1,
                                               crossAxisSpacing: 10,
                                               mainAxisSpacing: 20,
-                                              mainAxisExtent: 240),
+                                              mainAxisExtent: 255),
                                       itemCount: shopList.length,
                                       shrinkWrap: true,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        return Container(
-                                          padding: EdgeInsets.all(12.0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              color: Theme.of(context)
-                                                  .secondaryHeaderColor),
-                                          child: Column(
-                                            // mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              customCardImage(
-                                                  shopList[index]['image'],
-                                                  140.h,
-                                                  120.h),
-                                              8.verticalSpace,
-                                              SizedBox(
-                                                width: 0.3.sw,
-                                                child: Text(
-                                                  shopList[index]['name'],
-                                                  textAlign: TextAlign.center,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              8.verticalSpace,
-                                              FittedBox(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.text_format,
-                                                      color: kPrimaryColor,
-                                                      size: 25,
+                                        return InkWell(
+                                          onTap: () {
+                                            Get.to(() => ViewProductScreen());
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(12.0),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                // mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  customCardImage(
+                                                      shopList[index]['image'],
+                                                      140.h,
+                                                      120.h),
+                                                  8.verticalSpace,
+                                                  SizedBox(
+                                                    width: 0.5.sw,
+                                                    child: Text(
+                                                      shopList[index]['name'],
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
-                                                    5.horizontalSpace,
-                                                    Text(
-                                                      "Starting from " +
-                                                          shopList[index]
-                                                              ['price'],
+                                                  ),
+                                                  5.verticalSpace,
+                                                  Text(
+                                                    forMen,
+                                                    textAlign: TextAlign.start,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  5.verticalSpace,
+                                                  FittedBox(
+                                                    child: Text(
+                                                      shopList[index]['price'],
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: TextStyle(
-                                                          fontSize: 12,
+                                                          fontSize: 16,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.w500,
                                                           color: kPrimaryColor),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         );
                                       },
@@ -472,75 +481,81 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 10.0),
-                                        child: Container(
-                                          padding: EdgeInsets.all(16.0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              color: Theme.of(context)
-                                                  .secondaryHeaderColor),
-                                          child: Row(
-                                            // mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              customCardImage(
-                                                  shopList[index]['image'],
-                                                  110.h,
-                                                  100.h),
-                                              8.horizontalSpace,
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 0.5.sw,
-                                                    child: Text(
-                                                      shopList[index]['name'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(() => ViewProductScreen());
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(16.0),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor),
+                                            child: Row(
+                                              // mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                customCardImage(
+                                                    shopList[index]['image'],
+                                                    110.h,
+                                                    100.h),
+                                                8.horizontalSpace,
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 0.5.sw,
+                                                      child: Text(
+                                                        shopList[index]['name'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.text_format,
-                                                          color: kPrimaryColor,
-                                                          size: 25,
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        Text(
-                                                          "Starting from " +
-                                                              shopList[index]
-                                                                  ['price'],
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      ],
+                                                    8.verticalSpace,
+                                                    Text(
+                                                      forMen,
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
+                                                    8.verticalSpace,
+                                                    FittedBox(
+                                                      child: Text(
+                                                        "Starting from " +
+                                                            shopList[index]
+                                                                ['price'],
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color:
+                                                                kPrimaryColor),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );

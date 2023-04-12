@@ -13,7 +13,8 @@ import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
-import 'package:tiqarte/view/ShopDetailScreen.dart';
+import 'package:tiqarte/view/SeeAllProductsScreen.dart';
+import 'package:tiqarte/view/ViewProductScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -516,7 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => Get.to(() => ShopDetailScreen(),
+                            onTap: () => Get.to(() => SeeAllProductsScreen(),
                                 transition: Transition.rightToLeft),
                             child: Text(
                               seeAll,
@@ -598,60 +599,67 @@ class _HomeScreenState extends State<HomeScreen> {
                                   childAspectRatio: 1,
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 20,
-                                  mainAxisExtent: 240),
+                                  mainAxisExtent: 255),
                           itemCount: 10,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              padding: EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  // mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    customCardImage(tshirtImage, 140.h, 120.h),
-                                    8.verticalSpace,
-                                    SizedBox(
-                                      width: 0.5.sw,
-                                      child: Text(
-                                        "R.Madrid T-Shirtk",
+                            return InkWell(
+                              onTap: () {
+                                Get.to(() => ViewProductScreen());
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    // mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      customCardImage(
+                                          tshirtImage, 140.h, 120.h),
+                                      8.verticalSpace,
+                                      SizedBox(
+                                        width: 0.5.sw,
+                                        child: Text(
+                                          "R.Madrid T-Shirtk",
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      5.verticalSpace,
+                                      Text(
+                                        forMen,
                                         textAlign: TextAlign.start,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    ),
-                                    8.verticalSpace,
-                                    FittedBox(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Icon(
-                                            Icons.text_format,
-                                            color: kPrimaryColor,
-                                            size: 25,
-                                          ),
-                                          5.horizontalSpace,
-                                          Text(
-                                            "Starting from 70,00€",
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: kPrimaryColor),
-                                          ),
-                                        ],
+                                      5.verticalSpace,
+                                      FittedBox(
+                                        child: Text(
+                                          "Starting from 70,00€",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                              color: kPrimaryColor),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

@@ -14,7 +14,7 @@ String getStarted2SubString =
 String getStarted2ButtonString = "Next";
 String getStarted3HeadingString = "Let's go to your favorite event right now!";
 String getStarted3SubString =
-    "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.";
+    "This is a detail text place.This is a detail text place.This is a detail text place.This is a detail text place.";
 String getStarted3ButtonString = "Get Started";
 
 //Pre Login Screen Strings
@@ -307,6 +307,28 @@ String maybeLater = "Maybe Later";
 String submit = "Submit";
 String upcomingEvent = "Upcoming Event";
 String shop = "Shop";
+String forMen = "for Men";
+String forWomen = "for Women";
+String description = "Description";
+String deliveryDetails = "Delivery details";
+String moreLikeThis = "More like this";
+String addtoBasket = "Add to basket";
+String size = "Size";
+String color = "Color";
+String myBasket = "My basket";
+String item = "item";
+String remove = "Remove";
+String quantity = "Quantity";
+String subtotal = "Subtotal";
+String shippingTaxesAtCheckout = "Shipping & taxes are calculated at checkout";
+String checkout = "Checkout";
+String contactDetail = "Contact details";
+String continuetoPayment = "Continue to payment";
+String done = "Done";
+String shopMore = "Shop More";
+
+String placeOrderSuccess =
+    "You have successfully placed an order for Classic pullover t-shirt.!";
 
 //---Dialog--
 //Alert Dialog for Location Permission
