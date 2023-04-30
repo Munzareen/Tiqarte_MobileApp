@@ -1,9 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/model/CategoryModel.dart';
+import 'package:tiqarte/model/HomeDataModel.dart';
 
 class HomeController extends GetxController {
   bool isSearchFav = false;
   bool isListSelectedFav = true;
+
+  HomeDataModel homeDataModel = HomeDataModel();
+  List<CategoryModel>? upcomingCategoryModel;
+  List<CategoryModel>? shopCategoryModel;
+
+  addHomeData(dynamic data) async {
+    homeDataModel = HomeDataModel.fromJson(data);
+    var res = await ApiService().getCategories();
+    if (res != null && res is List) {
+      upcomingCategoryModel = categoryModelFromJson(res);
+      shopCategoryModel = categoryModelFromJson(res);
+
+      update();
+    } else if (res != null && res is String) {
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  selectUpcomingEventCategory(int index) {
+    upcomingCategoryModel?.forEach((element) {
+      element.isSelected = false;
+    });
+    upcomingCategoryModel?[index].isSelected = true;
+    update();
+  }
+
+  selectShopCategory(int index) {
+    shopCategoryModel?.forEach((element) {
+      element.isSelected = false;
+    });
+    shopCategoryModel?[index].isSelected = true;
+    update();
+  }
 
   List eventList = [
     {

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/route_manager.dart';
+import 'package:intl/intl.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
@@ -479,7 +480,7 @@ customAlertDialogWithTwoButtons(
 }
 
 customProfileImage(String url, double width, double height) {
-  return url == "" || url == "null"
+  return url != "" && url != "null"
       ? CachedNetworkImage(
           imageUrl: url,
           imageBuilder: (context, imageProvider) {
@@ -528,12 +529,12 @@ customProfileImage(String url, double width, double height) {
               //   style: BorderStyle.solid,
               // ),
               image: DecorationImage(
-                  image: AssetImage(url),
+                  image: AssetImage(placeholder),
                   fit: BoxFit.cover))); //AssetImage(placeholder)
 }
 
 customCardImage(String url, double width, double height) {
-  return url == "" && url == "null"
+  return url != "" && url != "null"
       ? CachedNetworkImage(
           imageUrl: url,
           imageBuilder: (context, imageProvider) {
@@ -582,8 +583,98 @@ customCardImage(String url, double width, double height) {
               //   style: BorderStyle.solid,
               // ),
               image: DecorationImage(
-                  image: AssetImage(url),
-                  fit: BoxFit.cover))); //AssetImage(placeholder)
+                  image: AssetImage(placeholder), fit: BoxFit.cover)));
+}
+
+customSnackBar(String title, String message) {
+  return Get.snackbar(title, message,
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: kPrimaryColor,
+      colorText: Colors.white);
+}
+
+String splitDateTimeWithoutYear(String date) {
+  if (date.isNotEmpty && date != "null") {
+    try {
+      DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(date);
+      var inputDate = DateTime.parse(parserDate.toString());
+      var outPutFormate = DateFormat('E d • h:mm a');
+      var OutPutDate = outPutFormate.format(inputDate);
+      return OutPutDate;
+    } on Exception catch (_) {
+      try {
+        DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('E d • h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      } catch (_) {
+        DateTime parserDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('E d • h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      }
+    }
+  } else {
+    return "";
+  }
+}
+
+String splitDateOnly(String date) {
+  if (date.isNotEmpty && date != "null") {
+    try {
+      DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(date);
+      var inputDate = DateTime.parse(parserDate.toString());
+      var outPutFormate = DateFormat('EEEE d, yyyy');
+      var OutPutDate = outPutFormate.format(inputDate);
+      return OutPutDate;
+    } on Exception catch (_) {
+      try {
+        DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('EEEE d, yyyy');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      } catch (_) {
+        DateTime parserDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('EEEE d, yyyy');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      }
+    }
+  } else {
+    return "";
+  }
+}
+
+String splitTimeOnly(String date) {
+  if (date.isNotEmpty && date != "null") {
+    try {
+      DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(date);
+      var inputDate = DateTime.parse(parserDate.toString());
+      var outPutFormate = DateFormat('h:mm a');
+      var OutPutDate = outPutFormate.format(inputDate);
+      return OutPutDate;
+    } on Exception catch (_) {
+      try {
+        DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      } catch (_) {
+        DateTime parserDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      }
+    }
+  } else {
+    return "";
+  }
 }
 
 exitUser() {

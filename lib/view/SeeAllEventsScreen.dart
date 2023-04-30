@@ -401,11 +401,11 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                         (BuildContext context, int index) {
                                       return InkWell(
                                         onTap: () {
-                                          Get.to(
-                                              () => EventDetailScreen(
-                                                  data: eventList[index]),
-                                              transition:
-                                                  Transition.rightToLeft);
+                                          // Get.to(
+                                          //     () => EventDetailScreen(
+                                          //         data: eventList[index]),
+                                          //     transition:
+                                          //         Transition.rightToLeft);
                                         },
                                         child: Container(
                                           padding: EdgeInsets.all(16.0),
@@ -502,11 +502,11 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
-                                          Get.to(
-                                              () => EventDetailScreen(
-                                                  data: eventList[index]),
-                                              transition:
-                                                  Transition.rightToLeft);
+                                          // Get.to(
+                                          //     () => EventDetailScreen(
+                                          //         data: eventList[index]),
+                                          //     transition:
+                                          //         Transition.rightToLeft);
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(

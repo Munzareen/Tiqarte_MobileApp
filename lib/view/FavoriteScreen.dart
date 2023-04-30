@@ -364,12 +364,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                               int index) {
                                             return InkWell(
                                               onTap: () {
-                                                Get.to(
-                                                    () => EventDetailScreen(
-                                                        data: _hc.favEventList[
-                                                            index]),
-                                                    transition:
-                                                        Transition.rightToLeft);
+                                                // Get.to(
+                                                //     () => EventDetailScreen(
+                                                //         data: _hc.favEventList[
+                                                //             index]),
+                                                //     transition:
+                                                //         Transition.rightToLeft);
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.all(16.0),
@@ -483,12 +483,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           itemBuilder: (context, index) {
                                             return InkWell(
                                               onTap: () {
-                                                Get.to(
-                                                    () => EventDetailScreen(
-                                                        data: _hc.favEventList[
-                                                            index]),
-                                                    transition:
-                                                        Transition.rightToLeft);
+                                                // Get.to(
+                                                //     () => EventDetailScreen(
+                                                //         data: _hc.favEventList[
+                                                //             index]),
+                                                //     transition:
+                                                //         Transition.rightToLeft);
                                               },
                                               child: Padding(
                                                 padding:
