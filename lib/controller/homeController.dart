@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/favoriteController.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/HomeDataModel.dart';
 
 class HomeController extends GetxController {
-  bool isSearchFav = false;
-  bool isListSelectedFav = true;
-
   HomeDataModel homeDataModel = HomeDataModel();
-  List<CategoryModel>? upcomingCategoryModel;
-  List<CategoryModel>? shopCategoryModel;
+  List<CategoryModel>? upcomingCategoryList;
+  List<CategoryModel>? shopCategoryList;
 
   addHomeData(dynamic data) async {
     homeDataModel = HomeDataModel.fromJson(data);
     var res = await ApiService().getCategories();
     if (res != null && res is List) {
-      upcomingCategoryModel = categoryModelFromJson(res);
-      shopCategoryModel = categoryModelFromJson(res);
+      final _favoriteController = Get.put(FavoriteController());
+      _favoriteController.favCategoryList = categoryModelFromJson(res);
+      upcomingCategoryList = categoryModelFromJson(res);
+      shopCategoryList = categoryModelFromJson(res);
 
       update();
     } else if (res != null && res is String) {
@@ -27,18 +27,18 @@ class HomeController extends GetxController {
   }
 
   selectUpcomingEventCategory(int index) {
-    upcomingCategoryModel?.forEach((element) {
+    upcomingCategoryList?.forEach((element) {
       element.isSelected = false;
     });
-    upcomingCategoryModel?[index].isSelected = true;
+    upcomingCategoryList?[index].isSelected = true;
     update();
   }
 
   selectShopCategory(int index) {
-    shopCategoryModel?.forEach((element) {
+    shopCategoryList?.forEach((element) {
       element.isSelected = false;
     });
-    shopCategoryModel?[index].isSelected = true;
+    shopCategoryList?[index].isSelected = true;
     update();
   }
 
@@ -89,53 +89,4 @@ class HomeController extends GetxController {
 
   List favEventList = [];
   List favAllEventList = [];
-
-  addRemoveToFavorite(int index, dynamic data) {
-    if (data['isFavorite'] == false) {
-      var target =
-          eventList.firstWhere((element) => element['id'] == data['id']);
-      if (target != null) {
-        target["isFavorite"] = true;
-      }
-      favEventList.add(data);
-      favAllEventList.add(data);
-    } else {
-      var target =
-          eventList.firstWhere((element) => element['id'] == data['id']);
-      if (target != null) {
-        target["isFavorite"] = false;
-      }
-      favEventList.removeWhere((element) => element['id'] == data['id']);
-      favAllEventList.removeWhere((element) => element['id'] == data['id']);
-    }
-    update();
-  }
-
-  searchEvent(String query) {
-    favEventList = favAllEventList;
-    final suggestion = favEventList.where((element) {
-      final eventName = element['name']!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
-    }).toList();
-    favEventList = suggestion;
-    update();
-  }
-
-  favoriteOnSearchClose(TextEditingController textEditingController) {
-    isSearchFav = false;
-    textEditingController.clear();
-    favEventList = favAllEventList;
-    update();
-  }
-
-  favoriteOnSearch() {
-    isSearchFav = true;
-    update();
-  }
-
-  favoriteListGridSelect(bool value) {
-    isListSelectedFav = value;
-    update();
-  }
 }

@@ -863,10 +863,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                      _hc.addRemoveToFavorite(
-                                                          itemIndex,
-                                                          _hc.eventList[
-                                                              itemIndex]);
+                                                      // _hc.addRemoveToFavorite(
+                                                      //     itemIndex,
+                                                      //     _hc.eventList[
+                                                      //         itemIndex]);
                                                     },
                                                     child: Image.asset(
                                                       _hc.eventList[itemIndex][

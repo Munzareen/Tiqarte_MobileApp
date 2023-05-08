@@ -28,12 +28,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
 
-  List upcomingEventsCatergoryList = [
-    {"name": homeAllString, "icon": allIcon, "isSelected": true},
-    {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
-    {"name": homeArtString, "icon": artIcon, "isSelected": false},
-    {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
-  ];
+  // List upcomingEventsCatergoryList = [
+  //   {"name": homeAllString, "icon": allIcon, "isSelected": true},
+  //   {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
+  //   {"name": homeArtString, "icon": artIcon, "isSelected": false},
+  //   {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
+  // ];
 
   final _homeController = Get.put(HomeController());
   final nbc = Get.put(NavigationBarController());
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             child: GetBuilder<HomeController>(builder: (_hc) {
               return _hc.homeDataModel.welcomeMessage == null &&
-                      _hc.upcomingCategoryModel == null
+                      _hc.upcomingCategoryList == null
                   ? Center(
                       child: spinkit,
                     )
@@ -372,20 +372,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               ],
                                                             ),
                                                             InkWell(
-                                                              onTap: () {
-                                                                _hc.addRemoveToFavorite(
-                                                                    itemIndex,
-                                                                    _hc.eventList[
-                                                                        itemIndex]);
+                                                              onTap: () async {
+                                                                String data =
+                                                                    "?eventID=${_hc.homeDataModel.featuredEvents![itemIndex].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.featuredEvents![itemIndex].creationUserId!.toInt()}";
+
+                                                                var res = await ApiService()
+                                                                    .addFavorite(
+                                                                        data);
+                                                                if (res !=
+                                                                        null &&
+                                                                    res is String) {
+                                                                  customSnackBar(
+                                                                      "Alert!",
+                                                                      res);
+                                                                }
                                                               },
                                                               child:
                                                                   Image.asset(
-                                                                _hc.eventList[itemIndex]
-                                                                            [
-                                                                            'isFavorite'] ==
-                                                                        true
-                                                                    ? favoriteIconSelected
-                                                                    : favoriteIcon,
+                                                                // _hc.eventList[itemIndex]
+                                                                //             [
+                                                                //             'isFavorite'] ==
+                                                                //         true
+                                                                //     ? favoriteIconSelected
+                                                                //     :
+                                                                favoriteIcon,
                                                                 color:
                                                                     kPrimaryColor,
                                                               ),
@@ -449,7 +459,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
                                             itemCount: _hc
-                                                .upcomingCategoryModel?.length,
+                                                .upcomingCategoryList?.length,
                                             itemBuilder: (context, index) {
                                               return InkWell(
                                                 onTap: () {
@@ -463,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       horizontal: 15.0),
                                                   decoration: BoxDecoration(
                                                     color: _hc
-                                                                .upcomingCategoryModel![
+                                                                .upcomingCategoryList![
                                                                     index]
                                                                 .isSelected ==
                                                             true
@@ -488,7 +498,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         5.horizontalSpace,
                                                         Text(
                                                           _hc
-                                                              .upcomingCategoryModel![
+                                                              .upcomingCategoryList![
                                                                   index]
                                                               .catagoryName
                                                               .toString(),
@@ -499,7 +509,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              color: _hc.upcomingCategoryModel![index]
+                                                              color: _hc.upcomingCategoryList![index]
                                                                           .isSelected ==
                                                                       true
                                                                   ? Colors.white
@@ -654,7 +664,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               ),
                                                               5.horizontalSpace,
                                                               InkWell(
-                                                                onTap: () {},
+                                                                onTap:
+                                                                    () async {
+                                                                  String data =
+                                                                      "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+
+                                                                  var res = await ApiService()
+                                                                      .addFavorite(
+                                                                          data);
+                                                                  if (res !=
+                                                                          null &&
+                                                                      res is String) {
+                                                                    customSnackBar(
+                                                                        "Alert!",
+                                                                        res);
+                                                                  }
+                                                                },
                                                                 child:
                                                                     Image.asset(
                                                                   favoriteIcon,
@@ -716,7 +741,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
                                             itemCount:
-                                                _hc.shopCategoryModel?.length,
+                                                _hc.shopCategoryList?.length,
                                             itemBuilder: (context, index) {
                                               return InkWell(
                                                 onTap: () {
@@ -729,7 +754,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       horizontal: 15.0),
                                                   decoration: BoxDecoration(
                                                     color: _hc
-                                                                .shopCategoryModel![
+                                                                .shopCategoryList![
                                                                     index]
                                                                 .isSelected ==
                                                             true
@@ -754,7 +779,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         5.horizontalSpace,
                                                         Text(
                                                           _hc
-                                                              .shopCategoryModel![
+                                                              .shopCategoryList![
                                                                   index]
                                                               .catagoryName
                                                               .toString(),
@@ -765,7 +790,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              color: _hc.shopCategoryModel![index]
+                                                              color: _hc.shopCategoryList![index]
                                                                           .isSelected ==
                                                                       true
                                                                   ? Colors.white
