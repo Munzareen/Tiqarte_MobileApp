@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -85,8 +86,9 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
               ),
               20.verticalSpace,
               GestureDetector(
-                onTap: () => Get.to(() => MainScreen(),
-                    transition: Transition.rightToLeft),
+                onTap: () {
+                  ApiService().googleSignIn(context);
+                },
                 child: Container(
                   height: 60,
                   margin: EdgeInsets.symmetric(horizontal: 25.0),

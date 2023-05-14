@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "458125428826",
+    "project_id": "tiqarte-d2039",
+    "storage_bucket": "tiqarte-d2039.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458125428826:android:df83f3d048b8c9e412b063",
+        "android_client_info": {
+          "package_name": "com.compilerz.tiqarteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458125428826-lfbvu91gsvlkmn7oqmk7un1eeprpc413.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.compilerz.tiqarteapp",
+            "certificate_hash": "b1b84e8c6809e619cee9f4b5a4c1c30a562fac2a"
+          }
+        },
+        {
+          "client_id": "458125428826-elcok79o43v4flkol2rem15c4hrib8cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF2RxYxpCz_uNPb-hXSU2_hPs7oWqVkNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458125428826-elcok79o43v4flkol2rem15c4hrib8cv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

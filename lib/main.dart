@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,11 +9,10 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/theme.dart';
 import 'package:tiqarte/view/SplashScreen.dart';
 
-void main() {
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor: Colors.transparent,
-  //   statusBarBrightness: Brightness.light,
-  // ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 

@@ -73,5 +73,21 @@
     <key>NSLocationAlwaysUsageDescription</key>
     <string>Can I haz location always?</string>
 <!--Location Permission-->
+
+<!-- Google Sign-in Section -->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.525137308244-8qka30ne28eoaqqlc6m3lsp903affhv0</string>
+		</array>
+	</dict>
+</array>
+<!-- End of the Google Sign-in Section -->
 </dict>
 </plist>
