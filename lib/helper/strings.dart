@@ -181,6 +181,8 @@ String phone = "Phone";
 
 String aboutEvent = "About Event";
 String readMore = "Read more...";
+String showLess = "Show Less";
+
 String galleryPreEvent = "Gallery (Pre-Event)";
 String seeAll = "See All";
 String location = "Location";

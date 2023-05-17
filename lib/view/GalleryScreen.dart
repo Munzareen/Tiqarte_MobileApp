@@ -8,7 +8,8 @@ import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/ImagePreviewDialog.dart';
 
 class GalleryScreen extends StatefulWidget {
-  const GalleryScreen({super.key});
+  final List<String>? previousEventImages;
+  const GalleryScreen({super.key, required this.previousEventImages});
 
   @override
   State<GalleryScreen> createState() => _GalleryScreenState();
@@ -108,7 +109,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 20,
                 ),
-                itemCount: galleryEventImagesList.length,
+                itemCount: widget.previousEventImages?.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
@@ -116,11 +117,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
                       showDialog(
                         context: context,
                         builder: (_) => ImagePreviewDialog(
-                            imagePath: galleryEventImagesList[index]),
+                            imagePath: widget.previousEventImages![index]),
                       );
                     },
                     child: customCardImage(
-                        galleryEventImagesList[index], 110.h, 110.h),
+                        widget.previousEventImages![index], 110.h, 110.h),
                   );
                 },
               ))

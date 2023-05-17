@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -79,7 +80,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<EventDetailController>(builder: (_edc) {
-      return _edc.eventDetailModel.eventId == null
+      return _edc.eventDetailModel.event?.eventId == null
           ? Scaffold(
               body: Container(
                 height: 1.sh,
@@ -105,22 +106,34 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 ),
                 actions: [
                   GestureDetector(
-                    onTap: () {
-                      // setState(() {
-                      //   widget.data['isFavorite'] = !widget.data['isFavorite'];
-                      // });
+                    onTap: () async {
+                      String data = '';
+                      if (_edc.eventDetailModel.event?.isFav == true) {
+                        data =
+                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=true&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
+                      } else {
+                        data =
+                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=false&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
+                      }
+
+                      var res = await ApiService().addFavorite(data);
+                      if (res != null && res is String) {
+                        if (res.toUpperCase().contains("ADDED")) {
+                          _edc.eventDetailModel.event?.isFav = true;
+                          _edc.update();
+                        } else if (res.toUpperCase().contains("REMOVED")) {
+                          _edc.eventDetailModel.event?.isFav = false;
+                          _edc.update();
+                        }
+                        customSnackBar("Alert!", res);
+                      }
                     },
                     child: Image.asset(
-                      // widget.data['isFavorite'] == true
-                      //     ? favoriteIconSelected
-                      //     :
-                      favoriteIcon,
+                      _edc.eventDetailModel.event?.isFav == true
+                          ? favoriteIconSelected
+                          : favoriteIcon,
                       height: 50,
-                      color:
-                          // widget.data['isFavorite'] == true
-                          //     ? kPrimaryColor
-                          //     :
-                          _edc.appBarIconColor,
+                      color: _edc.appBarIconColor,
                     ),
                   ),
                   GestureDetector(
@@ -147,13 +160,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       Container(
                         height: 0.45.sh,
                         child: PageView.builder(
-                          itemCount: _edc.eventDetailModel.eventImages?.length,
+                          itemCount:
+                              _edc.eventDetailModel.event?.eventImages?.length,
                           itemBuilder: (context, pageViewindex) {
                             return Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
                                 customImageForDetail(
-                                    _edc.eventDetailModel
+                                    _edc.eventDetailModel.event!
                                         .eventImages![pageViewindex],
                                     1.sw,
                                     0.45.sh),
@@ -162,7 +176,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: List<Widget>.generate(
-                                      _edc.eventDetailModel.eventImages!.length,
+                                      _edc.eventDetailModel.event!.eventImages!
+                                          .length,
                                       (index) => Container(
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 5.0),
@@ -192,7 +207,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             SizedBox(
                               width: 0.8.sw,
                               child: Text(
-                                _edc.eventDetailModel.name.toString(),
+                                _edc.eventDetailModel.event!.name.toString(),
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 32,
@@ -285,7 +300,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         width: 0.6.sw,
                                         child: Text(
                                           splitDateOnly(_edc
-                                              .eventDetailModel.eventDate
+                                              .eventDetailModel.event!.eventDate
                                               .toString()),
                                           textAlign: TextAlign.start,
                                           maxLines: 1,
@@ -300,7 +315,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         width: 0.6.sw,
                                         child: Text(
                                           splitTimeOnly(_edc
-                                              .eventDetailModel.eventDate
+                                              .eventDetailModel.event!.eventDate
                                               .toString()),
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
@@ -375,7 +390,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                       SizedBox(
                                         width: 0.6.sw,
                                         child: Text(
-                                          _edc.eventDetailModel.city.toString(),
+                                          _edc.eventDetailModel.event!.city
+                                              .toString(),
                                           textAlign: TextAlign.start,
                                           maxLines: 1,
                                           style: TextStyle(
@@ -388,7 +404,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                       SizedBox(
                                         width: 0.6.sw,
                                         child: Text(
-                                          _edc.eventDetailModel.location
+                                          _edc.eventDetailModel.event!
+                                              .locationName
                                               .toString(),
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
@@ -400,14 +417,27 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                       15.verticalSpace,
                                       InkWell(
                                         onTap: () {
-                                          if (latitude != null) {
+                                          if (_edc.eventDetailModel.event!
+                                                  .location
+                                                  .toString() !=
+                                              "null") {
                                             Get.to(
                                               () => EventLocationScreen(
-                                                  lat: latitude.toString(),
-                                                  long: longitude.toString()),
+                                                  lat: _edc.eventDetailModel
+                                                      .event!.location!
+                                                      .split(",")
+                                                      .first
+                                                      .trim(),
+                                                  long: _edc.eventDetailModel
+                                                      .event!.location!
+                                                      .split(",")
+                                                      .last
+                                                      .trim()),
                                             );
                                           } else {
-                                            checkLocationPermission();
+                                            customSnackBar("Error!",
+                                                "Something went wrong!");
+                                            //checkLocationPermission();
                                           }
                                         },
                                         child: Container(
@@ -477,7 +507,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         width: 0.6.sw,
                                         child: Text(
                                           "\$ " +
-                                              _edc.eventDetailModel.price
+                                              _edc.eventDetailModel.event!.price
                                                   .toString(),
                                           textAlign: TextAlign.start,
                                           maxLines: 1,
@@ -530,7 +560,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         SizedBox(
                                           width: 0.4.sw,
                                           child: Text(
-                                            "World of Music",
+                                            _edc.eventDetailModel.organizer!
+                                                .name
+                                                .toString(),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontSize: 18,
@@ -538,12 +572,19 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                             ),
                                           ),
                                         ),
-                                        Text(
-                                          "Organizer",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w300,
+                                        SizedBox(
+                                          width: 0.4.sw,
+                                          child: Text(
+                                            _edc.eventDetailModel.organizer!
+                                                .name
+                                                .toString(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -609,71 +650,197 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               ),
                             ),
                             10.verticalSpace,
-                            RichText(
-                              text: TextSpan(children: [
-                                TextSpan(
-                                  text: _edc.eventDetailModel.discription
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w300,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background),
-                                ),
-                                TextSpan(
-                                    text: " " + readMore,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: kPrimaryColor))
-                              ]),
+                            ReadMoreWidget(
+                              text: _edc.eventDetailModel.event!.discription
+                                  .toString(),
+                              maxLines: 2,
                             ),
                             10.verticalSpace,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  galleryPreEvent,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => GalleryScreen(),
-                                        transition: Transition.rightToLeft);
-                                  },
-                                  child: Text(
-                                    seeAll,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: kPrimaryColor),
+                            _edc.eventDetailModel.event!.previousImages!.isEmpty
+                                ? SizedBox()
+                                : Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            galleryPreEvent,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                  () => GalleryScreen(
+                                                      previousEventImages: _edc
+                                                          .eventDetailModel
+                                                          .event!
+                                                          .previousImages!),
+                                                  transition:
+                                                      Transition.rightToLeft);
+                                            },
+                                            child: _edc
+                                                        .eventDetailModel
+                                                        .event!
+                                                        .previousImages!
+                                                        .length >
+                                                    3
+                                                ? Text(
+                                                    seeAll,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  )
+                                                : SizedBox(),
+                                          ),
+                                        ],
+                                      ),
+                                      10.verticalSpace,
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: _edc.eventDetailModel.event!
+                                                    .previousImages!.length ==
+                                                1
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  customCardImage(
+                                                      _edc
+                                                          .eventDetailModel
+                                                          .event!
+                                                          .previousImages![0]
+                                                          .toString(),
+                                                      90.h,
+                                                      90.h),
+                                                ],
+                                              )
+                                            : _edc
+                                                        .eventDetailModel
+                                                        .event!
+                                                        .previousImages!
+                                                        .length ==
+                                                    2
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      customCardImage(
+                                                          _edc
+                                                              .eventDetailModel
+                                                              .event!
+                                                              .previousImages![
+                                                                  0]
+                                                              .toString(),
+                                                          90.h,
+                                                          90.h),
+                                                      customCardImage(
+                                                          _edc
+                                                              .eventDetailModel
+                                                              .event!
+                                                              .previousImages![
+                                                                  1]
+                                                              .toString(),
+                                                          90.h,
+                                                          90.h),
+                                                    ],
+                                                  )
+                                                : _edc
+                                                            .eventDetailModel
+                                                            .event!
+                                                            .previousImages!
+                                                            .length ==
+                                                        3
+                                                    ? Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          customCardImage(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages![
+                                                                      0]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h),
+                                                          customCardImage(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages![
+                                                                      1]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h),
+                                                          customCardImage(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages![
+                                                                      2]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h)
+                                                        ],
+                                                      )
+                                                    : Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          customCardImage(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages![
+                                                                      0]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h),
+                                                          customCardImage(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages![
+                                                                      1]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h),
+                                                          customCardImageWithMore(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages![
+                                                                      2]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h,
+                                                              _edc
+                                                                      .eventDetailModel
+                                                                      .event!
+                                                                      .previousImages!
+                                                                      .length -
+                                                                  3,
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .previousImages!)
+                                                        ],
+                                                      ),
+                                      ),
+                                      10.verticalSpace,
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            10.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  customCardImage(
-                                      galleryEventImage1, 90.h, 90.h),
-                                  customCardImage(
-                                      galleryEventImage2, 90.h, 90.h),
-                                  customCardImageWithMore(
-                                      galleryEventImage1, 90.h, 90.h)
-                                ],
-                              ),
-                            ),
-                            10.verticalSpace,
                             Text(location,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -692,7 +859,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 SizedBox(
                                   width: 0.75.sw,
                                   child: Text(
-                                      "Grand City St. 100, New York, United States",
+                                      _edc.eventDetailModel.event!.locationName
+                                          .toString(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 14)),
@@ -713,8 +881,21 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     Marker(
                                         draggable: true,
                                         markerId: MarkerId("Event Location"),
-                                        position:
-                                            LatLng(20.02, -80.99), //hardcoded
+                                        position: LatLng(
+                                            double.parse(
+                                              _edc.eventDetailModel.event!
+                                                  .location!
+                                                  .split(",")
+                                                  .first
+                                                  .trim(),
+                                            ),
+                                            double.parse(
+                                              _edc.eventDetailModel.event!
+                                                  .location!
+                                                  .split(",")
+                                                  .last
+                                                  .trim(),
+                                            )),
                                         icon: BitmapDescriptor.defaultMarker,
                                         infoWindow: const InfoWindow(
                                           title: 'Event',
@@ -732,161 +913,252 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   _controller = controller;
                                 },
                                 initialCameraPosition: CameraPosition(
-                                  target: LatLng(20.02, -80.99), //hardcoded
+                                  target: LatLng(
+                                      double.parse(
+                                        _edc.eventDetailModel.event!.location!
+                                            .split(",")
+                                            .first
+                                            .trim(),
+                                      ),
+                                      double.parse(
+                                        _edc.eventDetailModel.event!.location!
+                                            .split(",")
+                                            .last
+                                            .trim(),
+                                      )),
                                   zoom: 12,
                                 ),
                               ),
                             ),
                             20.verticalSpace,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  moreEventsLikeThis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () => Get.to(
-                                      () => SeeAllEventsScreen(
-                                          name: "Events", img: ''),
-                                      transition: Transition.rightToLeft),
-                                  child: Text(
-                                    seeAll,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: kPrimaryColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            20.verticalSpace,
-                            GetBuilder<HomeController>(builder: (_hc) {
-                              return CarouselSlider.builder(
-                                  options: CarouselOptions(
-                                      height: 0.425.sh,
-                                      enlargeCenterPage: true,
-                                      scrollDirection: Axis.horizontal,
-                                      enableInfiniteScroll: false,
-                                      viewportFraction: 0.8),
-                                  itemCount: _hc.eventList.length,
-                                  itemBuilder: (BuildContext context,
-                                      int itemIndex, int pageViewIndex) {
-                                    return InkWell(
-                                      // onTap: () {
-                                      //   Get.to(() => EventDetailScreen(
-                                      //         data: _hc.eventList[itemIndex],
-                                      //       ));
-                                      // },
-                                      child: Container(
-                                        padding: EdgeInsets.all(16.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                            color: Theme.of(context)
-                                                .secondaryHeaderColor),
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              customCardImage(
-                                                  eventImage, 250.w, 160.h),
-                                              12.verticalSpace,
-                                              SizedBox(
-                                                width: 0.7.sw,
-                                                child: Text(
-                                                  _hc.eventList[itemIndex]
-                                                      ['name'],
-                                                  textAlign: TextAlign.start,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              12.verticalSpace,
-                                              FittedBox(
-                                                child: Text(
-                                                  _hc.eventList[itemIndex]
-                                                      ['date'],
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: kPrimaryColor),
-                                                ),
-                                              ),
-                                              12.verticalSpace,
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
+                            _edc.relatedEventModelList!.isEmpty
+                                ? SizedBox()
+                                : Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            moreEventsLikeThis,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () => Get.to(
+                                                () => SeeAllEventsScreen(
+                                                    name: "Events", img: ''),
+                                                transition:
+                                                    Transition.rightToLeft),
+                                            child: _edc.relatedEventModelList!
+                                                        .length >
+                                                    12
+                                                ? Text(
+                                                    seeAll,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  )
+                                                : SizedBox(),
+                                          ),
+                                        ],
+                                      ),
+                                      20.verticalSpace,
+                                      CarouselSlider.builder(
+                                          options: CarouselOptions(
+                                              height: 0.425.sh,
+                                              enlargeCenterPage: true,
+                                              scrollDirection: Axis.horizontal,
+                                              enableInfiniteScroll: false,
+                                              viewportFraction: 0.8),
+                                          itemCount: _edc
+                                              .relatedEventModelList?.length,
+                                          itemBuilder: (BuildContext context,
+                                              int itemIndex,
+                                              int pageViewIndex) {
+                                            return InkWell(
+                                              // onTap: () {
+                                              //   Get.to(() => EventDetailScreen(
+                                              //         data: _hc.eventList[itemIndex],
+                                              //       ));
+                                              // },
+                                              child: Container(
+                                                padding: EdgeInsets.all(16.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                    color: Theme.of(context)
+                                                        .secondaryHeaderColor),
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      Icon(
-                                                        Icons.location_on,
-                                                        color: kPrimaryColor,
-                                                        size: 25,
-                                                      ),
-                                                      10.horizontalSpace,
-                                                      SizedBox(
-                                                        width: 0.4.sw,
-                                                        child: Text(
-                                                          _hc.eventList[
+                                                      customCardImage(
+                                                          _edc
+                                                              .relatedEventModelList![
                                                                   itemIndex]
-                                                              ['location'],
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
+                                                              .eventImages![0],
+                                                          250.w,
+                                                          160.h),
+                                                      12.verticalSpace,
+                                                      SizedBox(
+                                                        width: 0.7.sw,
+                                                        child: Text(
+                                                          _edc
+                                                              .relatedEventModelList![
+                                                                  itemIndex]
+                                                              .name
+                                                              .toString(),
                                                           textAlign:
                                                               TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
                                                           style: TextStyle(
-                                                            fontSize: 18,
+                                                            fontSize: 24,
                                                             fontWeight:
-                                                                FontWeight.w400,
-                                                            //color: Color(0xff616161)
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
                                                       ),
+                                                      12.verticalSpace,
+                                                      FittedBox(
+                                                        child: Text(
+                                                          splitDateTimeWithoutYear(_edc
+                                                              .relatedEventModelList![
+                                                                  itemIndex]
+                                                              .eventDate
+                                                              .toString()),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                        ),
+                                                      ),
+                                                      12.verticalSpace,
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .location_on,
+                                                                color:
+                                                                    kPrimaryColor,
+                                                                size: 25,
+                                                              ),
+                                                              10.horizontalSpace,
+                                                              SizedBox(
+                                                                width: 0.4.sw,
+                                                                child: Text(
+                                                                  _edc
+                                                                      .relatedEventModelList![
+                                                                          itemIndex]
+                                                                      .city
+                                                                      .toString(),
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    //color: Color(0xff616161)
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () async {
+                                                              String data = '';
+                                                              if (_edc
+                                                                      .relatedEventModelList![
+                                                                          itemIndex]
+                                                                      .isFav ==
+                                                                  true) {
+                                                                data =
+                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
+                                                              } else {
+                                                                data =
+                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
+                                                              }
+
+                                                              var res =
+                                                                  await ApiService()
+                                                                      .addFavorite(
+                                                                          data);
+                                                              if (res != null &&
+                                                                  res is String) {
+                                                                if (res
+                                                                    .toUpperCase()
+                                                                    .contains(
+                                                                        "ADDED")) {
+                                                                  _edc
+                                                                      .relatedEventModelList![
+                                                                          itemIndex]
+                                                                      .isFav = true;
+                                                                  _edc.update();
+                                                                } else if (res
+                                                                    .toUpperCase()
+                                                                    .contains(
+                                                                        "REMOVED")) {
+                                                                  _edc
+                                                                      .relatedEventModelList![
+                                                                          itemIndex]
+                                                                      .isFav = false;
+                                                                  _edc.update();
+                                                                }
+                                                                customSnackBar(
+                                                                    "Alert!",
+                                                                    res);
+                                                              }
+                                                            },
+                                                            child: Image.asset(
+                                                              _edc.relatedEventModelList![itemIndex]
+                                                                          .isFav ==
+                                                                      true
+                                                                  ? favoriteIconSelected
+                                                                  : favoriteIcon,
+                                                              color:
+                                                                  kPrimaryColor,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
                                                     ],
                                                   ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      // _hc.addRemoveToFavorite(
-                                                      //     itemIndex,
-                                                      //     _hc.eventList[
-                                                      //         itemIndex]);
-                                                    },
-                                                    child: Image.asset(
-                                                      _hc.eventList[itemIndex][
-                                                                  'isFavorite'] ==
-                                                              true
-                                                          ? favoriteIconSelected
-                                                          : favoriteIcon,
-                                                      color: kPrimaryColor,
-                                                    ),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            }),
-                            80.verticalSpace,
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ],
+                                  ),
+                            80.verticalSpace
                           ],
                         ),
                       ),
@@ -967,26 +1239,39 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
           ); //AssetImage(placeholder)
   }
 
-  customCardImageWithMore(String url, double width, double height) {
-    return url == "" && url == "null"
+  customCardImageWithMore(String url, double width, double height,
+      int remaining, List<String> previousImages) {
+    return url != "" && url != "null"
         ? CachedNetworkImage(
             imageUrl: url,
             imageBuilder: (context, imageProvider) {
-              return Container(
-                  width: width,
-                  height: height,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      // border: Border.all(
-                      //   color: kPrimaryColor,
-                      //   style: BorderStyle.solid,
-                      // ),
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover)));
+              return InkWell(
+                onTap: () {
+                  Get.to(
+                      () => GalleryScreen(
+                            previousEventImages: previousImages,
+                          ),
+                      transition: Transition.rightToLeft);
+                },
+                child: Container(
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        // border: Border.all(
+                        //   color: kPrimaryColor,
+                        //   style: BorderStyle.solid,
+                        // ),
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover))),
+              );
             },
             placeholder: (context, url) => InkWell(
               onTap: () {
-                Get.to(() => GalleryScreen(),
+                Get.to(
+                    () => GalleryScreen(
+                          previousEventImages: previousImages,
+                        ),
                     transition: Transition.rightToLeft);
               },
               child: Container(
@@ -1003,7 +1288,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             ),
             errorWidget: (context, url, error) => InkWell(
               onTap: () {
-                Get.to(() => GalleryScreen(),
+                Get.to(
+                    () => GalleryScreen(
+                          previousEventImages: previousImages,
+                        ),
                     transition: Transition.rightToLeft);
               },
               child: Container(
@@ -1019,28 +1307,37 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           image: AssetImage(eventImage), fit: BoxFit.cover))),
             ),
           )
-        : Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                // border: Border.all(
-                //   color: kPrimaryColor,
-                //   style: BorderStyle.solid,
-                // ),
-                color: Colors.black.withOpacity(0.2),
-                image: DecorationImage(
-                    colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.5), BlendMode.darken),
-                    image: AssetImage(eventImage),
-                    fit: BoxFit.cover)),
-            child: Center(
-              child: Text(
-                "20+",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+        : InkWell(
+            onTap: () {
+              Get.to(
+                  () => GalleryScreen(
+                        previousEventImages: previousImages,
+                      ),
+                  transition: Transition.rightToLeft);
+            },
+            child: Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  // border: Border.all(
+                  //   color: kPrimaryColor,
+                  //   style: BorderStyle.solid,
+                  // ),
+                  color: Colors.black.withOpacity(0.2),
+                  image: DecorationImage(
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.darken),
+                      image: AssetImage(eventImage),
+                      fit: BoxFit.cover)),
+              child: Center(
+                child: Text(
+                  remaining.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
               ),
             ),
           ); //AssetImage(placeholder)
@@ -1094,5 +1391,84 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         longitude = position?.longitude.toString();
       });
     }
+  }
+
+  String limitStringLength(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return text.substring(0, maxLength);
+    }
+  }
+}
+
+class ReadMoreWidget extends StatefulWidget {
+  final String text;
+  final int maxLines;
+
+  ReadMoreWidget({required this.text, this.maxLines = 2});
+
+  @override
+  _ReadMoreWidgetState createState() => _ReadMoreWidgetState();
+}
+
+class _ReadMoreWidgetState extends State<ReadMoreWidget> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final textSpan = TextSpan(text: widget.text);
+        final textPainter = TextPainter(
+          text: textSpan,
+          maxLines: widget.maxLines,
+          textDirection: TextDirection.ltr,
+        );
+        textPainter.layout(maxWidth: constraints.maxWidth);
+
+        if (textPainter.didExceedMaxLines) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                maxLines: isExpanded ? null : widget.maxLines,
+                text: TextSpan(
+                  text: widget.text,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
+                      color: Theme.of(context).colorScheme.background),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isExpanded = !isExpanded;
+                  });
+                },
+                child: Text(
+                  isExpanded ? showLess : readMore,
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+
+        return RichText(
+          text: TextSpan(
+            text: widget.text,
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w300,
+                color: Theme.of(context).colorScheme.background),
+          ),
+        );
+      },
+    );
   }
 }

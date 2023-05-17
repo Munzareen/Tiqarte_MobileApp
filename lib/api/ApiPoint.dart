@@ -3,6 +3,7 @@ class ApiPoint {
   String baseUrl = "https://tiqarte.azurewebsites.net/api/";
 
 //END POINT
+  String socialLogin = "user/login_social?";
   String getHomeData = "getHomeData";
   String GetEvents = "GetEvents";
   String getEventDetail = "getEventDetail?eventID=";
@@ -12,5 +13,5 @@ class ApiPoint {
   String getEventByLocation = "getEventByLocation";
   String getCategory = "getCategory";
   String GetAllRoles = "GetAllRoles";
-  String getRelatedEvents = "getRelatedEvents";
+  String getRelatedEvents = "getRelatedEvents?eventID=";
 }

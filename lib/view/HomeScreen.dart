@@ -216,21 +216,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () => Get.to(
-                                                  () => SeeAllEventsScreen(
-                                                      name: featured, img: ''),
-                                                  transition:
-                                                      Transition.rightToLeft),
-                                              child: Text(
-                                                seeAll,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: kPrimaryColor),
-                                              ),
-                                            ),
+                                            _hc.homeDataModel.featuredEvents!
+                                                        .length >
+                                                    12
+                                                ? InkWell(
+                                                    onTap: () => Get.to(
+                                                        () =>
+                                                            SeeAllEventsScreen(
+                                                                name: featured,
+                                                                img: ''),
+                                                        transition: Transition
+                                                            .rightToLeft),
+                                                    child: Text(
+                                                      seeAll,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: kPrimaryColor),
+                                                    ),
+                                                  )
+                                                : SizedBox(),
                                           ],
                                         ),
                                         20.verticalSpace,
@@ -389,13 +397,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               },
                                                               child:
                                                                   Image.asset(
-                                                                // _hc.eventList[itemIndex]
-                                                                //             [
-                                                                //             'isFavorite'] ==
-                                                                //         true
-                                                                //     ? favoriteIconSelected
-                                                                //     :
-                                                                favoriteIcon,
+                                                                _hc.homeDataModel.featuredEvents![itemIndex]
+                                                                            .isFav ==
+                                                                        true
+                                                                    ? favoriteIconSelected
+                                                                    : favoriteIcon,
                                                                 color:
                                                                     kPrimaryColor,
                                                               ),
@@ -433,22 +439,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Image.asset(fireIcon),
                                               ],
                                             ),
-                                            InkWell(
-                                              onTap: () => Get.to(
-                                                  () => SeeAllEventsScreen(
-                                                      name: upcomingEvent,
-                                                      img: fireIcon),
-                                                  transition:
-                                                      Transition.rightToLeft),
-                                              child: Text(
-                                                seeAll,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: kPrimaryColor),
-                                              ),
-                                            ),
+                                            _hc.homeDataModel.upComingEvents!
+                                                        .length >
+                                                    12
+                                                ? InkWell(
+                                                    onTap: () => Get.to(
+                                                        () => SeeAllEventsScreen(
+                                                            name: upcomingEvent,
+                                                            img: fireIcon),
+                                                        transition: Transition
+                                                            .rightToLeft),
+                                                    child: Text(
+                                                      seeAll,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: kPrimaryColor),
+                                                    ),
+                                                  )
+                                                : SizedBox(),
                                           ],
                                         ),
                                         20.verticalSpace,
@@ -667,7 +679,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 onTap:
                                                                     () async {
                                                                   String data =
-                                                                      "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                      '';
+                                                                  if (_hc
+                                                                          .homeDataModel
+                                                                          .upComingEvents![
+                                                                              index]
+                                                                          .isFav ==
+                                                                      true) {
+                                                                    data =
+                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                  } else {
+                                                                    data =
+                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=false&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                  }
 
                                                                   var res = await ApiService()
                                                                       .addFavorite(
@@ -675,6 +699,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   if (res !=
                                                                           null &&
                                                                       res is String) {
+                                                                    if (res
+                                                                        .toUpperCase()
+                                                                        .contains(
+                                                                            "ADDED")) {
+                                                                      _hc
+                                                                          .homeDataModel
+                                                                          .upComingEvents![
+                                                                              index]
+                                                                          .isFav = true;
+                                                                      _hc.update();
+                                                                    } else if (res
+                                                                        .toUpperCase()
+                                                                        .contains(
+                                                                            "REMOVED")) {
+                                                                      _hc
+                                                                          .homeDataModel
+                                                                          .upComingEvents![
+                                                                              index]
+                                                                          .isFav = false;
+                                                                      _hc.update();
+                                                                    }
                                                                     customSnackBar(
                                                                         "Alert!",
                                                                         res);
@@ -682,7 +727,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 },
                                                                 child:
                                                                     Image.asset(
-                                                                  favoriteIcon,
+                                                                  _hc.homeDataModel.upComingEvents![index]
+                                                                              .isFav ==
+                                                                          true
+                                                                      ? favoriteIconSelected
+                                                                      : favoriteIcon,
                                                                   color:
                                                                       kPrimaryColor,
                                                                 ),
@@ -717,20 +766,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () => Get.to(
-                                                  () => SeeAllProductsScreen(),
-                                                  transition:
-                                                      Transition.rightToLeft),
-                                              child: Text(
-                                                seeAll,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: kPrimaryColor),
-                                              ),
-                                            ),
+                                            _hc.homeDataModel.shop!.length > 12
+                                                ? InkWell(
+                                                    onTap: () => Get.to(
+                                                        () =>
+                                                            SeeAllProductsScreen(),
+                                                        transition: Transition
+                                                            .rightToLeft),
+                                                    child: Text(
+                                                      seeAll,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: kPrimaryColor),
+                                                    ),
+                                                  )
+                                                : SizedBox(),
                                           ],
                                         ),
                                         20.verticalSpace,
