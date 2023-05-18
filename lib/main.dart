@@ -22,20 +22,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(builder: (BuildContext context, Widget? child) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-
         theme: MyTheme().lightTheme(context),
         darkTheme: MyTheme().darkTheme(context),
         themeMode: ThemeMode.light,
-
-        // theme: MyTheme().lightTheme,
-        // darkTheme: MyTheme().darkTheme,
-        // themeMode: ThemeMode.dark,
-
-        // theme: ThemeData(
-        //   primarySwatch: Colors.deepPurple,
-        //   // appBarTheme: AppBarTheme(color: Colors.white),
-        //   textTheme: GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme),
-        // ),
         home: SplashScreen(),
       );
     });

@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/WelcomeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,10 +20,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    getPrefs();
+  }
 
-    Timer(Duration(seconds: 2), () {
-      Get.offAll(() => WelcomeScreen(), transition: Transition.rightToLeft);
-    });
+  getPrefs() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    accessToken = _prefs.getString("accessToken") ?? '';
+    if (accessToken.isNotEmpty) {
+      Get.offAll(() => MainScreen(), transition: Transition.rightToLeft);
+    } else {
+      Timer(Duration(seconds: 2), () {
+        Get.offAll(() => WelcomeScreen(), transition: Transition.rightToLeft);
+      });
+    }
   }
 
   @override

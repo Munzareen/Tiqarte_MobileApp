@@ -221,10 +221,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     12
                                                 ? InkWell(
                                                     onTap: () => Get.to(
-                                                        () =>
-                                                            SeeAllEventsScreen(
-                                                                name: featured,
-                                                                img: ''),
+                                                        () => SeeAllEventsScreen(
+                                                            name: featured,
+                                                            img: '',
+                                                            eventTypeId: _hc
+                                                                .homeDataModel
+                                                                .featuredEvents![
+                                                                    0]
+                                                                .eventTypeId!
+                                                                .toInt()
+                                                                .toString()),
                                                         transition: Transition
                                                             .rightToLeft),
                                                     child: Text(
@@ -284,10 +290,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         customCardImage(
                                                             _hc
-                                                                .homeDataModel
-                                                                .featuredEvents![
-                                                                    itemIndex]
-                                                                .eventImages![0],
+                                                                    .homeDataModel
+                                                                    .featuredEvents![
+                                                                        itemIndex]
+                                                                    .eventImages!
+                                                                    .isNotEmpty
+                                                                ? _hc
+                                                                    .homeDataModel
+                                                                    .featuredEvents![
+                                                                        itemIndex]
+                                                                    .eventImages![
+                                                                        0]
+                                                                    .toString()
+                                                                : "null",
                                                             250.w,
                                                             160.h),
                                                         12.verticalSpace,
@@ -382,7 +397,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             InkWell(
                                                               onTap: () async {
                                                                 String data =
-                                                                    "?eventID=${_hc.homeDataModel.featuredEvents![itemIndex].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.featuredEvents![itemIndex].creationUserId!.toInt()}";
+                                                                    '';
+                                                                if (_hc
+                                                                        .homeDataModel
+                                                                        .featuredEvents![
+                                                                            itemIndex]
+                                                                        .isFav ==
+                                                                    true) {
+                                                                  data =
+                                                                      "?eventID=${_hc.homeDataModel.featuredEvents![itemIndex].eventId!.toInt()}&fav=false&customerID=${_hc.homeDataModel.featuredEvents![itemIndex].creationUserId!.toInt()}";
+                                                                } else {
+                                                                  data =
+                                                                      "?eventID=${_hc.homeDataModel.featuredEvents![itemIndex].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.featuredEvents![itemIndex].creationUserId!.toInt()}";
+                                                                }
 
                                                                 var res = await ApiService()
                                                                     .addFavorite(
@@ -390,6 +417,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 if (res !=
                                                                         null &&
                                                                     res is String) {
+                                                                  if (res
+                                                                      .toUpperCase()
+                                                                      .contains(
+                                                                          "ADDED")) {
+                                                                    _hc
+                                                                        .homeDataModel
+                                                                        .featuredEvents![
+                                                                            itemIndex]
+                                                                        .isFav = true;
+                                                                    _hc.update();
+                                                                  } else if (res
+                                                                      .toUpperCase()
+                                                                      .contains(
+                                                                          "REMOVED")) {
+                                                                    _hc
+                                                                        .homeDataModel
+                                                                        .featuredEvents![
+                                                                            itemIndex]
+                                                                        .isFav = false;
+                                                                    _hc.update();
+                                                                  }
                                                                   customSnackBar(
                                                                       "Alert!",
                                                                       res);
@@ -446,7 +494,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     onTap: () => Get.to(
                                                         () => SeeAllEventsScreen(
                                                             name: upcomingEvent,
-                                                            img: fireIcon),
+                                                            img: fireIcon,
+                                                            eventTypeId: _hc
+                                                                .homeDataModel
+                                                                .upComingEvents![
+                                                                    0]
+                                                                .eventTypeId!
+                                                                .toInt()
+                                                                .toString()),
                                                         transition: Transition
                                                             .rightToLeft),
                                                     child: Text(
@@ -582,11 +637,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         customCardImage(
                                                             _hc
-                                                                .homeDataModel
-                                                                .upComingEvents![
-                                                                    index]
-                                                                .eventImages![0]
-                                                                .toString(),
+                                                                    .homeDataModel
+                                                                    .upComingEvents![
+                                                                        index]
+                                                                    .eventImages!
+                                                                    .isNotEmpty
+                                                                ? _hc
+                                                                    .homeDataModel
+                                                                    .upComingEvents![
+                                                                        index]
+                                                                    .eventImages![
+                                                                        0]
+                                                                    .toString()
+                                                                : "null",
                                                             140.h,
                                                             100.h),
                                                         8.verticalSpace,
@@ -687,10 +750,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           .isFav ==
                                                                       true) {
                                                                     data =
-                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=false&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
                                                                   } else {
                                                                     data =
-                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=false&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
                                                                   }
 
                                                                   var res = await ApiService()

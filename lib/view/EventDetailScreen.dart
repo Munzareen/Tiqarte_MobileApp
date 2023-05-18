@@ -110,10 +110,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       String data = '';
                       if (_edc.eventDetailModel.event?.isFav == true) {
                         data =
-                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=true&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
+                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=false&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
                       } else {
                         data =
-                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=false&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
+                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=true&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
                       }
 
                       var res = await ApiService().addFavorite(data);
@@ -715,10 +715,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                 children: [
                                                   customCardImage(
                                                       _edc
-                                                          .eventDetailModel
-                                                          .event!
-                                                          .previousImages![0]
-                                                          .toString(),
+                                                              .eventDetailModel
+                                                              .event!
+                                                              .previousImages!
+                                                              .isNotEmpty
+                                                          ? _edc
+                                                              .eventDetailModel
+                                                              .event!
+                                                              .previousImages![
+                                                                  0]
+                                                              .toString()
+                                                          : "null",
                                                       90.h,
                                                       90.h),
                                                 ],
@@ -766,11 +773,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                         children: [
                                                           customCardImage(
                                                               _edc
-                                                                  .eventDetailModel
-                                                                  .event!
-                                                                  .previousImages![
-                                                                      0]
-                                                                  .toString(),
+                                                                      .eventDetailModel
+                                                                      .event!
+                                                                      .previousImages!
+                                                                      .isNotEmpty
+                                                                  ? _edc
+                                                                      .eventDetailModel
+                                                                      .event!
+                                                                      .previousImages![
+                                                                          0]
+                                                                      .toString()
+                                                                  : "null",
                                                               90.h,
                                                               90.h),
                                                           customCardImage(
@@ -950,7 +963,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                           InkWell(
                                             onTap: () => Get.to(
                                                 () => SeeAllEventsScreen(
-                                                    name: "Events", img: ''),
+                                                    name: "Events",
+                                                    img: '',
+                                                    eventTypeId: _edc
+                                                        .relatedEventModelList![
+                                                            0]
+                                                        .eventTypeId!
+                                                        .toInt()
+                                                        .toString()),
                                                 transition:
                                                     Transition.rightToLeft),
                                             child: _edc.relatedEventModelList!
@@ -1004,9 +1024,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                     children: [
                                                       customCardImage(
                                                           _edc
-                                                              .relatedEventModelList![
-                                                                  itemIndex]
-                                                              .eventImages![0],
+                                                                  .relatedEventModelList![
+                                                                      itemIndex]
+                                                                  .eventImages!
+                                                                  .isNotEmpty
+                                                              ? _edc
+                                                                  .relatedEventModelList![
+                                                                      itemIndex]
+                                                                  .eventImages![
+                                                                      0]
+                                                                  .toString()
+                                                              : "null",
                                                           250.w,
                                                           160.h),
                                                       12.verticalSpace,
@@ -1102,10 +1130,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                       .isFav ==
                                                                   true) {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
+                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
                                                               } else {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
+                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
                                                               }
 
                                                               var res =

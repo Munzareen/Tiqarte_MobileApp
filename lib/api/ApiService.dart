@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/api/ApiPoint.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 
 class ApiService {
   googleSignIn(BuildContext context) async {
@@ -60,9 +62,13 @@ class ApiService {
         headers: headers,
       );
       if (response.statusCode == 200) {
+        SharedPreferences _prefs = await SharedPreferences.getInstance();
         Get.back();
 
         var res_data = json.decode(response.body);
+        accessToken = res_data['data'];
+        _prefs.setString("accessToken", accessToken);
+        Get.offAll(() => MainScreen(), transition: Transition.leftToRight);
       } else {
         Get.back();
 
@@ -77,7 +83,10 @@ class ApiService {
   getHomeData() async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getHomeData);
 
-    final headers = {'Content-Type': 'application/json'};
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
 
     try {
       http.Response response = await http.get(
@@ -88,8 +97,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -99,8 +109,10 @@ class ApiService {
   getEvents() async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().GetEvents);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     try {
       http.Response response = await http.get(
         uri,
@@ -110,8 +122,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -121,8 +134,10 @@ class ApiService {
   getEventDetail(String id) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getEventDetail + id);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     try {
       http.Response response = await http.get(
         uri,
@@ -132,8 +147,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -144,8 +160,10 @@ class ApiService {
     final uri =
         Uri.parse(ApiPoint().baseUrl + ApiPoint().getRelatedEvents + id);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     try {
       http.Response response = await http.get(
         uri,
@@ -155,8 +173,68 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getEventsByType(String id) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getEventsByType + id);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else {
+        return "Something went wrong!";
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getEventSearch(BuildContext context, String searchQuery) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getEventSearch + searchQuery);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+        return res_data;
+      } else {
+        Get.back();
+
+        return "Something went wrong!";
+      }
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -166,8 +244,10 @@ class ApiService {
   getCategories() async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getCategory);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     try {
       http.Response response = await http.get(
         uri,
@@ -177,8 +257,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -188,8 +269,10 @@ class ApiService {
   getFavorites(String userId) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getfavList + userId);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     try {
       http.Response response = await http.get(
         uri,
@@ -199,8 +282,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -210,8 +294,10 @@ class ApiService {
   addFavorite(String data) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().setFav + data);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     try {
       http.Response response = await http.post(
         uri,
@@ -221,8 +307,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -232,8 +319,10 @@ class ApiService {
   removeFavorite(BuildContext context, String data) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().setFav + data);
 
-    final headers = {'Content-Type': 'application/json'};
-
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -247,8 +336,9 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else {
+        return "Something went wrong!";
       }
-      return "Something went wrong!";
     } catch (e) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");

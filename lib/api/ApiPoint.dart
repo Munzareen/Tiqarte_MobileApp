@@ -14,4 +14,6 @@ class ApiPoint {
   String getCategory = "getCategory";
   String GetAllRoles = "GetAllRoles";
   String getRelatedEvents = "getRelatedEvents?eventID=";
+  String getEventsByType = "getEventsByType?eventTypeId=";
+  String getEventSearch = "getEventSearch?searchText=";
 }

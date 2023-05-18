@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,11 +36,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   // bool isListSelected = true;
 
   final _favoriteController = Get.put(FavoriteController());
+  Timer? _debounceTimer;
 
   @override
   void initState() {
     super.initState();
     getData();
+    _searchController.addListener(_onTextChanged);
   }
 
   getData() async {
@@ -54,7 +58,30 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   void dispose() {
     _searchController.dispose();
     _favoriteController.favoriteList = null;
+
+    _searchController.removeListener(_onTextChanged);
+    _debounceTimer?.cancel();
+    _favoriteController.isSearchFav = false;
     super.dispose();
+  }
+
+  void _onTextChanged() {
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(Duration(milliseconds: 1200), () async {
+      if (_favoriteController.isSearchFav &&
+          _searchController.text.trim() != '') {
+        var res = await ApiService()
+            .getEventSearch(context, _searchController.text.trim());
+        if (res != null && res is List) {
+          _favoriteController.addFavoriteData(res);
+        } else {
+          customSnackBar("Error!", "Something went wrong!");
+        }
+      }
+    });
   }
 
   @override
@@ -94,7 +121,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   10.horizontalSpace,
                                   Expanded(
                                     child: TextFormField(
-                                      focusNode: _fc.searchFocusNode,
+                                      //  focusNode: _fc.searchFocusNode,
                                       cursorColor: kPrimaryColor,
                                       controller: _searchController,
                                       //  style: const TextStyle(color: Colors.black),
@@ -125,7 +152,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           hintStyle: TextStyle(
                                               color: Color(0xff9E9E9E),
                                               fontSize: 14)),
-                                      onChanged: _fc.searchEvent,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(
                                             textRegExp),
@@ -136,6 +162,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       onPressed: () {
                                         _fc.favoriteOnSearchClose(
                                             _searchController);
+                                        getData();
                                       },
                                       icon: Icon(Icons.close))
                                 ],
@@ -387,9 +414,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                         children: [
                                                           customCardImage(
                                                               _fc
-                                                                  .favoriteList![
-                                                                      index]
-                                                                  .eventImages![0],
+                                                                      .favoriteList![
+                                                                          index]
+                                                                      .eventImages!
+                                                                      .isNotEmpty
+                                                                  ? _fc
+                                                                      .favoriteList![
+                                                                          index]
+                                                                      .eventImages![
+                                                                          0]
+                                                                      .toString()
+                                                                  : "null",
                                                               140.h,
                                                               100.h),
                                                           8.verticalSpace,
@@ -541,9 +576,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                           children: [
                                                             customCardImage(
                                                                 _fc
-                                                                    .favoriteList![
-                                                                        index]
-                                                                    .eventImages![0],
+                                                                        .favoriteList![
+                                                                            index]
+                                                                        .eventImages!
+                                                                        .isNotEmpty
+                                                                    ? _fc
+                                                                        .favoriteList![
+                                                                            index]
+                                                                        .eventImages![
+                                                                            0]
+                                                                        .toString()
+                                                                    : "null",
                                                                 110.h,
                                                                 100.h),
                                                             8.horizontalSpace,
@@ -726,8 +769,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               customCardImage(
-                                  _favoriteController
-                                      .favoriteList![index].eventImages![0],
+                                  _favoriteController.favoriteList![index]
+                                          .eventImages!.isNotEmpty
+                                      ? _favoriteController
+                                          .favoriteList![index].eventImages![0]
+                                          .toString()
+                                      : "null",
                                   110.h,
                                   100.h),
                               8.horizontalSpace,

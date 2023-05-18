@@ -13,6 +13,7 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 
 RxBool isDarkTheme = false.obs;
+String accessToken = '';
 
 SpinKitCircle spinkit = SpinKitCircle(
   color: kPrimaryColor,
