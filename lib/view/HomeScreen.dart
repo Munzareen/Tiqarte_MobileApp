@@ -27,14 +27,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
-
-  // List upcomingEventsCatergoryList = [
-  //   {"name": homeAllString, "icon": allIcon, "isSelected": true},
-  //   {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
-  //   {"name": homeArtString, "icon": artIcon, "isSelected": false},
-  //   {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
-  // ];
-
   final _homeController = Get.put(HomeController());
   final nbc = Get.put(NavigationBarController());
 
@@ -42,6 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getData();
+  }
+
+  @override
+  void dispose() {
+    _homeController.featuredEventList = _homeController.featuredEventListAll;
+    _homeController.upcomingEventList = _homeController.upcomingEventListAll;
+    _homeController.shopList = _homeController.shopListAll;
+
+    super.dispose();
   }
 
   getData() async {
@@ -191,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               hintText: whatEventAreYouLookingFor,
                               hintStyle: TextStyle(
                                   color: Color(0xff9E9E9E), fontSize: 14)),
+                          onChanged: _hc.homeSearch,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(textRegExp),
                           ],
@@ -199,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: ListView(
                             children: [
-                              _hc.homeDataModel.featuredEvents!.isEmpty
+                              _hc.featuredEventList!.isEmpty
                                   ? SizedBox()
                                   : Column(
                                       children: [
@@ -216,17 +218,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            _hc.homeDataModel.featuredEvents!
-                                                        .length >
-                                                    12
+                                            _hc.featuredEventList!.length > 12
                                                 ? InkWell(
                                                     onTap: () => Get.to(
                                                         () => SeeAllEventsScreen(
                                                             name: featured,
                                                             img: '',
                                                             eventTypeId: _hc
-                                                                .homeDataModel
-                                                                .featuredEvents![
+                                                                .featuredEventList![
                                                                     0]
                                                                 .eventTypeId!
                                                                 .toInt()
@@ -256,8 +255,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Axis.horizontal,
                                                 enableInfiniteScroll: false,
                                                 viewportFraction: 0.8),
-                                            itemCount: _hc.homeDataModel
-                                                .featuredEvents?.length,
+                                            itemCount:
+                                                _hc.featuredEventList?.length,
                                             itemBuilder: (BuildContext context,
                                                 int itemIndex,
                                                 int pageViewIndex) {
@@ -266,8 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   Get.to(
                                                       () => EventDetailScreen(
                                                             eventId: _hc
-                                                                .homeDataModel
-                                                                .featuredEvents![
+                                                                .featuredEventList![
                                                                     itemIndex]
                                                                 .eventId!
                                                                 .toInt()
@@ -290,14 +288,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         customCardImage(
                                                             _hc
-                                                                    .homeDataModel
-                                                                    .featuredEvents![
+                                                                    .featuredEventList![
                                                                         itemIndex]
                                                                     .eventImages!
                                                                     .isNotEmpty
                                                                 ? _hc
-                                                                    .homeDataModel
-                                                                    .featuredEvents![
+                                                                    .featuredEventList![
                                                                         itemIndex]
                                                                     .eventImages![
                                                                         0]
@@ -310,8 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           width: 0.7.sw,
                                                           child: Text(
                                                             _hc
-                                                                .homeDataModel
-                                                                .featuredEvents![
+                                                                .featuredEventList![
                                                                     itemIndex]
                                                                 .name
                                                                 .toString(),
@@ -333,8 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         FittedBox(
                                                           child: Text(
                                                             splitDateTimeWithoutYear(_hc
-                                                                .homeDataModel
-                                                                .featuredEvents![
+                                                                .featuredEventList![
                                                                     itemIndex]
                                                                 .eventDate
                                                                 .toString()),
@@ -369,8 +363,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   width: 0.5.sw,
                                                                   child: Text(
                                                                     _hc
-                                                                        .homeDataModel
-                                                                        .featuredEvents![
+                                                                        .featuredEventList![
                                                                             itemIndex]
                                                                         .city
                                                                         .toString(),
@@ -399,16 +392,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 String data =
                                                                     '';
                                                                 if (_hc
-                                                                        .homeDataModel
-                                                                        .featuredEvents![
+                                                                        .featuredEventList![
                                                                             itemIndex]
                                                                         .isFav ==
                                                                     true) {
                                                                   data =
-                                                                      "?eventID=${_hc.homeDataModel.featuredEvents![itemIndex].eventId!.toInt()}&fav=false&customerID=${_hc.homeDataModel.featuredEvents![itemIndex].creationUserId!.toInt()}";
+                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=false&customerID=${_hc.featuredEventList![itemIndex].creationUserId!.toInt()}";
                                                                 } else {
                                                                   data =
-                                                                      "?eventID=${_hc.homeDataModel.featuredEvents![itemIndex].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.featuredEvents![itemIndex].creationUserId!.toInt()}";
+                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=true&customerID=${_hc.featuredEventList![itemIndex].creationUserId!.toInt()}";
                                                                 }
 
                                                                 var res = await ApiService()
@@ -422,8 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       .contains(
                                                                           "ADDED")) {
                                                                     _hc
-                                                                        .homeDataModel
-                                                                        .featuredEvents![
+                                                                        .featuredEventList![
                                                                             itemIndex]
                                                                         .isFav = true;
                                                                     _hc.update();
@@ -432,8 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       .contains(
                                                                           "REMOVED")) {
                                                                     _hc
-                                                                        .homeDataModel
-                                                                        .featuredEvents![
+                                                                        .featuredEventList![
                                                                             itemIndex]
                                                                         .isFav = false;
                                                                     _hc.update();
@@ -445,7 +435,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               },
                                                               child:
                                                                   Image.asset(
-                                                                _hc.homeDataModel.featuredEvents![itemIndex]
+                                                                _hc.featuredEventList![itemIndex]
                                                                             .isFav ==
                                                                         true
                                                                     ? favoriteIconSelected
@@ -465,7 +455,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                               20.verticalSpace,
-                              _hc.homeDataModel.upComingEvents!.isEmpty
+                              _hc.upcomingEventList!.isEmpty
                                   ? SizedBox()
                                   : Column(
                                       children: [
@@ -487,17 +477,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Image.asset(fireIcon),
                                               ],
                                             ),
-                                            _hc.homeDataModel.upComingEvents!
-                                                        .length >
-                                                    12
+                                            _hc.upcomingEventList!.length > 12
                                                 ? InkWell(
                                                     onTap: () => Get.to(
                                                         () => SeeAllEventsScreen(
                                                             name: upcomingEvent,
                                                             img: fireIcon,
                                                             eventTypeId: _hc
-                                                                .homeDataModel
-                                                                .upComingEvents![
+                                                                .upcomingEventList![
                                                                     0]
                                                                 .eventTypeId!
                                                                 .toInt()
@@ -602,8 +589,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     crossAxisSpacing: 10,
                                                     mainAxisSpacing: 20,
                                                     mainAxisExtent: 240),
-                                            itemCount: _hc.homeDataModel
-                                                .upComingEvents?.length,
+                                            itemCount:
+                                                _hc.upcomingEventList?.length,
                                             shrinkWrap: true,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
@@ -612,8 +599,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   Get.to(
                                                       () => EventDetailScreen(
                                                             eventId: _hc
-                                                                .homeDataModel
-                                                                .upComingEvents![
+                                                                .upcomingEventList![
                                                                     index]
                                                                 .eventId!
                                                                 .toInt()
@@ -637,14 +623,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         customCardImage(
                                                             _hc
-                                                                    .homeDataModel
-                                                                    .upComingEvents![
+                                                                    .upcomingEventList![
                                                                         index]
                                                                     .eventImages!
                                                                     .isNotEmpty
                                                                 ? _hc
-                                                                    .homeDataModel
-                                                                    .upComingEvents![
+                                                                    .upcomingEventList![
                                                                         index]
                                                                     .eventImages![
                                                                         0]
@@ -657,8 +641,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           width: 0.5.sw,
                                                           child: Text(
                                                             _hc
-                                                                .homeDataModel
-                                                                .upComingEvents![
+                                                                .upcomingEventList![
                                                                     index]
                                                                 .name
                                                                 .toString(),
@@ -680,8 +663,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         FittedBox(
                                                           child: Text(
                                                             splitDateTimeWithoutYear(_hc
-                                                                .homeDataModel
-                                                                .upComingEvents![
+                                                                .upcomingEventList![
                                                                     index]
                                                                 .eventDate
                                                                 .toString()),
@@ -715,8 +697,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 width: 0.3.sw,
                                                                 child: Text(
                                                                   _hc
-                                                                      .homeDataModel
-                                                                      .upComingEvents![
+                                                                      .upcomingEventList![
                                                                           index]
                                                                       .city
                                                                       .toString(),
@@ -744,16 +725,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   String data =
                                                                       '';
                                                                   if (_hc
-                                                                          .homeDataModel
-                                                                          .upComingEvents![
+                                                                          .upcomingEventList![
                                                                               index]
                                                                           .isFav ==
                                                                       true) {
                                                                     data =
-                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=false&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=false&customerID=${_hc.upcomingEventList![index].creationUserId!.toInt()}";
                                                                   } else {
                                                                     data =
-                                                                        "?eventID=${_hc.homeDataModel.upComingEvents![index].eventId!.toInt()}&fav=true&customerID=${_hc.homeDataModel.upComingEvents![index].creationUserId!.toInt()}";
+                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=true&customerID=${_hc.upcomingEventList![index].creationUserId!.toInt()}";
                                                                   }
 
                                                                   var res = await ApiService()
@@ -767,8 +747,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .contains(
                                                                             "ADDED")) {
                                                                       _hc
-                                                                          .homeDataModel
-                                                                          .upComingEvents![
+                                                                          .upcomingEventList![
                                                                               index]
                                                                           .isFav = true;
                                                                       _hc.update();
@@ -776,11 +755,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .toUpperCase()
                                                                         .contains(
                                                                             "REMOVED")) {
-                                                                      _hc
-                                                                          .homeDataModel
-                                                                          .upComingEvents![
-                                                                              index]
-                                                                          .isFav = false;
+                                                                      _hc.upcomingEventList![index].isFav =
+                                                                          false;
                                                                       _hc.update();
                                                                     }
                                                                     customSnackBar(
@@ -790,7 +766,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 },
                                                                 child:
                                                                     Image.asset(
-                                                                  _hc.homeDataModel.upComingEvents![index]
+                                                                  _hc.upcomingEventList![index]
                                                                               .isFav ==
                                                                           true
                                                                       ? favoriteIconSelected
@@ -813,7 +789,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                               20.verticalSpace,
-                              _hc.homeDataModel.shop!.isEmpty
+                              _hc.shopList!.isEmpty
                                   ? SizedBox()
                                   : Column(
                                       children: [
@@ -829,7 +805,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            _hc.homeDataModel.shop!.length > 12
+                                            _hc.shopList!.length > 12
                                                 ? InkWell(
                                                     onTap: () => Get.to(
                                                         () =>
@@ -933,8 +909,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     crossAxisSpacing: 10,
                                                     mainAxisSpacing: 20,
                                                     mainAxisExtent: 255),
-                                            itemCount:
-                                                _hc.homeDataModel.shop?.length,
+                                            itemCount: _hc.shopList?.length,
                                             shrinkWrap: true,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
@@ -959,9 +934,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .start,
                                                       children: [
                                                         customCardImage(
-                                                            _hc
-                                                                .homeDataModel
-                                                                .shop![index]
+                                                            _hc.shopList![index]
                                                                 .image
                                                                 .toString(),
                                                             140.h,
@@ -970,9 +943,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         SizedBox(
                                                           width: 0.5.sw,
                                                           child: Text(
-                                                            _hc
-                                                                .homeDataModel
-                                                                .shop![index]
+                                                            _hc.shopList![index]
                                                                 .name
                                                                 .toString(),
                                                             textAlign:
@@ -1007,9 +978,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         5.verticalSpace,
                                                         FittedBox(
                                                           child: Text(
-                                                            _hc
-                                                                .homeDataModel
-                                                                .shop![index]
+                                                            _hc.shopList![index]
                                                                 .price
                                                                 .toString(),
                                                             textAlign:

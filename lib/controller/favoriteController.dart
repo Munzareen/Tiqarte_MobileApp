@@ -13,6 +13,7 @@ class FavoriteController extends GetxController {
   List<CategoryModel>? favCategoryList;
 
   List<FavoriteModel>? favoriteList;
+  List<FavoriteModel>? favoriteListAll;
 
   @override
   void onInit() {
@@ -39,6 +40,7 @@ class FavoriteController extends GetxController {
 
   addFavoriteData(List res) {
     favoriteList = favoriteModelFromJson(res);
+    favoriteListAll = favoriteModelFromJson(res);
 
     update();
   }
@@ -46,7 +48,8 @@ class FavoriteController extends GetxController {
   favoriteOnSearchClose(TextEditingController textEditingController) {
     isSearchFav = false;
     textEditingController.clear();
-    favoriteList = null;
+    favoriteList = favoriteListAll;
+
     update();
   }
 
@@ -65,6 +68,17 @@ class FavoriteController extends GetxController {
       element.isSelected = false;
     });
     favCategoryList?[index].isSelected = true;
+    update();
+  }
+
+  searchEvent(String query) {
+    favoriteList = favoriteListAll;
+    final suggestion = favoriteList!.where((element) {
+      final eventName = element.name!.toLowerCase();
+      final input = query.toLowerCase();
+      return eventName.contains(input);
+    }).toList();
+    favoriteList = suggestion;
     update();
   }
 }

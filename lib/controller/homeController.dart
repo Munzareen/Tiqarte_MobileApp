@@ -9,11 +9,25 @@ import 'package:tiqarte/model/HomeDataModel.dart';
 
 class HomeController extends GetxController {
   HomeDataModel homeDataModel = HomeDataModel();
+  List<Event>? featuredEventList;
+  List<Event>? upcomingEventList;
+  List<Shop>? shopList;
+  List<Event>? featuredEventListAll;
+  List<Event>? upcomingEventListAll;
+  List<Shop>? shopListAll;
+
   List<CategoryModel>? upcomingCategoryList;
   List<CategoryModel>? shopCategoryList;
 
   addHomeData(dynamic data) async {
     homeDataModel = HomeDataModel.fromJson(data);
+    featuredEventList = homeDataModel.featuredEvents;
+    upcomingEventList = homeDataModel.upComingEvents;
+    shopList = homeDataModel.shop;
+    featuredEventListAll = homeDataModel.featuredEvents;
+    upcomingEventListAll = homeDataModel.upComingEvents;
+    shopListAll = homeDataModel.shop;
+
     var res = await ApiService().getCategories();
     if (res != null && res is List) {
       final _favoriteController = Get.put(FavoriteController());
@@ -44,6 +58,33 @@ class HomeController extends GetxController {
       element.isSelected = false;
     });
     shopCategoryList?[index].isSelected = true;
+    update();
+  }
+
+  homeSearch(String query) {
+    featuredEventList = featuredEventListAll;
+    upcomingEventList = upcomingEventListAll;
+    shopList = shopListAll;
+
+    final featuredList = featuredEventList?.where((element) {
+      final eventName = element.name!.toLowerCase();
+      final input = query.toLowerCase();
+      return eventName.contains(input);
+    }).toList();
+    final upcomingList = upcomingEventList?.where((element) {
+      final eventName = element.name!.toLowerCase();
+      final input = query.toLowerCase();
+      return eventName.contains(input);
+    }).toList();
+    final shop = shopList?.where((element) {
+      final eventName = element.name!.toLowerCase();
+      final input = query.toLowerCase();
+      return eventName.contains(input);
+    }).toList();
+    featuredEventList = featuredList;
+    upcomingEventList = upcomingList;
+    shopList = shop;
+
     update();
   }
 }
