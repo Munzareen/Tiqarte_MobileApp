@@ -9,34 +9,34 @@ import 'dart:convert';
 // String? homeDataModelToJson(HomeDataModel data) => json.encode(data.toJson());
 
 class HomeDataModel {
-  String? welcomeMessage;
-  String? profilePictureUrl;
-  String? userName;
+  // String? welcomeMessage;
+  // String? profilePictureUrl;
+  // String? userName;
   List<Event>? featuredEvents;
   List<Event>? upComingEvents;
   List<Shop>? shop;
   dynamic eventType;
   List<String>? eventImages;
   List<String>? previousImages;
-  num? userId;
+  // num? userId;
 
   HomeDataModel({
-    this.welcomeMessage,
-    this.profilePictureUrl,
-    this.userName,
+    // this.welcomeMessage,
+    // this.profilePictureUrl,
+    // this.userName,
     this.featuredEvents,
     this.upComingEvents,
     this.shop,
     this.eventType,
     this.eventImages,
     this.previousImages,
-    this.userId,
+    //  this.userId,
   });
 
   factory HomeDataModel.fromJson(Map<String?, dynamic> json) => HomeDataModel(
-        welcomeMessage: json["WelcomeMessage"],
-        profilePictureUrl: json["ProfilePictureUrl"],
-        userName: json["UserName"],
+        // welcomeMessage: json["WelcomeMessage"],
+        // profilePictureUrl: json["ProfilePictureUrl"],
+        // userName: json["UserName"],
         featuredEvents: List<Event>.from(
             json["FeaturedEvents"].map((x) => Event.fromJson(x))),
         upComingEvents: List<Event>.from(
@@ -45,13 +45,13 @@ class HomeDataModel {
         eventType: json["EventType"],
         eventImages: List<String>.from(json["EventImages"].map((x) => x)),
         previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
-        userId: json["UserId"],
+        //  userId: json["UserId"],
       );
 
   Map<String?, dynamic> toJson() => {
-        "WelcomeMessage": welcomeMessage,
-        "ProfilePictureUrl": profilePictureUrl,
-        "UserName": userName,
+        // "WelcomeMessage": welcomeMessage,
+        // "ProfilePictureUrl": profilePictureUrl,
+        // "UserName": userName,
         "FeaturedEvents":
             List<Event>.from(featuredEvents!.map((x) => x.toJson())),
         "UpComingEvents":
@@ -60,7 +60,7 @@ class HomeDataModel {
         "EventType": eventType,
         "EventImages": List<String>.from(eventImages!.map((x) => x)),
         "PreviousImages": List<String>.from(previousImages!.map((x) => x)),
-        "UserId": userId,
+        // "UserId": userId,
       };
 }
 

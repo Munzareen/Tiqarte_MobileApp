@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/FavoriteModel.dart';
@@ -38,9 +39,19 @@ class FavoriteController extends GetxController {
     super.onClose();
   }
 
-  addFavoriteData(List res) {
+  addFavoriteData(List res) async {
     favoriteList = favoriteModelFromJson(res);
     favoriteListAll = favoriteModelFromJson(res);
+
+    if (favCategoryList == null) {
+      var res = await ApiService().getCategories();
+      if (res != null && res is List) {
+        favCategoryList = categoryModelFromJson(res);
+        favCategoryList?.insert(
+            0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+        favCategoryList?[0].isSelected = true;
+      }
+    }
 
     update();
   }

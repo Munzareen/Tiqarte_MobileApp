@@ -1,32 +1,42 @@
+// To parse this JSON data, do
+//
+//     final organizerDetailModel = organizerDetailModelFromJson(jsonString);
+
 import 'dart:convert';
 
-EventDetailModel eventDetailModelFromJson(String str) =>
-    EventDetailModel.fromJson(json.decode(str));
+OrganizerDetailModel organizerDetailModelFromJson(String str) =>
+    OrganizerDetailModel.fromJson(json.decode(str));
 
-String eventDetailModelToJson(EventDetailModel data) =>
+String organizerDetailModelToJson(OrganizerDetailModel data) =>
     json.encode(data.toJson());
 
-class EventDetailModel {
+class OrganizerDetailModel {
   num? id;
   String? name;
   String? description;
-  dynamic collection;
+  String? imageUrl;
+  num? following;
+  List<dynamic>? collection;
   List<Event>? events;
 
-  EventDetailModel({
+  OrganizerDetailModel({
     this.id,
     this.name,
     this.description,
+    this.imageUrl,
+    this.following,
     this.collection,
     this.events,
   });
 
-  factory EventDetailModel.fromJson(Map<String, dynamic> json) =>
-      EventDetailModel(
+  factory OrganizerDetailModel.fromJson(Map<String, dynamic> json) =>
+      OrganizerDetailModel(
         id: json["Id"],
         name: json["Name"],
         description: json["Description"],
-        collection: json["Collection"],
+        imageUrl: json["ImageURL"],
+        following: json["Following"],
+        collection: List<dynamic>.from(json["Collection"].map((x) => x)),
         events: List<Event>.from(json["Events"].map((x) => Event.fromJson(x))),
       );
 
@@ -34,7 +44,9 @@ class EventDetailModel {
         "Id": id,
         "Name": name,
         "Description": description,
-        "Collection": collection,
+        "ImageURL": imageUrl,
+        "Following": following,
+        "Collection": List<dynamic>.from(collection!.map((x) => x)),
         "Events": List<dynamic>.from(events!.map((x) => x.toJson())),
       };
 }
@@ -52,15 +64,15 @@ class Event {
   num? eventTypeId;
   List<String>? eventImages;
   List<String>? previousImages;
-  dynamic catagoryId;
+  num? catagoryId;
   num? price;
   num? organizerId;
   bool? isPublished;
   String? lastUpdated;
   bool? isFav;
-  dynamic standingTitle;
-  dynamic seatingTitle;
-  dynamic ticketSoldOutText;
+  String? standingTitle;
+  String? seatingTitle;
+  String? ticketSoldOutText;
 
   Event({
     this.eventId,
@@ -121,8 +133,8 @@ class Event {
         "CreationUserId": creationUserId,
         "EventStatusId": eventStatusId,
         "EventTypeId": eventTypeId,
-        "EventImages": List<String>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<String>.from(previousImages!.map((x) => x)),
+        "EventImages": List<dynamic>.from(eventImages!.map((x) => x)),
+        "PreviousImages": List<dynamic>.from(previousImages!.map((x) => x)),
         "CatagoryId": catagoryId,
         "Price": price,
         "OrganizerID": organizerId,

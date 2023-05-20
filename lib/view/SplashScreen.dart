@@ -26,7 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
   getPrefs() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     accessToken = _prefs.getString("accessToken") ?? '';
+    userName = _prefs.getString("userName") ?? '';
+    userImage = _prefs.getString("userImage") ?? '';
+
     if (accessToken.isNotEmpty) {
+      userId = getUserIdFromJWT(accessToken);
+
       Timer(Duration(seconds: 2), () {
         Get.offAll(() => MainScreen(), transition: Transition.rightToLeft);
       });

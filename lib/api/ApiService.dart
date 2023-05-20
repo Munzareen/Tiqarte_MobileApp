@@ -36,7 +36,12 @@ class ApiService {
         String data =
             "Email=${googleUser.email.toString()}&FirstName=$firstName&LastName=$lastName&ImageUrl=${googleUser.photoUrl.toString()}";
 
-        socialLogin(context, data);
+        var userData = {
+          "userName": googleUser.displayName.toString(),
+          "userImage": googleUser.photoUrl
+        };
+
+        socialLogin(context, data, userData);
       }
 
       // return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -46,8 +51,9 @@ class ApiService {
     }
   }
 
-  socialLogin(BuildContext context, String data) async {
-    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().socialLogin + data);
+  socialLogin(BuildContext context, String stringData, dynamic userData) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().socialLogin + stringData);
 
     final headers = {'Content-Type': 'application/json'};
     showDialog(
@@ -67,7 +73,13 @@ class ApiService {
 
         var res_data = json.decode(response.body);
         accessToken = res_data['data'];
+        userId = getUserIdFromJWT(accessToken);
+        userName = userData["userName"];
+        userImage = userData["userImage"];
         _prefs.setString("accessToken", accessToken);
+        _prefs.setString("userName", userName);
+        _prefs.setString("userImage", userImage);
+
         Get.offAll(() => MainScreen(), transition: Transition.leftToRight);
       } else {
         Get.back();
@@ -332,6 +344,32 @@ class ApiService {
 
     try {
       http.Response response = await http.post(uri, headers: headers);
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else {
+        return "Something went wrong!";
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getOrganizerDetail(String id) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getOrganizerDetail + id);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
       if (response.statusCode == 200) {
         var res_data = json.decode(response.body);
 

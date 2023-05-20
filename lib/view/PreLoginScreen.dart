@@ -56,8 +56,8 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
               ),
               20.verticalSpace,
               GestureDetector(
-                onTap: () => Get.to(() => MainScreen(),
-                    transition: Transition.rightToLeft),
+                // onTap: () => Get.to(() => MainScreen(),
+                //     transition: Transition.rightToLeft),
                 child: Container(
                   height: 60,
                   margin: EdgeInsets.symmetric(horizontal: 25.0),
@@ -118,8 +118,8 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                       children: [
                         20.verticalSpace,
                         GestureDetector(
-                          onTap: () => Get.to(() => MainScreen(),
-                              transition: Transition.rightToLeft),
+                          // onTap: () => Get.to(() => MainScreen(),
+                          //     transition: Transition.rightToLeft),
                           child: Container(
                             height: 60,
                             margin: EdgeInsets.symmetric(horizontal: 25.0),

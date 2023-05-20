@@ -1,3 +1,6 @@
+String placeholder = "assets/images/placeholder.png";
+String eventPlaceholder = "assets/images/eventPlaceholder.png";
+
 String profileImage = "assets/tempImages/profileImage.png";
 String eventImage = "assets/tempImages/eventImage.png";
 String eventUserImage1 = "assets/tempImages/eventUserImage1.png";
@@ -48,7 +51,6 @@ String chatIcon = "assets/images/chatIcon.png";
 String emailIconFilled = "assets/images/emailIconFilled.png";
 String waveIcon = "assets/images/waveIcon.png";
 String locationLogo = "assets/images/locationLogo.png";
-String placeholder = "assets/images/placeholder.png";
 String filterIcon = "assets/images/filterIcon.png";
 String followIcon = "assets/images/followIcon.png";
 String calendarIcon = "assets/images/calendarIcon.png";

@@ -9,7 +9,7 @@ String eventDetailModelToJson(EventDetailModel data) =>
 class EventDetailModel {
   Event? event;
   Organizer? organizer;
-  List<dynamic>? customers;
+  List<Customer>? customers;
 
   EventDetailModel({
     this.event,
@@ -21,13 +21,42 @@ class EventDetailModel {
       EventDetailModel(
         event: Event.fromJson(json["Event"]),
         organizer: Organizer.fromJson(json["Organizer"]),
-        customers: List<dynamic>.from(json["Customers"].map((x) => x)),
+        customers: List<Customer>.from(
+            json["Customers"].map((x) => Customer.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "Event": event?.toJson(),
         "Organizer": organizer?.toJson(),
-        "Customers": List<dynamic>.from(customers!.map((x) => x)),
+        "Customers": List<dynamic>.from(customers!.map((x) => x.toJson())),
+      };
+}
+
+class Customer {
+  num? id;
+  String? userId;
+  String? name;
+  String? imageUrl;
+
+  Customer({
+    this.id,
+    this.userId,
+    this.name,
+    this.imageUrl,
+  });
+
+  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+        id: json["Id"],
+        userId: json["UserId"],
+        name: json["Name"],
+        imageUrl: json["ImageURL"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "Id": id,
+        "UserId": userId,
+        "Name": name,
+        "ImageURL": imageUrl,
       };
 }
 
@@ -135,6 +164,8 @@ class Organizer {
   num? id;
   String? name;
   String? description;
+  String? imageUrl;
+  num? following;
   dynamic collection;
   dynamic events;
 
@@ -142,6 +173,8 @@ class Organizer {
     this.id,
     this.name,
     this.description,
+    this.imageUrl,
+    this.following,
     this.collection,
     this.events,
   });
@@ -150,6 +183,8 @@ class Organizer {
         id: json["Id"],
         name: json["Name"],
         description: json["Description"],
+        imageUrl: json["ImageURL"],
+        following: json["Following"],
         collection: json["Collection"],
         events: json["Events"],
       );
@@ -158,6 +193,8 @@ class Organizer {
         "Id": id,
         "Name": name,
         "Description": description,
+        "ImageURL": imageUrl,
+        "Following": following,
         "Collection": collection,
         "Events": events,
       };

@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           toolbarHeight: 0,
           elevation: 0,
-          automaticallyImplyLeading: kFlutterMemoryAllocationsEnabled,
+          automaticallyImplyLeading: false,
         ),
         body: Container(
           height: 1.sh,
@@ -71,134 +71,130 @@ class _HomeScreenState extends State<HomeScreen> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             child: GetBuilder<HomeController>(builder: (_hc) {
-              return _hc.homeDataModel.welcomeMessage == null &&
-                      _hc.upcomingCategoryList == null
-                  ? Center(
-                      child: spinkit,
-                    )
-                  : Column(
-                      children: [
-                        20.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    nbc.navBarChange(4);
-                                  },
-                                  child: customProfileImage(
-                                      _hc.homeDataModel.profilePictureUrl
-                                          .toString(),
-                                      40.h,
-                                      40.h),
-                                ),
-                                15.horizontalSpace,
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          _hc.homeDataModel.welcomeMessage
-                                              .toString(),
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.grey),
-                                        ),
-                                        5.horizontalSpace,
-                                        Image.asset(
-                                          waveIcon,
-                                        )
-                                      ],
-                                    ),
-                                    5.verticalSpace,
-                                    SizedBox(
-                                      width: 0.3.sw,
-                                      child: Text(
-                                        _hc.homeDataModel.userName.toString(),
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () => Get.to(() => NotificationScreen(),
-                                  transition: Transition.rightToLeft),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                      color: kDisabledColor, width: 1),
-                                  // image: DecorationImage(
-                                  //   image: AssetImage(notificationIconWithBadge),
-                                  // )
-                                ),
-                                child: Center(
-                                  child: Image.asset(notificationIcon,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background),
+              return Column(
+                children: [
+                  20.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              nbc.navBarChange(4);
+                            },
+                            child: customProfileImage(
+                                userImage.toString(), 40.h, 40.h),
+                          ),
+                          15.horizontalSpace,
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    getWelcomeMessage(),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey),
+                                  ),
+                                  5.horizontalSpace,
+                                  Image.asset(
+                                    waveIcon,
+                                  )
+                                ],
+                              ),
+                              5.verticalSpace,
+                              SizedBox(
+                                width: 0.3.sw,
+                                child: Text(
+                                  userName,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            )
-                          ],
+                            ],
+                          ),
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () => Get.to(() => NotificationScreen(),
+                            transition: Transition.rightToLeft),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0),
+                            border: Border.all(color: kDisabledColor, width: 1),
+                            // image: DecorationImage(
+                            //   image: AssetImage(notificationIconWithBadge),
+                            // )
+                          ),
+                          child: Center(
+                            child: Image.asset(notificationIcon,
+                                color:
+                                    Theme.of(context).colorScheme.background),
+                          ),
                         ),
-                        20.verticalSpace,
-                        TextFormField(
-                          cursorColor: kPrimaryColor,
-                          controller: _searchController,
-                          style: const TextStyle(color: Colors.black),
-                          keyboardType: TextInputType.text,
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return 'Please enter your username';
-                          //   }
-                          //   return null;
-                          // },
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.search,
-                                size: 20,
-                                color: kDisabledColor,
-                              ),
-                              suffixIcon: InkWell(
-                                  onTap: () => filterBottomSheet(
-                                      context,
-                                      eventsCatergoryList,
-                                      locationList,
-                                      selectedLocation,
-                                      currentRangeValues),
-                                  child: Image.asset(filterIcon)),
-                              errorBorder: customOutlineBorder,
-                              enabledBorder: customOutlineBorder,
-                              focusedBorder: customOutlineBorder,
-                              // OutlineInputBorder(
-                              //     borderRadius:
-                              //         BorderRadius.all(Radius.circular(12.0)),
-                              //     borderSide: BorderSide(color: kPrimaryColor)),
-                              disabledBorder: customOutlineBorder,
-                              filled: true,
-                              hintText: whatEventAreYouLookingFor,
-                              hintStyle: TextStyle(
-                                  color: Color(0xff9E9E9E), fontSize: 14)),
-                          onChanged: _hc.homeSearch,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(textRegExp),
-                          ],
+                      )
+                    ],
+                  ),
+                  20.verticalSpace,
+                  TextFormField(
+                    cursorColor: kPrimaryColor,
+                    controller: _searchController,
+                    style: const TextStyle(color: Colors.black),
+                    keyboardType: TextInputType.text,
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please enter your username';
+                    //   }
+                    //   return null;
+                    // },
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 20,
+                          color: kDisabledColor,
                         ),
-                        10.verticalSpace,
-                        Expanded(
+                        suffixIcon: InkWell(
+                            onTap: () => filterBottomSheet(
+                                context,
+                                eventsCatergoryList,
+                                locationList,
+                                selectedLocation,
+                                currentRangeValues),
+                            child: Image.asset(filterIcon)),
+                        errorBorder: customOutlineBorder,
+                        enabledBorder: customOutlineBorder,
+                        focusedBorder: customOutlineBorder,
+                        // OutlineInputBorder(
+                        //     borderRadius:
+                        //         BorderRadius.all(Radius.circular(12.0)),
+                        //     borderSide: BorderSide(color: kPrimaryColor)),
+                        disabledBorder: customOutlineBorder,
+                        filled: true,
+                        hintText: whatEventAreYouLookingFor,
+                        hintStyle:
+                            TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
+                    onChanged: _hc.homeSearch,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(textRegExp),
+                    ],
+                  ),
+                  10.verticalSpace,
+                  _hc.homeDataModel.featuredEvents == null &&
+                          _hc.upcomingCategoryList == null
+                      ? Expanded(
+                          child: Center(
+                            child: spinkit,
+                          ),
+                        )
+                      : Expanded(
                           child: ListView(
                             children: [
                               _hc.featuredEventList!.isEmpty
@@ -397,10 +393,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .isFav ==
                                                                     true) {
                                                                   data =
-                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=false&customerID=${_hc.featuredEventList![itemIndex].creationUserId!.toInt()}";
+                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
                                                                 } else {
                                                                   data =
-                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=true&customerID=${_hc.featuredEventList![itemIndex].creationUserId!.toInt()}";
+                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
                                                                 }
 
                                                                 var res = await ApiService()
@@ -730,10 +726,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           .isFav ==
                                                                       true) {
                                                                     data =
-                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=false&customerID=${_hc.upcomingEventList![index].creationUserId!.toInt()}";
+                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=false&customerID=$userId";
                                                                   } else {
                                                                     data =
-                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=true&customerID=${_hc.upcomingEventList![index].creationUserId!.toInt()}";
+                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=true&customerID=$userId";
                                                                   }
 
                                                                   var res = await ApiService()
@@ -1005,8 +1001,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                      ],
-                    );
+                ],
+              );
             }),
           ),
         ),
@@ -1018,5 +1014,20 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
     Placemark place = placemarks[0];
     return "${place.subLocality}, ${place.locality}, ${place.country}";
+  }
+
+  String getWelcomeMessage() {
+    DateTime now = DateTime.now();
+    int currentHour = now.hour;
+
+    if (currentHour >= 6 && currentHour < 12) {
+      return 'Good Morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'Good Afternoon';
+    } else if (currentHour >= 18 && currentHour < 24) {
+      return 'Good Evening';
+    } else {
+      return 'Good Night';
+    }
   }
 }

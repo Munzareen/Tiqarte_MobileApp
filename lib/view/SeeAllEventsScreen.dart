@@ -475,10 +475,10 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                         .isFav ==
                                                                     true) {
                                                                   data =
-                                                                      "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=false&customerID=${_sc.seeAllEventModel![index].creationUserId!.toInt()}";
+                                                                      "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=false&customerID=$userId";
                                                                 } else {
                                                                   data =
-                                                                      "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=true&customerID=${_sc.seeAllEventModel![index].creationUserId!.toInt()}";
+                                                                      "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=true&customerID=$userId";
                                                                 }
 
                                                                 var res = await ApiService()
@@ -685,10 +685,10 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                               .isFav ==
                                                                           true) {
                                                                         data =
-                                                                            "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=false&customerID=${_sc.seeAllEventModel![index].creationUserId!.toInt()}";
+                                                                            "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=false&customerID=$userId";
                                                                       } else {
                                                                         data =
-                                                                            "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=true&customerID=${_sc.seeAllEventModel![index].creationUserId!.toInt()}";
+                                                                            "?eventID=${_sc.seeAllEventModel![index].eventId!.toInt()}&fav=true&customerID=$userId";
                                                                       }
 
                                                                       var res =

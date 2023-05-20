@@ -82,10 +82,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               30.verticalSpace,
-              customProfileImage(profileImage, 110.h, 110.h),
+              customProfileImage(userImage, 110.h, 110.h),
               20.verticalSpace,
               Text(
-                "Andrew Ainsley",
+                userName,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 32,

@@ -19,7 +19,7 @@ import 'package:tiqarte/view/BookEventScreen.dart';
 import 'package:tiqarte/view/EventLocationScreen.dart';
 import 'package:tiqarte/view/GalleryScreen.dart';
 import 'package:tiqarte/view/GoingScreen.dart';
-import 'package:tiqarte/view/OrganizerProfileScreen.dart';
+import 'package:tiqarte/view/OrganizerDetailScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
 
 class EventDetailScreen extends StatefulWidget {
@@ -35,16 +35,6 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   final _homeController = Get.put(HomeController());
 
   final _eventDetailController = Get.put(EventDetailController());
-
-  List eventDetailImages = [eventImage, eventImage, eventImage];
-
-  List eventUserImages = [
-    eventUserImage1,
-    eventUserImage2,
-    eventUserImage3,
-    eventUserImage4,
-    eventUserImage5
-  ];
 
   //ScrollController _scrollController = ScrollController();
 
@@ -110,10 +100,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       String data = '';
                       if (_edc.eventDetailModel.event?.isFav == true) {
                         data =
-                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=false&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
+                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=false&customerID=$userId";
                       } else {
                         data =
-                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=true&customerID=${_edc.eventDetailModel.event?.creationUserId!.toInt()}";
+                            "?eventID=${_edc.eventDetailModel.event?.eventId!.toInt()}&fav=true&customerID=$userId";
                       }
 
                       var res = await ApiService().addFavorite(data);
@@ -236,16 +226,22 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 10.horizontalSpace,
                                 Row(
                                   children: List<Widget>.generate(
-                                      eventUserImages.length,
+                                      _edc.eventDetailModel.customers!.length,
                                       (index) => Align(
                                             widthFactor: 0.6,
                                             child: customProfileImage(
-                                                eventUserImages[index], 30, 30),
+                                                _edc.eventDetailModel
+                                                    .customers![index].imageUrl
+                                                    .toString(),
+                                                30,
+                                                30),
                                           )),
                                 ),
                                 15.horizontalSpace,
                                 Text(
-                                  "20,000+ going",
+                                  _edc.eventDetailModel.customers!.length
+                                          .toString() +
+                                      " going",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -253,16 +249,23 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   ),
                                 ),
                                 10.verticalSpace,
-                                IconButton(
-                                  onPressed: () {
-                                    Get.to(() => GoingScreen(),
-                                        transition: Transition.rightToLeft);
-                                  },
-                                  icon: Icon(
-                                    Icons.arrow_forward,
-                                    size: 20,
-                                  ),
-                                ),
+                                _edc.eventDetailModel.customers!.isNotEmpty
+                                    ? IconButton(
+                                        onPressed: () {
+                                          Get.to(
+                                              () => GoingScreen(
+                                                  customerList: _edc
+                                                      .eventDetailModel
+                                                      .customers!),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_forward,
+                                          size: 20,
+                                        ),
+                                      )
+                                    : SizedBox(),
                               ],
                             ),
                             10.verticalSpace,
@@ -544,11 +547,21 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        Get.to(() => OrganizerProfileScreen(),
+                                        Get.to(
+                                            () => OrganizerDetailScreen(
+                                                orgnizerId: _edc
+                                                    .eventDetailModel
+                                                    .organizer!
+                                                    .id
+                                                    .toString()),
                                             transition: Transition.rightToLeft);
                                       },
                                       child: customProfileImage(
-                                          organizerImage, 50.h, 50.h),
+                                          _edc.eventDetailModel.organizer!
+                                              .imageUrl
+                                              .toString(),
+                                          50.h,
+                                          50.h),
                                     ),
                                     15.horizontalSpace,
                                     Column(
@@ -1003,11 +1016,15 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                               int itemIndex,
                                               int pageViewIndex) {
                                             return InkWell(
-                                              // onTap: () {
-                                              //   Get.to(() => EventDetailScreen(
-                                              //         data: _hc.eventList[itemIndex],
-                                              //       ));
-                                              // },
+                                              onTap: () {
+                                                Get.to(() => EventDetailScreen(
+                                                      eventId: _edc
+                                                          .relatedEventModelList![
+                                                              itemIndex]
+                                                          .eventId
+                                                          .toString(),
+                                                    ));
+                                              },
                                               child: Container(
                                                 padding: EdgeInsets.all(16.0),
                                                 decoration: BoxDecoration(
@@ -1130,10 +1147,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                       .isFav ==
                                                                   true) {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
+                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
                                                               } else {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=${_edc.relatedEventModelList![itemIndex].creationUserId!.toInt()}";
+                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
                                                               }
 
                                                               var res =
@@ -1239,7 +1256,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 //     bottomLeft: Radius.circular(40),
                 //     bottomRight: Radius.circular(40)),
                 image: DecorationImage(
-                    image: AssetImage(placeholder), fit: BoxFit.cover),
+                    image: AssetImage(eventPlaceholder), fit: BoxFit.cover),
               ),
             ),
             errorWidget: (context, url, error) => Container(
@@ -1250,7 +1267,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 //     bottomLeft: Radius.circular(40),
                 //     bottomRight: Radius.circular(40)),
                 image: DecorationImage(
-                    image: AssetImage(placeholder), fit: BoxFit.cover),
+                    image: AssetImage(eventPlaceholder), fit: BoxFit.cover),
               ),
             ),
           )
@@ -1262,7 +1279,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               //     bottomLeft: Radius.circular(40),
               //     bottomRight: Radius.circular(40)),
               image: DecorationImage(
-                  image: AssetImage(eventImage), fit: BoxFit.cover),
+                  image: AssetImage(eventPlaceholder), fit: BoxFit.cover),
             ),
           ); //AssetImage(placeholder)
   }
@@ -1312,7 +1329,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       //   style: BorderStyle.solid,
                       // ),
                       image: DecorationImage(
-                          image: AssetImage(eventImage), fit: BoxFit.cover))),
+                          image: AssetImage(eventPlaceholder),
+                          fit: BoxFit.cover))),
             ),
             errorWidget: (context, url, error) => InkWell(
               onTap: () {
@@ -1332,7 +1350,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       //   style: BorderStyle.solid,
                       // ),
                       image: DecorationImage(
-                          image: AssetImage(eventImage), fit: BoxFit.cover))),
+                          image: AssetImage(eventPlaceholder),
+                          fit: BoxFit.cover))),
             ),
           )
         : InkWell(
@@ -1356,7 +1375,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   image: DecorationImage(
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.5), BlendMode.darken),
-                      image: AssetImage(eventImage),
+                      image: AssetImage(eventPlaceholder),
                       fit: BoxFit.cover)),
               child: Center(
                 child: Text(

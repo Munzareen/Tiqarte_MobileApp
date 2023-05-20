@@ -44,7 +44,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   getData() async {
-    var res = await ApiService().getFavorites("1"); //hard coded
+    var res = await ApiService().getFavorites(userId);
     if (res != null && res is List) {
       _favoriteController.addFavoriteData(res);
     } else if (res != null && res is String) {
@@ -364,12 +364,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                         int index) {
                                                   return InkWell(
                                                     onTap: () {
-                                                      // Get.to(
-                                                      //     () => EventDetailScreen(
-                                                      //         data: _fc.favoriteList![
-                                                      //             index]),
-                                                      //     transition:
-                                                      //         Transition.rightToLeft);
+                                                      Get.to(
+                                                          () => EventDetailScreen(
+                                                              eventId: _fc
+                                                                  .favoriteList![
+                                                                      index]
+                                                                  .eventId
+                                                                  .toString()),
+                                                          transition: Transition
+                                                              .rightToLeft);
                                                     },
                                                     child: Container(
                                                       padding:
@@ -519,12 +522,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                 itemBuilder: (context, index) {
                                                   return InkWell(
                                                     onTap: () {
-                                                      // Get.to(
-                                                      //     () => EventDetailScreen(
-                                                      //         data: _fc.favoriteList![
-                                                      //             index]),
-                                                      //     transition:
-                                                      //         Transition.rightToLeft);
+                                                      Get.to(
+                                                          () => EventDetailScreen(
+                                                              eventId: _fc
+                                                                  .favoriteList![
+                                                                      index]
+                                                                  .eventId
+                                                                  .toString()),
+                                                          transition: Transition
+                                                              .rightToLeft);
                                                     },
                                                     child: Padding(
                                                       padding: const EdgeInsets
@@ -859,7 +865,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           InkWell(
                             onTap: () async {
                               String data =
-                                  "?eventID=${_favoriteController.favoriteList![index].eventId!.toInt()}&fav=false&customerID=${_favoriteController.favoriteList![index].creationUserId!.toInt()}";
+                                  "?eventID=${_favoriteController.favoriteList![index].eventId!.toInt()}&fav=false&customerID=$userId";
 
                               var res = await ApiService()
                                   .removeFavorite(context, data);

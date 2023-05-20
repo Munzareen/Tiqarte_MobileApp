@@ -77,7 +77,7 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
                               position: LatLng(latitude!, longitude!),
                               icon: BitmapDescriptor.defaultMarker,
                               infoWindow: const InfoWindow(
-                                title: 'You',
+                                title: 'Event',
                               ),
                               onDragEnd: ((newPosition) {
                                 setState(() {
@@ -88,8 +88,7 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
                           Marker(
                             draggable: true,
                             markerId: MarkerId("Event Location"),
-                            position: LatLng(latitude! + 12.0,
-                                longitude! - 12.0), //hardcoded
+                            position: LatLng(latitude!, longitude!), //hardcoded
                             icon: BitmapDescriptor.defaultMarker,
                             infoWindow: const InfoWindow(
                               title: 'Event',
@@ -124,9 +123,9 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
             child: InkWell(
               onTap: () {
-                setState(() {
-                  isDirection = true;
-                });
+                // setState(() {
+                //   isDirection = true;
+                // });
               },
               child: customButton(getDirection, kPrimaryColor),
             )),

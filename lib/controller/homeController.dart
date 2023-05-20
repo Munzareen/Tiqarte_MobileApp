@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/favoriteController.dart';
@@ -34,10 +33,25 @@ class HomeController extends GetxController {
       final _seeAllEventController = Get.put(SeeAllEventController());
 
       _favoriteController.favCategoryList = categoryModelFromJson(res);
+      _favoriteController.favCategoryList?.insert(
+          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+      _favoriteController.favCategoryList?[0].isSelected = true;
+
       _seeAllEventController.seeAllCategoryList = categoryModelFromJson(res);
+      _seeAllEventController.seeAllCategoryList?.insert(
+          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+      _seeAllEventController.seeAllCategoryList?[0].isSelected = true;
 
       upcomingCategoryList = categoryModelFromJson(res);
+
+      upcomingCategoryList?.insert(
+          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+      upcomingCategoryList?[0].isSelected = true;
+
       shopCategoryList = categoryModelFromJson(res);
+      shopCategoryList?.insert(
+          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+      shopCategoryList?[0].isSelected = true;
 
       update();
     } else if (res != null && res is String) {
@@ -62,29 +76,31 @@ class HomeController extends GetxController {
   }
 
   homeSearch(String query) {
-    featuredEventList = featuredEventListAll;
-    upcomingEventList = upcomingEventListAll;
-    shopList = shopListAll;
+    if (featuredEventList != null) {
+      featuredEventList = featuredEventListAll;
+      upcomingEventList = upcomingEventListAll;
+      shopList = shopListAll;
 
-    final featuredList = featuredEventList?.where((element) {
-      final eventName = element.name!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
-    }).toList();
-    final upcomingList = upcomingEventList?.where((element) {
-      final eventName = element.name!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
-    }).toList();
-    final shop = shopList?.where((element) {
-      final eventName = element.name!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
-    }).toList();
-    featuredEventList = featuredList;
-    upcomingEventList = upcomingList;
-    shopList = shop;
+      final featuredList = featuredEventList?.where((element) {
+        final eventName = element.name!.toLowerCase();
+        final input = query.toLowerCase();
+        return eventName.contains(input);
+      }).toList();
+      final upcomingList = upcomingEventList?.where((element) {
+        final eventName = element.name!.toLowerCase();
+        final input = query.toLowerCase();
+        return eventName.contains(input);
+      }).toList();
+      final shop = shopList?.where((element) {
+        final eventName = element.name!.toLowerCase();
+        final input = query.toLowerCase();
+        return eventName.contains(input);
+      }).toList();
+      featuredEventList = featuredList;
+      upcomingEventList = upcomingList;
+      shopList = shop;
 
-    update();
+      update();
+    }
   }
 }

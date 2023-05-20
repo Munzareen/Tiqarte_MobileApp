@@ -18,8 +18,18 @@ class SeeAllEventController extends GetxController {
 
   List<SeeAllEventModel>? seeAllEventModel;
 
-  addSeeAllData(dynamic data) {
+  addSeeAllData(dynamic data) async {
     seeAllEventModel = seeAllEventModelFromJson(data);
+
+    if (seeAllCategoryList == null) {
+      var res = await ApiService().getCategories();
+      if (res != null && res is List) {
+        seeAllCategoryList = categoryModelFromJson(res);
+        seeAllCategoryList?.insert(
+            0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+        seeAllCategoryList?[0].isSelected = true;
+      }
+    }
 
     update();
   }

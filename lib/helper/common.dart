@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,6 +15,9 @@ import 'package:tiqarte/helper/strings.dart';
 
 RxBool isDarkTheme = false.obs;
 String accessToken = '';
+String userId = '';
+String userName = '';
+String userImage = '';
 
 SpinKitCircle spinkit = SpinKitCircle(
   color: kPrimaryColor,
@@ -507,7 +511,7 @@ customProfileImage(String url, double width, double height) {
                   //   style: BorderStyle.solid,
                   // ),
                   image: DecorationImage(
-                      image: AssetImage(profileImage), fit: BoxFit.cover))),
+                      image: AssetImage(placeholder), fit: BoxFit.cover))),
           errorWidget: (context, url, error) => Container(
               width: width,
               height: height,
@@ -518,7 +522,7 @@ customProfileImage(String url, double width, double height) {
                   //   style: BorderStyle.solid,
                   // ),
                   image: DecorationImage(
-                      image: AssetImage(profileImage), fit: BoxFit.cover))),
+                      image: AssetImage(placeholder), fit: BoxFit.cover))),
         )
       : Container(
           width: width,
@@ -561,7 +565,7 @@ customCardImage(String url, double width, double height) {
                   //   style: BorderStyle.solid,
                   // ),
                   image: DecorationImage(
-                      image: AssetImage(eventImage), fit: BoxFit.cover))),
+                      image: AssetImage(eventPlaceholder), fit: BoxFit.cover))),
           errorWidget: (context, url, error) => Container(
               width: width,
               height: height,
@@ -572,7 +576,7 @@ customCardImage(String url, double width, double height) {
                   //   style: BorderStyle.solid,
                   // ),
                   image: DecorationImage(
-                      image: AssetImage(eventImage), fit: BoxFit.cover))),
+                      image: AssetImage(eventPlaceholder), fit: BoxFit.cover))),
         )
       : Container(
           width: width,
@@ -584,7 +588,7 @@ customCardImage(String url, double width, double height) {
               //   style: BorderStyle.solid,
               // ),
               image: DecorationImage(
-                  image: AssetImage(placeholder), fit: BoxFit.cover)));
+                  image: AssetImage(eventPlaceholder), fit: BoxFit.cover)));
 }
 
 customSnackBar(String title, String message) {
@@ -979,4 +983,28 @@ filterBottomSheet(
       );
     },
   );
+}
+
+String getUserIdFromJWT(String token) {
+  String jwt = token;
+
+// Split the JWT into its three parts: header, payload, and signature
+  List<String> jwtParts = jwt.split('.');
+
+// The payload is the second part
+  String encodedPayload = jwtParts[1];
+
+// Ensure the encoded payload length is a multiple of four
+  while (encodedPayload.length % 4 != 0) {
+    encodedPayload += '=';
+  }
+
+// Decode the payload using base64 decoding
+  String decodedPayload = utf8.decode(base64Url.decode(encodedPayload));
+
+// Parse the decoded payload as a JSON string
+  Map<String, dynamic> payloadJson = json.decode(decodedPayload);
+
+// Retrieve the user ID from the decoded payload
+  return payloadJson['userid'];
 }
