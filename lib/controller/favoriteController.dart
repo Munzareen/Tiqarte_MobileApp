@@ -86,8 +86,11 @@ class FavoriteController extends GetxController {
     if (favCategoryList![index].id == null) {
       favoriteList = [...favoriteListAll!];
     } else {
-      favoriteList?.removeWhere(
-          (element) => element.catagoryId != favCategoryList![index].id);
+      favoriteList = [...favoriteListAll!];
+
+      favoriteList?.removeWhere((element) =>
+          int.parse(element.catagoryId.toString()) !=
+          favCategoryList![index].id!.toInt());
     }
     if (searchController.text.trim().isNotEmpty) {
       searchEvent(searchController.text);

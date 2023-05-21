@@ -28,16 +28,14 @@ class SeeAllEventsScreen extends StatefulWidget {
 }
 
 class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
-  final _searchController = TextEditingController();
+  // final _searchController = TextEditingController();
   final _seeAllEventController = Get.put(SeeAllEventController());
-  Timer? _debounceTimer;
+  // Timer? _debounceTimer;
 
   @override
   void initState() {
     super.initState();
     getData();
-
-    _searchController.addListener(_onTextChanged);
   }
 
   getData() async {
@@ -51,32 +49,30 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
 
   @override
   void dispose() {
-    _searchController.removeListener(_onTextChanged);
-    _debounceTimer?.cancel();
-    _searchController.dispose();
+    _seeAllEventController.searchController.clear();
     _seeAllEventController.isSearch = false;
 
     super.dispose();
   }
 
-  void _onTextChanged() {
-    if (_debounceTimer?.isActive ?? false) {
-      _debounceTimer!.cancel();
-    }
+  // void _onTextChanged() {
+  //   if (_debounceTimer?.isActive ?? false) {
+  //     _debounceTimer!.cancel();
+  //   }
 
-    _debounceTimer = Timer(Duration(milliseconds: 1200), () async {
-      if (_seeAllEventController.isSearch &&
-          _searchController.text.trim() != '') {
-        var res = await ApiService()
-            .getEventSearch(context, _searchController.text.trim());
-        if (res != null && res is List) {
-          _seeAllEventController.addSeeAllData(res);
-        } else {
-          customSnackBar("Error!", "Something went wrong!");
-        }
-      }
-    });
-  }
+  //   _debounceTimer = Timer(Duration(milliseconds: 1200), () async {
+  //     if (_seeAllEventController.isSearch &&
+  //         _searchController.text.trim() != '') {
+  //       var res = await ApiService()
+  //           .getEventSearch(context, _searchController.text.trim());
+  //       if (res != null && res is List) {
+  //         _seeAllEventController.addSeeAllData(res);
+  //       } else {
+  //         customSnackBar("Error!", "Something went wrong!");
+  //       }
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +111,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     child: TextFormField(
                                       focusNode: _sc.searchFocusNode,
                                       cursorColor: kPrimaryColor,
-                                      controller: _searchController,
+                                      controller: _sc.searchController,
                                       keyboardType: TextInputType.text,
                                       // validator: (value) {
                                       //   if (value!.isEmpty) {
@@ -161,7 +157,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                   IconButton(
                                       onPressed: () {
                                         _sc.isSearchOrNot(false);
-                                        _searchController.clear();
+                                        _sc.searchController.clear();
                                         _sc.seeAllEventModel = null;
                                         _sc.update();
                                         getData();

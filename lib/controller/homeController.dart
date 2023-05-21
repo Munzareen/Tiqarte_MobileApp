@@ -70,8 +70,11 @@ class HomeController extends GetxController {
     if (upcomingCategoryList![index].id == null) {
       upcomingEventList = [...upcomingEventListAll!];
     } else {
-      upcomingEventList?.removeWhere(
-          (element) => element.catagoryId != upcomingCategoryList![index].id);
+      upcomingEventList = [...upcomingEventListAll!];
+
+      upcomingEventList?.removeWhere((element) =>
+          int.parse(element.catagoryId.toString()) !=
+          upcomingCategoryList![index].id!.toInt());
     }
 
     if (searchController.text.trim().isNotEmpty) {
@@ -90,8 +93,12 @@ class HomeController extends GetxController {
     // if (shopCategoryList![index].id == null) {
     //   shopList = [...shopListAll!];
     // } else {
-    //   shopList?.removeWhere(
-    //       (element) => element.catagoryId != shopCategoryList![index].id);
+    //   shopList = [...shopListAll!];
+
+    //   shopList?.removeWhere((element) =>
+    //       int.parse(element.catagoryId.toString()) !=
+    //       shopCategoryList![index].id!.toInt());
+
     // }
     update();
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
@@ -17,9 +19,14 @@ class SeeAllEventController extends GetxController {
   List<CategoryModel>? seeAllCategoryList;
 
   List<SeeAllEventModel>? seeAllEventModel;
+  List<SeeAllEventModel>? seeAllEventModelAll;
+
+  Timer? debounceTimer;
+  final searchController = TextEditingController();
 
   addSeeAllData(dynamic data) async {
     seeAllEventModel = seeAllEventModelFromJson(data);
+    seeAllEventModelAll = [...seeAllEventModel!];
 
     if (seeAllCategoryList == null) {
       var res = await ApiService().getCategories();
@@ -49,11 +56,40 @@ class SeeAllEventController extends GetxController {
       element.isSelected = false;
     });
     seeAllCategoryList?[index].isSelected = true;
+
+    if (seeAllCategoryList![index].id == null) {
+      seeAllEventModel = [...seeAllEventModelAll!];
+    } else {
+      seeAllEventModel = [...seeAllEventModelAll!];
+
+      seeAllEventModel?.removeWhere((element) =>
+          int.parse(element.catagoryId.toString()) !=
+          seeAllCategoryList![index].id!.toInt());
+    }
     update();
+  }
+
+  void onTextChanged() {
+    if (debounceTimer?.isActive ?? false) {
+      debounceTimer!.cancel();
+    }
+
+    debounceTimer = Timer(Duration(milliseconds: 1200), () async {
+      if (searchController.text.trim() != '') {
+        var res = await ApiService()
+            .getEventSearch(Get.context!, searchController.text.trim());
+        if (res != null && res is List) {
+          addSeeAllData(res);
+        } else {
+          customSnackBar("Error!", "Something went wrong!");
+        }
+      }
+    });
   }
 
   @override
   void onInit() {
+    searchController.addListener(onTextChanged);
     searchFocusNode.addListener(() {
       if (searchFocusNode.hasFocus) {
         filledColorSearch = kPrimaryColor.withOpacity(0.2);
@@ -73,6 +109,9 @@ class SeeAllEventController extends GetxController {
   @override
   void onClose() {
     searchFocusNode.dispose();
+    searchController.removeListener(onTextChanged);
+    debounceTimer?.cancel();
+    searchController.dispose();
     super.onClose();
   }
 }

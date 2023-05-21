@@ -225,8 +225,8 @@ class ApiService {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        builder: (_) {
+          return spinkit;
         });
 
     final headers = {
