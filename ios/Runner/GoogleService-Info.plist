@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>458125428826-i82c376vpn9nq9do752un5kpifrpsljb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.458125428826-i82c376vpn9nq9do752un5kpifrpsljb</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>458125428826-lfbvu91gsvlkmn7oqmk7un1eeprpc413.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCi-AjW6ftDr3LWTpjZyOHAg8tGRFNGaGo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>458125428826</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.compilerz.tiqarteapp</string>
+	<key>PROJECT_ID</key>
+	<string>tiqarte-d2039</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tiqarte-d2039.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:458125428826:ios:2e061e9f9e36347d12b063</string>
+</dict>
+</plist>

@@ -14,15 +14,18 @@ class EventDetailController extends GetxController {
 
   addEventDetail(dynamic data) async {
     eventDetailModel = EventDetailModel.fromJson(data);
-    double lat =
-        double.parse(eventDetailModel.event!.location!.split(",").first);
-    double long =
-        double.parse(eventDetailModel.event!.location!.split(",").last);
+    if (eventDetailModel.event!.location != null) {
+      double lat =
+          double.parse(eventDetailModel.event!.location!.split(",").first);
+      double long =
+          double.parse(eventDetailModel.event!.location!.split(",").last);
 
-    List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
-    Placemark place = placemarks[0];
-    eventDetailModel.event!.locationName =
-        "${place.street}, ${place.subAdministrativeArea}, ${place.country}";
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+      Placemark place = placemarks[0];
+      eventDetailModel.event!.locationName =
+          "${place.street}, ${place.subAdministrativeArea}, ${place.country}";
+    }
+
     update();
     var res = await ApiService()
         .getRelatedEvents(eventDetailModel.event!.eventId.toString());
@@ -40,6 +43,8 @@ class EventDetailController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
+
     if (!isDarkTheme.value) {
       scrollController.addListener(() {
         if (scrollController.offset >= 300) {
@@ -49,8 +54,6 @@ class EventDetailController extends GetxController {
         }
       });
     }
-
-    super.onInit();
   }
 
   @override

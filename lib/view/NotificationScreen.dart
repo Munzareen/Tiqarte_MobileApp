@@ -142,7 +142,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                           20.verticalSpace,
                           Text(
-                            notificationEmptySrting,
+                            empty,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 24,

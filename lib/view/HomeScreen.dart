@@ -26,7 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _searchController = TextEditingController();
   final _homeController = Get.put(HomeController());
   final nbc = Get.put(NavigationBarController());
 
@@ -146,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   20.verticalSpace,
                   TextFormField(
                     cursorColor: kPrimaryColor,
-                    controller: _searchController,
+                    controller: _hc.searchController,
                     style: const TextStyle(color: Colors.black),
                     keyboardType: TextInputType.text,
                     // validator: (value) {
@@ -197,403 +196,619 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Expanded(
                           child: ListView(
                             children: [
-                              _hc.featuredEventList!.isEmpty
+                              _hc.featuredEventListAll!.isEmpty
                                   ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        20.verticalSpace,
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                  : _hc.featuredEventListAll!.isNotEmpty &&
+                                          _hc.featuredEventList!.isEmpty
+                                      ? Column(
                                           children: [
-                                            Text(
-                                              featured,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            _hc.featuredEventList!.length > 12
-                                                ? InkWell(
-                                                    onTap: () => Get.to(
-                                                        () => SeeAllEventsScreen(
-                                                            name: featured,
-                                                            img: '',
-                                                            eventTypeId: _hc
-                                                                .featuredEventList![
-                                                                    0]
-                                                                .eventTypeId!
-                                                                .toInt()
-                                                                .toString()),
-                                                        transition: Transition
-                                                            .rightToLeft),
-                                                    child: Text(
-                                                      seeAll,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  )
-                                                : SizedBox(),
-                                          ],
-                                        ),
-                                        20.verticalSpace,
-                                        CarouselSlider.builder(
-                                            options: CarouselOptions(
-                                                height: 0.425.sh,
-                                                enlargeCenterPage: true,
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                enableInfiniteScroll: false,
-                                                viewportFraction: 0.8),
-                                            itemCount:
-                                                _hc.featuredEventList?.length,
-                                            itemBuilder: (BuildContext context,
-                                                int itemIndex,
-                                                int pageViewIndex) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Get.to(
-                                                      () => EventDetailScreen(
-                                                            eventId: _hc
-                                                                .featuredEventList![
-                                                                    itemIndex]
-                                                                .eventId!
-                                                                .toInt()
-                                                                .toString(),
-                                                          ));
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.all(16.0),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.0),
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        customCardImage(
-                                                            _hc
-                                                                    .featuredEventList![
-                                                                        itemIndex]
-                                                                    .eventImages!
-                                                                    .isNotEmpty
-                                                                ? _hc
-                                                                    .featuredEventList![
-                                                                        itemIndex]
-                                                                    .eventImages![
-                                                                        0]
-                                                                    .toString()
-                                                                : "null",
-                                                            250.w,
-                                                            160.h),
-                                                        12.verticalSpace,
-                                                        SizedBox(
-                                                          width: 0.7.sw,
-                                                          child: Text(
-                                                            _hc
-                                                                .featuredEventList![
-                                                                    itemIndex]
-                                                                .name
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        12.verticalSpace,
-                                                        FittedBox(
-                                                          child: Text(
-                                                            splitDateTimeWithoutYear(_hc
-                                                                .featuredEventList![
-                                                                    itemIndex]
-                                                                .eventDate
-                                                                .toString()),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color:
-                                                                    kPrimaryColor),
-                                                          ),
-                                                        ),
-                                                        12.verticalSpace,
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .location_on,
-                                                                  color:
-                                                                      kPrimaryColor,
-                                                                  size: 25,
-                                                                ),
-                                                                10.horizontalSpace,
-                                                                SizedBox(
-                                                                  width: 0.5.sw,
-                                                                  child: Text(
-                                                                    _hc
-                                                                        .featuredEventList![
-                                                                            itemIndex]
-                                                                        .city
-                                                                        .toString(),
-                                                                    maxLines: 1,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      //color: Color(0xff616161)
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            InkWell(
-                                                              onTap: () async {
-                                                                String data =
-                                                                    '';
-                                                                if (_hc
-                                                                        .featuredEventList![
-                                                                            itemIndex]
-                                                                        .isFav ==
-                                                                    true) {
-                                                                  data =
-                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
-                                                                } else {
-                                                                  data =
-                                                                      "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
-                                                                }
-
-                                                                var res = await ApiService()
-                                                                    .addFavorite(
-                                                                        data);
-                                                                if (res !=
-                                                                        null &&
-                                                                    res is String) {
-                                                                  if (res
-                                                                      .toUpperCase()
-                                                                      .contains(
-                                                                          "ADDED")) {
-                                                                    _hc
-                                                                        .featuredEventList![
-                                                                            itemIndex]
-                                                                        .isFav = true;
-                                                                    _hc.update();
-                                                                  } else if (res
-                                                                      .toUpperCase()
-                                                                      .contains(
-                                                                          "REMOVED")) {
-                                                                    _hc
-                                                                        .featuredEventList![
-                                                                            itemIndex]
-                                                                        .isFav = false;
-                                                                    _hc.update();
-                                                                  }
-                                                                  customSnackBar(
-                                                                      "Alert!",
-                                                                      res);
-                                                                }
-                                                              },
-                                                              child:
-                                                                  Image.asset(
-                                                                _hc.featuredEventList![itemIndex]
-                                                                            .isFav ==
-                                                                        true
-                                                                    ? favoriteIconSelected
-                                                                    : favoriteIcon,
-                                                                color:
-                                                                    kPrimaryColor,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            })
-                                      ],
-                                    ),
-                              20.verticalSpace,
-                              _hc.upcomingEventList!.isEmpty
-                                  ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
+                                            20.verticalSpace,
                                             Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
-                                                  upcomingEvent,
+                                                  featured,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                5.horizontalSpace,
-                                                Image.asset(fireIcon),
                                               ],
                                             ),
-                                            _hc.upcomingEventList!.length > 12
-                                                ? InkWell(
-                                                    onTap: () => Get.to(
-                                                        () => SeeAllEventsScreen(
-                                                            name: upcomingEvent,
-                                                            img: fireIcon,
-                                                            eventTypeId: _hc
-                                                                .upcomingEventList![
-                                                                    0]
-                                                                .eventTypeId!
-                                                                .toInt()
-                                                                .toString()),
-                                                        transition: Transition
-                                                            .rightToLeft),
-                                                    child: Text(
-                                                      seeAll,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  )
-                                                : SizedBox(),
+                                            20.verticalSpace,
+                                            Image.asset(
+                                              notFoundImage,
+                                              height: 250,
+                                            ),
+                                            10.verticalSpace,
+                                            Text(
+                                              notFound,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            10.verticalSpace,
                                           ],
-                                        ),
-                                        20.verticalSpace,
-                                        Container(
-                                          height: 45,
-                                          width: 1.sw,
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: _hc
-                                                .upcomingCategoryList?.length,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  _hc.selectUpcomingEventCategory(
-                                                      index);
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5.0),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 15.0),
-                                                  decoration: BoxDecoration(
-                                                    color: _hc
-                                                                .upcomingCategoryList![
-                                                                    index]
-                                                                .isSelected ==
-                                                            true
-                                                        ? kPrimaryColor
-                                                        : Colors.transparent,
-                                                    border: Border.all(
-                                                        width: 2,
-                                                        color: kPrimaryColor),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
+                                        )
+                                      : Column(
+                                          children: [
+                                            20.verticalSpace,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  featured,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: Row(
-                                                      children: [
-                                                        // Image.asset(
-                                                        //     upcomingEventsCatergoryList[
-                                                        //         index]['icon']),
-                                                        5.horizontalSpace,
-                                                        Text(
-                                                          _hc
-                                                              .upcomingCategoryList![
-                                                                  index]
-                                                              .catagoryName
-                                                              .toString(),
+                                                ),
+                                                _hc.featuredEventList!.length >
+                                                        12
+                                                    ? InkWell(
+                                                        onTap: () => Get.to(
+                                                            () => SeeAllEventsScreen(
+                                                                name: featured,
+                                                                img: '',
+                                                                eventTypeId: _hc
+                                                                    .featuredEventList![
+                                                                        0]
+                                                                    .eventTypeId!
+                                                                    .toInt()
+                                                                    .toString()),
+                                                            transition: Transition
+                                                                .rightToLeft),
+                                                        child: Text(
+                                                          seeAll,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w400,
-                                                              color: _hc.upcomingCategoryList![index]
-                                                                          .isSelected ==
-                                                                      true
-                                                                  ? Colors.white
-                                                                  : kPrimaryColor),
+                                                                      .bold,
+                                                              color:
+                                                                  kPrimaryColor),
                                                         ),
-                                                      ],
+                                                      )
+                                                    : SizedBox(),
+                                              ],
+                                            ),
+                                            20.verticalSpace,
+                                            CarouselSlider.builder(
+                                                options: CarouselOptions(
+                                                    height: 0.425.sh,
+                                                    enlargeCenterPage: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    enableInfiniteScroll: false,
+                                                    viewportFraction: 0.8),
+                                                itemCount: _hc
+                                                    .featuredEventList?.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int itemIndex,
+                                                        int pageViewIndex) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          EventDetailScreen(
+                                                            eventId: _hc
+                                                                .featuredEventList![
+                                                                    itemIndex]
+                                                                .eventId!
+                                                                .toInt()
+                                                                .toString(),
+                                                          ));
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.all(16.0),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .secondaryHeaderColor),
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            customCardImage(
+                                                                _hc
+                                                                        .featuredEventList![
+                                                                            itemIndex]
+                                                                        .eventImages!
+                                                                        .isNotEmpty
+                                                                    ? _hc
+                                                                        .featuredEventList![
+                                                                            itemIndex]
+                                                                        .eventImages![
+                                                                            0]
+                                                                        .toString()
+                                                                    : "null",
+                                                                250.w,
+                                                                160.h),
+                                                            12.verticalSpace,
+                                                            SizedBox(
+                                                              width: 0.7.sw,
+                                                              child: Text(
+                                                                _hc
+                                                                    .featuredEventList![
+                                                                        itemIndex]
+                                                                    .name
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            12.verticalSpace,
+                                                            FittedBox(
+                                                              child: Text(
+                                                                splitDateTimeWithoutYear(_hc
+                                                                    .featuredEventList![
+                                                                        itemIndex]
+                                                                    .eventDate
+                                                                    .toString()),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color:
+                                                                        kPrimaryColor),
+                                                              ),
+                                                            ),
+                                                            12.verticalSpace,
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .location_on,
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      size: 25,
+                                                                    ),
+                                                                    10.horizontalSpace,
+                                                                    SizedBox(
+                                                                      width: 0.5
+                                                                          .sw,
+                                                                      child:
+                                                                          Text(
+                                                                        _hc.featuredEventList![itemIndex]
+                                                                            .city
+                                                                            .toString(),
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontWeight:
+                                                                              FontWeight.w400,
+                                                                          //color: Color(0xff616161)
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    String
+                                                                        data =
+                                                                        '';
+                                                                    if (_hc.featuredEventList![itemIndex]
+                                                                            .isFav ==
+                                                                        true) {
+                                                                      data =
+                                                                          "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
+                                                                    } else {
+                                                                      data =
+                                                                          "?eventID=${_hc.featuredEventList![itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
+                                                                    }
+
+                                                                    var res = await ApiService()
+                                                                        .addFavorite(
+                                                                            data);
+                                                                    if (res !=
+                                                                            null &&
+                                                                        res is String) {
+                                                                      if (res
+                                                                          .toUpperCase()
+                                                                          .contains(
+                                                                              "ADDED")) {
+                                                                        _hc.featuredEventList![itemIndex].isFav =
+                                                                            true;
+                                                                        _hc.update();
+                                                                      } else if (res
+                                                                          .toUpperCase()
+                                                                          .contains(
+                                                                              "REMOVED")) {
+                                                                        _hc.featuredEventList![itemIndex].isFav =
+                                                                            false;
+                                                                        _hc.update();
+                                                                      }
+                                                                      customSnackBar(
+                                                                          "Alert!",
+                                                                          res);
+                                                                    }
+                                                                  },
+                                                                  child: Image
+                                                                      .asset(
+                                                                    _hc.featuredEventList![itemIndex].isFav ==
+                                                                            true
+                                                                        ? favoriteIconSelected
+                                                                        : favoriteIcon,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
+                                                  );
+                                                })
+                                          ],
+                                        ),
+                              20.verticalSpace,
+                              _hc.upcomingEventListAll!.isEmpty
+                                  ? SizedBox()
+                                  : _hc.upcomingEventListAll!.isNotEmpty &&
+                                          _hc.upcomingEventList!.isEmpty
+                                      ? Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      upcomingEvent,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    5.horizontalSpace,
+                                                    Image.asset(fireIcon),
+                                                  ],
+                                                ),
+                                                _hc.upcomingEventList!.length >
+                                                        12
+                                                    ? InkWell(
+                                                        onTap: () => Get.to(
+                                                            () => SeeAllEventsScreen(
+                                                                name:
+                                                                    upcomingEvent,
+                                                                img: fireIcon,
+                                                                eventTypeId: _hc
+                                                                    .upcomingEventList![
+                                                                        0]
+                                                                    .eventTypeId!
+                                                                    .toInt()
+                                                                    .toString()),
+                                                            transition: Transition
+                                                                .rightToLeft),
+                                                        child: Text(
+                                                          seeAll,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                        ),
+                                                      )
+                                                    : SizedBox(),
+                                              ],
+                                            ),
+                                            20.verticalSpace,
+                                            Container(
+                                              height: 45,
+                                              width: 1.sw,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: _hc
+                                                    .upcomingCategoryList
+                                                    ?.length,
+                                                itemBuilder: (context, index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      _hc.selectUpcomingEventCategory(
+                                                          index);
+                                                    },
+                                                    child: Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 5.0),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 15.0),
+                                                      decoration: BoxDecoration(
+                                                        color: _hc
+                                                                    .upcomingCategoryList![
+                                                                        index]
+                                                                    .isSelected ==
+                                                                true
+                                                            ? kPrimaryColor
+                                                            : Colors
+                                                                .transparent,
+                                                        border: Border.all(
+                                                            width: 2,
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(4.0),
+                                                        child: Row(
+                                                          children: [
+                                                            // Image.asset(
+                                                            //     upcomingEventsCatergoryList[
+                                                            //         index]['icon']),
+                                                            5.horizontalSpace,
+                                                            Text(
+                                                              _hc
+                                                                  .upcomingCategoryList![
+                                                                      index]
+                                                                  .catagoryName
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: _hc.upcomingCategoryList![index].isSelected ==
+                                                                          true
+                                                                      ? Colors
+                                                                          .white
+                                                                      : kPrimaryColor),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            20.verticalSpace,
+                                            Column(
+                                              children: [
+                                                20.verticalSpace,
+                                                Image.asset(
+                                                  notFoundImage,
+                                                  height: 250,
+                                                ),
+                                                10.verticalSpace,
+                                                Text(
+                                                  notFound,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        20.verticalSpace,
-                                        Container(
-                                          child: GridView.builder(
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    childAspectRatio: 1,
-                                                    crossAxisSpacing: 10,
-                                                    mainAxisSpacing: 20,
-                                                    mainAxisExtent: 240),
-                                            itemCount:
-                                                _hc.upcomingEventList?.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Get.to(
-                                                      () => EventDetailScreen(
+                                                10.verticalSpace,
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      upcomingEvent,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    5.horizontalSpace,
+                                                    Image.asset(fireIcon),
+                                                  ],
+                                                ),
+                                                _hc.upcomingEventList!.length >
+                                                        12
+                                                    ? InkWell(
+                                                        onTap: () => Get.to(
+                                                            () => SeeAllEventsScreen(
+                                                                name:
+                                                                    upcomingEvent,
+                                                                img: fireIcon,
+                                                                eventTypeId: _hc
+                                                                    .upcomingEventList![
+                                                                        0]
+                                                                    .eventTypeId!
+                                                                    .toInt()
+                                                                    .toString()),
+                                                            transition: Transition
+                                                                .rightToLeft),
+                                                        child: Text(
+                                                          seeAll,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                        ),
+                                                      )
+                                                    : SizedBox(),
+                                              ],
+                                            ),
+                                            20.verticalSpace,
+                                            Container(
+                                              height: 45,
+                                              width: 1.sw,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: _hc
+                                                    .upcomingCategoryList
+                                                    ?.length,
+                                                itemBuilder: (context, index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      _hc.selectUpcomingEventCategory(
+                                                          index);
+                                                    },
+                                                    child: Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 5.0),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 15.0),
+                                                      decoration: BoxDecoration(
+                                                        color: _hc
+                                                                    .upcomingCategoryList![
+                                                                        index]
+                                                                    .isSelected ==
+                                                                true
+                                                            ? kPrimaryColor
+                                                            : Colors
+                                                                .transparent,
+                                                        border: Border.all(
+                                                            width: 2,
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(4.0),
+                                                        child: Row(
+                                                          children: [
+                                                            // Image.asset(
+                                                            //     upcomingEventsCatergoryList[
+                                                            //         index]['icon']),
+                                                            5.horizontalSpace,
+                                                            Text(
+                                                              _hc
+                                                                  .upcomingCategoryList![
+                                                                      index]
+                                                                  .catagoryName
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: _hc.upcomingCategoryList![index].isSelected ==
+                                                                          true
+                                                                      ? Colors
+                                                                          .white
+                                                                      : kPrimaryColor),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            20.verticalSpace,
+                                            Container(
+                                              child: GridView.builder(
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 2,
+                                                        childAspectRatio: 1,
+                                                        crossAxisSpacing: 10,
+                                                        mainAxisSpacing: 20,
+                                                        mainAxisExtent: 240),
+                                                itemCount: _hc
+                                                    .upcomingEventList?.length,
+                                                shrinkWrap: true,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          EventDetailScreen(
                                                             eventId: _hc
                                                                 .upcomingEventList![
                                                                     index]
@@ -601,403 +816,576 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .toInt()
                                                                 .toString(),
                                                           ));
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.all(12.0),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.0),
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      // mainAxisSize: MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        customCardImage(
-                                                            _hc
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.all(12.0),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .secondaryHeaderColor),
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          // mainAxisSize: MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            customCardImage(
+                                                                _hc
+                                                                        .upcomingEventList![
+                                                                            index]
+                                                                        .eventImages!
+                                                                        .isNotEmpty
+                                                                    ? _hc
+                                                                        .upcomingEventList![
+                                                                            index]
+                                                                        .eventImages![
+                                                                            0]
+                                                                        .toString()
+                                                                    : "null",
+                                                                140.h,
+                                                                100.h),
+                                                            8.verticalSpace,
+                                                            SizedBox(
+                                                              width: 0.5.sw,
+                                                              child: Text(
+                                                                _hc
                                                                     .upcomingEventList![
                                                                         index]
-                                                                    .eventImages!
-                                                                    .isNotEmpty
-                                                                ? _hc
-                                                                    .upcomingEventList![
-                                                                        index]
-                                                                    .eventImages![
-                                                                        0]
-                                                                    .toString()
-                                                                : "null",
-                                                            140.h,
-                                                            100.h),
-                                                        8.verticalSpace,
-                                                        SizedBox(
-                                                          width: 0.5.sw,
-                                                          child: Text(
-                                                            _hc
-                                                                .upcomingEventList![
-                                                                    index]
-                                                                .name
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        8.verticalSpace,
-                                                        FittedBox(
-                                                          child: Text(
-                                                            splitDateTimeWithoutYear(_hc
-                                                                .upcomingEventList![
-                                                                    index]
-                                                                .eventDate
-                                                                .toString()),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color:
-                                                                    kPrimaryColor),
-                                                          ),
-                                                        ),
-                                                        8.verticalSpace,
-                                                        FittedBox(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .location_on,
-                                                                color:
-                                                                    kPrimaryColor,
-                                                                size: 25,
+                                                                    .name
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
                                                               ),
-                                                              5.horizontalSpace,
-                                                              SizedBox(
-                                                                width: 0.3.sw,
-                                                                child: Text(
-                                                                  _hc
-                                                                      .upcomingEventList![
-                                                                          index]
-                                                                      .city
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  maxLines: 1,
-                                                                  style:
-                                                                      TextStyle(
+                                                            ),
+                                                            8.verticalSpace,
+                                                            FittedBox(
+                                                              child: Text(
+                                                                splitDateTimeWithoutYear(_hc
+                                                                    .upcomingEventList![
+                                                                        index]
+                                                                    .eventDate
+                                                                    .toString()),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: TextStyle(
                                                                     fontSize:
                                                                         12,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w400,
-                                                                  ),
-                                                                ),
+                                                                    color:
+                                                                        kPrimaryColor),
                                                               ),
-                                                              5.horizontalSpace,
-                                                              InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  String data =
-                                                                      '';
-                                                                  if (_hc
-                                                                          .upcomingEventList![
-                                                                              index]
-                                                                          .isFav ==
-                                                                      true) {
-                                                                    data =
-                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=false&customerID=$userId";
-                                                                  } else {
-                                                                    data =
-                                                                        "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=true&customerID=$userId";
-                                                                  }
-
-                                                                  var res = await ApiService()
-                                                                      .addFavorite(
-                                                                          data);
-                                                                  if (res !=
-                                                                          null &&
-                                                                      res is String) {
-                                                                    if (res
-                                                                        .toUpperCase()
-                                                                        .contains(
-                                                                            "ADDED")) {
+                                                            ),
+                                                            8.verticalSpace,
+                                                            FittedBox(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .location_on,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                    size: 25,
+                                                                  ),
+                                                                  5.horizontalSpace,
+                                                                  SizedBox(
+                                                                    width:
+                                                                        0.3.sw,
+                                                                    child: Text(
                                                                       _hc
                                                                           .upcomingEventList![
                                                                               index]
-                                                                          .isFav = true;
-                                                                      _hc.update();
-                                                                    } else if (res
-                                                                        .toUpperCase()
-                                                                        .contains(
-                                                                            "REMOVED")) {
-                                                                      _hc.upcomingEventList![index].isFav =
-                                                                          false;
-                                                                      _hc.update();
-                                                                    }
-                                                                    customSnackBar(
-                                                                        "Alert!",
-                                                                        res);
-                                                                  }
-                                                                },
-                                                                child:
-                                                                    Image.asset(
-                                                                  _hc.upcomingEventList![index]
+                                                                          .city
+                                                                          .toString(),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          1,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w400,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  5.horizontalSpace,
+                                                                  InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      String
+                                                                          data =
+                                                                          '';
+                                                                      if (_hc.upcomingEventList![index]
                                                                               .isFav ==
-                                                                          true
-                                                                      ? favoriteIconSelected
-                                                                      : favoriteIcon,
-                                                                  color:
-                                                                      kPrimaryColor,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ],
+                                                                          true) {
+                                                                        data =
+                                                                            "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=false&customerID=$userId";
+                                                                      } else {
+                                                                        data =
+                                                                            "?eventID=${_hc.upcomingEventList![index].eventId!.toInt()}&fav=true&customerID=$userId";
+                                                                      }
+
+                                                                      var res =
+                                                                          await ApiService()
+                                                                              .addFavorite(data);
+                                                                      if (res !=
+                                                                              null &&
+                                                                          res is String) {
+                                                                        if (res
+                                                                            .toUpperCase()
+                                                                            .contains(
+                                                                                "ADDED")) {
+                                                                          _hc.upcomingEventList![index].isFav =
+                                                                              true;
+                                                                          _hc.update();
+                                                                        } else if (res
+                                                                            .toUpperCase()
+                                                                            .contains("REMOVED")) {
+                                                                          _hc.upcomingEventList![index].isFav =
+                                                                              false;
+                                                                          _hc.update();
+                                                                        }
+                                                                        customSnackBar(
+                                                                            "Alert!",
+                                                                            res);
+                                                                      }
+                                                                    },
+                                                                    child: Image
+                                                                        .asset(
+                                                                      _hc.upcomingEventList![index].isFav ==
+                                                                              true
+                                                                          ? favoriteIconSelected
+                                                                          : favoriteIcon,
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                              20.verticalSpace,
-                              _hc.shopList!.isEmpty
-                                  ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              shop,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
+                                                  );
+                                                },
                                               ),
                                             ),
-                                            _hc.shopList!.length > 12
-                                                ? InkWell(
-                                                    onTap: () => Get.to(
-                                                        () =>
-                                                            SeeAllProductsScreen(),
-                                                        transition: Transition
-                                                            .rightToLeft),
-                                                    child: Text(
-                                                      seeAll,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  )
-                                                : SizedBox(),
                                           ],
                                         ),
-                                        20.verticalSpace,
-                                        Container(
-                                          height: 45,
-                                          width: 1.sw,
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                _hc.shopCategoryList?.length,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  _hc.selectShopCategory(index);
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5.0),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 15.0),
-                                                  decoration: BoxDecoration(
-                                                    color: _hc
-                                                                .shopCategoryList![
-                                                                    index]
-                                                                .isSelected ==
-                                                            true
-                                                        ? kPrimaryColor
-                                                        : Colors.transparent,
-                                                    border: Border.all(
-                                                        width: 2,
-                                                        color: kPrimaryColor),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
+                              20.verticalSpace,
+                              _hc.shopListAll!.isEmpty
+                                  ? SizedBox()
+                                  : _hc.shopListAll!.isNotEmpty &&
+                                          _hc.shopList!.isEmpty
+                                      ? Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  shop,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: Row(
-                                                      children: [
-                                                        // Image.asset(
-                                                        //     upcomingEventsCatergoryList[
-                                                        //         index]['icon']),
-                                                        5.horizontalSpace,
-                                                        Text(
-                                                          _hc
-                                                              .shopCategoryList![
-                                                                  index]
-                                                              .catagoryName
-                                                              .toString(),
+                                                ),
+                                                _hc.shopList!.length > 12
+                                                    ? InkWell(
+                                                        onTap: () => Get.to(
+                                                            () =>
+                                                                SeeAllProductsScreen(),
+                                                            transition: Transition
+                                                                .rightToLeft),
+                                                        child: Text(
+                                                          seeAll,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w400,
-                                                              color: _hc.shopCategoryList![index]
-                                                                          .isSelected ==
-                                                                      true
-                                                                  ? Colors.white
-                                                                  : kPrimaryColor),
+                                                                      .bold,
+                                                              color:
+                                                                  kPrimaryColor),
                                                         ),
-                                                      ],
+                                                      )
+                                                    : SizedBox(),
+                                              ],
+                                            ),
+                                            20.verticalSpace,
+                                            Container(
+                                              height: 45,
+                                              width: 1.sw,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: _hc
+                                                    .shopCategoryList?.length,
+                                                itemBuilder: (context, index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      _hc.selectShopCategory(
+                                                          index);
+                                                    },
+                                                    child: Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 5.0),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 15.0),
+                                                      decoration: BoxDecoration(
+                                                        color: _hc
+                                                                    .shopCategoryList![
+                                                                        index]
+                                                                    .isSelected ==
+                                                                true
+                                                            ? kPrimaryColor
+                                                            : Colors
+                                                                .transparent,
+                                                        border: Border.all(
+                                                            width: 2,
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(4.0),
+                                                        child: Row(
+                                                          children: [
+                                                            // Image.asset(
+                                                            //     upcomingEventsCatergoryList[
+                                                            //         index]['icon']),
+                                                            5.horizontalSpace,
+                                                            Text(
+                                                              _hc
+                                                                  .shopCategoryList![
+                                                                      index]
+                                                                  .catagoryName
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: _hc.shopCategoryList![index].isSelected ==
+                                                                          true
+                                                                      ? Colors
+                                                                          .white
+                                                                      : kPrimaryColor),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            20.verticalSpace,
+                                            Column(
+                                              children: [
+                                                20.verticalSpace,
+                                                Image.asset(
+                                                  notFoundImage,
+                                                  height: 250,
+                                                ),
+                                                10.verticalSpace,
+                                                Text(
+                                                  notFound,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        20.verticalSpace,
-                                        Container(
-                                          child: GridView.builder(
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    childAspectRatio: 1,
-                                                    crossAxisSpacing: 10,
-                                                    mainAxisSpacing: 20,
-                                                    mainAxisExtent: 255),
-                                            itemCount: _hc.shopList?.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Get.to(() =>
-                                                      ViewProductScreen());
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.all(12.0),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.0),
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      // mainAxisSize: MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        customCardImage(
-                                                            _hc.shopList![index]
-                                                                .image
-                                                                .toString(),
-                                                            140.h,
-                                                            120.h),
-                                                        8.verticalSpace,
-                                                        SizedBox(
-                                                          width: 0.5.sw,
-                                                          child: Text(
-                                                            _hc.shopList![index]
-                                                                .name
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
+                                                10.verticalSpace,
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  shop,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                _hc.shopList!.length > 12
+                                                    ? InkWell(
+                                                        onTap: () => Get.to(
+                                                            () =>
+                                                                SeeAllProductsScreen(),
+                                                            transition: Transition
+                                                                .rightToLeft),
+                                                        child: Text(
+                                                          seeAll,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                        ),
+                                                      )
+                                                    : SizedBox(),
+                                              ],
+                                            ),
+                                            20.verticalSpace,
+                                            Container(
+                                              height: 45,
+                                              width: 1.sw,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: _hc
+                                                    .shopCategoryList?.length,
+                                                itemBuilder: (context, index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      _hc.selectShopCategory(
+                                                          index);
+                                                    },
+                                                    child: Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 5.0),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 15.0),
+                                                      decoration: BoxDecoration(
+                                                        color: _hc
+                                                                    .shopCategoryList![
+                                                                        index]
+                                                                    .isSelected ==
+                                                                true
+                                                            ? kPrimaryColor
+                                                            : Colors
+                                                                .transparent,
+                                                        border: Border.all(
+                                                            width: 2,
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(4.0),
+                                                        child: Row(
+                                                          children: [
+                                                            // Image.asset(
+                                                            //     upcomingEventsCatergoryList[
+                                                            //         index]['icon']),
+                                                            5.horizontalSpace,
+                                                            Text(
+                                                              _hc
+                                                                  .shopCategoryList![
+                                                                      index]
+                                                                  .catagoryName
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: _hc.shopCategoryList![index].isSelected ==
+                                                                          true
+                                                                      ? Colors
+                                                                          .white
+                                                                      : kPrimaryColor),
                                                             ),
-                                                          ),
+                                                          ],
                                                         ),
-                                                        5.verticalSpace,
-                                                        Text(
-                                                          forMen,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                        5.verticalSpace,
-                                                        FittedBox(
-                                                          child: Text(
-                                                            _hc.shopList![index]
-                                                                .price
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            20.verticalSpace,
+                                            Container(
+                                              child: GridView.builder(
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 2,
+                                                        childAspectRatio: 1,
+                                                        crossAxisSpacing: 10,
+                                                        mainAxisSpacing: 20,
+                                                        mainAxisExtent: 255),
+                                                itemCount: _hc.shopList?.length,
+                                                shrinkWrap: true,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          ViewProductScreen());
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.all(12.0),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .secondaryHeaderColor),
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          // mainAxisSize: MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            customCardImage(
+                                                                _hc
+                                                                    .shopList![
+                                                                        index]
+                                                                    .image
+                                                                    .toString(),
+                                                                140.h,
+                                                                120.h),
+                                                            8.verticalSpace,
+                                                            SizedBox(
+                                                              width: 0.5.sw,
+                                                              child: Text(
+                                                                _hc
+                                                                    .shopList![
+                                                                        index]
+                                                                    .name
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            5.verticalSpace,
+                                                            Text(
+                                                              forMen,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
-                                                                color:
-                                                                    kPrimaryColor),
-                                                          ),
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                            5.verticalSpace,
+                                                            FittedBox(
+                                                              child: Text(
+                                                                _hc
+                                                                    .shopList![
+                                                                        index]
+                                                                    .price
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color:
+                                                                        kPrimaryColor),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    )
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        )
                             ],
                           ),
                         ),

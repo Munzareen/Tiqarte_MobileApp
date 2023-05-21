@@ -20,7 +20,9 @@ class EventDetailModel {
   factory EventDetailModel.fromJson(Map<String, dynamic> json) =>
       EventDetailModel(
         event: Event.fromJson(json["Event"]),
-        organizer: Organizer.fromJson(json["Organizer"]),
+        organizer: json["Organizer"] != null
+            ? Organizer.fromJson(json["Organizer"])
+            : null,
         customers: List<Customer>.from(
             json["Customers"].map((x) => Customer.fromJson(x))),
       );

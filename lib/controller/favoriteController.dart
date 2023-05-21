@@ -11,6 +11,8 @@ class FavoriteController extends GetxController {
   Color filledColorSearch = kDisabledColor.withOpacity(0.4);
   Color iconColorSearch = kDisabledColor;
   final searchFocusNode = FocusNode();
+  final searchController = TextEditingController();
+
   List<CategoryModel>? favCategoryList;
 
   List<FavoriteModel>? favoriteList;
@@ -36,12 +38,13 @@ class FavoriteController extends GetxController {
   @override
   void onClose() {
     searchFocusNode.dispose();
+    searchController.dispose();
     super.onClose();
   }
 
   addFavoriteData(List res) async {
     favoriteList = favoriteModelFromJson(res);
-    favoriteListAll = favoriteModelFromJson(res);
+    favoriteListAll = [...favoriteList!];
 
     if (favCategoryList == null) {
       var res = await ApiService().getCategories();
@@ -59,7 +62,7 @@ class FavoriteController extends GetxController {
   favoriteOnSearchClose(TextEditingController textEditingController) {
     isSearchFav = false;
     textEditingController.clear();
-    favoriteList = favoriteListAll;
+    favoriteList = [...favoriteListAll!];
 
     update();
   }
@@ -79,17 +82,42 @@ class FavoriteController extends GetxController {
       element.isSelected = false;
     });
     favCategoryList?[index].isSelected = true;
+
+    if (favCategoryList![index].id == null) {
+      favoriteList = [...favoriteListAll!];
+    } else {
+      favoriteList?.removeWhere(
+          (element) => element.catagoryId != favCategoryList![index].id);
+    }
+    if (searchController.text.trim().isNotEmpty) {
+      searchEvent(searchController.text);
+    }
+
     update();
   }
 
   searchEvent(String query) {
-    favoriteList = favoriteListAll;
-    final suggestion = favoriteList!.where((element) {
-      final eventName = element.name!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
-    }).toList();
-    favoriteList = suggestion;
+    CategoryModel cat =
+        favCategoryList!.firstWhere((element) => element.isSelected == true);
+    if (cat.id == null) {
+      favoriteList = [...favoriteListAll!];
+      final suggestion = favoriteList!.where((element) {
+        final eventName = element.name!.toLowerCase();
+        final input = query.toLowerCase();
+        return eventName.contains(input);
+      }).toList();
+      favoriteList = suggestion;
+    } else {
+      favoriteList = [...favoriteListAll!];
+      favoriteList?.removeWhere((element) => element.catagoryId != cat.id);
+      final suggestion = favoriteList!.where((element) {
+        final eventName = element.name!.toLowerCase();
+        final input = query.toLowerCase();
+        return eventName.contains(input);
+      }).toList();
+      favoriteList = suggestion;
+    }
+
     update();
   }
 }

@@ -48,6 +48,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   @override
   void dispose() {
     _controller?.dispose();
+
     super.dispose();
   }
 
@@ -157,8 +158,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               alignment: Alignment.bottomCenter,
                               children: [
                                 customImageForDetail(
-                                    _edc.eventDetailModel.event!
-                                        .eventImages![pageViewindex],
+                                    _edc.eventDetailModel.event!.eventImages!
+                                            .isNotEmpty
+                                        ? _edc.eventDetailModel.event!
+                                            .eventImages![pageViewindex]
+                                        : "null",
                                     1.sw,
                                     0.45.sh),
                                 Padding(
@@ -552,14 +556,18 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                 orgnizerId: _edc
                                                     .eventDetailModel
                                                     .organizer!
-                                                    .id
+                                                    .id!
+                                                    .toInt()
                                                     .toString()),
                                             transition: Transition.rightToLeft);
                                       },
                                       child: customProfileImage(
-                                          _edc.eventDetailModel.organizer!
-                                              .imageUrl
-                                              .toString(),
+                                          _edc.eventDetailModel.organizer !=
+                                                  null
+                                              ? _edc.eventDetailModel.organizer!
+                                                  .imageUrl
+                                                  .toString()
+                                              : "null",
                                           50.h,
                                           50.h),
                                     ),
@@ -573,9 +581,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         SizedBox(
                                           width: 0.4.sw,
                                           child: Text(
-                                            _edc.eventDetailModel.organizer!
-                                                .name
-                                                .toString(),
+                                            _edc.eventDetailModel.organizer !=
+                                                    null
+                                                ? _edc.eventDetailModel
+                                                    .organizer!.name
+                                                    .toString()
+                                                : "null",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.start,
@@ -588,9 +599,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         SizedBox(
                                           width: 0.4.sw,
                                           child: Text(
-                                            _edc.eventDetailModel.organizer!
-                                                .name
-                                                .toString(),
+                                            _edc.eventDetailModel.organizer !=
+                                                    null
+                                                ? _edc.eventDetailModel
+                                                    .organizer!.description
+                                                    .toString()
+                                                : "null",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.start,
@@ -894,20 +908,57 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               ],
                             ),
                             10.verticalSpace,
-                            Container(
-                              height: 0.25.sh,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: GoogleMap(
-                                mapType: MapType
-                                    .normal, //  mapType: MapType.satellite,
+                            _edc.eventDetailModel.event!.location != null
+                                ? Container(
+                                    height: 0.25.sh,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0)),
+                                    child: GoogleMap(
+                                      mapType: MapType
+                                          .normal, //  mapType: MapType.satellite,
 
-                                markers: Set<Marker>.of(
-                                  <Marker>[
-                                    Marker(
-                                        draggable: true,
-                                        markerId: MarkerId("Event Location"),
-                                        position: LatLng(
+                                      markers: Set<Marker>.of(
+                                        <Marker>[
+                                          Marker(
+                                              draggable: true,
+                                              markerId:
+                                                  MarkerId("Event Location"),
+                                              position: LatLng(
+                                                  double.parse(
+                                                    _edc.eventDetailModel.event!
+                                                        .location!
+                                                        .split(",")
+                                                        .first
+                                                        .trim(),
+                                                  ),
+                                                  double.parse(
+                                                    _edc.eventDetailModel.event!
+                                                        .location!
+                                                        .split(",")
+                                                        .last
+                                                        .trim(),
+                                                  )),
+                                              icon: BitmapDescriptor
+                                                  .defaultMarker,
+                                              infoWindow: const InfoWindow(
+                                                title: 'Event',
+                                              ),
+                                              onDragEnd: ((newPosition) {
+                                                // setState(() {
+                                                //   latitude = newPosition.latitude;
+                                                //   longitude = newPosition.longitude;
+                                                //   getLocationName(latitude!, longitude!);
+                                                // });
+                                              }))
+                                        ],
+                                      ),
+                                      onMapCreated:
+                                          (GoogleMapController controller) {
+                                        _controller = controller;
+                                      },
+                                      initialCameraPosition: CameraPosition(
+                                        target: LatLng(
                                             double.parse(
                                               _edc.eventDetailModel.event!
                                                   .location!
@@ -922,40 +973,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                   .last
                                                   .trim(),
                                             )),
-                                        icon: BitmapDescriptor.defaultMarker,
-                                        infoWindow: const InfoWindow(
-                                          title: 'Event',
-                                        ),
-                                        onDragEnd: ((newPosition) {
-                                          // setState(() {
-                                          //   latitude = newPosition.latitude;
-                                          //   longitude = newPosition.longitude;
-                                          //   getLocationName(latitude!, longitude!);
-                                          // });
-                                        }))
-                                  ],
-                                ),
-                                onMapCreated: (GoogleMapController controller) {
-                                  _controller = controller;
-                                },
-                                initialCameraPosition: CameraPosition(
-                                  target: LatLng(
-                                      double.parse(
-                                        _edc.eventDetailModel.event!.location!
-                                            .split(",")
-                                            .first
-                                            .trim(),
+                                        zoom: 12,
                                       ),
-                                      double.parse(
-                                        _edc.eventDetailModel.event!.location!
-                                            .split(",")
-                                            .last
-                                            .trim(),
-                                      )),
-                                  zoom: 12,
-                                ),
-                              ),
-                            ),
+                                    ),
+                                  )
+                                : SizedBox(),
                             20.verticalSpace,
                             _edc.relatedEventModelList!.isEmpty
                                 ? SizedBox()

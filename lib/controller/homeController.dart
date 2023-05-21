@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/favoriteController.dart';
@@ -7,6 +8,8 @@ import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/HomeDataModel.dart';
 
 class HomeController extends GetxController {
+  final searchController = TextEditingController();
+
   HomeDataModel homeDataModel = HomeDataModel();
   List<Event>? featuredEventList;
   List<Event>? upcomingEventList;
@@ -23,9 +26,9 @@ class HomeController extends GetxController {
     featuredEventList = homeDataModel.featuredEvents;
     upcomingEventList = homeDataModel.upComingEvents;
     shopList = homeDataModel.shop;
-    featuredEventListAll = homeDataModel.featuredEvents;
-    upcomingEventListAll = homeDataModel.upComingEvents;
-    shopListAll = homeDataModel.shop;
+    featuredEventListAll = [...homeDataModel.featuredEvents!];
+    upcomingEventListAll = [...homeDataModel.upComingEvents!];
+    shopListAll = [...homeDataModel.shop!];
 
     var res = await ApiService().getCategories();
     if (res != null && res is List) {
@@ -64,6 +67,17 @@ class HomeController extends GetxController {
       element.isSelected = false;
     });
     upcomingCategoryList?[index].isSelected = true;
+    if (upcomingCategoryList![index].id == null) {
+      upcomingEventList = [...upcomingEventListAll!];
+    } else {
+      upcomingEventList?.removeWhere(
+          (element) => element.catagoryId != upcomingCategoryList![index].id);
+    }
+
+    if (searchController.text.trim().isNotEmpty) {
+      homeSearch(searchController.text);
+    }
+
     update();
   }
 
@@ -72,35 +86,67 @@ class HomeController extends GetxController {
       element.isSelected = false;
     });
     shopCategoryList?[index].isSelected = true;
+
+    // if (shopCategoryList![index].id == null) {
+    //   shopList = [...shopListAll!];
+    // } else {
+    //   shopList?.removeWhere(
+    //       (element) => element.catagoryId != shopCategoryList![index].id);
+    // }
     update();
   }
 
   homeSearch(String query) {
     if (featuredEventList != null) {
-      featuredEventList = featuredEventListAll;
-      upcomingEventList = upcomingEventListAll;
-      shopList = shopListAll;
-
+      //for featured
+      featuredEventList = [...featuredEventListAll!];
       final featuredList = featuredEventList?.where((element) {
         final eventName = element.name!.toLowerCase();
         final input = query.toLowerCase();
         return eventName.contains(input);
       }).toList();
-      final upcomingList = upcomingEventList?.where((element) {
-        final eventName = element.name!.toLowerCase();
-        final input = query.toLowerCase();
-        return eventName.contains(input);
-      }).toList();
+      featuredEventList = featuredList;
+
+// for upcoming
+      CategoryModel upcomingCat = upcomingCategoryList!
+          .firstWhere((element) => element.isSelected == true);
+      if (upcomingCat.id == null) {
+        upcomingEventList = [...upcomingEventListAll!];
+
+        final upcomingList = upcomingEventList?.where((element) {
+          final eventName = element.name!.toLowerCase();
+          final input = query.toLowerCase();
+          return eventName.contains(input);
+        }).toList();
+        upcomingEventList = upcomingList;
+      } else {
+        upcomingEventList = [...upcomingEventListAll!];
+        upcomingEventList
+            ?.removeWhere((element) => element.catagoryId != upcomingCat.id);
+
+        final upcomingList = upcomingEventList?.where((element) {
+          final eventName = element.name!.toLowerCase();
+          final input = query.toLowerCase();
+          return eventName.contains(input);
+        }).toList();
+        upcomingEventList = upcomingList;
+      }
+//for shop
+      shopList = [...shopListAll!];
       final shop = shopList?.where((element) {
         final eventName = element.name!.toLowerCase();
         final input = query.toLowerCase();
         return eventName.contains(input);
       }).toList();
-      featuredEventList = featuredList;
-      upcomingEventList = upcomingList;
       shopList = shop;
 
       update();
     }
+  }
+
+  @override
+  void onClose() {
+    searchController.dispose();
+    super.onClose();
   }
 }

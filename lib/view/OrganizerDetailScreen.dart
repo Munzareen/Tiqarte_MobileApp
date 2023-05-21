@@ -8,6 +8,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/ImagePreviewDialog.dart';
 
 class OrganizerDetailScreen extends StatefulWidget {
@@ -177,7 +178,10 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     ),
                                     5.verticalSpace,
                                     Text(
-                                      events,
+                                      _oc.organizerDetailModel.events!.length >
+                                              1
+                                          ? events
+                                          : event,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                           fontSize: 16,
@@ -361,155 +365,168 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                 itemCount:
                                     _oc.organizerDetailModel.events?.length,
                                 itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor),
-                                      child: Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Stack(
-                                            alignment: Alignment.topRight,
-                                            children: [
-                                              customCardImage(
-                                                  _oc
-                                                          .organizerDetailModel
-                                                          .events![index]
-                                                          .eventImages!
-                                                          .isNotEmpty
-                                                      ? _oc
-                                                          .organizerDetailModel
-                                                          .events![index]
-                                                          .eventImages![0]
-                                                          .toString()
-                                                      : "null",
-                                                  110.h,
-                                                  100.h),
-                                              // eventList[index]['isFree']
-                                              //     ? Positioned(
-                                              //         right: 10,
-                                              //         top: 10,
-                                              //         child: Container(
-                                              //           // width: 0.2.sh,
-                                              //           padding: EdgeInsets.symmetric(
-                                              //               horizontal: 15.0,
-                                              //               vertical: 8.0),
-                                              //           decoration: BoxDecoration(
-                                              //               color: kPrimaryColor,
-                                              //               borderRadius:
-                                              //                   BorderRadius.circular(8.0)),
-                                              //           child: Text(
-                                              //             free,
-                                              //             textAlign: TextAlign.center,
-                                              //             style: TextStyle(
-                                              //                 fontSize: 10,
-                                              //                 fontWeight: FontWeight.w500,
-                                              //                 color: Colors.white),
-                                              //           ),
-                                              //         ),
-                                              //       )
-                                              //     : SizedBox()
-                                            ],
-                                          ),
-                                          8.horizontalSpace,
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 0.5.sw,
-                                                child: Text(
-                                                  _oc.organizerDetailModel
-                                                      .events![index].name
-                                                      .toString(),
-                                                  textAlign: TextAlign.start,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
+                                  return InkWell(
+                                    onTap: () {
+                                      Get.to(
+                                          () => EventDetailScreen(
+                                              eventId: _oc.organizerDetailModel
+                                                  .events![index].eventId
+                                                  .toString()),
+                                          transition: Transition.rightToLeft);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0),
+                                      child: Container(
+                                        padding: EdgeInsets.all(10.0),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Stack(
+                                              alignment: Alignment.topRight,
+                                              children: [
+                                                customCardImage(
+                                                    _oc
+                                                            .organizerDetailModel
+                                                            .events![index]
+                                                            .eventImages!
+                                                            .isNotEmpty
+                                                        ? _oc
+                                                            .organizerDetailModel
+                                                            .events![index]
+                                                            .eventImages![0]
+                                                            .toString()
+                                                        : "null",
+                                                    110.h,
+                                                    100.h),
+                                                // eventList[index]['isFree']
+                                                //     ? Positioned(
+                                                //         right: 10,
+                                                //         top: 10,
+                                                //         child: Container(
+                                                //           // width: 0.2.sh,
+                                                //           padding: EdgeInsets.symmetric(
+                                                //               horizontal: 15.0,
+                                                //               vertical: 8.0),
+                                                //           decoration: BoxDecoration(
+                                                //               color: kPrimaryColor,
+                                                //               borderRadius:
+                                                //                   BorderRadius.circular(8.0)),
+                                                //           child: Text(
+                                                //             free,
+                                                //             textAlign: TextAlign.center,
+                                                //             style: TextStyle(
+                                                //                 fontSize: 10,
+                                                //                 fontWeight: FontWeight.w500,
+                                                //                 color: Colors.white),
+                                                //           ),
+                                                //         ),
+                                                //       )
+                                                //     : SizedBox()
+                                              ],
+                                            ),
+                                            8.horizontalSpace,
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 0.5.sw,
+                                                  child: Text(
+                                                    _oc.organizerDetailModel
+                                                        .events![index].name
+                                                        .toString(),
+                                                    textAlign: TextAlign.start,
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              8.verticalSpace,
-                                              FittedBox(
-                                                child: Text(
-                                                  splitDateTimeWithoutYear(_oc
-                                                      .organizerDetailModel
-                                                      .events![index]
-                                                      .eventDate
-                                                      .toString()),
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: kPrimaryColor),
+                                                8.verticalSpace,
+                                                FittedBox(
+                                                  child: Text(
+                                                    splitDateTimeWithoutYear(_oc
+                                                        .organizerDetailModel
+                                                        .events![index]
+                                                        .eventDate
+                                                        .toString()),
+                                                    textAlign: TextAlign.start,
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: kPrimaryColor),
+                                                  ),
                                                 ),
-                                              ),
-                                              8.verticalSpace,
-                                              FittedBox(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      color: kPrimaryColor,
-                                                      size: 25,
-                                                    ),
-                                                    5.horizontalSpace,
-                                                    SizedBox(
-                                                      width: 0.3.sw,
-                                                      child: Text(
-                                                        _oc.organizerDetailModel
-                                                            .events![index].city
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400,
+                                                8.verticalSpace,
+                                                FittedBox(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.location_on,
+                                                        color: kPrimaryColor,
+                                                        size: 25,
+                                                      ),
+                                                      5.horizontalSpace,
+                                                      SizedBox(
+                                                        width: 0.3.sw,
+                                                        child: Text(
+                                                          _oc
+                                                              .organizerDetailModel
+                                                              .events![index]
+                                                              .city
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    5.horizontalSpace,
-                                                    InkWell(
-                                                      onTap: () {},
-                                                      child: Image.asset(
-                                                        _oc
-                                                                    .organizerDetailModel
-                                                                    .events![
-                                                                        index]
-                                                                    .isFav ==
-                                                                true
-                                                            ? favoriteIconSelected
-                                                            : favoriteIcon,
-                                                        color: kPrimaryColor,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
+                                                      5.horizontalSpace,
+                                                      InkWell(
+                                                        onTap: () {},
+                                                        child: Image.asset(
+                                                          _oc
+                                                                      .organizerDetailModel
+                                                                      .events![
+                                                                          index]
+                                                                      .isFav ==
+                                                                  true
+                                                              ? favoriteIconSelected
+                                                              : favoriteIcon,
+                                                          color: kPrimaryColor,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -517,38 +534,51 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                               ),
 
                               //Collections
-                              GridView.builder(
-                                //  physics: NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 1,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 20,
-                                ),
-                                itemCount:
-                                    _oc.organizerDetailModel.collection?.length,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (_) => ImagePreviewDialog(
-                                            imagePath: _oc.organizerDetailModel
-                                                .collection![index]
-                                                .toString()),
-                                      );
-                                    },
-                                    child: customCardImage(
-                                        _oc.organizerDetailModel
-                                            .collection![index]
-                                            .toString(),
-                                        110.h,
-                                        110.h),
-                                  );
-                                },
-                              ),
+                              _oc.organizerDetailModel.collection!.isEmpty
+                                  ? Column(
+                                      children: [
+                                        30.verticalSpace,
+                                        Image.asset(
+                                          noNotificationImage,
+                                          height: 150,
+                                        ),
+                                      ],
+                                    )
+                                  : GridView.builder(
+                                      //  physics: NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 1,
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 20,
+                                      ),
+                                      itemCount: _oc.organizerDetailModel
+                                          .collection?.length,
+                                      shrinkWrap: true,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (_) =>
+                                                  ImagePreviewDialog(
+                                                      imagePath: _oc
+                                                          .organizerDetailModel
+                                                          .collection![index]
+                                                          .toString()),
+                                            );
+                                          },
+                                          child: customCardImage(
+                                              _oc.organizerDetailModel
+                                                  .collection![index]
+                                                  .toString(),
+                                              110.h,
+                                              110.h),
+                                        );
+                                      },
+                                    ),
 
                               //About
                               ListView.builder(

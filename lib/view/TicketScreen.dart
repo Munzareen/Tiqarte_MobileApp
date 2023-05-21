@@ -236,7 +236,7 @@ class _TicketScreenState extends State<TicketScreen>
                               ),
                               10.verticalSpace,
                               Text(
-                                seeAllEventNotFoundString,
+                                notFound,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 24,
@@ -504,7 +504,7 @@ class _TicketScreenState extends State<TicketScreen>
                               ),
                               10.verticalSpace,
                               Text(
-                                seeAllEventNotFoundString,
+                                notFound,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 24,
@@ -771,7 +771,7 @@ class _TicketScreenState extends State<TicketScreen>
                               ),
                               10.verticalSpace,
                               Text(
-                                seeAllEventNotFoundString,
+                                notFound,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 24,

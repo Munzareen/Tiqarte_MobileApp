@@ -364,7 +364,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                             ),
                             10.verticalSpace,
                             Text(
-                              seeAllEventNotFoundString,
+                              notFound,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 24,

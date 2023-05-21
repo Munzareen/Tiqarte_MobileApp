@@ -23,18 +23,6 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  // bool isSearch = false;
-  final _searchController = TextEditingController();
-
-  List popularEventsCatergoryList = [
-    {"name": homeAllString, "icon": allIcon, "isSelected": true},
-    {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
-    {"name": homeArtString, "icon": artIcon, "isSelected": false},
-    {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
-  ];
-
-  // bool isListSelected = true;
-
   final _favoriteController = Get.put(FavoriteController());
 
   @override
@@ -54,7 +42,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   void dispose() {
-    _searchController.dispose();
     _favoriteController.favoriteList = null;
     _favoriteController.isSearchFav = false;
     super.dispose();
@@ -99,7 +86,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     child: TextFormField(
                                       //  focusNode: _fc.searchFocusNode,
                                       cursorColor: kPrimaryColor,
-                                      controller: _searchController,
+                                      controller: _fc.searchController,
                                       //  style: const TextStyle(color: Colors.black),
                                       keyboardType: TextInputType.text,
                                       // validator: (value) {
@@ -138,7 +125,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   IconButton(
                                       onPressed: () {
                                         _fc.favoriteOnSearchClose(
-                                            _searchController);
+                                            _fc.searchController);
                                       },
                                       icon: Icon(Icons.close))
                                 ],
@@ -248,9 +235,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              _fc.favoriteList!.length.toString() +
-                                  " " +
-                                  favorites.toLowerCase(),
+                              _fc.favoriteList!.length > 1
+                                  ? _fc.favoriteList!.length.toString() +
+                                      " " +
+                                      favorites.toLowerCase()
+                                  : _fc.favoriteList!.length.toString() +
+                                      " " +
+                                      favorite.toLowerCase(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -298,7 +289,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      seeAllEventNotFoundString,
+                                      notFound,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 24,
@@ -314,7 +305,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   ],
                                 ),
                               )
-                            : !_fc.isSearchFav && _fc.favoriteList!.isEmpty
+                            : !_fc.isSearchFav && _fc.favoriteListAll!.isEmpty
                                 ? Expanded(
                                     child: ListView(
                                       children: [
@@ -325,7 +316,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         ),
                                         20.verticalSpace,
                                         Text(
-                                          notificationEmptySrting,
+                                          empty,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 24,
@@ -333,7 +324,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         ),
                                         // 20.verticalSpace,
                                         // Text(
-                                        //   notificationEmptySrting,
+                                        //   empty,
                                         //   textAlign: TextAlign.center,
                                         //   style: TextStyle(
                                         //     fontSize: 18,
@@ -342,356 +333,369 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       ],
                                     ),
                                   )
-                                : Expanded(
-                                    child: ListView(
-                                      children: [
-                                        !_fc.isListSelectedFav
-                                            ? GridView.builder(
-                                                physics:
-                                                    NeverScrollableScrollPhysics(),
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 2,
-                                                        childAspectRatio: 1,
-                                                        crossAxisSpacing: 10,
-                                                        mainAxisSpacing: 20,
-                                                        mainAxisExtent: 245),
-                                                itemCount:
-                                                    _fc.favoriteList!.length,
-                                                shrinkWrap: true,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      Get.to(
-                                                          () => EventDetailScreen(
-                                                              eventId: _fc
-                                                                  .favoriteList![
-                                                                      index]
-                                                                  .eventId
-                                                                  .toString()),
-                                                          transition: Transition
-                                                              .rightToLeft);
-                                                    },
-                                                    child: Container(
-                                                      padding:
-                                                          EdgeInsets.all(16.0),
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30.0),
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .secondaryHeaderColor),
-                                                      child: Column(
-                                                        // mainAxisSize: MainAxisSize.min,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          customCardImage(
-                                                              _fc
+                                : !_fc.isSearchFav &&
+                                        _fc.favoriteListAll!.isNotEmpty &&
+                                        _fc.favoriteList!.isEmpty
+                                    ? Expanded(
+                                        child: ListView(
+                                          children: [
+                                            30.verticalSpace,
+                                            Image.asset(
+                                              notFoundImage,
+                                              height: 250,
+                                            ),
+                                            10.verticalSpace,
+                                            Text(
+                                              notFound,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Expanded(
+                                        child: ListView(
+                                          children: [
+                                            !_fc.isListSelectedFav
+                                                ? GridView.builder(
+                                                    physics:
+                                                        NeverScrollableScrollPhysics(),
+                                                    gridDelegate:
+                                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                                            crossAxisCount: 2,
+                                                            childAspectRatio: 1,
+                                                            crossAxisSpacing:
+                                                                10,
+                                                            mainAxisSpacing: 20,
+                                                            mainAxisExtent:
+                                                                245),
+                                                    itemCount: _fc
+                                                        .favoriteList!.length,
+                                                    shrinkWrap: true,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Get.to(
+                                                              () => EventDetailScreen(
+                                                                  eventId: _fc
                                                                       .favoriteList![
                                                                           index]
-                                                                      .eventImages!
-                                                                      .isNotEmpty
-                                                                  ? _fc
+                                                                      .eventId
+                                                                      .toString()),
+                                                              transition: Transition
+                                                                  .rightToLeft);
+                                                        },
+                                                        child: Container(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16.0),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30.0),
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .secondaryHeaderColor),
+                                                          child: Column(
+                                                            // mainAxisSize: MainAxisSize.min,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              customCardImage(
+                                                                  _fc
+                                                                          .favoriteList![
+                                                                              index]
+                                                                          .eventImages!
+                                                                          .isNotEmpty
+                                                                      ? _fc
+                                                                          .favoriteList![
+                                                                              index]
+                                                                          .eventImages![
+                                                                              0]
+                                                                          .toString()
+                                                                      : "null",
+                                                                  140.h,
+                                                                  100.h),
+                                                              8.verticalSpace,
+                                                              SizedBox(
+                                                                width: 0.5.sw,
+                                                                child: Text(
+                                                                  _fc
                                                                       .favoriteList![
                                                                           index]
-                                                                      .eventImages![
-                                                                          0]
-                                                                      .toString()
-                                                                  : "null",
-                                                              140.h,
-                                                              100.h),
-                                                          8.verticalSpace,
-                                                          SizedBox(
-                                                            width: 0.5.sw,
-                                                            child: Text(
-                                                              _fc
-                                                                  .favoriteList![
-                                                                      index]
-                                                                  .name
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          8.verticalSpace,
-                                                          FittedBox(
-                                                            child: Text(
-                                                              splitDateTimeWithoutYear(_fc
-                                                                  .favoriteList![
-                                                                      index]
-                                                                  .eventDate
-                                                                  .toString()),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kPrimaryColor),
-                                                            ),
-                                                          ),
-                                                          8.verticalSpace,
-                                                          FittedBox(
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .location_on,
-                                                                  color:
-                                                                      kPrimaryColor,
-                                                                  size: 25,
+                                                                      .name
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                                 ),
-                                                                5.horizontalSpace,
-                                                                SizedBox(
-                                                                  width: 0.3.sw,
-                                                                  child: Text(
-                                                                    _fc
-                                                                        .favoriteList![
-                                                                            index]
-                                                                        .city
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 1,
-                                                                    style:
-                                                                        TextStyle(
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Text(
+                                                                  splitDateTimeWithoutYear(_fc
+                                                                      .favoriteList![
+                                                                          index]
+                                                                      .eventDate
+                                                                      .toString()),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
                                                                       fontSize:
                                                                           12,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
+                                                                      color:
+                                                                          kPrimaryColor),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .location_on,
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      size: 25,
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                                5.horizontalSpace,
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    removeFavoriteBottomSheet(
-                                                                        context,
-                                                                        index);
-                                                                  },
-                                                                  child: Image
-                                                                      .asset(
-                                                                    favoriteIconSelected,
-                                                                    color:
-                                                                        kPrimaryColor,
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              )
-                                            : ListView.builder(
-                                                physics:
-                                                    BouncingScrollPhysics(),
-                                                itemCount:
-                                                    _fc.favoriteList!.length,
-                                                shrinkWrap: true,
-                                                itemBuilder: (context, index) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      Get.to(
-                                                          () => EventDetailScreen(
-                                                              eventId: _fc
-                                                                  .favoriteList![
-                                                                      index]
-                                                                  .eventId
-                                                                  .toString()),
-                                                          transition: Transition
-                                                              .rightToLeft);
-                                                    },
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 10.0),
-                                                      child: Container(
-                                                        padding: EdgeInsets.all(
-                                                            16.0),
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30.0),
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .secondaryHeaderColor),
-                                                        child: Row(
-                                                          // mainAxisSize: MainAxisSize.min,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            customCardImage(
-                                                                _fc
-                                                                        .favoriteList![
-                                                                            index]
-                                                                        .eventImages!
-                                                                        .isNotEmpty
-                                                                    ? _fc
-                                                                        .favoriteList![
-                                                                            index]
-                                                                        .eventImages![
-                                                                            0]
-                                                                        .toString()
-                                                                    : "null",
-                                                                110.h,
-                                                                100.h),
-                                                            8.horizontalSpace,
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 0.5.sw,
-                                                                  child: Text(
-                                                                    _fc
-                                                                        .favoriteList![
-                                                                            index]
-                                                                        .name
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    maxLines: 1,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
+                                                                    5.horizontalSpace,
+                                                                    SizedBox(
+                                                                      width: 0.3
+                                                                          .sw,
+                                                                      child:
+                                                                          Text(
+                                                                        _fc.favoriteList![index]
+                                                                            .city
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w400,
+                                                                        ),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                                8.verticalSpace,
-                                                                FittedBox(
-                                                                  child: Text(
-                                                                    splitDateTimeWithoutYear(_fc
-                                                                        .favoriteList![
-                                                                            index]
-                                                                        .eventDate
-                                                                        .toString()),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w400,
-                                                                        color:
-                                                                            kPrimaryColor),
-                                                                  ),
-                                                                ),
-                                                                8.verticalSpace,
-                                                                FittedBox(
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceEvenly,
-                                                                    children: [
-                                                                      Icon(
-                                                                        Icons
-                                                                            .location_on,
+                                                                    5.horizontalSpace,
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        removeFavoriteBottomSheet(
+                                                                            context,
+                                                                            index);
+                                                                      },
+                                                                      child: Image
+                                                                          .asset(
+                                                                        favoriteIconSelected,
                                                                         color:
                                                                             kPrimaryColor,
-                                                                        size:
-                                                                            25,
                                                                       ),
-                                                                      5.horizontalSpace,
-                                                                      SizedBox(
-                                                                        width: 0.3
-                                                                            .sw,
-                                                                        child:
-                                                                            Text(
-                                                                          _fc.favoriteList![index]
-                                                                              .city
-                                                                              .toString(),
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          maxLines:
-                                                                              1,
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                          style:
-                                                                              TextStyle(
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  )
+                                                : ListView.builder(
+                                                    physics:
+                                                        BouncingScrollPhysics(),
+                                                    itemCount: _fc
+                                                        .favoriteList!.length,
+                                                    shrinkWrap: true,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Get.to(
+                                                              () => EventDetailScreen(
+                                                                  eventId: _fc
+                                                                      .favoriteList![
+                                                                          index]
+                                                                      .eventId
+                                                                      .toString()),
+                                                              transition: Transition
+                                                                  .rightToLeft);
+                                                        },
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical:
+                                                                      10.0),
+                                                          child: Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30.0),
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .secondaryHeaderColor),
+                                                            child: Row(
+                                                              // mainAxisSize: MainAxisSize.min,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                customCardImage(
+                                                                    _fc
+                                                                            .favoriteList![
+                                                                                index]
+                                                                            .eventImages!
+                                                                            .isNotEmpty
+                                                                        ? _fc
+                                                                            .favoriteList![index]
+                                                                            .eventImages![0]
+                                                                            .toString()
+                                                                        : "null",
+                                                                    110.h,
+                                                                    100.h),
+                                                                8.horizontalSpace,
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: 0.5
+                                                                          .sw,
+                                                                      child:
+                                                                          Text(
+                                                                        _fc.favoriteList![index]
+                                                                            .name
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    8.verticalSpace,
+                                                                    FittedBox(
+                                                                      child:
+                                                                          Text(
+                                                                        splitDateTimeWithoutYear(_fc
+                                                                            .favoriteList![index]
+                                                                            .eventDate
+                                                                            .toString()),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: TextStyle(
                                                                             fontSize:
                                                                                 12,
                                                                             fontWeight:
                                                                                 FontWeight.w400,
-                                                                          ),
-                                                                        ),
+                                                                            color: kPrimaryColor),
                                                                       ),
-                                                                      5.horizontalSpace,
-                                                                      InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          removeFavoriteBottomSheet(
-                                                                              context,
-                                                                              index);
-                                                                        },
-                                                                        child: Image
-                                                                            .asset(
-                                                                          favoriteIconSelected,
-                                                                          color:
-                                                                              kPrimaryColor,
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
+                                                                    ),
+                                                                    8.verticalSpace,
+                                                                    FittedBox(
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.location_on,
+                                                                            color:
+                                                                                kPrimaryColor,
+                                                                            size:
+                                                                                25,
+                                                                          ),
+                                                                          5.horizontalSpace,
+                                                                          SizedBox(
+                                                                            width:
+                                                                                0.3.sw,
+                                                                            child:
+                                                                                Text(
+                                                                              _fc.favoriteList![index].city.toString(),
+                                                                              textAlign: TextAlign.start,
+                                                                              maxLines: 1,
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                              style: TextStyle(
+                                                                                fontSize: 12,
+                                                                                fontWeight: FontWeight.w400,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          5.horizontalSpace,
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              removeFavoriteBottomSheet(context, index);
+                                                                            },
+                                                                            child:
+                                                                                Image.asset(
+                                                                              favoriteIconSelected,
+                                                                              color: kPrimaryColor,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 )
                                                               ],
-                                                            )
-                                                          ],
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              )
-                                      ],
-                                    ),
-                                  )
+                                                      );
+                                                    },
+                                                  )
+                                          ],
+                                        ),
+                                      )
                       ],
                     );
             }),

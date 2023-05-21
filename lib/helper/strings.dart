@@ -99,7 +99,6 @@ String homeWorkshopsString = "Workshops";
 
 //See All Event Screen Strings
 String seeAllEventFoundString = "Found";
-String seeAllEventNotFoundString = "Not Found";
 String seeAllEventNotFoundSubString =
     "Sorry, the keyword you entered cannot be found, please check again or search with another keyword.";
 
@@ -112,7 +111,6 @@ String filterButtonApplyString = "Apply";
 
 //See All Event Screen Strings
 String notificationHeadingSrting = "Notification";
-String notificationEmptySrting = "Empty";
 String notificationSubSrting = "You don't have any notifications at this time";
 
 //Tickets Screen Strings
@@ -158,6 +156,7 @@ String ticketCancelBookingSuccessfulString = "Successful!";
 String ticketCancelBookingOKString = "OK";
 
 //by name original
+String favorite = "Favorite";
 String favorites = "Favorites";
 String removeFromFavorites = "Remove from Favorites?";
 String yesRemove = "Yes, Remove";
@@ -192,6 +191,7 @@ String eventLocation = "Event Location";
 String getDirection = "Get Direction";
 String direction = "Direction";
 String organizer = "Organizer";
+String event = "Event";
 String events = "Events";
 String followers = "Followers";
 String message = "Message";
@@ -244,7 +244,6 @@ String orderID = "Order ID";
 String status = "Status";
 String paid = "Paid";
 String profile = "Profile";
-String event = "Event";
 String dateAndHour = "Date and Hour";
 String eventOrganizer = "Event Organizer";
 String enableLocation = "Enable Location";
@@ -328,6 +327,8 @@ String contactDetail = "Contact details";
 String continuetoPayment = "Continue to payment";
 String done = "Done";
 String shopMore = "Shop More";
+String notFound = "Not Found";
+String empty = "Empty";
 
 String placeOrderSuccess =
     "You have successfully placed an order for Classic pullover t-shirt.!";

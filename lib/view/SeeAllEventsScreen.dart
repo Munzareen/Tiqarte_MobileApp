@@ -311,7 +311,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      seeAllEventNotFoundString,
+                                      notFound,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 24,
@@ -351,11 +351,15 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                 int index) {
                                               return InkWell(
                                                 onTap: () {
-                                                  // Get.to(
-                                                  //     () => EventDetailScreen(
-                                                  //         data: _sc.seeAllEventModel![index]),
-                                                  //     transition:
-                                                  //         Transition.rightToLeft);
+                                                  Get.to(
+                                                      () => EventDetailScreen(
+                                                          eventId: _sc
+                                                              .seeAllEventModel![
+                                                                  index]
+                                                              .eventId
+                                                              .toString()),
+                                                      transition: Transition
+                                                          .rightToLeft);
                                                 },
                                                 child: Container(
                                                   padding: EdgeInsets.all(16.0),
@@ -539,11 +543,15 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                             itemBuilder: (context, index) {
                                               return InkWell(
                                                 onTap: () {
-                                                  // Get.to(
-                                                  //     () => EventDetailScreen(
-                                                  //         data: _sc.seeAllEventModel![index]),
-                                                  //     transition:
-                                                  //         Transition.rightToLeft);
+                                                  Get.to(
+                                                      () => EventDetailScreen(
+                                                          eventId: _sc
+                                                              .seeAllEventModel![
+                                                                  index]
+                                                              .eventId
+                                                              .toString()),
+                                                      transition: Transition
+                                                          .rightToLeft);
                                                 },
                                                 child: Padding(
                                                   padding: const EdgeInsets

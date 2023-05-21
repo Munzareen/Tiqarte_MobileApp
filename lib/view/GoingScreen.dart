@@ -154,7 +154,7 @@ class _GoingScreenState extends State<GoingScreen> {
                                   ),
                                   10.verticalSpace,
                                   Text(
-                                    seeAllEventNotFoundString,
+                                    notFound,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 24,
