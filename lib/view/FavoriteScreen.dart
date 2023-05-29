@@ -124,8 +124,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   ),
                                   IconButton(
                                       onPressed: () {
-                                        _fc.favoriteOnSearchClose(
-                                            _fc.searchController);
+                                        _fc.onSearchClose(_fc.searchController);
                                       },
                                       icon: Icon(Icons.close))
                                 ],
@@ -204,9 +203,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     padding: const EdgeInsets.all(4.0),
                                     child: Row(
                                       children: [
-                                        // Image.asset(
-                                        //     upcomingEventsCatergoryList[
-                                        //         index]['icon']),
+                                        customCategoryImage(_fc
+                                            .favCategoryList![index].imageURL
+                                            .toString()),
                                         5.horizontalSpace,
                                         Text(
                                           _fc.favCategoryList![index]
@@ -412,12 +411,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                   _fc
                                                                           .favoriteList![
                                                                               index]
-                                                                          .eventImages!
+                                                                          .postEventImages!
                                                                           .isNotEmpty
                                                                       ? _fc
                                                                           .favoriteList![
                                                                               index]
-                                                                          .eventImages![
+                                                                          .postEventImages![
                                                                               0]
                                                                           .toString()
                                                                       : "null",
@@ -583,11 +582,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                     _fc
                                                                             .favoriteList![
                                                                                 index]
-                                                                            .eventImages!
+                                                                            .postEventImages!
                                                                             .isNotEmpty
                                                                         ? _fc
                                                                             .favoriteList![index]
-                                                                            .eventImages![0]
+                                                                            .postEventImages![0]
                                                                             .toString()
                                                                         : "null",
                                                                     110.h,
@@ -756,9 +755,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             children: [
                               customCardImage(
                                   _favoriteController.favoriteList![index]
-                                          .eventImages!.isNotEmpty
-                                      ? _favoriteController
-                                          .favoriteList![index].eventImages![0]
+                                          .postEventImages!.isNotEmpty
+                                      ? _favoriteController.favoriteList![index]
+                                          .postEventImages![0]
                                           .toString()
                                       : "null",
                                   110.h,

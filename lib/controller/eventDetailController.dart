@@ -12,7 +12,7 @@ class EventDetailController extends GetxController {
 
   List<RelatedEventModel>? relatedEventModelList = [];
 
-  addEventDetail(dynamic data) async {
+  addEventDetail(dynamic data, String eventId) async {
     eventDetailModel = EventDetailModel.fromJson(data);
     if (eventDetailModel.event!.location != null) {
       double lat =
@@ -31,6 +31,14 @@ class EventDetailController extends GetxController {
         .getRelatedEvents(eventDetailModel.event!.eventId.toString());
     if (res != null && res is List) {
       relatedEventModelList = relatedEventModelFromJson(res);
+      if (relatedEventModelList!.isNotEmpty) {
+        for (int i = 0; i < relatedEventModelList!.length; i++) {
+          if (relatedEventModelList![i].eventId?.toInt() ==
+              int.parse(eventId)) {
+            relatedEventModelList?.removeAt(i);
+          }
+        }
+      }
 
       update();
     }

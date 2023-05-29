@@ -9,8 +9,8 @@ class EventModel {
   int? creationUserId;
   int? eventStatusId;
   int? eventTypeId;
-  List<String>? eventImages;
-  List<String>? previousImages;
+  List<String>? postEventImages;
+  List<String>? preEventImages;
   Null? catagoryId;
   int? price;
   int? organizerID;
@@ -26,8 +26,8 @@ class EventModel {
       this.creationUserId,
       this.eventStatusId,
       this.eventTypeId,
-      this.eventImages,
-      this.previousImages,
+      this.postEventImages,
+      this.preEventImages,
       this.catagoryId,
       this.price,
       this.organizerID});
@@ -43,8 +43,8 @@ class EventModel {
     creationUserId = json['CreationUserId'];
     eventStatusId = json['EventStatusId'];
     eventTypeId = json['EventTypeId'];
-    eventImages = json['EventImages'].cast<String>();
-    previousImages = json['PreviousImages'].cast<String>();
+    postEventImages = json['PostEventImages'].cast<String>();
+    preEventImages = json['PreEventImages'].cast<String>();
     catagoryId = json['CatagoryId'];
     price = json['Price'];
     organizerID = json['OrganizerID'];
@@ -62,8 +62,8 @@ class EventModel {
     data['CreationUserId'] = this.creationUserId;
     data['EventStatusId'] = this.eventStatusId;
     data['EventTypeId'] = this.eventTypeId;
-    data['EventImages'] = this.eventImages;
-    data['PreviousImages'] = this.previousImages;
+    data['PostEventImages'] = this.postEventImages;
+    data['PreEventImages'] = this.preEventImages;
     data['CatagoryId'] = this.catagoryId;
     data['Price'] = this.price;
     data['OrganizerID'] = this.organizerID;

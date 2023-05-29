@@ -21,8 +21,8 @@ class FavoriteModel {
   num? creationUserId;
   num? eventStatusId;
   num? eventTypeId;
-  List<String>? eventImages;
-  List<String>? previousImages;
+  List<String>? postEventImages;
+  List<String>? preEventImages;
   dynamic catagoryId;
   num? price;
   num? organizerId;
@@ -38,8 +38,8 @@ class FavoriteModel {
     this.creationUserId,
     this.eventStatusId,
     this.eventTypeId,
-    this.eventImages,
-    this.previousImages,
+    this.postEventImages,
+    this.preEventImages,
     this.catagoryId,
     this.price,
     this.organizerId,
@@ -56,8 +56,9 @@ class FavoriteModel {
         creationUserId: json["CreationUserId"],
         eventStatusId: json["EventStatusId"],
         eventTypeId: json["EventTypeId"],
-        eventImages: List<String>.from(json["EventImages"].map((x) => x)),
-        previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
+        postEventImages:
+            List<String>.from(json["PostEventImages"].map((x) => x)),
+        preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
         catagoryId: json["CatagoryId"],
         price: json["Price"],
         organizerId: json["OrganizerID"],
@@ -74,8 +75,8 @@ class FavoriteModel {
         "CreationUserId": creationUserId,
         "EventStatusId": eventStatusId,
         "EventTypeId": eventTypeId,
-        "EventImages": List<dynamic>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<dynamic>.from(previousImages!.map((x) => x)),
+        "PostEventImages": List<dynamic>.from(postEventImages!.map((x) => x)),
+        "PreEventImages": List<dynamic>.from(preEventImages!.map((x) => x)),
         "CatagoryId": catagoryId,
         "Price": price,
         "OrganizerID": organizerId,

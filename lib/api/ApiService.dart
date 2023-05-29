@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/api/ApiPoint.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/view/MainScreen.dart';
+import 'package:tiqarte/view/PreLoginScreen.dart';
 
 class ApiService {
   googleSignIn(BuildContext context) async {
@@ -109,8 +110,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
-      } else {
-        return "Something went wrong!";
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       }
     } catch (e) {
       Get.back();
@@ -159,6 +160,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -185,6 +188,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -210,6 +215,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -242,6 +249,8 @@ class ApiService {
         var res_data = json.decode(response.body);
         Get.back();
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         Get.back();
 
@@ -269,6 +278,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -294,6 +305,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -319,6 +332,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -348,6 +363,8 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
@@ -374,11 +391,81 @@ class ApiService {
         var res_data = json.decode(response.body);
 
         return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         return "Something went wrong!";
       }
     } catch (e) {
       Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  setOrganizerFollow(String data) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().setOrganizerFollow + data);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.post(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        return "Something went wrong!";
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getAllShopList() async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getAllShopList);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+
+        return "Something went wrong!";
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  tokenExpiredLogout() async {
+    try {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      _prefs.clear();
+      Get.offAll(() => PreLoginScreen(), transition: Transition.leftToRight);
+      customSnackBar("Alert!", "Session expired please signin again");
+    } catch (e) {
       customSnackBar("Error!", "Something went wrong!");
     }
   }

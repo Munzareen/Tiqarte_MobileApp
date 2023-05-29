@@ -226,9 +226,10 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     padding: const EdgeInsets.all(4.0),
                                     child: Row(
                                       children: [
-                                        // Image.asset(_sc
-                                        //     .seeAllCategoryList[index]['icon']),
-                                        // 5.horizontalSpace,
+                                        customCategoryImage(_sc
+                                            .seeAllCategoryList![index].imageURL
+                                            .toString()),
+                                        5.horizontalSpace,
                                         Text(
                                           _sc.seeAllCategoryList![index]
                                               .catagoryName
@@ -375,12 +376,12 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                           _sc
                                                                   .seeAllEventModel![
                                                                       index]
-                                                                  .eventImages!
+                                                                  .postEventImages!
                                                                   .isNotEmpty
                                                               ? _sc
                                                                   .seeAllEventModel![
                                                                       index]
-                                                                  .eventImages![
+                                                                  .postEventImages![
                                                                       0]
                                                                   .toString()
                                                               : "null",
@@ -575,12 +576,12 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                             _sc
                                                                     .seeAllEventModel![
                                                                         index]
-                                                                    .eventImages!
+                                                                    .postEventImages!
                                                                     .isNotEmpty
                                                                 ? _sc
                                                                     .seeAllEventModel![
                                                                         index]
-                                                                    .eventImages![
+                                                                    .postEventImages![
                                                                         0]
                                                                     .toString()
                                                                 : "null",

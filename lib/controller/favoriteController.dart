@@ -50,8 +50,7 @@ class FavoriteController extends GetxController {
       var res = await ApiService().getCategories();
       if (res != null && res is List) {
         favCategoryList = categoryModelFromJson(res);
-        favCategoryList?.insert(
-            0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+
         favCategoryList?[0].isSelected = true;
       }
     }
@@ -59,7 +58,7 @@ class FavoriteController extends GetxController {
     update();
   }
 
-  favoriteOnSearchClose(TextEditingController textEditingController) {
+  onSearchClose(TextEditingController textEditingController) {
     isSearchFav = false;
     textEditingController.clear();
     favoriteList = [...favoriteListAll!];
@@ -102,24 +101,15 @@ class FavoriteController extends GetxController {
   searchEvent(String query) {
     CategoryModel cat =
         favCategoryList!.firstWhere((element) => element.isSelected == true);
-    if (cat.id == null) {
-      favoriteList = [...favoriteListAll!];
-      final suggestion = favoriteList!.where((element) {
-        final eventName = element.name!.toLowerCase();
-        final input = query.toLowerCase();
-        return eventName.contains(input);
-      }).toList();
-      favoriteList = suggestion;
-    } else {
-      favoriteList = [...favoriteListAll!];
-      favoriteList?.removeWhere((element) => element.catagoryId != cat.id);
-      final suggestion = favoriteList!.where((element) {
-        final eventName = element.name!.toLowerCase();
-        final input = query.toLowerCase();
-        return eventName.contains(input);
-      }).toList();
-      favoriteList = suggestion;
-    }
+
+    favoriteList = [...favoriteListAll!];
+    favoriteList?.removeWhere((element) => element.catagoryId != cat.id);
+    final suggestion = favoriteList!.where((element) {
+      final eventName = element.name!.toLowerCase();
+      final input = query.toLowerCase();
+      return eventName.contains(input);
+    }).toList();
+    favoriteList = suggestion;
 
     update();
   }

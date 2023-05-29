@@ -591,6 +591,47 @@ customCardImage(String url, double width, double height) {
                   image: AssetImage(eventPlaceholder), fit: BoxFit.cover)));
 }
 
+customCategoryImage(String url) {
+  return url != "" && url != "null"
+      ? CachedNetworkImage(
+          imageUrl: url,
+          imageBuilder: (context, imageProvider) {
+            return Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover)));
+          },
+          placeholder: (context, url) => Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  image: DecorationImage(
+                      image: AssetImage(categoryPlaceholder),
+                      fit: BoxFit.cover))),
+          errorWidget: (context, url, error) => Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  image: DecorationImage(
+                      image: AssetImage(categoryPlaceholder),
+                      fit: BoxFit.cover))),
+        )
+      : Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              image: DecorationImage(
+                image: AssetImage(categoryPlaceholder),
+                fit: BoxFit.cover,
+              )));
+}
+
 customSnackBar(String title, String message) {
   return Get.snackbar(title, message,
       snackPosition: SnackPosition.TOP,

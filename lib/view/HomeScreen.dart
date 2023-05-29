@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _homeController.featuredEventList = _homeController.featuredEventListAll;
     _homeController.upcomingEventList = _homeController.upcomingEventListAll;
     _homeController.shopList = _homeController.shopListAll;
-
+    _homeController.searchController.clear();
     super.dispose();
   }
 
@@ -55,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    accessToken;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -331,12 +331,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 _hc
                                                                         .featuredEventList![
                                                                             itemIndex]
-                                                                        .eventImages!
+                                                                        .postEventImages!
                                                                         .isNotEmpty
                                                                     ? _hc
                                                                         .featuredEventList![
                                                                             itemIndex]
-                                                                        .eventImages![
+                                                                        .postEventImages![
                                                                             0]
                                                                         .toString()
                                                                     : "null",
@@ -599,9 +599,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .all(4.0),
                                                         child: Row(
                                                           children: [
-                                                            // Image.asset(
-                                                            //     upcomingEventsCatergoryList[
-                                                            //         index]['icon']),
+                                                            customCategoryImage(_hc
+                                                                .upcomingCategoryList![
+                                                                    index]
+                                                                .imageURL
+                                                                .toString()),
                                                             5.horizontalSpace,
                                                             Text(
                                                               _hc
@@ -755,9 +757,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .all(4.0),
                                                         child: Row(
                                                           children: [
-                                                            // Image.asset(
-                                                            //     upcomingEventsCatergoryList[
-                                                            //         index]['icon']),
+                                                            customCategoryImage(_hc
+                                                                .upcomingCategoryList![
+                                                                    index]
+                                                                .imageURL
+                                                                .toString()),
                                                             5.horizontalSpace,
                                                             Text(
                                                               _hc
@@ -840,12 +844,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 _hc
                                                                         .upcomingEventList![
                                                                             index]
-                                                                        .eventImages!
+                                                                        .postEventImages!
                                                                         .isNotEmpty
                                                                     ? _hc
                                                                         .upcomingEventList![
                                                                             index]
-                                                                        .eventImages![
+                                                                        .postEventImages![
                                                                             0]
                                                                         .toString()
                                                                     : "null",
@@ -1092,9 +1096,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .all(4.0),
                                                         child: Row(
                                                           children: [
-                                                            // Image.asset(
-                                                            //     upcomingEventsCatergoryList[
-                                                            //         index]['icon']),
+                                                            customCategoryImage(_hc
+                                                                .upcomingCategoryList![
+                                                                    index]
+                                                                .imageURL
+                                                                .toString()),
                                                             5.horizontalSpace,
                                                             Text(
                                                               _hc
@@ -1161,7 +1167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                _hc.shopList!.length > 12
+                                                _hc.shopList!.length > 1 //heeee
                                                     ? InkWell(
                                                         onTap: () => Get.to(
                                                             () =>
@@ -1230,9 +1236,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .all(4.0),
                                                         child: Row(
                                                           children: [
-                                                            // Image.asset(
-                                                            //     upcomingEventsCatergoryList[
-                                                            //         index]['icon']),
+                                                            customCategoryImage(_hc
+                                                                .upcomingCategoryList![
+                                                                    index]
+                                                                .imageURL
+                                                                .toString()),
                                                             5.horizontalSpace,
                                                             Text(
                                                               _hc
@@ -1307,7 +1315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 _hc
                                                                     .shopList![
                                                                         index]
-                                                                    .image
+                                                                    .imageURL
                                                                     .toString(),
                                                                 140.h,
                                                                 120.h),

@@ -36,7 +36,7 @@ class EventDetailModel {
 
 class Customer {
   num? id;
-  String? userId;
+  num? userId;
   String? name;
   String? imageUrl;
 
@@ -75,8 +75,8 @@ class Event {
   num? creationUserId;
   num? eventStatusId;
   num? eventTypeId;
-  List<String>? eventImages;
-  List<String>? previousImages;
+  List<String>? postEventImages;
+  List<String>? preEventImages;
   dynamic catagoryId;
   num? price;
   num? organizerId;
@@ -99,8 +99,8 @@ class Event {
     this.creationUserId,
     this.eventStatusId,
     this.eventTypeId,
-    this.eventImages,
-    this.previousImages,
+    this.postEventImages,
+    this.preEventImages,
     this.catagoryId,
     this.price,
     this.organizerId,
@@ -124,8 +124,9 @@ class Event {
         creationUserId: json["CreationUserId"],
         eventStatusId: json["EventStatusId"],
         eventTypeId: json["EventTypeId"],
-        eventImages: List<String>.from(json["EventImages"].map((x) => x)),
-        previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
+        postEventImages:
+            List<String>.from(json["PostEventImages"].map((x) => x)),
+        preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
         catagoryId: json["CatagoryId"],
         price: json["Price"],
         organizerId: json["OrganizerID"],
@@ -148,8 +149,8 @@ class Event {
         "CreationUserId": creationUserId,
         "EventStatusId": eventStatusId,
         "EventTypeId": eventTypeId,
-        "EventImages": List<String>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<String>.from(previousImages!.map((x) => x)),
+        "PostEventImages": List<String>.from(postEventImages!.map((x) => x)),
+        "PreEventImages": List<String>.from(preEventImages!.map((x) => x)),
         "CatagoryId": catagoryId,
         "Price": price,
         "OrganizerID": organizerId,
@@ -220,8 +221,8 @@ class Organizer {
 //   num? creationUserId;
 //   num? eventStatusId;
 //   num? eventTypeId;
-//   List<String>? eventImages;
-//   List<String>? previousImages;
+//   List<String>? postEventImages;
+//   List<String>? preEventImages;
 //   Null? catagoryId;
 //   num? price;
 //   num? organizerID;
@@ -237,8 +238,8 @@ class Organizer {
 //       this.creationUserId,
 //       this.eventStatusId,
 //       this.eventTypeId,
-//       this.eventImages,
-//       this.previousImages,
+//       this.postEventImages,
+//       this.preEventImages,
 //       this.catagoryId,
 //       this.price,
 //       this.organizerID});
@@ -254,8 +255,8 @@ class Organizer {
 //     creationUserId = json['CreationUserId'];
 //     eventStatusId = json['EventStatusId'];
 //     eventTypeId = json['EventTypeId'];
-//     eventImages = json['EventImages'].cast<String>();
-//     previousImages = json['PreviousImages'].cast<String>();
+//     postEventImages = json['PostEventImages'].cast<String>();
+//     preEventImages = json['PreviousImages'].cast<String>();
 //     catagoryId = json['CatagoryId'];
 //     price = json['Price'];
 //     organizerID = json['OrganizerID'];
@@ -273,8 +274,8 @@ class Organizer {
 //     data['CreationUserId'] = this.creationUserId;
 //     data['EventStatusId'] = this.eventStatusId;
 //     data['EventTypeId'] = this.eventTypeId;
-//     data['EventImages'] = this.eventImages;
-//     data['PreviousImages'] = this.previousImages;
+//     data['PostEventImages'] = this.postEventImages;
+//     data['PreviousImages'] = this.preEventImages;
 //     data['CatagoryId'] = this.catagoryId;
 //     data['Price'] = this.price;
 //     data['OrganizerID'] = this.organizerID;

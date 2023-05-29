@@ -17,8 +17,8 @@ class SeeAllEventModel {
   num? creationUserId;
   num? eventStatusId;
   num? eventTypeId;
-  List<String>? eventImages;
-  List<String>? previousImages;
+  List<String>? postEventImages;
+  List<String>? preEventImages;
   dynamic catagoryId;
   num? price;
   num? organizerId;
@@ -40,8 +40,8 @@ class SeeAllEventModel {
     this.creationUserId,
     this.eventStatusId,
     this.eventTypeId,
-    this.eventImages,
-    this.previousImages,
+    this.postEventImages,
+    this.preEventImages,
     this.catagoryId,
     this.price,
     this.organizerId,
@@ -65,8 +65,9 @@ class SeeAllEventModel {
         creationUserId: json["CreationUserId"],
         eventStatusId: json["EventStatusId"],
         eventTypeId: json["EventTypeId"],
-        eventImages: List<String>.from(json["EventImages"].map((x) => x)),
-        previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
+        postEventImages:
+            List<String>.from(json["PostEventImages"].map((x) => x)),
+        preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
         catagoryId: json["CatagoryId"],
         price: json["Price"],
         organizerId: json["OrganizerID"],
@@ -89,8 +90,8 @@ class SeeAllEventModel {
         "CreationUserId": creationUserId,
         "EventStatusId": eventStatusId,
         "EventTypeId": eventTypeId,
-        "EventImages": List<String>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<String>.from(previousImages!.map((x) => x)),
+        "PostEventImages": List<String>.from(postEventImages!.map((x) => x)),
+        "PreEventImages": List<String>.from(preEventImages!.map((x) => x)),
         "CatagoryId": catagoryId,
         "Price": price,
         "OrganizerID": organizerId,

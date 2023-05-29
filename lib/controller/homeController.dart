@@ -36,24 +36,15 @@ class HomeController extends GetxController {
       final _seeAllEventController = Get.put(SeeAllEventController());
 
       _favoriteController.favCategoryList = categoryModelFromJson(res);
-      _favoriteController.favCategoryList?.insert(
-          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
       _favoriteController.favCategoryList?[0].isSelected = true;
 
       _seeAllEventController.seeAllCategoryList = categoryModelFromJson(res);
-      _seeAllEventController.seeAllCategoryList?.insert(
-          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
       _seeAllEventController.seeAllCategoryList?[0].isSelected = true;
 
       upcomingCategoryList = categoryModelFromJson(res);
-
-      upcomingCategoryList?.insert(
-          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
       upcomingCategoryList?[0].isSelected = true;
 
       shopCategoryList = categoryModelFromJson(res);
-      shopCategoryList?.insert(
-          0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
       shopCategoryList?[0].isSelected = true;
 
       update();
@@ -67,15 +58,12 @@ class HomeController extends GetxController {
       element.isSelected = false;
     });
     upcomingCategoryList?[index].isSelected = true;
-    if (upcomingCategoryList![index].id == null) {
-      upcomingEventList = [...upcomingEventListAll!];
-    } else {
-      upcomingEventList = [...upcomingEventListAll!];
 
-      upcomingEventList?.removeWhere((element) =>
-          int.parse(element.catagoryId.toString()) !=
-          upcomingCategoryList![index].id!.toInt());
-    }
+    upcomingEventList = [...upcomingEventListAll!];
+
+    upcomingEventList?.removeWhere((element) =>
+        int.parse(element.catagoryId.toString()) !=
+        upcomingCategoryList![index].id!.toInt());
 
     if (searchController.text.trim().isNotEmpty) {
       homeSearch(searchController.text);
@@ -90,16 +78,16 @@ class HomeController extends GetxController {
     });
     shopCategoryList?[index].isSelected = true;
 
-    // if (shopCategoryList![index].id == null) {
-    //   shopList = [...shopListAll!];
-    // } else {
-    //   shopList = [...shopListAll!];
+    shopList = [...shopListAll!];
 
-    //   shopList?.removeWhere((element) =>
-    //       int.parse(element.catagoryId.toString()) !=
-    //       shopCategoryList![index].id!.toInt());
+    shopList?.removeWhere((element) =>
+        int.parse(element.catagoryId.toString()) !=
+        shopCategoryList![index].id!.toInt());
 
-    // }
+    if (searchController.text.trim().isNotEmpty) {
+      homeSearch(searchController.text);
+    }
+
     update();
   }
 
@@ -117,29 +105,24 @@ class HomeController extends GetxController {
 // for upcoming
       CategoryModel upcomingCat = upcomingCategoryList!
           .firstWhere((element) => element.isSelected == true);
-      if (upcomingCat.id == null) {
-        upcomingEventList = [...upcomingEventListAll!];
+      upcomingEventList = [...upcomingEventListAll!];
+      upcomingEventList
+          ?.removeWhere((element) => element.catagoryId != upcomingCat.id);
 
-        final upcomingList = upcomingEventList?.where((element) {
-          final eventName = element.name!.toLowerCase();
-          final input = query.toLowerCase();
-          return eventName.contains(input);
-        }).toList();
-        upcomingEventList = upcomingList;
-      } else {
-        upcomingEventList = [...upcomingEventListAll!];
-        upcomingEventList
-            ?.removeWhere((element) => element.catagoryId != upcomingCat.id);
+      final upcomingList = upcomingEventList?.where((element) {
+        final eventName = element.name!.toLowerCase();
+        final input = query.toLowerCase();
+        return eventName.contains(input);
+      }).toList();
+      upcomingEventList = upcomingList;
 
-        final upcomingList = upcomingEventList?.where((element) {
-          final eventName = element.name!.toLowerCase();
-          final input = query.toLowerCase();
-          return eventName.contains(input);
-        }).toList();
-        upcomingEventList = upcomingList;
-      }
 //for shop
+
+      CategoryModel shopCat =
+          shopCategoryList!.firstWhere((element) => element.isSelected == true);
+
       shopList = [...shopListAll!];
+      shopList?.removeWhere((element) => element.catagoryId != shopCat.id);
       final shop = shopList?.where((element) {
         final eventName = element.name!.toLowerCase();
         final input = query.toLowerCase();

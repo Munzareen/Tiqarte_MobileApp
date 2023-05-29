@@ -32,8 +32,7 @@ class SeeAllEventController extends GetxController {
       var res = await ApiService().getCategories();
       if (res != null && res is List) {
         seeAllCategoryList = categoryModelFromJson(res);
-        seeAllCategoryList?.insert(
-            0, CategoryModel.fromJson({"Id": null, "CatagoryName": "all"}));
+
         seeAllCategoryList?[0].isSelected = true;
       }
     }
@@ -57,15 +56,12 @@ class SeeAllEventController extends GetxController {
     });
     seeAllCategoryList?[index].isSelected = true;
 
-    if (seeAllCategoryList![index].id == null) {
-      seeAllEventModel = [...seeAllEventModelAll!];
-    } else {
-      seeAllEventModel = [...seeAllEventModelAll!];
+    seeAllEventModel = [...seeAllEventModelAll!];
 
-      seeAllEventModel?.removeWhere((element) =>
-          int.parse(element.catagoryId.toString()) !=
-          seeAllCategoryList![index].id!.toInt());
-    }
+    seeAllEventModel?.removeWhere((element) =>
+        int.parse(element.catagoryId.toString()) !=
+        seeAllCategoryList![index].id!.toInt());
+
     update();
   }
 

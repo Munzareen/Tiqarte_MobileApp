@@ -1,5 +1,6 @@
 String placeholder = "assets/images/placeholder.png";
 String eventPlaceholder = "assets/images/eventPlaceholder.png";
+String categoryPlaceholder = "assets/images/categoryPlaceholder.png";
 
 String profileImage = "assets/tempImages/profileImage.png";
 String eventImage = "assets/tempImages/eventImage.png";

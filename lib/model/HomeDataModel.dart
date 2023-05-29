@@ -1,67 +1,69 @@
-// To parse this JSON data, do
-//
-//     final homeDataModel = homeDataModelFromJson(jsonString);
-
-import 'dart:convert';
-
-// HomeDataModel homeDataModelFromJson(String? str) => HomeDataModel.fromJson(json.decode(str));
-
-// String? homeDataModelToJson(HomeDataModel data) => json.encode(data.toJson());
-
 class HomeDataModel {
-  // String? welcomeMessage;
-  // String? profilePictureUrl;
-  // String? userName;
+  String? welcomeMessage;
+  // Null? profilePictureUrl;
+  // Null? userName;
   List<Event>? featuredEvents;
   List<Event>? upComingEvents;
   List<Shop>? shop;
-  dynamic eventType;
-  List<String>? eventImages;
-  List<String>? previousImages;
-  // num? userId;
+  //Null? eventType;
+  num? userId;
 
-  HomeDataModel({
-    // this.welcomeMessage,
-    // this.profilePictureUrl,
-    // this.userName,
-    this.featuredEvents,
-    this.upComingEvents,
-    this.shop,
-    this.eventType,
-    this.eventImages,
-    this.previousImages,
-    //  this.userId,
-  });
+  HomeDataModel(
+      {this.welcomeMessage,
+      // this.profilePictureUrl,
+      // this.userName,
+      this.featuredEvents,
+      this.upComingEvents,
+      this.shop,
+      // this.eventType,
+      this.userId});
 
-  factory HomeDataModel.fromJson(Map<String?, dynamic> json) => HomeDataModel(
-        // welcomeMessage: json["WelcomeMessage"],
-        // profilePictureUrl: json["ProfilePictureUrl"],
-        // userName: json["UserName"],
-        featuredEvents: List<Event>.from(
-            json["FeaturedEvents"].map((x) => Event.fromJson(x))),
-        upComingEvents: List<Event>.from(
-            json["UpComingEvents"].map((x) => Event.fromJson(x))),
-        shop: List<Shop>.from(json["Shop"].map((x) => Shop.fromJson(x))),
-        eventType: json["EventType"],
-        eventImages: List<String>.from(json["EventImages"].map((x) => x)),
-        previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
-        //  userId: json["UserId"],
-      );
+  HomeDataModel.fromJson(Map<String, dynamic> json) {
+    welcomeMessage = json['WelcomeMessage'];
+    //  profilePictureUrl = json['ProfilePictureUrl'];
+    // userName = json['UserName'];
+    if (json['FeaturedEvents'] != null) {
+      featuredEvents = <Event>[];
+      json['FeaturedEvents'].forEach((v) {
+        featuredEvents!.add(new Event.fromJson(v));
+      });
+    }
+    if (json['UpComingEvents'] != null) {
+      upComingEvents = <Event>[];
+      json['UpComingEvents'].forEach((v) {
+        upComingEvents!.add(new Event.fromJson(v));
+      });
+    }
+    if (json['Shop'] != null) {
+      shop = <Shop>[];
+      json['Shop'].forEach((v) {
+        shop!.add(new Shop.fromJson(v));
+      });
+    }
+    //eventType = json['EventType'];
+    userId = json['UserId'];
+  }
 
-  Map<String?, dynamic> toJson() => {
-        // "WelcomeMessage": welcomeMessage,
-        // "ProfilePictureUrl": profilePictureUrl,
-        // "UserName": userName,
-        "FeaturedEvents":
-            List<Event>.from(featuredEvents!.map((x) => x.toJson())),
-        "UpComingEvents":
-            List<Event>.from(upComingEvents!.map((x) => x.toJson())),
-        "Shop": List<Shop>.from(shop!.map((x) => x.toJson())),
-        "EventType": eventType,
-        "EventImages": List<String>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<String>.from(previousImages!.map((x) => x)),
-        // "UserId": userId,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['WelcomeMessage'] = this.welcomeMessage;
+    // data['ProfilePictureUrl'] = this.profilePictureUrl;
+    // data['UserName'] = this.userName;
+    if (this.featuredEvents != null) {
+      data['FeaturedEvents'] =
+          this.featuredEvents!.map((v) => v.toJson()).toList();
+    }
+    if (this.upComingEvents != null) {
+      data['UpComingEvents'] =
+          this.upComingEvents!.map((v) => v.toJson()).toList();
+    }
+    if (this.shop != null) {
+      data['Shop'] = this.shop!.map((v) => v.toJson()).toList();
+    }
+    // data['EventType'] = this.eventType;
+    data['UserId'] = this.userId;
+    return data;
+  }
 }
 
 class Event {
@@ -75,345 +77,159 @@ class Event {
   num? creationUserId;
   num? eventStatusId;
   num? eventTypeId;
-  List<String>? eventImages;
-  List<String>? previousImages;
-  dynamic catagoryId;
+  List<String>? postEventImages;
+  List<String>? preEventImages;
+  num? catagoryId;
   num? price;
-  num? organizerId;
+  num? organizerID;
   bool? isPublished;
   String? lastUpdated;
   bool? isFav;
-  dynamic standingTitle;
-  dynamic seatingTitle;
-  dynamic ticketSoldOutText;
+  String? standingTitle;
+  String? seatingTitle;
+  String? ticketSoldOutText;
 
-  Event({
-    this.eventId,
-    this.name,
-    this.compnayName,
-    this.discription,
-    this.location,
-    this.city,
-    this.eventDate,
-    this.creationUserId,
-    this.eventStatusId,
-    this.eventTypeId,
-    this.eventImages,
-    this.previousImages,
-    this.catagoryId,
-    this.price,
-    this.organizerId,
-    this.isPublished,
-    this.lastUpdated,
-    this.isFav,
-    this.standingTitle,
-    this.seatingTitle,
-    this.ticketSoldOutText,
-  });
+  Event(
+      {this.eventId,
+      this.name,
+      this.compnayName,
+      this.discription,
+      this.location,
+      this.city,
+      this.eventDate,
+      this.creationUserId,
+      this.eventStatusId,
+      this.eventTypeId,
+      this.postEventImages,
+      this.preEventImages,
+      this.catagoryId,
+      this.price,
+      this.organizerID,
+      this.isPublished,
+      this.lastUpdated,
+      this.isFav,
+      this.standingTitle,
+      this.seatingTitle,
+      this.ticketSoldOutText});
 
-  factory Event.fromJson(Map<String?, dynamic> json) => Event(
-        eventId: json["EventId"],
-        name: json["Name"],
-        compnayName: json["CompnayName"],
-        discription: json["Discription"],
-        location: json["Location"],
-        city: json["City"],
-        eventDate: json["EventDate"],
-        creationUserId: json["CreationUserId"],
-        eventStatusId: json["EventStatusId"],
-        eventTypeId: json["EventTypeId"],
-        eventImages: List<String>.from(json["EventImages"].map((x) => x)),
-        previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
-        catagoryId: json["CatagoryId"],
-        price: json["Price"],
-        organizerId: json["OrganizerID"],
-        isPublished: json["IsPublished"],
-        lastUpdated: json["LastUpdated"],
-        isFav: json["isFav"],
-        standingTitle: json["StandingTitle"],
-        seatingTitle: json["SeatingTitle"],
-        ticketSoldOutText: json["TicketSoldOutText"],
-      );
+  Event.fromJson(Map<String, dynamic> json) {
+    eventId = json['EventId'];
+    name = json['Name'];
+    compnayName = json['CompnayName'];
+    discription = json['Discription'];
+    location = json['Location'];
+    city = json['City'];
+    eventDate = json['EventDate'];
+    creationUserId = json['CreationUserId'];
+    eventStatusId = json['EventStatusId'];
+    eventTypeId = json['EventTypeId'];
+    postEventImages = json['PostEventImages'].cast<String>();
+    preEventImages = json['PreEventImages'].cast<String>();
+    catagoryId = json['CatagoryId'];
+    price = json['Price'];
+    organizerID = json['OrganizerID'];
+    isPublished = json['IsPublished'];
+    lastUpdated = json['LastUpdated'];
+    isFav = json['isFav'];
+    standingTitle = json['StandingTitle'];
+    seatingTitle = json['SeatingTitle'];
+    ticketSoldOutText = json['TicketSoldOutText'];
+  }
 
-  Map<String?, dynamic> toJson() => {
-        "EventId": eventId,
-        "Name": name,
-        "CompnayName": compnayName,
-        "Discription": discription,
-        "Location": location,
-        "City": city,
-        "EventDate": eventDate,
-        "CreationUserId": creationUserId,
-        "EventStatusId": eventStatusId,
-        "EventTypeId": eventTypeId,
-        "EventImages": List<String>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<String>.from(previousImages!.map((x) => x)),
-        "CatagoryId": catagoryId,
-        "Price": price,
-        "OrganizerID": organizerId,
-        "IsPublished": isPublished,
-        "LastUpdated": lastUpdated,
-        "isFav": isFav,
-        "StandingTitle": standingTitle,
-        "SeatingTitle": seatingTitle,
-        "TicketSoldOutText": ticketSoldOutText,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['EventId'] = this.eventId;
+    data['Name'] = this.name;
+    data['CompnayName'] = this.compnayName;
+    data['Discription'] = this.discription;
+    data['Location'] = this.location;
+    data['City'] = this.city;
+    data['EventDate'] = this.eventDate;
+    data['CreationUserId'] = this.creationUserId;
+    data['EventStatusId'] = this.eventStatusId;
+    data['EventTypeId'] = this.eventTypeId;
+    data['PostEventImages'] = this.postEventImages;
+    data['PreEventImages'] = this.preEventImages;
+    data['CatagoryId'] = this.catagoryId;
+    data['Price'] = this.price;
+    data['OrganizerID'] = this.organizerID;
+    data['IsPublished'] = this.isPublished;
+    data['LastUpdated'] = this.lastUpdated;
+    data['isFav'] = this.isFav;
+    data['StandingTitle'] = this.standingTitle;
+    data['SeatingTitle'] = this.seatingTitle;
+    data['TicketSoldOutText'] = this.ticketSoldOutText;
+    return data;
+  }
 }
 
 class Shop {
   num? id;
   num? eventId;
   String? name;
-  num? price;
-  String? image;
+  double? price;
+  String? imageURL;
+  num? catagoryId;
   String? createdDate;
   String? updatedDate;
 
-  Shop({
-    this.id,
-    this.eventId,
-    this.name,
-    this.price,
-    this.image,
-    this.createdDate,
-    this.updatedDate,
-  });
+  Shop(
+      {this.id,
+      this.eventId,
+      this.name,
+      this.price,
+      this.imageURL,
+      this.catagoryId,
+      this.createdDate,
+      this.updatedDate});
 
-  factory Shop.fromJson(Map<String?, dynamic> json) => Shop(
-        id: json["Id"],
-        eventId: json["EventId"],
-        name: json["Name"],
-        price: json["Price"],
-        image: json["Image"],
-        createdDate: json["CreatedDate"],
-        updatedDate: json["UpdatedDate"],
-      );
+  Shop.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    eventId = json['EventId'];
+    name = json['Name'];
+    price = json['Price'];
+    imageURL = json['ImageURL'];
+    catagoryId = json['CatagoryId'];
+    createdDate = json['CreatedDate'];
+    updatedDate = json['UpdatedDate'];
+  }
 
-  Map<String?, dynamic> toJson() => {
-        "Id": id,
-        "EventId": eventId,
-        "Name": name,
-        "Price": price,
-        "Image": image,
-        "CreatedDate": createdDate,
-        "UpdatedDate": updatedDate,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['EventId'] = this.eventId;
+    data['Name'] = this.name;
+    data['Price'] = this.price;
+    data['ImageURL'] = this.imageURL;
+    data['CatagoryId'] = this.catagoryId;
+    data['CreatedDate'] = this.createdDate;
+    data['UpdatedDate'] = this.updatedDate;
+    return data;
+  }
 }
-
-
-
-
-
-
-
-// class HomeDataModel {
-//   String?? welcomeMessage;
-//   String?? profilePictureUrl;
-//   String?? userName;
-//   List<FeaturedEvents>? featuredEvents;
-//   List<UpComingEvents>? upComingEvents;
-//   List<Shop>? shop;
-//   String?? eventType;
-//   List<String>? eventImages;
-//   List<String>? previousImages;
-//     num? userId;
-
-
-//   HomeDataModel(
-//       {this.welcomeMessage,
-//       this.profilePictureUrl,
-//       this.userName,
-//       this.featuredEvents,
-//       this.upComingEvents,
-//       this.shop,
-//       this.eventType,
-//       this.eventImages,
-//       this.previousImages,this.userId});
-
-//   HomeDataModel.fromJson(Map<String?, dynamic> json) {
-//     welcomeMessage = json['WelcomeMessage'];
-//     profilePictureUrl = json['ProfilePictureUrl'];
-//     userName = json['UserName'];
-//     if (json['FeaturedEvents'] != null) {
-//       featuredEvents = <FeaturedEvents>[];
-//       json['FeaturedEvents'].forEach((v) {
-//         featuredEvents!.add(new FeaturedEvents.fromJson(v));
-//       });
-//     }
-//     if (json['UpComingEvents'] != null) {
-//       upComingEvents = <UpComingEvents>[];
-//       json['UpComingEvents'].forEach((v) {
-//         upComingEvents!.add(new UpComingEvents.fromJson(v));
-//       });
-//     }
-//     if (json['Shop'] != null) {
-//       shop = <Shop>[];
-//       json['Shop'].forEach((v) {
-//         shop!.add(new Shop.fromJson(v));
-//       });
-//     }
-//     eventType = json['EventType'];
-//     eventImages = json['EventImages'].cast<String>();
-//     previousImages = json['PreviousImages'].cast<String>();
-//         userId = json['UserId'];
-
-//   }
-
-//   Map<String?, dynamic> toJson() {
-//     final Map<String?, dynamic> data = new Map<String?, dynamic>();
-//     data['WelcomeMessage'] = this.welcomeMessage;
-//     data['ProfilePictureUrl'] = this.profilePictureUrl;
-//     data['UserName'] = this.userName;
-//     if (this.featuredEvents != null) {
-//       data['FeaturedEvents'] =
-//           this.featuredEvents!.map((v) => v.toJson()).toList();
-//     }
-//     if (this.upComingEvents != null) {
-//       data['UpComingEvents'] =
-//           this.upComingEvents!.map((v) => v.toJson()).toList();
-//     }
-//     if (this.shop != null) {
-//       data['Shop'] = this.shop!.map((v) => v.toJson()).toList();
-//     }
-//     data['EventType'] = this.eventType;
-//     data['EventImages'] = this.eventImages;
-//     data['PreviousImages'] = this.previousImages;
-//         data['UserId'] = this.userId;
-
-//     return data;
-//   }
-// }
-
-// class FeaturedEvents {
-//   num? eventId;
-//   String?? name;
-//   String?? compnayName;
-//   String?? discription;
-//   String?? location;
-//   String?? city;
-//   String?? eventDate;
-//   num? creationUserId;
-//   num? eventStatusId;
-//   num? eventTypeId;
-//   List<String>? eventImages;
-//   List<String>? previousImages;
-//   String?? catagoryId;
-//   num? price;
-//   num? organizerID;
-
-//   FeaturedEvents(
-//       {this.eventId,
-//       this.name,
-//       this.compnayName,
-//       this.discription,
-//       this.location,
-//       this.city,
-//       this.eventDate,
-//       this.creationUserId,
-//       this.eventStatusId,
-//       this.eventTypeId,
-//       this.eventImages,
-//       this.previousImages,
-//       this.catagoryId,
-//       this.price,
-//       this.organizerID});
-
-//   FeaturedEvents.fromJson(Map<String?, dynamic> json) {
-//     eventId = json['EventId'];
-//     name = json['Name'];
-//     compnayName = json['CompnayName'];
-//     discription = json['Discription'];
-//     location = json['Location'];
-//     city = json['City'];
-//     eventDate = json['EventDate'];
-//     creationUserId = json['CreationUserId'];
-//     eventStatusId = json['EventStatusId'];
-//     eventTypeId = json['EventTypeId'];
-//     eventImages = json['EventImages'].cast<String>();
-//     previousImages = json['PreviousImages'].cast<String>();
-//     catagoryId = json['CatagoryId'];
-//     price = json['Price'];
-//     organizerID = json['OrganizerID'];
-//   }
-
-//   Map<String?, dynamic> toJson() {
-//     final Map<String?, dynamic> data = new Map<String?, dynamic>();
-//     data['EventId'] = this.eventId;
-//     data['Name'] = this.name;
-//     data['CompnayName'] = this.compnayName;
-//     data['Discription'] = this.discription;
-//     data['Location'] = this.location;
-//     data['City'] = this.city;
-//     data['EventDate'] = this.eventDate;
-//     data['CreationUserId'] = this.creationUserId;
-//     data['EventStatusId'] = this.eventStatusId;
-//     data['EventTypeId'] = this.eventTypeId;
-//     data['EventImages'] = this.eventImages;
-//     data['PreviousImages'] = this.previousImages;
-//     data['CatagoryId'] = this.catagoryId;
-//     data['Price'] = this.price;
-//     data['OrganizerID'] = this.organizerID;
-//     return data;
-//   }
-// }
-
-// class Shop {
-//   num? id;
-//   num? eventId;
-//   String?? name;
-//   num?? price;
-//   String?? image;
-//   String?? createdDate;
-//   String?? updatedDate;
-
-//   Shop(
-//       {this.id,
-//       this.eventId,
-//       this.name,
-//       this.price,
-//       this.image,
-//       this.createdDate,
-//       this.updatedDate});
-
-//   Shop.fromJson(Map<String?, dynamic> json) {
-//     id = json['Id'];
-//     eventId = json['EventId'];
-//     name = json['Name'];
-//     price = json['Price'];
-//     image = json['Image'];
-//     createdDate = json['CreatedDate'];
-//     updatedDate = json['UpdatedDate'];
-//   }
-
-//   Map<String?, dynamic> toJson() {
-//     final Map<String?, dynamic> data = new Map<String?, dynamic>();
-//     data['Id'] = this.id;
-//     data['EventId'] = this.eventId;
-//     data['Name'] = this.name;
-//     data['Price'] = this.price;
-//     data['Image'] = this.image;
-//     data['CreatedDate'] = this.createdDate;
-//     data['UpdatedDate'] = this.updatedDate;
-//     return data;
-//   }
-// }
 
 // class UpComingEvents {
 //   num? eventId;
-//   String?? name;
-//   String?? compnayName;
-//   String?? discription;
-//   String?? location;
-//   String?? city;
-//   String?? eventDate;
+//   String? name;
+//   String? compnayName;
+//   String? discription;
+//   String? location;
+//   String? city;
+//   String? eventDate;
 //   num? creationUserId;
 //   num? eventStatusId;
 //   num? eventTypeId;
-//   List<String>? eventImages;
-//   List<String>? previousImages;
-//   String?? catagoryId;
+//   List<String>? postEventImages;
+//   List<String>? preEventImages;
+//   num? catagoryId;
 //   num? price;
 //   num? organizerID;
+//   bool? isPublished;
+//   String? lastUpdated;
+//   bool? isFav;
+//   String? standingTitle;
+//   String? seatingTitle;
+//   String? ticketSoldOutText;
 
 //   UpComingEvents(
 //       {this.eventId,
@@ -426,13 +242,19 @@ class Shop {
 //       this.creationUserId,
 //       this.eventStatusId,
 //       this.eventTypeId,
-//       this.eventImages,
-//       this.previousImages,
+//       this.postEventImages,
+//       this.preEventImages,
 //       this.catagoryId,
 //       this.price,
-//       this.organizerID});
+//       this.organizerID,
+//       this.isPublished,
+//       this.lastUpdated,
+//       this.isFav,
+//       this.standingTitle,
+//       this.seatingTitle,
+//       this.ticketSoldOutText});
 
-//   UpComingEvents.fromJson(Map<String?, dynamic> json) {
+//   UpComingEvents.fromJson(Map<String, dynamic> json) {
 //     eventId = json['EventId'];
 //     name = json['Name'];
 //     compnayName = json['CompnayName'];
@@ -443,15 +265,21 @@ class Shop {
 //     creationUserId = json['CreationUserId'];
 //     eventStatusId = json['EventStatusId'];
 //     eventTypeId = json['EventTypeId'];
-//     eventImages = json['EventImages'].cast<String>();
-//     previousImages = json['PreviousImages'].cast<String>();
+//     postEventImages = json['PostEventImages'].cast<String>();
+//     preEventImages = json['PreEventImages'].cast<String>();
 //     catagoryId = json['CatagoryId'];
 //     price = json['Price'];
 //     organizerID = json['OrganizerID'];
+//     isPublished = json['IsPublished'];
+//     lastUpdated = json['LastUpdated'];
+//     isFav = json['isFav'];
+//     standingTitle = json['StandingTitle'];
+//     seatingTitle = json['SeatingTitle'];
+//     ticketSoldOutText = json['TicketSoldOutText'];
 //   }
 
-//   Map<String?, dynamic> toJson() {
-//     final Map<String?, dynamic> data = new Map<String?, dynamic>();
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
 //     data['EventId'] = this.eventId;
 //     data['Name'] = this.name;
 //     data['CompnayName'] = this.compnayName;
@@ -462,11 +290,236 @@ class Shop {
 //     data['CreationUserId'] = this.creationUserId;
 //     data['EventStatusId'] = this.eventStatusId;
 //     data['EventTypeId'] = this.eventTypeId;
-//     data['EventImages'] = this.eventImages;
-//     data['PreviousImages'] = this.previousImages;
+//     data['PostEventImages'] = this.postEventImages;
+//     data['PreEventImages'] = this.preEventImages;
 //     data['CatagoryId'] = this.catagoryId;
 //     data['Price'] = this.price;
 //     data['OrganizerID'] = this.organizerID;
+//     data['IsPublished'] = this.isPublished;
+//     data['LastUpdated'] = this.lastUpdated;
+//     data['isFav'] = this.isFav;
+//     data['StandingTitle'] = this.standingTitle;
+//     data['SeatingTitle'] = this.seatingTitle;
+//     data['TicketSoldOutText'] = this.ticketSoldOutText;
 //     return data;
 //   }
 // }
+
+
+
+
+
+
+
+
+
+// // To parse this JSON data, do
+// //
+// //     final homeDataModel = homeDataModelFromJson(jsonString);
+
+// import 'dart:convert';
+
+// // HomeDataModel homeDataModelFromJson(String? str) => HomeDataModel.fromJson(json.decode(str));
+
+// // String? homeDataModelToJson(HomeDataModel data) => json.encode(data.toJson());
+
+// class HomeDataModel {
+//   // String? welcomeMessage;
+//   // String? profilePictureUrl;
+//   // String? userName;
+//   List<Event>? featuredEvents;
+//   List<Event>? upComingEvents;
+//   List<Shop>? shop;
+//   dynamic eventType;
+//   List<String>? postEventImages;
+//   List<String>? preEventImages;
+//   // num? userId;
+
+//   HomeDataModel({
+//     // this.welcomeMessage,
+//     // this.profilePictureUrl,
+//     // this.userName,
+//     this.featuredEvents,
+//     this.upComingEvents,
+//     this.shop,
+//     this.eventType,
+//     this.postEventImages,
+//     this.preEventImages,
+//     //  this.userId,
+//   });
+
+//   factory HomeDataModel.fromJson(Map<String?, dynamic> json) => HomeDataModel(
+//         // welcomeMessage: json["WelcomeMessage"],
+//         // profilePictureUrl: json["ProfilePictureUrl"],
+//         // userName: json["UserName"],
+//         featuredEvents: List<Event>.from(
+//             json["FeaturedEvents"].map((x) => Event.fromJson(x))),
+//         upComingEvents: List<Event>.from(
+//             json["UpComingEvents"].map((x) => Event.fromJson(x))),
+//         shop: List<Shop>.from(json["Shop"].map((x) => Shop.fromJson(x))),
+//         eventType: json["EventType"],
+//         postEventImages:
+//             List<String>.from(json["PostEventImages"].map((x) => x)),
+//         preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
+//         //  userId: json["UserId"],
+//       );
+
+//   Map<String?, dynamic> toJson() => {
+//         // "WelcomeMessage": welcomeMessage,
+//         // "ProfilePictureUrl": profilePictureUrl,
+//         // "UserName": userName,
+//         "FeaturedEvents":
+//             List<Event>.from(featuredEvents!.map((x) => x.toJson())),
+//         "UpComingEvents":
+//             List<Event>.from(upComingEvents!.map((x) => x.toJson())),
+//         "Shop": List<Shop>.from(shop!.map((x) => x.toJson())),
+//         "EventType": eventType,
+//         "PostEventImages": List<String>.from(postEventImages!.map((x) => x)),
+//         "PreEventImages": List<String>.from(preEventImages!.map((x) => x)),
+//         // "UserId": userId,
+//       };
+// }
+
+// class Event {
+//   num? eventId;
+//   String? name;
+//   String? compnayName;
+//   String? discription;
+//   String? location;
+//   String? city;
+//   String? eventDate;
+//   num? creationUserId;
+//   num? eventStatusId;
+//   num? eventTypeId;
+//   List<String>? postEventImages;
+//   List<String>? preEventImages;
+//   dynamic catagoryId;
+//   num? price;
+//   num? organizerId;
+//   bool? isPublished;
+//   String? lastUpdated;
+//   bool? isFav;
+//   dynamic standingTitle;
+//   dynamic seatingTitle;
+//   dynamic ticketSoldOutText;
+
+//   Event({
+//     this.eventId,
+//     this.name,
+//     this.compnayName,
+//     this.discription,
+//     this.location,
+//     this.city,
+//     this.eventDate,
+//     this.creationUserId,
+//     this.eventStatusId,
+//     this.eventTypeId,
+//     this.postEventImages,
+//     this.preEventImages,
+//     this.catagoryId,
+//     this.price,
+//     this.organizerId,
+//     this.isPublished,
+//     this.lastUpdated,
+//     this.isFav,
+//     this.standingTitle,
+//     this.seatingTitle,
+//     this.ticketSoldOutText,
+//   });
+
+//   factory Event.fromJson(Map<String?, dynamic> json) => Event(
+//         eventId: json["EventId"],
+//         name: json["Name"],
+//         compnayName: json["CompnayName"],
+//         discription: json["Discription"],
+//         location: json["Location"],
+//         city: json["City"],
+//         eventDate: json["EventDate"],
+//         creationUserId: json["CreationUserId"],
+//         eventStatusId: json["EventStatusId"],
+//         eventTypeId: json["EventTypeId"],
+//         postEventImages:
+//             List<String>.from(json["PostEventImages"].map((x) => x)),
+//         preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
+//         catagoryId: json["CatagoryId"],
+//         price: json["Price"],
+//         organizerId: json["OrganizerID"],
+//         isPublished: json["IsPublished"],
+//         lastUpdated: json["LastUpdated"],
+//         isFav: json["isFav"],
+//         standingTitle: json["StandingTitle"],
+//         seatingTitle: json["SeatingTitle"],
+//         ticketSoldOutText: json["TicketSoldOutText"],
+//       );
+
+//   Map<String?, dynamic> toJson() => {
+//         "EventId": eventId,
+//         "Name": name,
+//         "CompnayName": compnayName,
+//         "Discription": discription,
+//         "Location": location,
+//         "City": city,
+//         "EventDate": eventDate,
+//         "CreationUserId": creationUserId,
+//         "EventStatusId": eventStatusId,
+//         "EventTypeId": eventTypeId,
+//         "PostEventImages": List<String>.from(postEventImages!.map((x) => x)),
+//         "PreEventImages": List<String>.from(preEventImages!.map((x) => x)),
+//         "CatagoryId": catagoryId,
+//         "Price": price,
+//         "OrganizerID": organizerId,
+//         "IsPublished": isPublished,
+//         "LastUpdated": lastUpdated,
+//         "isFav": isFav,
+//         "StandingTitle": standingTitle,
+//         "SeatingTitle": seatingTitle,
+//         "TicketSoldOutText": ticketSoldOutText,
+//       };
+// }
+
+// class Shop {
+//   num? id;
+//   num? eventId;
+//   String? name;
+//   num? price;
+//   String? image;
+//   String? createdDate;
+//   String? updatedDate;
+
+//   Shop({
+//     this.id,
+//     this.eventId,
+//     this.name,
+//     this.price,
+//     this.image,
+//     this.createdDate,
+//     this.updatedDate,
+//   });
+
+//   factory Shop.fromJson(Map<String?, dynamic> json) => Shop(
+//         id: json["Id"],
+//         eventId: json["EventId"],
+//         name: json["Name"],
+//         price: json["Price"],
+//         image: json["Image"],
+//         createdDate: json["CreatedDate"],
+//         updatedDate: json["UpdatedDate"],
+//       );
+
+//   Map<String?, dynamic> toJson() => {
+//         "Id": id,
+//         "EventId": eventId,
+//         "Name": name,
+//         "Price": price,
+//         "Image": image,
+//         "CreatedDate": createdDate,
+//         "UpdatedDate": updatedDate,
+//       };
+// }
+
+
+
+
+
+
+

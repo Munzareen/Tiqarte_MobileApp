@@ -44,6 +44,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
   @override
   void dispose() {
     tabController?.dispose();
+    _organizerDetailController.organizerDetailModel = null;
     super.dispose();
   }
 
@@ -94,7 +95,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: GetBuilder<OrganizerDetailController>(builder: (_oc) {
-              return _oc.organizerDetailModel.name == null
+              return _oc.organizerDetailModel == null
                   ? Center(
                       child: spinkit,
                     )
@@ -141,7 +142,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                         customProfileImage(organizerImage, 90.h, 90.h),
                         20.verticalSpace,
                         Text(
-                          _oc.organizerDetailModel.name.toString(),
+                          _oc.organizerDetailModel!.organizer!.name.toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 32,
@@ -169,7 +170,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                 child: Column(
                                   children: [
                                     Text(
-                                      _oc.organizerDetailModel.events!.length
+                                      _oc.organizerDetailModel!.events!.length
                                           .toString(),
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
@@ -178,7 +179,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     ),
                                     5.verticalSpace,
                                     Text(
-                                      _oc.organizerDetailModel.events!.length >
+                                      _oc.organizerDetailModel!.events!.length >
                                               1
                                           ? events
                                           : event,
@@ -251,31 +252,64 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                width: 0.4.sw,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10.0),
-                                decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      followIcon,
-                                      color: Colors.white,
-                                      height: 20.h,
-                                    ),
-                                    10.horizontalSpace,
-                                    Text(
-                                      follow,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  ],
+                              GestureDetector(
+                                onTap: () async {
+                                  String data = '';
+                                  if (_oc.organizerDetailModel?.isFollow ==
+                                      true) {
+                                    data =
+                                        "?organizerID=${_oc.organizerDetailModel?.organizer?.id?.toInt()}&customerID=$userId&follow=false";
+                                  } else {
+                                    data =
+                                        "?organizerID=${_oc.organizerDetailModel?.organizer?.id?.toInt()}&customerID=$userId&follow=true";
+                                  }
+
+                                  var res = await ApiService()
+                                      .setOrganizerFollow(data);
+                                  if (res != null && res is String) {
+                                    if (res.toUpperCase().contains("ADDED")) {
+                                      _oc.organizerDetailModel?.isFollow = true;
+                                      _oc.update();
+                                    } else if (res
+                                        .toUpperCase()
+                                        .contains("REMOVE")) {
+                                      _oc.organizerDetailModel?.isFollow =
+                                          false;
+                                      _oc.update();
+                                    }
+                                    customSnackBar("Alert!", res);
+                                  }
+                                },
+                                child: Container(
+                                  width: 0.4.sw,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        followIcon,
+                                        color: Colors.white,
+                                        height: 20.h,
+                                      ),
+                                      10.horizontalSpace,
+                                      Text(
+                                        _oc.organizerDetailModel?.isFollow ==
+                                                true
+                                            ? follow
+                                            : following,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(
@@ -363,13 +397,13 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                               ListView.builder(
                                 shrinkWrap: true,
                                 itemCount:
-                                    _oc.organizerDetailModel.events?.length,
+                                    _oc.organizerDetailModel!.events?.length,
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
                                       Get.to(
                                           () => EventDetailScreen(
-                                              eventId: _oc.organizerDetailModel
+                                              eventId: _oc.organizerDetailModel!
                                                   .events![index].eventId
                                                   .toString()),
                                           transition: Transition.rightToLeft);
@@ -396,14 +430,14 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                               children: [
                                                 customCardImage(
                                                     _oc
-                                                            .organizerDetailModel
+                                                            .organizerDetailModel!
                                                             .events![index]
-                                                            .eventImages!
+                                                            .postEventImages!
                                                             .isNotEmpty
                                                         ? _oc
-                                                            .organizerDetailModel
+                                                            .organizerDetailModel!
                                                             .events![index]
-                                                            .eventImages![0]
+                                                            .postEventImages![0]
                                                             .toString()
                                                         : "null",
                                                     110.h,
@@ -442,7 +476,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                                 SizedBox(
                                                   width: 0.5.sw,
                                                   child: Text(
-                                                    _oc.organizerDetailModel
+                                                    _oc.organizerDetailModel!
                                                         .events![index].name
                                                         .toString(),
                                                     textAlign: TextAlign.start,
@@ -460,7 +494,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                                 FittedBox(
                                                   child: Text(
                                                     splitDateTimeWithoutYear(_oc
-                                                        .organizerDetailModel
+                                                        .organizerDetailModel!
                                                         .events![index]
                                                         .eventDate
                                                         .toString()),
@@ -489,7 +523,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                                         width: 0.3.sw,
                                                         child: Text(
                                                           _oc
-                                                              .organizerDetailModel
+                                                              .organizerDetailModel!
                                                               .events![index]
                                                               .city
                                                               .toString(),
@@ -510,7 +544,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                                         onTap: () {},
                                                         child: Image.asset(
                                                           _oc
-                                                                      .organizerDetailModel
+                                                                      .organizerDetailModel!
                                                                       .events![
                                                                           index]
                                                                       .isFav ==
@@ -534,7 +568,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                               ),
 
                               //Collections
-                              _oc.organizerDetailModel.collection!.isEmpty
+                              _oc.organizerDetailModel!.collections!.isEmpty
                                   ? Column(
                                       children: [
                                         30.verticalSpace,
@@ -553,8 +587,8 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                         crossAxisSpacing: 10,
                                         mainAxisSpacing: 20,
                                       ),
-                                      itemCount: _oc.organizerDetailModel
-                                          .collection?.length,
+                                      itemCount: _oc.organizerDetailModel!
+                                          .collections?.length,
                                       shrinkWrap: true,
                                       itemBuilder:
                                           (BuildContext context, int index) {
@@ -565,14 +599,14 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                               builder: (_) =>
                                                   ImagePreviewDialog(
                                                       imagePath: _oc
-                                                          .organizerDetailModel
-                                                          .collection![index]
+                                                          .organizerDetailModel!
+                                                          .collections![index]
                                                           .toString()),
                                             );
                                           },
                                           child: customCardImage(
-                                              _oc.organizerDetailModel
-                                                  .collection![index]
+                                              _oc.organizerDetailModel!
+                                                  .collections![index]
                                                   .toString(),
                                               110.h,
                                               110.h),
@@ -595,7 +629,9 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                           color: Theme.of(context)
                                               .secondaryHeaderColor),
                                       child: Text(
-                                          _oc.organizerDetailModel.description
+                                          _oc.organizerDetailModel!.organizer!
+                                              .about
+                                              .toString()
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 16,

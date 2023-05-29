@@ -11,43 +11,60 @@ String organizerDetailModelToJson(OrganizerDetailModel data) =>
     json.encode(data.toJson());
 
 class OrganizerDetailModel {
-  num? id;
-  String? name;
-  String? description;
-  String? imageUrl;
-  num? following;
-  List<dynamic>? collection;
+  bool? isFollow;
+  Organizer? organizer;
   List<Event>? events;
+  List<Collection>? collections;
 
   OrganizerDetailModel({
-    this.id,
-    this.name,
-    this.description,
-    this.imageUrl,
-    this.following,
-    this.collection,
+    this.isFollow,
+    this.organizer,
     this.events,
+    this.collections,
   });
 
   factory OrganizerDetailModel.fromJson(Map<String, dynamic> json) =>
       OrganizerDetailModel(
+        isFollow: json["isFollow"],
+        organizer: Organizer.fromJson(json["Organizer"]),
+        events: json["Events"] != null
+            ? List<Event>.from(json["Events"].map((x) => Event.fromJson(x)))
+            : [],
+        collections: json["Collections"] != null
+            ? List<Collection>.from(
+                json["Collections"].map((x) => Collection.fromJson(x)))
+            : [],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "isFollow": isFollow,
+        "Organizer": organizer?.toJson(),
+        "Events": List<dynamic>.from(events!.map((x) => x.toJson())),
+        "Collections": List<dynamic>.from(collections!.map((x) => x.toJson())),
+      };
+}
+
+class Collection {
+  num? id;
+  num? organizerId;
+  String? imageUrl;
+
+  Collection({
+    this.id,
+    this.organizerId,
+    this.imageUrl,
+  });
+
+  factory Collection.fromJson(Map<String, dynamic> json) => Collection(
         id: json["Id"],
-        name: json["Name"],
-        description: json["Description"],
+        organizerId: json["OrganizerId"],
         imageUrl: json["ImageURL"],
-        following: json["Following"],
-        collection: List<dynamic>.from(json["Collection"].map((x) => x)),
-        events: List<Event>.from(json["Events"].map((x) => Event.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
-        "Name": name,
-        "Description": description,
+        "OrganizerId": organizerId,
         "ImageURL": imageUrl,
-        "Following": following,
-        "Collection": List<dynamic>.from(collection!.map((x) => x)),
-        "Events": List<dynamic>.from(events!.map((x) => x.toJson())),
       };
 }
 
@@ -62,8 +79,8 @@ class Event {
   num? creationUserId;
   num? eventStatusId;
   num? eventTypeId;
-  List<String>? eventImages;
-  List<String>? previousImages;
+  List<String>? postEventImages;
+  List<String>? preEventImages;
   num? catagoryId;
   num? price;
   num? organizerId;
@@ -85,8 +102,8 @@ class Event {
     this.creationUserId,
     this.eventStatusId,
     this.eventTypeId,
-    this.eventImages,
-    this.previousImages,
+    this.postEventImages,
+    this.preEventImages,
     this.catagoryId,
     this.price,
     this.organizerId,
@@ -109,8 +126,9 @@ class Event {
         creationUserId: json["CreationUserId"],
         eventStatusId: json["EventStatusId"],
         eventTypeId: json["EventTypeId"],
-        eventImages: List<String>.from(json["EventImages"].map((x) => x)),
-        previousImages: List<String>.from(json["PreviousImages"].map((x) => x)),
+        postEventImages:
+            List<String>.from(json["PostEventImages"].map((x) => x)),
+        preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
         catagoryId: json["CatagoryId"],
         price: json["Price"],
         organizerId: json["OrganizerID"],
@@ -133,8 +151,8 @@ class Event {
         "CreationUserId": creationUserId,
         "EventStatusId": eventStatusId,
         "EventTypeId": eventTypeId,
-        "EventImages": List<dynamic>.from(eventImages!.map((x) => x)),
-        "PreviousImages": List<dynamic>.from(previousImages!.map((x) => x)),
+        "PostEventImages": List<dynamic>.from(postEventImages!.map((x) => x)),
+        "PreEventImages": List<dynamic>.from(preEventImages!.map((x) => x)),
         "CatagoryId": catagoryId,
         "Price": price,
         "OrganizerID": organizerId,
@@ -144,5 +162,41 @@ class Event {
         "StandingTitle": standingTitle,
         "SeatingTitle": seatingTitle,
         "TicketSoldOutText": ticketSoldOutText,
+      };
+}
+
+class Organizer {
+  num? id;
+  String? name;
+  dynamic about;
+  String? imageUrl;
+  num? followers;
+  dynamic collections;
+
+  Organizer({
+    this.id,
+    this.name,
+    this.about,
+    this.imageUrl,
+    this.followers,
+    this.collections,
+  });
+
+  factory Organizer.fromJson(Map<String, dynamic> json) => Organizer(
+        id: json["Id"],
+        name: json["Name"],
+        about: json["About"],
+        imageUrl: json["ImageURL"],
+        followers: json["Followers"],
+        collections: json["Collections"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "Id": id,
+        "Name": name,
+        "About": about,
+        "ImageURL": imageUrl,
+        "Followers": followers,
+        "Collections": collections,
       };
 }

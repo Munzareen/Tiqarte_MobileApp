@@ -61,7 +61,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   getData() async {
     var res = await ApiService().getEventDetail(widget.eventId);
     if (res != null && res is Map) {
-      _eventDetailController.addEventDetail(res);
+      _eventDetailController.addEventDetail(res, widget.eventId);
     } else if (res != null && res is String) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -151,17 +151,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       Container(
                         height: 0.45.sh,
                         child: PageView.builder(
-                          itemCount:
-                              _edc.eventDetailModel.event?.eventImages?.length,
+                          itemCount: _edc
+                              .eventDetailModel.event?.postEventImages?.length,
                           itemBuilder: (context, pageViewindex) {
                             return Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
                                 customImageForDetail(
-                                    _edc.eventDetailModel.event!.eventImages!
-                                            .isNotEmpty
+                                    _edc.eventDetailModel.event!
+                                            .postEventImages!.isNotEmpty
                                         ? _edc.eventDetailModel.event!
-                                            .eventImages![pageViewindex]
+                                            .postEventImages![pageViewindex]
                                         : "null",
                                     1.sw,
                                     0.45.sh),
@@ -170,8 +170,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: List<Widget>.generate(
-                                      _edc.eventDetailModel.event!.eventImages!
-                                          .length,
+                                      _edc.eventDetailModel.event!
+                                          .postEventImages!.length,
                                       (index) => Container(
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 5.0),
@@ -683,7 +683,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               maxLines: 2,
                             ),
                             10.verticalSpace,
-                            _edc.eventDetailModel.event!.previousImages!.isEmpty
+                            _edc.eventDetailModel.event!.preEventImages!.isEmpty
                                 ? SizedBox()
                                 : Column(
                                     children: [
@@ -706,14 +706,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                       previousEventImages: _edc
                                                           .eventDetailModel
                                                           .event!
-                                                          .previousImages!),
+                                                          .preEventImages!),
                                                   transition:
                                                       Transition.rightToLeft);
                                             },
                                             child: _edc
                                                         .eventDetailModel
                                                         .event!
-                                                        .previousImages!
+                                                        .preEventImages!
                                                         .length >
                                                     3
                                                 ? Text(
@@ -734,7 +734,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10.0),
                                         child: _edc.eventDetailModel.event!
-                                                    .previousImages!.length ==
+                                                    .preEventImages!.length ==
                                                 1
                                             ? Row(
                                                 mainAxisAlignment:
@@ -744,12 +744,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                       _edc
                                                               .eventDetailModel
                                                               .event!
-                                                              .previousImages!
+                                                              .preEventImages!
                                                               .isNotEmpty
                                                           ? _edc
                                                               .eventDetailModel
                                                               .event!
-                                                              .previousImages![
+                                                              .preEventImages![
                                                                   0]
                                                               .toString()
                                                           : "null",
@@ -760,7 +760,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                             : _edc
                                                         .eventDetailModel
                                                         .event!
-                                                        .previousImages!
+                                                        .preEventImages!
                                                         .length ==
                                                     2
                                                 ? Row(
@@ -771,16 +771,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                           _edc
                                                               .eventDetailModel
                                                               .event!
-                                                              .previousImages![
+                                                              .preEventImages![
                                                                   0]
                                                               .toString(),
                                                           90.h,
                                                           90.h),
+                                                      5.horizontalSpace,
                                                       customCardImage(
                                                           _edc
                                                               .eventDetailModel
                                                               .event!
-                                                              .previousImages![
+                                                              .preEventImages![
                                                                   1]
                                                               .toString(),
                                                           90.h,
@@ -790,7 +791,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                 : _edc
                                                             .eventDetailModel
                                                             .event!
-                                                            .previousImages!
+                                                            .preEventImages!
                                                             .length ==
                                                         3
                                                     ? Row(
@@ -802,12 +803,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                       .eventDetailModel
                                                                       .event!
-                                                                      .previousImages!
+                                                                      .preEventImages!
                                                                       .isNotEmpty
                                                                   ? _edc
                                                                       .eventDetailModel
                                                                       .event!
-                                                                      .previousImages![
+                                                                      .preEventImages![
                                                                           0]
                                                                       .toString()
                                                                   : "null",
@@ -817,7 +818,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                   .eventDetailModel
                                                                   .event!
-                                                                  .previousImages![
+                                                                  .preEventImages![
                                                                       1]
                                                                   .toString(),
                                                               90.h,
@@ -826,7 +827,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                   .eventDetailModel
                                                                   .event!
-                                                                  .previousImages![
+                                                                  .preEventImages![
                                                                       2]
                                                                   .toString(),
                                                               90.h,
@@ -842,7 +843,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                   .eventDetailModel
                                                                   .event!
-                                                                  .previousImages![
+                                                                  .preEventImages![
                                                                       0]
                                                                   .toString(),
                                                               90.h,
@@ -851,7 +852,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                   .eventDetailModel
                                                                   .event!
-                                                                  .previousImages![
+                                                                  .preEventImages![
                                                                       1]
                                                                   .toString(),
                                                               90.h,
@@ -860,7 +861,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                   .eventDetailModel
                                                                   .event!
-                                                                  .previousImages![
+                                                                  .preEventImages![
                                                                       2]
                                                                   .toString(),
                                                               90.h,
@@ -868,13 +869,13 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               _edc
                                                                       .eventDetailModel
                                                                       .event!
-                                                                      .previousImages!
+                                                                      .preEventImages!
                                                                       .length -
                                                                   3,
                                                               _edc
                                                                   .eventDetailModel
                                                                   .event!
-                                                                  .previousImages!)
+                                                                  .preEventImages!)
                                                         ],
                                                       ),
                                       ),
@@ -1065,12 +1066,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                           _edc
                                                                   .relatedEventModelList![
                                                                       itemIndex]
-                                                                  .eventImages!
+                                                                  .postEventImages!
                                                                   .isNotEmpty
                                                               ? _edc
                                                                   .relatedEventModelList![
                                                                       itemIndex]
-                                                                  .eventImages![
+                                                                  .postEventImages![
                                                                       0]
                                                                   .toString()
                                                               : "null",
@@ -1307,7 +1308,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   }
 
   customCardImageWithMore(String url, double width, double height,
-      int remaining, List<String> previousImages) {
+      int remaining, List<String> preEventImages) {
     return url != "" && url != "null"
         ? CachedNetworkImage(
             imageUrl: url,
@@ -1316,7 +1317,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 onTap: () {
                   Get.to(
                       () => GalleryScreen(
-                            previousEventImages: previousImages,
+                            previousEventImages: preEventImages,
                           ),
                       transition: Transition.rightToLeft);
                 },
@@ -1337,7 +1338,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               onTap: () {
                 Get.to(
                     () => GalleryScreen(
-                          previousEventImages: previousImages,
+                          previousEventImages: preEventImages,
                         ),
                     transition: Transition.rightToLeft);
               },
@@ -1358,7 +1359,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               onTap: () {
                 Get.to(
                     () => GalleryScreen(
-                          previousEventImages: previousImages,
+                          previousEventImages: preEventImages,
                         ),
                     transition: Transition.rightToLeft);
               },
@@ -1380,7 +1381,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             onTap: () {
               Get.to(
                   () => GalleryScreen(
-                        previousEventImages: previousImages,
+                        previousEventImages: preEventImages,
                       ),
                   transition: Transition.rightToLeft);
             },
