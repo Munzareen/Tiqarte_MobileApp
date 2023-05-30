@@ -376,7 +376,7 @@ class ApiService {
 
   getOrganizerDetail(String id) async {
     final uri =
-        Uri.parse(ApiPoint().baseUrl + ApiPoint().getOrganizerDetail + id);
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getOrganizerDetails + id);
 
     final headers = {
       'Content-Type': 'application/json',

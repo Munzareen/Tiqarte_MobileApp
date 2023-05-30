@@ -62,8 +62,9 @@ class HomeController extends GetxController {
     upcomingEventList = [...upcomingEventListAll!];
 
     upcomingEventList?.removeWhere((element) =>
+        element.catagoryId != null &&
         int.parse(element.catagoryId.toString()) !=
-        upcomingCategoryList![index].id!.toInt());
+            upcomingCategoryList![index].id!.toInt());
 
     if (searchController.text.trim().isNotEmpty) {
       homeSearch(searchController.text);
@@ -81,8 +82,9 @@ class HomeController extends GetxController {
     shopList = [...shopListAll!];
 
     shopList?.removeWhere((element) =>
+        element.catagoryId != null &&
         int.parse(element.catagoryId.toString()) !=
-        shopCategoryList![index].id!.toInt());
+            shopCategoryList![index].id!.toInt());
 
     if (searchController.text.trim().isNotEmpty) {
       homeSearch(searchController.text);
@@ -106,8 +108,8 @@ class HomeController extends GetxController {
       CategoryModel upcomingCat = upcomingCategoryList!
           .firstWhere((element) => element.isSelected == true);
       upcomingEventList = [...upcomingEventListAll!];
-      upcomingEventList
-          ?.removeWhere((element) => element.catagoryId != upcomingCat.id);
+      upcomingEventList?.removeWhere((element) =>
+          element.catagoryId != null && element.catagoryId != upcomingCat.id);
 
       final upcomingList = upcomingEventList?.where((element) {
         final eventName = element.name!.toLowerCase();
@@ -122,7 +124,8 @@ class HomeController extends GetxController {
           shopCategoryList!.firstWhere((element) => element.isSelected == true);
 
       shopList = [...shopListAll!];
-      shopList?.removeWhere((element) => element.catagoryId != shopCat.id);
+      shopList?.removeWhere((element) =>
+          element.catagoryId != null && element.catagoryId != shopCat.id);
       final shop = shopList?.where((element) {
         final eventName = element.name!.toLowerCase();
         final input = query.toLowerCase();

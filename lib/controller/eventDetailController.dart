@@ -46,7 +46,6 @@ class EventDetailController extends GetxController {
 
   addRelatedEvents(dynamic data) {}
 
-  bool isFollow = false;
   Color appBarIconColor = Colors.white;
 
   @override
@@ -72,11 +71,6 @@ class EventDetailController extends GetxController {
 
   changeColor(Color color) {
     appBarIconColor = color;
-    update();
-  }
-
-  followUnFollow() {
-    isFollow = !isFollow;
     update();
   }
 }

@@ -7,7 +7,7 @@ class ApiPoint {
   String getHomeData = "getHomeData";
   String GetEvents = "GetEvents";
   String getEventDetail = "getEventDetail?eventID=";
-  String getOrganizerDetail = "getOrganizerDetail?organizerID=";
+  String getOrganizerDetails = "getOrganizerDetails?organizerID=";
   String setFav = "setFav";
   String getfavList = "getfavList?customerID=";
   String getEventByLocation = "getEventByLocation";

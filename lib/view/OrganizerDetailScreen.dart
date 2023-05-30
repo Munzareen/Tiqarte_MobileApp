@@ -50,6 +50,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
 
   @override
   Widget build(BuildContext context) {
+    accessToken;
     return Scaffold(
       //  backgroundColor: kSecondBackgroundColor,
       appBar: AppBar(
@@ -95,7 +96,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: GetBuilder<OrganizerDetailController>(builder: (_oc) {
-              return _oc.organizerDetailModel == null
+              return _oc.organizerDetailModel?.events == null
                   ? Center(
                       child: spinkit,
                     )
@@ -270,14 +271,17 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     if (res.toUpperCase().contains("ADDED")) {
                                       _oc.organizerDetailModel?.isFollow = true;
                                       _oc.update();
+                                      customSnackBar("Alert!",
+                                          "You are now following ${_oc.organizerDetailModel!.organizer?.name.toString()}");
                                     } else if (res
                                         .toUpperCase()
                                         .contains("REMOVE")) {
                                       _oc.organizerDetailModel?.isFollow =
                                           false;
                                       _oc.update();
+                                      customSnackBar("Alert!",
+                                          "You unfollowed ${_oc.organizerDetailModel!.organizer?.name.toString()}");
                                     }
-                                    customSnackBar("Alert!", res);
                                   }
                                 },
                                 child: Container(
@@ -300,8 +304,8 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                       Text(
                                         _oc.organizerDetailModel?.isFollow ==
                                                 true
-                                            ? follow
-                                            : following,
+                                            ? following
+                                            : follow,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -601,12 +605,13 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                                       imagePath: _oc
                                                           .organizerDetailModel!
                                                           .collections![index]
+                                                          .imageUrl
                                                           .toString()),
                                             );
                                           },
                                           child: customCardImage(
                                               _oc.organizerDetailModel!
-                                                  .collections![index]
+                                                  .collections![index].imageUrl
                                                   .toString(),
                                               110.h,
                                               110.h),

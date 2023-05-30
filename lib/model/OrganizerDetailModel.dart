@@ -26,7 +26,9 @@ class OrganizerDetailModel {
   factory OrganizerDetailModel.fromJson(Map<String, dynamic> json) =>
       OrganizerDetailModel(
         isFollow: json["isFollow"],
-        organizer: Organizer.fromJson(json["Organizer"]),
+        organizer: json["Organizer"] != null
+            ? Organizer.fromJson(json["Organizer"])
+            : null,
         events: json["Events"] != null
             ? List<Event>.from(json["Events"].map((x) => Event.fromJson(x)))
             : [],

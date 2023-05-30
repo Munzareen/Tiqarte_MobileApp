@@ -88,8 +88,9 @@ class FavoriteController extends GetxController {
       favoriteList = [...favoriteListAll!];
 
       favoriteList?.removeWhere((element) =>
+          element.catagoryId != null &&
           int.parse(element.catagoryId.toString()) !=
-          favCategoryList![index].id!.toInt());
+              favCategoryList![index].id!.toInt());
     }
     if (searchController.text.trim().isNotEmpty) {
       searchEvent(searchController.text);
@@ -103,7 +104,8 @@ class FavoriteController extends GetxController {
         favCategoryList!.firstWhere((element) => element.isSelected == true);
 
     favoriteList = [...favoriteListAll!];
-    favoriteList?.removeWhere((element) => element.catagoryId != cat.id);
+    favoriteList?.removeWhere((element) =>
+        element.catagoryId != null && element.catagoryId != cat.id);
     final suggestion = favoriteList!.where((element) {
       final eventName = element.name!.toLowerCase();
       final input = query.toLowerCase();

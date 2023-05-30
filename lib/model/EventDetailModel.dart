@@ -7,11 +7,13 @@ String eventDetailModelToJson(EventDetailModel data) =>
     json.encode(data.toJson());
 
 class EventDetailModel {
+  bool? isOrganizerFollow;
   Event? event;
   Organizer? organizer;
   List<Customer>? customers;
 
   EventDetailModel({
+    this.isOrganizerFollow,
     this.event,
     this.organizer,
     this.customers,
@@ -19,6 +21,7 @@ class EventDetailModel {
 
   factory EventDetailModel.fromJson(Map<String, dynamic> json) =>
       EventDetailModel(
+        isOrganizerFollow: json['isOrganizerFollow'],
         event: Event.fromJson(json["Event"]),
         organizer: json["Organizer"] != null
             ? Organizer.fromJson(json["Organizer"])
@@ -28,6 +31,7 @@ class EventDetailModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "isOrganizerFollow": isOrganizerFollow,
         "Event": event?.toJson(),
         "Organizer": organizer?.toJson(),
         "Customers": List<dynamic>.from(customers!.map((x) => x.toJson())),

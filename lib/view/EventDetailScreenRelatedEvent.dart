@@ -16,22 +16,24 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/BookEventScreen.dart';
-import 'package:tiqarte/view/EventDetailScreenRelatedEvent.dart';
+import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/EventLocationScreen.dart';
 import 'package:tiqarte/view/GalleryScreen.dart';
 import 'package:tiqarte/view/GoingScreen.dart';
 import 'package:tiqarte/view/OrganizerDetailScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
 
-class EventDetailScreen extends StatefulWidget {
+class EventDetailScreenRelatedEvent extends StatefulWidget {
   final String eventId;
-  const EventDetailScreen({super.key, required this.eventId});
+  const EventDetailScreenRelatedEvent({super.key, required this.eventId});
 
   @override
-  State<EventDetailScreen> createState() => _EventDetailScreenState();
+  State<EventDetailScreenRelatedEvent> createState() =>
+      _EventDetailScreenRelatedEventState();
 }
 
-class _EventDetailScreenState extends State<EventDetailScreen> {
+class _EventDetailScreenRelatedEventState
+    extends State<EventDetailScreenRelatedEvent> {
   GoogleMapController? _controller;
   final _homeController = Get.put(HomeController());
 
@@ -661,8 +663,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         color: _edc.eventDetailModel
                                                     .isOrganizerFollow ==
                                                 true
-                                            ? Colors.white
-                                            : kPrimaryColor,
+                                            ? kPrimaryColor
+                                            : Colors.white,
                                         borderRadius:
                                             BorderRadius.circular(20.0),
                                         border: Border.all(
@@ -679,8 +681,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                           color: _edc.eventDetailModel
                                                       .isOrganizerFollow ==
                                                   true
-                                              ? kPrimaryColor
-                                              : Colors.white),
+                                              ? Colors.white
+                                              : kPrimaryColor),
                                     ),
                                   ),
                                 )
@@ -1059,8 +1061,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                               int pageViewIndex) {
                                             return InkWell(
                                               onTap: () {
-                                                Get.to(() =>
-                                                    EventDetailScreenRelatedEvent(
+                                                Get.to(() => EventDetailScreen(
                                                       eventId: _edc
                                                           .relatedEventModelList![
                                                               itemIndex]

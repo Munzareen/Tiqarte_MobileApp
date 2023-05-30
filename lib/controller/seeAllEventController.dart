@@ -59,8 +59,9 @@ class SeeAllEventController extends GetxController {
     seeAllEventModel = [...seeAllEventModelAll!];
 
     seeAllEventModel?.removeWhere((element) =>
+        element.catagoryId != null &&
         int.parse(element.catagoryId.toString()) !=
-        seeAllCategoryList![index].id!.toInt());
+            seeAllCategoryList![index].id!.toInt());
 
     update();
   }
