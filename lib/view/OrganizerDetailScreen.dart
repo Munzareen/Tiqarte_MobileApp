@@ -403,7 +403,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                 itemCount:
                                     _oc.organizerDetailModel!.events?.length,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
+                                  return GestureDetector(
                                     onTap: () {
                                       Get.to(
                                           () => EventDetailScreen(
@@ -544,7 +544,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                                         ),
                                                       ),
                                                       5.horizontalSpace,
-                                                      InkWell(
+                                                      GestureDetector(
                                                         onTap: () {},
                                                         child: Image.asset(
                                                           _oc
@@ -596,7 +596,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                       shrinkWrap: true,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        return InkWell(
+                                        return GestureDetector(
                                           onTap: () {
                                             showDialog(
                                               context: context,

@@ -208,7 +208,7 @@ class _BookEventContactInfoScreenState
                         ],
                       ),
                       20.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           _selectDate(context);
                         },
@@ -463,7 +463,7 @@ class _BookEventContactInfoScreenState
                         ),
                       ),
                       20.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.to(() => PaymentScreen(),
                               transition: Transition.rightToLeft);

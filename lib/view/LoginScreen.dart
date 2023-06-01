@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   10.verticalSpace,
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Get.to(() => MainScreen(),
                           transition: Transition.rightToLeft);

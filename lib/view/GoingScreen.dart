@@ -196,7 +196,7 @@ class _GoingScreenState extends State<GoingScreen> {
                                       // trailing: goingList[index]
                                       //             ['isFollowed'] ==
                                       //         true
-                                      //     ? InkWell(
+                                      //     ? GestureDetector(
                                       //         onTap: () {
                                       //           setState(() {
                                       //             goingList[index]
@@ -228,7 +228,7 @@ class _GoingScreenState extends State<GoingScreen> {
                                       //           ),
                                       //         ),
                                       //       )
-                                      //     : InkWell(
+                                      //     : GestureDetector(
                                       //         onTap: () {
                                       //           setState(() {
                                       //             // if (goingList[index]['isFollowed'] ==

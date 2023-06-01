@@ -424,7 +424,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         ),
                                       ),
                                       15.verticalSpace,
-                                      InkWell(
+                                      GestureDetector(
                                         onTap: () {
                                           if (_edc.eventDetailModel.event!
                                                   .location
@@ -551,7 +551,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                       onTap: () {
                                         Get.to(
                                             () => OrganizerDetailScreen(
@@ -620,7 +620,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     ),
                                   ],
                                 ),
-                                InkWell(
+                                GestureDetector(
                                   onTap: () async {
                                     String data = '';
                                     if (_edc.eventDetailModel
@@ -718,7 +718,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black),
                                           ),
-                                          InkWell(
+                                          GestureDetector(
                                             onTap: () {
                                               Get.to(
                                                   () => GalleryScreen(
@@ -1015,7 +1015,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          InkWell(
+                                          GestureDetector(
                                             onTap: () => Get.to(
                                                 () => SeeAllEventsScreen(
                                                     name: "Events",
@@ -1057,7 +1057,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                           itemBuilder: (BuildContext context,
                                               int itemIndex,
                                               int pageViewIndex) {
-                                            return InkWell(
+                                            return GestureDetector(
                                               onTap: () {
                                                 Get.to(() =>
                                                     EventDetailScreenRelatedEvent(
@@ -1181,7 +1181,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               ),
                                                             ],
                                                           ),
-                                                          InkWell(
+                                                          GestureDetector(
                                                             onTap: () async {
                                                               String data = '';
                                                               if (_edc
@@ -1262,7 +1262,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 child: Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
                         Get.to(() => BookEventScreen(),
                             transition: Transition.rightToLeft);
@@ -1333,7 +1333,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         ? CachedNetworkImage(
             imageUrl: url,
             imageBuilder: (context, imageProvider) {
-              return InkWell(
+              return GestureDetector(
                 onTap: () {
                   Get.to(
                       () => GalleryScreen(
@@ -1354,7 +1354,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             image: imageProvider, fit: BoxFit.cover))),
               );
             },
-            placeholder: (context, url) => InkWell(
+            placeholder: (context, url) => GestureDetector(
               onTap: () {
                 Get.to(
                     () => GalleryScreen(
@@ -1375,7 +1375,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           image: AssetImage(eventPlaceholder),
                           fit: BoxFit.cover))),
             ),
-            errorWidget: (context, url, error) => InkWell(
+            errorWidget: (context, url, error) => GestureDetector(
               onTap: () {
                 Get.to(
                     () => GalleryScreen(
@@ -1397,7 +1397,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           fit: BoxFit.cover))),
             ),
           )
-        : InkWell(
+        : GestureDetector(
             onTap: () {
               Get.to(
                   () => GalleryScreen(

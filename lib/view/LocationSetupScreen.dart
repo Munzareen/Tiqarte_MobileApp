@@ -178,7 +178,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                       10.verticalSpace,
                       Divider(),
                       10.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           customAlertDialogWithSpinkit(
                               context,

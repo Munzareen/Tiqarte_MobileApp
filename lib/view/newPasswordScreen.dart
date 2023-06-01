@@ -259,7 +259,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     ),
                   ),
                   10.verticalSpace,
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       customAlertDialogWithSpinkit(
                           context,

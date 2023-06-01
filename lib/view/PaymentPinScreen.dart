@@ -123,7 +123,7 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
             color: Theme.of(context).secondaryHeaderColor,
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () {
                     customAlertDialogWithTwoButtons(
                         context,

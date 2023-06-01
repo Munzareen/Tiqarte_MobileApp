@@ -183,7 +183,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                             ),
                           ],
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             Get.to(() => AddCardScreen(),
                                 transition: Transition.rightToLeft);
@@ -211,7 +211,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
           color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              child: InkWell(
+              child: GestureDetector(
                   onTap: () {
                     Get.to(() => PaymentPinScreen(),
                         transition: Transition.rightToLeft);

@@ -54,8 +54,9 @@ class SeeAllProductController extends GetxController {
     seeAllProductModel = [...seeAllProductModelAll!];
 
     seeAllProductModel?.removeWhere((element) =>
+        element.catagoryId != null &&
         int.parse(element.catagoryId.toString()) !=
-        seeAllProductCategoryList![index].id!.toInt());
+            seeAllProductCategoryList![index].id!.toInt());
     if (searchController.text.trim().isNotEmpty) {
       searchProduct(searchController.text);
     }
@@ -76,7 +77,8 @@ class SeeAllProductController extends GetxController {
         .firstWhere((element) => element.isSelected == true);
 
     seeAllProductModel = [...seeAllProductModelAll!];
-    seeAllProductModel?.removeWhere((element) => element.catagoryId != cat.id);
+    seeAllProductModel?.removeWhere((element) =>
+        element.catagoryId != null && element.catagoryId != cat.id);
     final suggestion = seeAllProductModel!.where((element) {
       final eventName = element.name!.toLowerCase();
       final input = query.toLowerCase();

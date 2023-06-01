@@ -63,7 +63,7 @@
 //                     color: Colors.black),
 //               ),
 //               20.verticalSpace,
-//               InkWell(
+//               GestureDetector(
 //                 onTap: () {
 //                   setState(() {
 //                     isSmsSelected = true;
@@ -122,7 +122,7 @@
 //                 ),
 //               ),
 //               20.verticalSpace,
-//               InkWell(
+//               GestureDetector(
 //                 onTap: () {
 //                   setState(() {
 //                     isSmsSelected = false;
@@ -181,7 +181,7 @@
 //                 ),
 //               ),
 //               30.verticalSpace,
-//               InkWell(
+//               GestureDetector(
 //                 onTap: () {
 //                   Get.to(() => OtpVerificationScreen(),
 //                       transition: Transition.rightToLeft);

@@ -259,7 +259,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                       ),
                     ),
                     20.verticalSpace,
-                    InkWell(
+                    GestureDetector(
                       onTap: () => Get.to(() => ProductCheckoutScreen()),
                       child: customButton(checkout, kPrimaryColor),
                     ),

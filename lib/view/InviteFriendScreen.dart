@@ -89,7 +89,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         trailing: inviteList[index]['isFollowed'] == true
-                            ? InkWell(
+                            ? GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     inviteList[index]['isFollowed'] =
@@ -114,7 +114,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                                   ),
                                 ),
                               )
-                            : InkWell(
+                            : GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     // if (inviteList[index]['isFollowed'] ==

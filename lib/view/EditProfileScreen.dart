@@ -283,7 +283,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ],
                           ),
                           20.verticalSpace,
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               _selectDate(context);
                             },
@@ -467,7 +467,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                           20.verticalSpace,
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               Get.back();
                             },

@@ -428,7 +428,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   10.verticalSpace,
-                                  InkWell(
+                                  GestureDetector(
                                     onTap: () {
                                       _isExpiryDateEnabled
                                           ? _selectDate(context)
@@ -522,7 +522,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         ],
                       )),
                   20.verticalSpace,
-                  InkWell(
+                  GestureDetector(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           Get.off(() => PaymentScreen(),

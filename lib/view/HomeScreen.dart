@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      InkWell(
+                      GestureDetector(
                         onTap: () => Get.to(() => NotificationScreen(),
                             transition: Transition.rightToLeft),
                         child: Container(
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 20,
                           color: kDisabledColor,
                         ),
-                        suffixIcon: InkWell(
+                        suffixIcon: GestureDetector(
                             onTap: () => filterBottomSheet(
                                 context,
                                 eventsCatergoryList,
@@ -253,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 _hc.featuredEventList!.length >
                                                         12
-                                                    ? InkWell(
+                                                    ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () => SeeAllEventsScreen(
                                                                 name: featured,
@@ -297,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     (BuildContext context,
                                                         int itemIndex,
                                                         int pageViewIndex) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       Get.to(() =>
                                                           EventDetailScreen(
@@ -430,7 +430,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     ),
                                                                   ],
                                                                 ),
-                                                                InkWell(
+                                                                GestureDetector(
                                                                   onTap:
                                                                       () async {
                                                                     String
@@ -522,7 +522,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 _hc.upcomingEventList!.length >
                                                         12
-                                                    ? InkWell(
+                                                    ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () => SeeAllEventsScreen(
                                                                 name:
@@ -564,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .upcomingCategoryList
                                                     ?.length,
                                                 itemBuilder: (context, index) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       _hc.selectUpcomingEventCategory(
                                                           index);
@@ -680,7 +680,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 _hc.upcomingEventList!.length >
                                                         12
-                                                    ? InkWell(
+                                                    ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () => SeeAllEventsScreen(
                                                                 name:
@@ -722,7 +722,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .upcomingCategoryList
                                                     ?.length,
                                                 itemBuilder: (context, index) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       _hc.selectUpcomingEventCategory(
                                                           index);
@@ -809,7 +809,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       Get.to(() =>
                                                           EventDetailScreen(
@@ -943,7 +943,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     ),
                                                                   ),
                                                                   5.horizontalSpace,
-                                                                  InkWell(
+                                                                  GestureDetector(
                                                                     onTap:
                                                                         () async {
                                                                       String
@@ -1028,7 +1028,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                 ),
                                                 _hc.shopList!.length > 12
-                                                    ? InkWell(
+                                                    ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () =>
                                                                 SeeAllProductsScreen(),
@@ -1061,7 +1061,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 itemCount: _hc
                                                     .shopCategoryList?.length,
                                                 itemBuilder: (context, index) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       _hc.selectShopCategory(
                                                           index);
@@ -1168,7 +1168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                 ),
                                                 _hc.shopList!.length > 1 //heeee
-                                                    ? InkWell(
+                                                    ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () =>
                                                                 SeeAllProductsScreen(),
@@ -1201,7 +1201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 itemCount: _hc
                                                     .shopCategoryList?.length,
                                                 itemBuilder: (context, index) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       _hc.selectShopCategory(
                                                           index);
@@ -1287,7 +1287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
-                                                  return InkWell(
+                                                  return GestureDetector(
                                                     onTap: () {
                                                       Get.to(() =>
                                                           ViewProductScreen());

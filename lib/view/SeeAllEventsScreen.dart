@@ -125,7 +125,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                             size: 20,
                                             color: _sc.iconColorSearch,
                                           ),
-                                          suffixIcon: InkWell(
+                                          suffixIcon: GestureDetector(
                                               onTap: () => filterBottomSheet(
                                                   context,
                                                   eventsCatergoryList,
@@ -204,7 +204,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                             scrollDirection: Axis.horizontal,
                             itemCount: _sc.seeAllCategoryList?.length,
                             itemBuilder: (context, index) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   _sc.selectSeeAllCategory(index);
                                 },
@@ -346,7 +346,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                             shrinkWrap: true,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
-                                              return InkWell(
+                                              return GestureDetector(
                                                 onTap: () {
                                                   Get.to(
                                                       () => EventDetailScreen(
@@ -466,7 +466,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                               ),
                                                             ),
                                                             5.horizontalSpace,
-                                                            InkWell(
+                                                            GestureDetector(
                                                               onTap: () async {
                                                                 String data =
                                                                     '';
@@ -538,7 +538,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                 _sc.seeAllEventModel?.length,
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) {
-                                              return InkWell(
+                                              return GestureDetector(
                                                 onTap: () {
                                                   Get.to(
                                                       () => EventDetailScreen(
@@ -680,7 +680,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                     ),
                                                                   ),
                                                                   5.horizontalSpace,
-                                                                  InkWell(
+                                                                  GestureDetector(
                                                                     onTap:
                                                                         () async {
                                                                       String

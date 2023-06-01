@@ -461,7 +461,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.back();
                         },
@@ -483,7 +483,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       20.horizontalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.back();
                           Get.offAll(() => PreLoginScreen(),

@@ -351,7 +351,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                             },
                           ),
                           20.verticalSpace,
-                          InkWell(
+                          GestureDetector(
                             onTap: () =>
                                 Get.to(() => ProductCheckoutPaymentScreen()),
                             child:

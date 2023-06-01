@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        InkWell(
+                        GestureDetector(
                           onTap: () => _onItemTaapped(0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
                             ],
                           ),
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () => _onItemTaapped(1),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                             ],
                           ),
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () => _onItemTaapped(2),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +151,7 @@ class _MainScreenState extends State<MainScreen> {
                             ],
                           ),
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () => _onItemTaapped(3),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -179,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
                             ],
                           ),
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () => _onItemTaapped(4),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

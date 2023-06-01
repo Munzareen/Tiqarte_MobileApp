@@ -427,7 +427,7 @@ class _TicketScreenState extends State<TicketScreen>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              InkWell(
+                                              GestureDetector(
                                                 onTap: () {
                                                   cancelBookingBottomSheet(
                                                       context);
@@ -1027,7 +1027,7 @@ class _TicketScreenState extends State<TicketScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.back();
                         },
@@ -1049,7 +1049,7 @@ class _TicketScreenState extends State<TicketScreen>
                         ),
                       ),
                       20.horizontalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.back();
                           Get.to(() => CancelBookingScreen(),
@@ -1198,7 +1198,7 @@ class _TicketScreenState extends State<TicketScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.back();
                         },
@@ -1220,7 +1220,7 @@ class _TicketScreenState extends State<TicketScreen>
                         ),
                       ),
                       20.horizontalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Get.back();
                         },

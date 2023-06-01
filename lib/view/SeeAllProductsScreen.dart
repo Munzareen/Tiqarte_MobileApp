@@ -94,7 +94,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                             size: 20,
                                             color: _spc.iconColorSearch,
                                           ),
-                                          suffixIcon: InkWell(
+                                          suffixIcon: GestureDetector(
                                               onTap: () => filterBottomSheet(
                                                   context,
                                                   eventsCatergoryList,
@@ -166,7 +166,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                             scrollDirection: Axis.horizontal,
                             itemCount: _spc.seeAllProductCategoryList?.length,
                             itemBuilder: (context, index) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   _spc.selectSeeAllCategory(index);
                                 },
@@ -312,7 +312,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                               itemBuilder:
                                                   (BuildContext context,
                                                       int index) {
-                                                return InkWell(
+                                                return GestureDetector(
                                                   onTap: () {
                                                     Get.to(() =>
                                                         ViewProductScreen());
@@ -422,7 +422,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 10.0),
-                                                child: InkWell(
+                                                child: GestureDetector(
                                                   onTap: () {
                                                     Get.to(() =>
                                                         ViewProductScreen());

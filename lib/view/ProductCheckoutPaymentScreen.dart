@@ -184,7 +184,7 @@ class _ProductCheckoutPaymentScreenState
                               4, cardLogo, "•••• •••• •••• •••• 4679"),
                         ),
                         20.verticalSpace,
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             Get.to(() => AddCardScreen(),
                                 transition: Transition.rightToLeft);
@@ -220,7 +220,7 @@ class _ProductCheckoutPaymentScreenState
           color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              child: InkWell(
+              child: GestureDetector(
                   onTap: () {
                     customAlertDialogWithTwoButtons(
                         context,

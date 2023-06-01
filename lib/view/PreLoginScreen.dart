@@ -167,7 +167,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
               //       Expanded(child: Divider()),
               //     ])),
               // 30.verticalSpace,
-              // InkWell(
+              // GestureDetector(
               //   onTap: () {
               //     Get.to(() => LoginScreen(),
               //         transition: Transition.rightToLeft);

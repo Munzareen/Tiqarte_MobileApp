@@ -158,7 +158,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           },
                                           icon: Icon(Icons.search)),
                                       10.horizontalSpace,
-                                      InkWell(
+                                      GestureDetector(
                                           onTap: () => filterBottomSheet(
                                               context,
                                               eventsCatergoryList,
@@ -181,7 +181,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             scrollDirection: Axis.horizontal,
                             itemCount: _fc.favCategoryList?.length,
                             itemBuilder: (context, index) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   _fc.selectFavCategory(index);
                                 },
@@ -377,7 +377,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     itemBuilder:
                                                         (BuildContext context,
                                                             int index) {
-                                                      return InkWell(
+                                                      return GestureDetector(
                                                         onTap: () {
                                                           Get.to(
                                                               () => EventDetailScreen(
@@ -508,7 +508,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                       ),
                                                                     ),
                                                                     5.horizontalSpace,
-                                                                    InkWell(
+                                                                    GestureDetector(
                                                                       onTap:
                                                                           () {
                                                                         removeFavoriteBottomSheet(
@@ -539,7 +539,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     shrinkWrap: true,
                                                     itemBuilder:
                                                         (context, index) {
-                                                      return InkWell(
+                                                      return GestureDetector(
                                                         onTap: () {
                                                           Get.to(
                                                               () => EventDetailScreen(
@@ -669,7 +669,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                             ),
                                                                           ),
                                                                           5.horizontalSpace,
-                                                                          InkWell(
+                                                                          GestureDetector(
                                                                             onTap:
                                                                                 () {
                                                                               removeFavoriteBottomSheet(context, index);
@@ -823,7 +823,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           ),
                                         ),
                                         5.horizontalSpace,
-                                        InkWell(
+                                        GestureDetector(
                                           onTap: () {
                                             removeFavoriteBottomSheet(
                                                 context, index);
@@ -846,7 +846,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               Get.back();
                             },
@@ -865,7 +865,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ),
                           20.horizontalSpace,
-                          InkWell(
+                          GestureDetector(
                             onTap: () async {
                               String data =
                                   "?eventID=${_favoriteController.favoriteList![index].eventId!.toInt()}&fav=false&customerID=$userId";

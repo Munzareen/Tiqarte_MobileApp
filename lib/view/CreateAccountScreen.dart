@@ -224,7 +224,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     ),
                   ),
                   10.verticalSpace,
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Get.to(() => AccountSetupScreen(),
                           transition: Transition.rightToLeft);

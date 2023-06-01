@@ -146,7 +146,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
           color: Theme.of(context).secondaryHeaderColor,
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              child: InkWell(
+              child: GestureDetector(
                   onTap: () {
                     Get.to(() => AddCardScreen(),
                         transition: Transition.rightToLeft);

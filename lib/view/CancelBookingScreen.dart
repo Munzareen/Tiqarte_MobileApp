@@ -155,7 +155,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                     20.verticalSpace,
                     Divider(),
                     20.verticalSpace,
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
                         customAlertDialogWithOneButton(
                             context,

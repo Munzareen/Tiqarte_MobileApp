@@ -426,7 +426,7 @@ class _EventDetailScreenRelatedEventState
                                         ),
                                       ),
                                       15.verticalSpace,
-                                      InkWell(
+                                      GestureDetector(
                                         onTap: () {
                                           if (_edc.eventDetailModel.event!
                                                   .location
@@ -553,7 +553,7 @@ class _EventDetailScreenRelatedEventState
                               children: [
                                 Row(
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                       onTap: () {
                                         Get.to(
                                             () => OrganizerDetailScreen(
@@ -622,7 +622,7 @@ class _EventDetailScreenRelatedEventState
                                     ),
                                   ],
                                 ),
-                                InkWell(
+                                GestureDetector(
                                   onTap: () async {
                                     String data = '';
                                     if (_edc.eventDetailModel
@@ -720,7 +720,7 @@ class _EventDetailScreenRelatedEventState
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black),
                                           ),
-                                          InkWell(
+                                          GestureDetector(
                                             onTap: () {
                                               Get.to(
                                                   () => GalleryScreen(
@@ -1017,7 +1017,7 @@ class _EventDetailScreenRelatedEventState
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          InkWell(
+                                          GestureDetector(
                                             onTap: () => Get.to(
                                                 () => SeeAllEventsScreen(
                                                     name: "Events",
@@ -1059,7 +1059,7 @@ class _EventDetailScreenRelatedEventState
                                           itemBuilder: (BuildContext context,
                                               int itemIndex,
                                               int pageViewIndex) {
-                                            return InkWell(
+                                            return GestureDetector(
                                               onTap: () {
                                                 Get.to(() => EventDetailScreen(
                                                       eventId: _edc
@@ -1182,7 +1182,7 @@ class _EventDetailScreenRelatedEventState
                                                               ),
                                                             ],
                                                           ),
-                                                          InkWell(
+                                                          GestureDetector(
                                                             onTap: () async {
                                                               String data = '';
                                                               if (_edc
@@ -1263,7 +1263,7 @@ class _EventDetailScreenRelatedEventState
                 child: Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
                         Get.to(() => BookEventScreen(),
                             transition: Transition.rightToLeft);
@@ -1334,7 +1334,7 @@ class _EventDetailScreenRelatedEventState
         ? CachedNetworkImage(
             imageUrl: url,
             imageBuilder: (context, imageProvider) {
-              return InkWell(
+              return GestureDetector(
                 onTap: () {
                   Get.to(
                       () => GalleryScreen(
@@ -1355,7 +1355,7 @@ class _EventDetailScreenRelatedEventState
                             image: imageProvider, fit: BoxFit.cover))),
               );
             },
-            placeholder: (context, url) => InkWell(
+            placeholder: (context, url) => GestureDetector(
               onTap: () {
                 Get.to(
                     () => GalleryScreen(
@@ -1376,7 +1376,7 @@ class _EventDetailScreenRelatedEventState
                           image: AssetImage(eventPlaceholder),
                           fit: BoxFit.cover))),
             ),
-            errorWidget: (context, url, error) => InkWell(
+            errorWidget: (context, url, error) => GestureDetector(
               onTap: () {
                 Get.to(
                     () => GalleryScreen(
@@ -1398,7 +1398,7 @@ class _EventDetailScreenRelatedEventState
                           fit: BoxFit.cover))),
             ),
           )
-        : InkWell(
+        : GestureDetector(
             onTap: () {
               Get.to(
                   () => GalleryScreen(

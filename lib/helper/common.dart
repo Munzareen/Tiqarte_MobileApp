@@ -188,7 +188,7 @@ customAlertDialogWithOneButton(BuildContext context, String logo, IconData icon,
                 ),
                 20.verticalSpace,
                 Center(
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: onPressed,
                     child: Container(
                       height: 50,
@@ -221,7 +221,7 @@ customAlertDialogForPermission(
     String contentMsg,
     String yesBtnText,
     String noBtntext,
-    Function() yesPressed) {
+    VoidCallback yesPressed) {
   return showDialog(
       barrierDismissible: false,
       context: context,
@@ -286,7 +286,7 @@ customAlertDialogForPermission(
                 Center(
                   child: Column(
                     children: [
-                      InkWell(
+                      GestureDetector(
                         onTap: yesPressed,
                         child: Container(
                           height: 50,
@@ -303,7 +303,7 @@ customAlertDialogForPermission(
                         ),
                       ),
                       10.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
@@ -440,7 +440,7 @@ customAlertDialogWithTwoButtons(
                 Center(
                   child: Column(
                     children: [
-                      InkWell(
+                      GestureDetector(
                         onTap: yesPressed,
                         child: Container(
                           height: 50,
@@ -457,7 +457,7 @@ customAlertDialogWithTwoButtons(
                         ),
                       ),
                       10.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: noPressed,
                         child: Container(
                           height: 50,
@@ -828,7 +828,7 @@ filterBottomSheet(
                         itemCount: eventsCatergoryList.length,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
+                          return GestureDetector(
                             onTap: () {
                               setState(() {
                                 eventsCatergoryList.forEach((element) {
@@ -971,7 +971,7 @@ filterBottomSheet(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             selectedLocation = null;
                             eventsCatergoryList.forEach((element) {
@@ -996,7 +996,7 @@ filterBottomSheet(
                           ),
                         ),
                         20.horizontalSpace,
-                        InkWell(
+                        GestureDetector(
                           onTap: () => Get.back(),
                           child: Container(
                             height: 50,

@@ -167,7 +167,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                               scrollDirection: Axis.horizontal,
                               itemCount: faqTagList.length,
                               itemBuilder: (context, index) {
-                                return InkWell(
+                                return GestureDetector(
                                   onTap: () {
                                     setState(() {
                                       faqTagList.forEach((element) {

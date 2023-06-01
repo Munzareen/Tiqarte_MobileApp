@@ -83,7 +83,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                           shrinkWrap: true,
                           itemCount: productImageList.length,
                           itemBuilder: (context, index) {
-                            return InkWell(
+                            return GestureDetector(
                               onTap: () {
                                 setState(() {
                                   productImageList.forEach((element) {
@@ -320,7 +320,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () => Get.to(() => SeeAllProductsScreen(),
                               transition: Transition.rightToLeft),
                           child: Text(
@@ -342,7 +342,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                         shrinkWrap: true,
                         itemCount: 5,
                         itemBuilder: (context, index) {
-                          return InkWell(
+                          return GestureDetector(
                             onTap: () {
                               Get.to(() => ViewProductScreen());
                             },
@@ -405,7 +405,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                       ),
                     ),
                     20.verticalSpace,
-                    InkWell(
+                    GestureDetector(
                       onTap: () => Get.to(() => MyBasketScreen()),
                       child: customButton(addtoBasket, kPrimaryColor),
                     ),

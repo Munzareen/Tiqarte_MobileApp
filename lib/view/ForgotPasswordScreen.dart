@@ -119,7 +119,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ],
                 ),
                 50.verticalSpace,
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     Get.to(() => OtpVerificationScreen(),
                         transition: Transition.rightToLeft);

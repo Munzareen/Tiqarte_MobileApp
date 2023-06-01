@@ -134,7 +134,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                 ],
                               ),
                               20.verticalSpace,
-                              InkWell(
+                              GestureDetector(
                                   onTap: () {
                                     if (index != 2) {
                                       _pageController.nextPage(

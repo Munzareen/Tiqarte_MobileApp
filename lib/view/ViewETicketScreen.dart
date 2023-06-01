@@ -185,7 +185,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                       fontWeight: FontWeight.w500),
                                 ),
                                 5.horizontalSpace,
-                                InkWell(
+                                GestureDetector(
                                   onTap: () async {
                                     await Clipboard.setData(
                                         ClipboardData(text: "5457383979"));
@@ -241,7 +241,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
         color: Theme.of(context).secondaryHeaderColor,
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-            child: InkWell(
+            child: GestureDetector(
               onTap: () {
                 Get.offAll(() => MainScreen(),
                     transition: Transition.leftToRight);

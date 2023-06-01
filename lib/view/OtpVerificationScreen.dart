@@ -103,7 +103,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 30.verticalSpace,
                 Obx(
                   () => otpVerificationController.time.value == '01'
-                      ? InkWell(
+                      ? GestureDetector(
                           onTap: () {
                             otpVerificationController.startTimer(59);
                           },
@@ -150,7 +150,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             ),
           ),
         ),
-        floatingActionButton: InkWell(
+        floatingActionButton: GestureDetector(
           onTap: () {
             Get.to(() => NewPasswordScreen(),
                 transition: Transition.rightToLeft);

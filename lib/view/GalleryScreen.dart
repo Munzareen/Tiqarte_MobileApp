@@ -112,7 +112,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                 itemCount: widget.previousEventImages?.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
+                  return GestureDetector(
                     onTap: () {
                       showDialog(
                         context: context,

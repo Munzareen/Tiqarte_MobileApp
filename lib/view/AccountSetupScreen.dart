@@ -279,7 +279,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                         ],
                       ),
                       20.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           _selectDate(context);
                         },
@@ -421,7 +421,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                         ),
                       ),
                       20.verticalSpace,
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
                           if (latitude != null) {
                             Get.to(
