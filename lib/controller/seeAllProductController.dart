@@ -80,7 +80,7 @@ class SeeAllProductController extends GetxController {
     seeAllProductModel?.removeWhere((element) =>
         element.catagoryId != null && element.catagoryId != cat.id);
     final suggestion = seeAllProductModel!.where((element) {
-      final eventName = element.name!.toLowerCase();
+      final eventName = element.productName!.toLowerCase();
       final input = query.toLowerCase();
       return eventName.contains(input);
     }).toList();

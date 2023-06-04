@@ -1167,7 +1167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                _hc.shopList!.length > 1 //heeee
+                                                _hc.shopList!.length > 0 //heeee
                                                     ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () =>
@@ -1290,7 +1290,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   return GestureDetector(
                                                     onTap: () {
                                                       Get.to(() =>
-                                                          ViewProductScreen());
+                                                          ViewProductScreen(
+                                                            productId: _hc
+                                                                .shopList![
+                                                                    index]
+                                                                .id
+                                                                .toString(),
+                                                          ));
                                                     },
                                                     child: Container(
                                                       padding:
@@ -1313,10 +1319,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           children: [
                                                             customCardImage(
                                                                 _hc
-                                                                    .shopList![
-                                                                        index]
-                                                                    .imageURL
-                                                                    .toString(),
+                                                                        .shopList![
+                                                                            index]
+                                                                        .productImages!
+                                                                        .isNotEmpty
+                                                                    ? _hc
+                                                                        .shopList![
+                                                                            index]
+                                                                        .productImages![
+                                                                            0]
+                                                                        .toString()
+                                                                    : "null",
                                                                 140.h,
                                                                 120.h),
                                                             8.verticalSpace,
@@ -1326,7 +1339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 _hc
                                                                     .shopList![
                                                                         index]
-                                                                    .name
+                                                                    .productName
                                                                     .toString(),
                                                                 textAlign:
                                                                     TextAlign
@@ -1346,7 +1359,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                             5.verticalSpace,
                                                             Text(
-                                                              forMen,
+                                                              _hc
+                                                                  .shopList![
+                                                                      index]
+                                                                  .productFor
+                                                                  .toString(),
                                                               textAlign:
                                                                   TextAlign
                                                                       .start,

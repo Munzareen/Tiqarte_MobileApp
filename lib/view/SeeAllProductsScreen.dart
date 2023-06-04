@@ -30,7 +30,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
   }
 
   getData() async {
-    var res = await ApiService().getAllShopList();
+    var res = await ApiService().getAllProductList();
     if (res != null && res is List) {
       _seeAllProductController.addSeeAllProductData(res);
     } else if (res != null && res is String) {
@@ -314,8 +314,14 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                       int index) {
                                                 return GestureDetector(
                                                   onTap: () {
-                                                    Get.to(() =>
-                                                        ViewProductScreen());
+                                                    Get.to(
+                                                        () => ViewProductScreen(
+                                                              productId: _spc
+                                                                  .seeAllProductModel![
+                                                                      index]
+                                                                  .id
+                                                                  .toString(),
+                                                            ));
                                                   },
                                                   child: Container(
                                                     padding:
@@ -349,7 +355,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                               _spc
                                                                   .seeAllProductModel![
                                                                       index]
-                                                                  .name
+                                                                  .productName
                                                                   .toString(),
                                                               textAlign:
                                                                   TextAlign
@@ -424,8 +430,14 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                         vertical: 10.0),
                                                 child: GestureDetector(
                                                   onTap: () {
-                                                    Get.to(() =>
-                                                        ViewProductScreen());
+                                                    Get.to(
+                                                        () => ViewProductScreen(
+                                                              productId: _spc
+                                                                  .seeAllProductModel![
+                                                                      index]
+                                                                  .id
+                                                                  .toString(),
+                                                            ));
                                                   },
                                                   child: Container(
                                                     padding:
@@ -465,7 +477,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                                 _spc
                                                                     .seeAllProductModel![
                                                                         index]
-                                                                    .name
+                                                                    .productName
                                                                     .toString(),
                                                                 textAlign:
                                                                     TextAlign

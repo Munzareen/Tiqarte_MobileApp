@@ -127,7 +127,7 @@ class HomeController extends GetxController {
       shopList?.removeWhere((element) =>
           element.catagoryId != null && element.catagoryId != shopCat.id);
       final shop = shopList?.where((element) {
-        final eventName = element.name!.toLowerCase();
+        final eventName = element.productName!.toLowerCase();
         final input = query.toLowerCase();
         return eventName.contains(input);
       }).toList();
@@ -139,7 +139,6 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    searchController.dispose();
     super.onClose();
   }
 }

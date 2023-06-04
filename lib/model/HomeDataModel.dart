@@ -165,47 +165,71 @@ class Event {
 
 class Shop {
   num? id;
-  num? eventId;
-  String? name;
-  double? price;
-  String? imageURL;
+  String? sku;
+  String? productName;
+  String? description;
+  String? deliveryDetails;
+  num? price;
   num? catagoryId;
+  num? productFor;
+  bool? isActive;
+  num? promotorId;
+  List<String>? productImages;
+  List<dynamic>? attributes;
+
   String? createdDate;
-  String? updatedDate;
 
-  Shop(
-      {this.id,
-      this.eventId,
-      this.name,
-      this.price,
-      this.imageURL,
-      this.catagoryId,
-      this.createdDate,
-      this.updatedDate});
+  Shop({
+    this.id,
+    this.sku,
+    this.productName,
+    this.description,
+    this.deliveryDetails,
+    this.price,
+    this.catagoryId,
+    this.productFor,
+    this.isActive,
+    this.promotorId,
+    this.productImages,
+    this.attributes,
+    this.createdDate,
+  });
 
-  Shop.fromJson(Map<String, dynamic> json) {
-    id = json['Id'];
-    eventId = json['EventId'];
-    name = json['Name'];
-    price = json['Price'];
-    imageURL = json['ImageURL'];
-    catagoryId = json['CatagoryId'];
-    createdDate = json['CreatedDate'];
-    updatedDate = json['UpdatedDate'];
-  }
+  factory Shop.fromJson(Map<String, dynamic> json) => Shop(
+        id: json["Id"],
+        sku: json["Sku"],
+        productName: json["ProductName"],
+        description: json["Description"],
+        deliveryDetails: json["DeliveryDetails"],
+        price: json["Price"],
+        catagoryId: json["CatagoryId"],
+        productFor: json["ProductFor"],
+        isActive: json["isActive"],
+        promotorId: json["PromotorId"],
+        productImages: json["ProductImages"] != null
+            ? List<String>.from(json["ProductImages"].map((x) => x))
+            : [],
+        attributes: json["Attributes"] != null
+            ? List<dynamic>.from(json["Attributes"].map((x) => x))
+            : [],
+        createdDate: json["CreatedDate"],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Id'] = this.id;
-    data['EventId'] = this.eventId;
-    data['Name'] = this.name;
-    data['Price'] = this.price;
-    data['ImageURL'] = this.imageURL;
-    data['CatagoryId'] = this.catagoryId;
-    data['CreatedDate'] = this.createdDate;
-    data['UpdatedDate'] = this.updatedDate;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "Id": id,
+        "Sku": sku,
+        "ProductName": productName,
+        "Description": description,
+        "DeliveryDetails": deliveryDetails,
+        "Price": price,
+        "CatagoryId": catagoryId,
+        "ProductFor": productFor,
+        "isActive": isActive,
+        "PromotorId": promotorId,
+        "ProductImages": List<dynamic>.from(productImages!.map((x) => x)),
+        "Attributes": List<dynamic>.from(attributes!.map((x) => x)),
+        "CreatedDate": createdDate,
+      };
 }
 
 // class UpComingEvents {

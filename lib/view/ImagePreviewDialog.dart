@@ -22,7 +22,7 @@ class _ImagePreviewDialogState extends State<ImagePreviewDialog> {
           width: 0.8.sw,
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
+                image: NetworkImage(
                   widget.imagePath,
                 ),
                 fit: BoxFit.cover,

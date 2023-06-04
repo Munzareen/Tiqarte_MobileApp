@@ -13,45 +13,61 @@ String seeAllProductModelToJson(List<SeeAllProductModel> data) =>
 
 class SeeAllProductModel {
   num? id;
-  num? eventId;
-  String? name;
+  String? sku;
+  String? productName;
+  String? description;
+  String? deliveryDetails;
   num? price;
-  String? imageUrl;
   num? catagoryId;
+  String? productFor;
+  bool? isActive;
+  num? promotorId;
+  String? imageUrl;
   String? createdDate;
-  String? updatedDate;
 
   SeeAllProductModel({
     this.id,
-    this.eventId,
-    this.name,
+    this.sku,
+    this.productName,
+    this.description,
+    this.deliveryDetails,
     this.price,
-    this.imageUrl,
     this.catagoryId,
+    this.productFor,
+    this.isActive,
+    this.promotorId,
+    this.imageUrl,
     this.createdDate,
-    this.updatedDate,
   });
 
   factory SeeAllProductModel.fromJson(Map<String, dynamic> json) =>
       SeeAllProductModel(
         id: json["Id"],
-        eventId: json["EventId"],
-        name: json["Name"],
+        sku: json["Sku"],
+        productName: json["ProductName"],
+        description: json["Description"],
+        deliveryDetails: json["DeliveryDetails"],
         price: json["Price"],
-        imageUrl: json["ImageURL"],
         catagoryId: json["CatagoryId"],
+        productFor: json["ProductFor"],
+        isActive: json["isActive"],
+        promotorId: json["PromotorId"],
+        imageUrl: json["ImageURL"],
         createdDate: json["CreatedDate"],
-        updatedDate: json["UpdatedDate"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
-        "EventId": eventId,
-        "Name": name,
+        "Sku": sku,
+        "ProductName": productName,
+        "Description": description,
+        "DeliveryDetails": deliveryDetails,
         "Price": price,
-        "ImageURL": imageUrl,
         "CatagoryId": catagoryId,
+        "ProductFor": productFor,
+        "isActive": isActive,
+        "PromotorId": promotorId,
+        "ImageURL": imageUrl,
         "CreatedDate": createdDate,
-        "UpdatedDate": updatedDate,
       };
 }
