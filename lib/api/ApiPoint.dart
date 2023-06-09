@@ -17,7 +17,7 @@ class ApiPoint {
   String getEventsByType = "getEventsByType?eventTypeId=";
   String getEventSearch = "getEventSearch?searchText=";
   String getAllProductList = "getAllProductList";
-  String getSingleProduct = "getSingleProductById?ProductId=";
-
+  String getSingleProductDetail = "getSingleProductById?ProductId=";
+  String getMoreLikeProducts = "getAllProductListByCatagoryId?CatagoryId=";
   String setOrganizerFollow = "setOrganizerFollow";
 }

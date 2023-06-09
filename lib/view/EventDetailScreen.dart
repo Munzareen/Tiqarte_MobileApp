@@ -999,7 +999,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   )
                                 : SizedBox(),
                             20.verticalSpace,
-                            _edc.relatedEventModelList!.isEmpty
+                            _edc.relatedEventModelList.isEmpty
                                 ? SizedBox()
                                 : Column(
                                     children: [
@@ -1021,14 +1021,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                     name: "Events",
                                                     img: '',
                                                     eventTypeId: _edc
-                                                        .relatedEventModelList![
+                                                        .relatedEventModelList[
                                                             0]
                                                         .eventTypeId!
                                                         .toInt()
                                                         .toString()),
                                                 transition:
                                                     Transition.rightToLeft),
-                                            child: _edc.relatedEventModelList!
+                                            child: _edc.relatedEventModelList
                                                         .length >
                                                     12
                                                 ? Text(
@@ -1052,8 +1052,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                               scrollDirection: Axis.horizontal,
                                               enableInfiniteScroll: false,
                                               viewportFraction: 0.8),
-                                          itemCount: _edc
-                                              .relatedEventModelList?.length,
+                                          itemCount:
+                                              _edc.relatedEventModelList.length,
                                           itemBuilder: (BuildContext context,
                                               int itemIndex,
                                               int pageViewIndex) {
@@ -1062,7 +1062,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                 Get.to(() =>
                                                     EventDetailScreenRelatedEvent(
                                                       eventId: _edc
-                                                          .relatedEventModelList![
+                                                          .relatedEventModelList[
                                                               itemIndex]
                                                           .eventId
                                                           .toString(),
@@ -1084,12 +1084,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                     children: [
                                                       customCardImage(
                                                           _edc
-                                                                  .relatedEventModelList![
+                                                                  .relatedEventModelList[
                                                                       itemIndex]
                                                                   .postEventImages!
                                                                   .isNotEmpty
                                                               ? _edc
-                                                                  .relatedEventModelList![
+                                                                  .relatedEventModelList[
                                                                       itemIndex]
                                                                   .postEventImages![
                                                                       0]
@@ -1102,7 +1102,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                         width: 0.7.sw,
                                                         child: Text(
                                                           _edc
-                                                              .relatedEventModelList![
+                                                              .relatedEventModelList[
                                                                   itemIndex]
                                                               .name
                                                               .toString(),
@@ -1122,7 +1122,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                       FittedBox(
                                                         child: Text(
                                                           splitDateTimeWithoutYear(_edc
-                                                              .relatedEventModelList![
+                                                              .relatedEventModelList[
                                                                   itemIndex]
                                                               .eventDate
                                                               .toString()),
@@ -1157,7 +1157,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                 width: 0.4.sw,
                                                                 child: Text(
                                                                   _edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .city
                                                                       .toString(),
@@ -1185,15 +1185,15 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                             onTap: () async {
                                                               String data = '';
                                                               if (_edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .isFav ==
                                                                   true) {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
+                                                                    "?eventID=${_edc.relatedEventModelList[itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
                                                               } else {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
+                                                                    "?eventID=${_edc.relatedEventModelList[itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
                                                               }
 
                                                               var res =
@@ -1207,7 +1207,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                     .contains(
                                                                         "ADDED")) {
                                                                   _edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .isFav = true;
                                                                   _edc.update();
@@ -1216,7 +1216,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                     .contains(
                                                                         "REMOVED")) {
                                                                   _edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .isFav = false;
                                                                   _edc.update();
@@ -1227,7 +1227,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               }
                                                             },
                                                             child: Image.asset(
-                                                              _edc.relatedEventModelList![itemIndex]
+                                                              _edc.relatedEventModelList[itemIndex]
                                                                           .isFav ==
                                                                       true
                                                                   ? favoriteIconSelected

@@ -1167,7 +1167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                _hc.shopList!.length > 0 //heeee
+                                                _hc.shopList!.length > 12
                                                     ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () =>
@@ -1295,6 +1295,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .shopList![
                                                                     index]
                                                                 .id
+                                                                .toString(),
+                                                            categoryId: _hc
+                                                                .shopList![
+                                                                    index]
+                                                                .catagoryId
                                                                 .toString(),
                                                           ));
                                                     },

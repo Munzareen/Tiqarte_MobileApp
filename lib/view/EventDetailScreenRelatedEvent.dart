@@ -148,7 +148,7 @@ class _EventDetailScreenRelatedEventState
                 height: 1.sh,
                 width: 1.sw,
                 child: SingleChildScrollView(
-                  controller: _edc.scrollController,
+                  controller: _edc.scrollControllerForRelatedEvent,
                   child: Column(
                     children: [
                       Container(
@@ -1001,7 +1001,7 @@ class _EventDetailScreenRelatedEventState
                                   )
                                 : SizedBox(),
                             20.verticalSpace,
-                            _edc.relatedEventModelList!.isEmpty
+                            _edc.relatedEventModelList.isEmpty
                                 ? SizedBox()
                                 : Column(
                                     children: [
@@ -1023,14 +1023,14 @@ class _EventDetailScreenRelatedEventState
                                                     name: "Events",
                                                     img: '',
                                                     eventTypeId: _edc
-                                                        .relatedEventModelList![
+                                                        .relatedEventModelList[
                                                             0]
                                                         .eventTypeId!
                                                         .toInt()
                                                         .toString()),
                                                 transition:
                                                     Transition.rightToLeft),
-                                            child: _edc.relatedEventModelList!
+                                            child: _edc.relatedEventModelList
                                                         .length >
                                                     12
                                                 ? Text(
@@ -1054,8 +1054,8 @@ class _EventDetailScreenRelatedEventState
                                               scrollDirection: Axis.horizontal,
                                               enableInfiniteScroll: false,
                                               viewportFraction: 0.8),
-                                          itemCount: _edc
-                                              .relatedEventModelList?.length,
+                                          itemCount:
+                                              _edc.relatedEventModelList.length,
                                           itemBuilder: (BuildContext context,
                                               int itemIndex,
                                               int pageViewIndex) {
@@ -1063,7 +1063,7 @@ class _EventDetailScreenRelatedEventState
                                               onTap: () {
                                                 Get.to(() => EventDetailScreen(
                                                       eventId: _edc
-                                                          .relatedEventModelList![
+                                                          .relatedEventModelList[
                                                               itemIndex]
                                                           .eventId
                                                           .toString(),
@@ -1085,12 +1085,12 @@ class _EventDetailScreenRelatedEventState
                                                     children: [
                                                       customCardImage(
                                                           _edc
-                                                                  .relatedEventModelList![
+                                                                  .relatedEventModelList[
                                                                       itemIndex]
                                                                   .postEventImages!
                                                                   .isNotEmpty
                                                               ? _edc
-                                                                  .relatedEventModelList![
+                                                                  .relatedEventModelList[
                                                                       itemIndex]
                                                                   .postEventImages![
                                                                       0]
@@ -1103,7 +1103,7 @@ class _EventDetailScreenRelatedEventState
                                                         width: 0.7.sw,
                                                         child: Text(
                                                           _edc
-                                                              .relatedEventModelList![
+                                                              .relatedEventModelList[
                                                                   itemIndex]
                                                               .name
                                                               .toString(),
@@ -1123,7 +1123,7 @@ class _EventDetailScreenRelatedEventState
                                                       FittedBox(
                                                         child: Text(
                                                           splitDateTimeWithoutYear(_edc
-                                                              .relatedEventModelList![
+                                                              .relatedEventModelList[
                                                                   itemIndex]
                                                               .eventDate
                                                               .toString()),
@@ -1158,7 +1158,7 @@ class _EventDetailScreenRelatedEventState
                                                                 width: 0.4.sw,
                                                                 child: Text(
                                                                   _edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .city
                                                                       .toString(),
@@ -1186,15 +1186,15 @@ class _EventDetailScreenRelatedEventState
                                                             onTap: () async {
                                                               String data = '';
                                                               if (_edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .isFav ==
                                                                   true) {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
+                                                                    "?eventID=${_edc.relatedEventModelList[itemIndex].eventId!.toInt()}&fav=false&customerID=$userId";
                                                               } else {
                                                                 data =
-                                                                    "?eventID=${_edc.relatedEventModelList![itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
+                                                                    "?eventID=${_edc.relatedEventModelList[itemIndex].eventId!.toInt()}&fav=true&customerID=$userId";
                                                               }
 
                                                               var res =
@@ -1208,7 +1208,7 @@ class _EventDetailScreenRelatedEventState
                                                                     .contains(
                                                                         "ADDED")) {
                                                                   _edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .isFav = true;
                                                                   _edc.update();
@@ -1217,7 +1217,7 @@ class _EventDetailScreenRelatedEventState
                                                                     .contains(
                                                                         "REMOVED")) {
                                                                   _edc
-                                                                      .relatedEventModelList![
+                                                                      .relatedEventModelList[
                                                                           itemIndex]
                                                                       .isFav = false;
                                                                   _edc.update();
@@ -1228,7 +1228,7 @@ class _EventDetailScreenRelatedEventState
                                                               }
                                                             },
                                                             child: Image.asset(
-                                                              _edc.relatedEventModelList![itemIndex]
+                                                              _edc.relatedEventModelList[itemIndex]
                                                                           .isFav ==
                                                                       true
                                                                   ? favoriteIconSelected

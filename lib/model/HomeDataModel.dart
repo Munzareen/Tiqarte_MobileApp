@@ -171,7 +171,7 @@ class Shop {
   String? deliveryDetails;
   num? price;
   num? catagoryId;
-  num? productFor;
+  String? productFor;
   bool? isActive;
   num? promotorId;
   List<String>? productImages;

@@ -459,9 +459,37 @@ class ApiService {
     }
   }
 
-  getSingleProduct(String id) async {
+  getSingleProductDetail(String id) async {
     final uri =
-        Uri.parse(ApiPoint().baseUrl + ApiPoint().getSingleProduct + id);
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getSingleProductDetail + id);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        return "Something went wrong!";
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getMoreLikeProducts(String id) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getMoreLikeProducts + id);
 
     final headers = {
       'Content-Type': 'application/json',

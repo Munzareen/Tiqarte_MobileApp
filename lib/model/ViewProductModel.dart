@@ -4,11 +4,11 @@
 
 import 'dart:convert';
 
-ViewProductModel viewProductModelFromJson(String str) =>
-    ViewProductModel.fromJson(json.decode(str));
+List<ViewProductModel> viewProductModelFromJson(List data) =>
+    List<ViewProductModel>.from(data.map((x) => ViewProductModel.fromJson(x)));
 
-String viewProductModelToJson(ViewProductModel data) =>
-    json.encode(data.toJson());
+String viewProductModelToJson(List<ViewProductModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ViewProductModel {
   num? id;

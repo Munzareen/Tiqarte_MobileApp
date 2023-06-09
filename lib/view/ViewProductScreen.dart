@@ -14,7 +14,10 @@ import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 
 class ViewProductScreen extends StatefulWidget {
   final String productId;
-  const ViewProductScreen({super.key, required this.productId});
+  final String categoryId;
+
+  const ViewProductScreen(
+      {super.key, required this.productId, required this.categoryId});
 
   @override
   State<ViewProductScreen> createState() => _ViewProductScreenState();
@@ -33,9 +36,13 @@ class _ViewProductScreenState extends State<ViewProductScreen>
   }
 
   getData() async {
-    var res = await ApiService().getSingleProduct(widget.productId);
+    var res = await ApiService().getSingleProductDetail(widget.productId);
     if (res != null && res is Map) {
       _viewProductController.addViewProductData(res);
+      var res_more = await ApiService().getMoreLikeProducts(widget.categoryId);
+      if (res_more != null && res_more is List)
+        _viewProductController.addMoreLikeProductsData(
+            res_more, widget.productId);
     } else if (res != null && res is String) {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
@@ -338,106 +345,155 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                   ]),
                             ),
                             20.verticalSpace,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  moreLikeThis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () => Get.to(
-                                      () => SeeAllProductsScreen(),
-                                      transition: Transition.rightToLeft),
-                                  child: Text(
-                                    seeAll,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: kPrimaryColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            20.verticalSpace,
-                            Container(
-                              height: 220.h,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemCount: 5,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      //  Get.to(() => ViewProductScreen());
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 10.0),
-                                      padding: EdgeInsets.all(12.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          // mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            customCardImage(
-                                                tshirtImage, 150.h, 120.h),
-                                            8.verticalSpace,
-                                            SizedBox(
-                                              width: 0.4.sw,
-                                              child: Text(
-                                                "R.Madrid T-Shirtk",
-                                                textAlign: TextAlign.start,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
+                            _viewProductController.moreLikeProducts.isEmpty
+                                ? SizedBox()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            moreLikeThis,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          _viewProductController
+                                                      .moreLikeProducts
+                                                      .length >=
+                                                  12
+                                              ? GestureDetector(
+                                                  onTap: () => Get.to(
+                                                      () =>
+                                                          SeeAllProductsScreen(),
+                                                      transition: Transition
+                                                          .rightToLeft),
+                                                  child: Text(
+                                                    seeAll,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                )
+                                              : SizedBox(),
+                                        ],
+                                      ),
+                                      20.verticalSpace,
+                                      Container(
+                                        height: 220.h,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: _viewProductController
+                                              .moreLikeProducts.length,
+                                          itemBuilder: (context, index) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                //  Get.to(() => ViewProductScreen());
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 10.0),
+                                                padding: EdgeInsets.all(12.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                    color: Theme.of(context)
+                                                        .secondaryHeaderColor),
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    // mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      customCardImage(
+                                                          _viewProductController
+                                                              .moreLikeProducts[
+                                                                  index]
+                                                              .imageUrl
+                                                              .toString(),
+                                                          150.h,
+                                                          120.h),
+                                                      8.verticalSpace,
+                                                      SizedBox(
+                                                        width: 0.4.sw,
+                                                        child: Text(
+                                                          _viewProductController
+                                                              .moreLikeProducts[
+                                                                  index]
+                                                              .productName
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      5.verticalSpace,
+                                                      Text(
+                                                        _viewProductController
+                                                            .moreLikeProducts[
+                                                                index]
+                                                            .productFor
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      5.verticalSpace,
+                                                      FittedBox(
+                                                        child: Text(
+                                                          _viewProductController
+                                                              .moreLikeProducts[
+                                                                  index]
+                                                              .price
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  kPrimaryColor),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            5.verticalSpace,
-                                            Text(
-                                              forMen,
-                                              textAlign: TextAlign.start,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            5.verticalSpace,
-                                            FittedBox(
-                                              child: Text(
-                                                "Starting from 70,00€",
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: kPrimaryColor),
-                                              ),
-                                            ),
-                                          ],
+                                            );
+                                          },
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            20.verticalSpace,
+                                      20.verticalSpace,
+                                    ],
+                                  ),
                             GestureDetector(
                               onTap: () => Get.to(() => MyBasketScreen()),
                               child: customButton(addtoBasket, kPrimaryColor),

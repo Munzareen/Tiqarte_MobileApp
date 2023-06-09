@@ -321,6 +321,11 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                                       index]
                                                                   .id
                                                                   .toString(),
+                                                              categoryId: _spc
+                                                                  .seeAllProductModel![
+                                                                      index]
+                                                                  .catagoryId
+                                                                  .toString(),
                                                             ));
                                                   },
                                                   child: Container(
@@ -436,6 +441,11 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                                   .seeAllProductModel![
                                                                       index]
                                                                   .id
+                                                                  .toString(),
+                                                              categoryId: _spc
+                                                                  .seeAllProductModel![
+                                                                      index]
+                                                                  .catagoryId
                                                                   .toString(),
                                                             ));
                                                   },

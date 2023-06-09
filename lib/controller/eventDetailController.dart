@@ -8,9 +8,10 @@ import 'package:tiqarte/model/RelatedEventModel.dart';
 
 class EventDetailController extends GetxController {
   final scrollController = ScrollController();
+  final scrollControllerForRelatedEvent = ScrollController();
   EventDetailModel eventDetailModel = EventDetailModel();
 
-  List<RelatedEventModel>? relatedEventModelList = [];
+  List<RelatedEventModel> relatedEventModelList = [];
 
   addEventDetail(dynamic data, String eventId) async {
     eventDetailModel = EventDetailModel.fromJson(data);
@@ -31,13 +32,15 @@ class EventDetailController extends GetxController {
         .getRelatedEvents(eventDetailModel.event!.eventId.toString());
     if (res != null && res is List) {
       relatedEventModelList = relatedEventModelFromJson(res);
-      if (relatedEventModelList!.isNotEmpty) {
-        for (int i = 0; i < relatedEventModelList!.length; i++) {
-          if (relatedEventModelList![i].eventId?.toInt() ==
-              int.parse(eventId)) {
-            relatedEventModelList?.removeAt(i);
-          }
-        }
+      if (relatedEventModelList.isNotEmpty) {
+        relatedEventModelList.removeWhere((element) =>
+            int.parse(element.eventId.toString()) == int.parse(eventId));
+        // for (int i = 0; i < relatedEventModelList.length; i++) {
+        //   if (relatedEventModelList![i].eventId?.toInt() ==
+        //       int.parse(eventId)) {
+        //     relatedEventModelList.removeAt(i);
+        //   }
+        //}
       }
 
       update();
@@ -60,12 +63,21 @@ class EventDetailController extends GetxController {
           changeColor(Colors.white);
         }
       });
+      scrollControllerForRelatedEvent.addListener(() {
+        if (scrollControllerForRelatedEvent.offset >= 300) {
+          changeColor(Colors.black);
+        } else {
+          changeColor(Colors.white);
+        }
+      });
     }
   }
 
   @override
   void onClose() {
     scrollController.dispose();
+    scrollControllerForRelatedEvent.dispose();
+
     super.onClose();
   }
 
