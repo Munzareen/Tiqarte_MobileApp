@@ -7,7 +7,6 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/HomeScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
 
@@ -134,7 +133,7 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                         viewETicket,
                         cancel, () {
                       Get.back();
-                      Get.to(() => ViewETicketScreen(),
+                      Get.to(() => ViewETicketScreen(ticketUniqueNumber: ''),
                           transition: Transition.cupertinoDialog);
                     }, () {
                       Get.back();

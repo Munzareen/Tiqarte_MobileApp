@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/ticketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/CancelBookingScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
 
@@ -19,42 +22,24 @@ class TicketScreen extends StatefulWidget {
 
 class _TicketScreenState extends State<TicketScreen>
     with SingleTickerProviderStateMixin {
-  bool isSearch = false;
-
   TabController? tabController;
 
-  final _searchController = TextEditingController();
-  Color filledColorSearch = kDisabledColor.withOpacity(0.4);
-  Color iconColorSearch = kDisabledColor;
-  final _searchFocusNode = FocusNode();
-
   final _key = GlobalKey<ScaffoldState>();
+
+  final _ticketController = Get.put(TicketController());
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
-    _searchFocusNode.addListener(() {
-      if (_searchFocusNode.hasFocus) {
-        setState(() {
-          filledColorSearch = kPrimaryColor.withOpacity(0.2);
-          iconColorSearch = kPrimaryColor;
-        });
-      } else {
-        setState(() {
-          filledColorSearch = kDisabledColor.withOpacity(0.4);
-          iconColorSearch = kDisabledColor;
-        });
-      }
-    });
+    getData();
   }
 
-  @override
-  void dispose() {
-    _searchFocusNode.dispose();
-    _searchController.dispose();
-
-    super.dispose();
+  getData() async {
+    var res = await ApiService().getCustomerTicketList();
+    if (res != null && res is List) {
+      _ticketController.addTicketData(ticketModelFromJson(res));
+    }
   }
 
   @override
@@ -75,903 +60,1134 @@ class _TicketScreenState extends State<TicketScreen>
           width: 1.sw,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Column(
-              children: [
-                20.verticalSpace,
-                isSearch
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            appLogo,
-                            height: 25.h,
-                          ),
-                          10.horizontalSpace,
-                          Expanded(
-                            child: TextFormField(
-                              focusNode: _searchFocusNode,
-                              cursorColor: kPrimaryColor,
-                              controller: _searchController,
-                              keyboardType: TextInputType.text,
-                              // validator: (value) {
-                              //   if (value!.isEmpty) {
-                              //     return 'Please enter your username';
-                              //   }
-                              //   return null;
-                              // },
-                              decoration: InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    size: 20,
-                                    color: iconColorSearch,
+            child: GetBuilder<TicketController>(builder: (_tc) {
+              return _tc.upcomingTicketList == null
+                  ? Center(
+                      child: spinkit,
+                    )
+                  : Column(
+                      children: [
+                        20.verticalSpace,
+                        _tc.isSearch
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Image.asset(
+                                    appLogo,
+                                    height: 25.h,
                                   ),
-                                  errorBorder: customOutlineBorder,
-                                  enabledBorder: customOutlineBorder,
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(12.0)),
-                                      borderSide:
-                                          BorderSide(color: kPrimaryColor)),
-                                  disabledBorder: customOutlineBorder,
-                                  // fillColor: filledColorSearch,
-                                  filled: true,
-                                  hintText: "Search",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xff9E9E9E), fontSize: 14)),
-                              onChanged: searchTicket,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(textRegExp),
-                              ],
+                                  10.horizontalSpace,
+                                  Expanded(
+                                    child: TextFormField(
+                                      focusNode: _tc.searchFocusNode,
+                                      cursorColor: kPrimaryColor,
+                                      controller: _tc.searchController,
+                                      keyboardType: TextInputType.text,
+                                      // validator: (value) {
+                                      //   if (value!.isEmpty) {
+                                      //     return 'Please enter your username';
+                                      //   }
+                                      //   return null;
+                                      // },
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.search,
+                                            size: 20,
+                                            color: _tc.iconColorSearch,
+                                          ),
+                                          errorBorder: customOutlineBorder,
+                                          enabledBorder: customOutlineBorder,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(12.0)),
+                                              borderSide: BorderSide(
+                                                  color: kPrimaryColor)),
+                                          disabledBorder: customOutlineBorder,
+                                          // fillColor: filledColorSearch,
+                                          filled: true,
+                                          hintText: "Search",
+                                          hintStyle: TextStyle(
+                                              color: Color(0xff9E9E9E),
+                                              fontSize: 14)),
+                                      onChanged: _tc.onSearch,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            textRegExp),
+                                      ],
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        _tc.onSearchClose(_tc.searchController);
+                                      },
+                                      icon: Icon(Icons.close))
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        appLogo,
+                                        height: 25.h,
+                                      ),
+                                      20.horizontalSpace,
+                                      Text(
+                                        ticketHeadingString,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            _tc.onSearchTap();
+                                          },
+                                          icon: Icon(Icons.search)),
+                                      10.horizontalSpace,
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 1,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background),
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                        ),
+                                        child: Icon(
+                                          Icons.more_horiz_sharp,
+                                          size: 25,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                        20.verticalSpace,
+                        TabBar(
+                          labelStyle: TextStyle(color: kPrimaryColor),
+                          unselectedLabelStyle:
+                              TextStyle(color: kDisabledColor),
+                          labelColor: kPrimaryColor,
+                          //  dividerColor: kDisabledColor,
+                          unselectedLabelColor: Color(0xff9E9E9E),
+                          isScrollable: false,
+                          labelPadding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 10),
+                          controller: tabController,
+                          indicator: UnderlineTabIndicator(
+                            borderSide: BorderSide(
+                              color: kPrimaryColor,
+                              width: 2.0,
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isSearch = false;
-                                  _searchController.clear();
-                                  ticketList = allTicketList;
-                                });
-                              },
-                              icon: Icon(Icons.close))
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                appLogo,
-                                height: 25.h,
-                              ),
-                              20.horizontalSpace,
-                              Text(
-                                ticketHeadingString,
-                                textAlign: TextAlign.center,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          // indicator: BoxDecoration(
+                          //     color: Color(0xff3E5164),
+                          //     borderRadius: BorderRadius.circular(8)),
+                          indicatorColor: kPrimaryColor,
+                          indicatorWeight: 3.0,
+                          tabs: [
+                            Text(ticketUpcomingString,
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isSearch = true;
-                                    });
-                                  },
-                                  icon: Icon(Icons.search)),
-                              10.horizontalSpace,
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background),
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
-                                child: Icon(
-                                  Icons.more_horiz_sharp,
-                                  size: 25,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                20.verticalSpace,
-                TabBar(
-                  labelStyle: TextStyle(color: kPrimaryColor),
-                  unselectedLabelStyle: TextStyle(color: kDisabledColor),
-                  labelColor: kPrimaryColor,
-                  //  dividerColor: kDisabledColor,
-                  unselectedLabelColor: Color(0xff9E9E9E),
-                  isScrollable: false,
-                  labelPadding:
-                      EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-                  controller: tabController,
-                  indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(
-                      color: kPrimaryColor,
-                      width: 2.0,
-                    ),
-                  ),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  // indicator: BoxDecoration(
-                  //     color: Color(0xff3E5164),
-                  //     borderRadius: BorderRadius.circular(8)),
-                  indicatorColor: kPrimaryColor,
-                  indicatorWeight: 3.0,
-                  tabs: [
-                    Text(ticketUpcomingString,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
-                    Text(ticketCompletedString,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
-                    Text(ticketCancelledString,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                20.verticalSpace,
-                Expanded(
-                    child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    //Upcoming
-                    isSearch && ticketList.isEmpty
-                        ? ListView(
-                            children: [
-                              30.verticalSpace,
-                              Image.asset(
-                                notFoundImage,
-                                height: 250,
-                              ),
-                              10.verticalSpace,
-                              Text(
-                                notFound,
-                                textAlign: TextAlign.center,
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            Text(ticketCompletedString,
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              10.verticalSpace,
-                              Text(
-                                seeAllEventNotFoundSubString,
-                                textAlign: TextAlign.center,
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            Text(ticketCancelledString,
                                 style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          )
-                        : !isSearch && ticketList.isEmpty
-                            ? ListView(
-                                children: [
-                                  30.verticalSpace,
-                                  Image.asset(
-                                    ticketEmptyImage,
-                                    height: 250,
-                                  ),
-                                  20.verticalSpace,
-                                  Text(
-                                    ticketEmptyTicketsString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  20.verticalSpace,
-                                  Text(
-                                    ticketEmptyTicketSubString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  30.verticalSpace,
-                                  Text(
-                                    ticketFindEventsString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: kPrimaryColor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            : ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: ticketList.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Container(
-                                      padding: EdgeInsets.all(16.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor),
-                                      child: Column(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                        20.verticalSpace,
+                        Expanded(
+                            child: TabBarView(
+                          controller: tabController,
+                          children: [
+                            //Upcoming
+                            _tc.isSearch && _tc.upcomingTicketList!.isEmpty
+                                ? ListView(
+                                    children: [
+                                      30.verticalSpace,
+                                      Image.asset(
+                                        notFoundImage,
+                                        height: 250,
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        notFound,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        seeAllEventNotFoundSubString,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : !_tc.isSearch &&
+                                        _tc.upcomingTicketListAll.isEmpty
+                                    ? ListView(
                                         children: [
-                                          Row(
-                                            // mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              customCardImage(
-                                                  eventImage, 110.h, 100.h),
-                                              8.horizontalSpace,
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 0.5.sw,
-                                                    child: Text(
-                                                      ticketList[index]['name'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                          30.verticalSpace,
+                                          Image.asset(
+                                            ticketEmptyImage,
+                                            height: 250,
+                                          ),
+                                          20.verticalSpace,
+                                          Text(
+                                            ticketEmptyTicketsString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          20.verticalSpace,
+                                          Text(
+                                            ticketEmptyTicketSubString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          30.verticalSpace,
+                                          Text(
+                                            ticketFindEventsString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: kPrimaryColor,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      )
+                                    : !_tc.isSearch &&
+                                            _tc.upcomingTicketListAll
+                                                .isNotEmpty &&
+                                            _tc.upcomingTicketList!.isEmpty
+                                        ? Expanded(
+                                            child: ListView(
+                                              children: [
+                                                30.verticalSpace,
+                                                Image.asset(
+                                                  notFoundImage,
+                                                  height: 250,
+                                                ),
+                                                10.verticalSpace,
+                                                Text(
+                                                  notFound,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            itemCount:
+                                                _tc.upcomingTicketList?.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10.0),
+                                                child: Container(
+                                                  padding: EdgeInsets.all(16.0),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        // mainAxisSize: MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          customCardImage(
+                                                              _tc
+                                                                  .upcomingTicketList![
+                                                                      index]
+                                                                  .imageURL
+                                                                  .toString(),
+                                                              110.h,
+                                                              100.h),
+                                                          8.horizontalSpace,
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              SizedBox(
+                                                                width: 0.5.sw,
+                                                                child: Text(
+                                                                  _tc
+                                                                      .upcomingTicketList![
+                                                                          index]
+                                                                      .eventName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  maxLines: 1,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Text(
+                                                                  splitDateTimeWithoutYear(_tc
+                                                                      .upcomingTicketList![
+                                                                          index]
+                                                                      .eventDate
+                                                                      .toString()),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      color:
+                                                                          kPrimaryColor),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .location_on,
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      size: 25,
+                                                                    ),
+                                                                    5.horizontalSpace,
+                                                                    SizedBox(
+                                                                      width: 0.3
+                                                                          .sw,
+                                                                      child:
+                                                                          Text(
+                                                                        _tc.upcomingTicketList![index]
+                                                                            .city
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w400,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    5.horizontalSpace,
+                                                                    Container(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              5.0,
+                                                                          vertical:
+                                                                              5.0),
+                                                                      decoration: BoxDecoration(
+                                                                          border: Border.all(
+                                                                            color:
+                                                                                kPrimaryColor,
+                                                                          ),
+                                                                          borderRadius: BorderRadius.circular(8.0)),
+                                                                      child:
+                                                                          Text(
+                                                                        ticketPaidString,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.w400,
+                                                                            color: kPrimaryColor),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
                                                       ),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Text(
-                                                      ticketList[index]['date'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          color: kPrimaryColor,
-                                                          size: 25,
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        SizedBox(
-                                                          width: 0.3.sw,
-                                                          child: Text(
-                                                            ticketList[index]
-                                                                ['location'],
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      5.0,
-                                                                  vertical:
-                                                                      5.0),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
+                                                      5.verticalSpace,
+                                                      Divider(),
+                                                      10.verticalSpace,
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              cancelBookingBottomSheet(
+                                                                  context,
+                                                                  _tc
+                                                                      .upcomingTicketList![
+                                                                          index]
+                                                                      .ticketUniqueNumber!
+                                                                      .toInt()
+                                                                      .toString());
+                                                            },
+                                                            child: Container(
+                                                              width: 0.4.sw,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          0.0,
+                                                                      vertical:
+                                                                          10.0),
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      width: 2),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              20.0)),
+                                                              child: Text(
+                                                                ticketCancelBookingHeadingString,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
                                                                     color:
-                                                                        kPrimaryColor,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8.0)),
-                                                          child: Text(
-                                                            ticketPaidString,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color:
-                                                                    kPrimaryColor),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                          5.verticalSpace,
-                                          Divider(),
-                                          10.verticalSpace,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  cancelBookingBottomSheet(
-                                                      context);
-                                                },
-                                                child: Container(
-                                                  width: 0.4.sw,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 0.0,
-                                                      vertical: 10.0),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: kPrimaryColor,
-                                                          width: 2),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0)),
-                                                  child: Text(
-                                                    ticketCancelBookingHeadingString,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: kPrimaryColor),
-                                                  ),
-                                                ),
-                                              ),
-                                              10.horizontalSpace,
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.to(
-                                                      () => ViewETicketScreen(),
-                                                      transition: Transition
-                                                          .rightToLeft);
-                                                },
-                                                child: Container(
-                                                  width: 0.4.sw,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 0.0,
-                                                      vertical: 10.0),
-                                                  decoration: BoxDecoration(
-                                                      color: kPrimaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0)),
-                                                  child: Text(
-                                                    viewETicket,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-
-                    //Completed
-                    isSearch && ticketList.isEmpty
-                        ? ListView(
-                            children: [
-                              30.verticalSpace,
-                              Image.asset(
-                                notFoundImage,
-                                height: 250,
-                              ),
-                              10.verticalSpace,
-                              Text(
-                                notFound,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              10.verticalSpace,
-                              Text(
-                                seeAllEventNotFoundSubString,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          )
-                        : !isSearch && ticketList.isEmpty
-                            ? ListView(
-                                children: [
-                                  30.verticalSpace,
-                                  Image.asset(
-                                    ticketEmptyImage,
-                                    height: 250,
-                                  ),
-                                  20.verticalSpace,
-                                  Text(
-                                    ticketEmptyTicketsString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  20.verticalSpace,
-                                  Text(
-                                    ticketEmptyTicketSubString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  30.verticalSpace,
-                                  Text(
-                                    ticketFindEventsString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: kPrimaryColor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            : ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: ticketList.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Container(
-                                      padding: EdgeInsets.all(16.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            // mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              customCardImage(
-                                                  eventImage, 110.h, 100.h),
-                                              8.horizontalSpace,
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 0.5.sw,
-                                                    child: Text(
-                                                      ticketList[index]['name'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Text(
-                                                      ticketList[index]['date'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          color: kPrimaryColor,
-                                                          size: 25,
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        SizedBox(
-                                                          width: 0.25.sw,
-                                                          child: Text(
-                                                            ticketList[index]
-                                                                ['location'],
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                                        kPrimaryColor),
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      5.0,
-                                                                  vertical:
-                                                                      5.0),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Color(
-                                                                        0xff07BD74),
-                                                                  ),
+                                                          10.horizontalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(
+                                                                  () => ViewETicketScreen(
+                                                                      ticketUniqueNumber: _tc
+                                                                          .upcomingTicketList![
+                                                                              index]
+                                                                          .ticketUniqueNumber!
+                                                                          .toInt()
+                                                                          .toString()),
+                                                                  transition:
+                                                                      Transition
+                                                                          .rightToLeft);
+                                                            },
+                                                            child: Container(
+                                                              width: 0.4.sw,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          0.0,
+                                                                      vertical:
+                                                                          10.0),
+                                                              decoration: BoxDecoration(
+                                                                  color:
+                                                                      kPrimaryColor,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              8.0)),
-                                                          child: Text(
-                                                            ticketCompletedString,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Color(
-                                                                    0xff07BD74)),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                          5.verticalSpace,
-                                          Divider(),
-                                          10.verticalSpace,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  reviewSheet(context);
-                                                },
-                                                child: Container(
-                                                  width: 0.4.sw,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 0.0,
-                                                      vertical: 10.0),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: kPrimaryColor,
-                                                          width: 2),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0)),
-                                                  child: Text(
-                                                    leaveAReview,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: kPrimaryColor),
-                                                  ),
-                                                ),
-                                              ),
-                                              10.horizontalSpace,
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.to(
-                                                      () => ViewETicketScreen(),
-                                                      transition: Transition
-                                                          .rightToLeft);
-                                                },
-                                                child: Container(
-                                                  width: 0.4.sw,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 0.0,
-                                                      vertical: 10.0),
-                                                  decoration: BoxDecoration(
-                                                      color: kPrimaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0)),
-                                                  child: Text(
-                                                    viewETicket,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-
-                    //Cancelled
-                    isSearch && ticketList.isEmpty
-                        ? ListView(
-                            children: [
-                              30.verticalSpace,
-                              Image.asset(
-                                notFoundImage,
-                                height: 250,
-                              ),
-                              10.verticalSpace,
-                              Text(
-                                notFound,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              10.verticalSpace,
-                              Text(
-                                seeAllEventNotFoundSubString,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          )
-                        : !isSearch && ticketList.isEmpty
-                            ? ListView(
-                                children: [
-                                  30.verticalSpace,
-                                  Image.asset(
-                                    ticketEmptyImage,
-                                    height: 250,
-                                  ),
-                                  20.verticalSpace,
-                                  Text(
-                                    ticketEmptyTicketsString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  20.verticalSpace,
-                                  Text(
-                                    ticketEmptyTicketSubString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  30.verticalSpace,
-                                  Text(
-                                    ticketFindEventsString,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: kPrimaryColor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            : ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: ticketList.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Container(
-                                      padding: EdgeInsets.all(16.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            // mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              customCardImage(
-                                                  eventImage, 110.h, 100.h),
-                                              8.horizontalSpace,
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 0.5.sw,
-                                                    child: Text(
-                                                      ticketList[index]['name'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Text(
-                                                      ticketList[index]['date'],
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: kPrimaryColor),
-                                                    ),
-                                                  ),
-                                                  8.verticalSpace,
-                                                  FittedBox(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          color: kPrimaryColor,
-                                                          size: 25,
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        SizedBox(
-                                                          width: 0.25.sw,
-                                                          child: Text(
-                                                            ticketList[index]
-                                                                ['location'],
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                                              20.0)),
+                                                              child: Text(
+                                                                viewETicket,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        5.horizontalSpace,
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      5.0,
-                                                                  vertical:
-                                                                      5.0),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Color(
-                                                                        0xffF75555),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+
+                            //Completed
+                            _tc.isSearch && _tc.completedTicketList.isEmpty
+                                ? ListView(
+                                    children: [
+                                      30.verticalSpace,
+                                      Image.asset(
+                                        notFoundImage,
+                                        height: 250,
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        notFound,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        seeAllEventNotFoundSubString,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : !_tc.isSearch &&
+                                        _tc.completedTicketListAll.isEmpty
+                                    ? ListView(
+                                        children: [
+                                          30.verticalSpace,
+                                          Image.asset(
+                                            ticketEmptyImage,
+                                            height: 250,
+                                          ),
+                                          20.verticalSpace,
+                                          Text(
+                                            ticketEmptyTicketsString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          20.verticalSpace,
+                                          Text(
+                                            ticketEmptyTicketSubString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          30.verticalSpace,
+                                          Text(
+                                            ticketFindEventsString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: kPrimaryColor,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      )
+                                    : !_tc.isSearch &&
+                                            _tc.completedTicketListAll
+                                                .isNotEmpty &&
+                                            _tc.completedTicketList.isEmpty
+                                        ? Expanded(
+                                            child: ListView(
+                                              children: [
+                                                30.verticalSpace,
+                                                Image.asset(
+                                                  notFoundImage,
+                                                  height: 250,
+                                                ),
+                                                10.verticalSpace,
+                                                Text(
+                                                  notFound,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            itemCount:
+                                                _tc.completedTicketList.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10.0),
+                                                child: Container(
+                                                  padding: EdgeInsets.all(16.0),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        // mainAxisSize: MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          customCardImage(
+                                                              _tc
+                                                                  .completedTicketList[
+                                                                      index]
+                                                                  .imageURL
+                                                                  .toString(),
+                                                              110.h,
+                                                              100.h),
+                                                          8.horizontalSpace,
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              SizedBox(
+                                                                width: 0.5.sw,
+                                                                child: Text(
+                                                                  _tc
+                                                                      .completedTicketList[
+                                                                          index]
+                                                                      .eventName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  maxLines: 1,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                   ),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Text(
+                                                                  splitDateTimeWithoutYear(_tc
+                                                                      .completedTicketList[
+                                                                          index]
+                                                                      .eventDate
+                                                                      .toString()),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      color:
+                                                                          kPrimaryColor),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .location_on,
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      size: 25,
+                                                                    ),
+                                                                    5.horizontalSpace,
+                                                                    SizedBox(
+                                                                      width: 0.25
+                                                                          .sw,
+                                                                      child:
+                                                                          Text(
+                                                                        _tc.completedTicketList[index]
+                                                                            .city
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w400,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    5.horizontalSpace,
+                                                                    Container(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              5.0,
+                                                                          vertical:
+                                                                              5.0),
+                                                                      decoration: BoxDecoration(
+                                                                          border: Border.all(
+                                                                            color:
+                                                                                Color(0xff07BD74),
+                                                                          ),
+                                                                          borderRadius: BorderRadius.circular(8.0)),
+                                                                      child:
+                                                                          Text(
+                                                                        ticketCompletedString,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.w400,
+                                                                            color: Color(0xff07BD74)),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                      5.verticalSpace,
+                                                      Divider(),
+                                                      10.verticalSpace,
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              reviewSheet(
+                                                                  context);
+                                                            },
+                                                            child: Container(
+                                                              width: 0.4.sw,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          0.0,
+                                                                      vertical:
+                                                                          10.0),
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      width: 2),
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              8.0)),
-                                                          child: Text(
-                                                            ticketCancelledString,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Color(
-                                                                    0xffF75555)),
+                                                                              20.0)),
+                                                              child: Text(
+                                                                leaveAReview,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color:
+                                                                        kPrimaryColor),
+                                                              ),
+                                                            ),
                                                           ),
-                                                        )
-                                                      ],
-                                                    ),
+                                                          10.horizontalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(
+                                                                  () => ViewETicketScreen(
+                                                                      ticketUniqueNumber: _tc
+                                                                          .completedTicketList[
+                                                                              index]
+                                                                          .ticketUniqueNumber!
+                                                                          .toInt()
+                                                                          .toString()),
+                                                                  transition:
+                                                                      Transition
+                                                                          .rightToLeft);
+                                                            },
+                                                            child: Container(
+                                                              width: 0.4.sw,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          0.0,
+                                                                      vertical:
+                                                                          10.0),
+                                                              decoration: BoxDecoration(
+                                                                  color:
+                                                                      kPrimaryColor,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              20.0)),
+                                                              child: Text(
+                                                                viewETicket,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
                                                   ),
-                                                ],
-                                              )
-                                            ],
+                                                ),
+                                              );
+                                            },
+                                          ),
+
+                            //Cancelled
+                            _tc.isSearch && _tc.cancelledTicketList.isEmpty
+                                ? ListView(
+                                    children: [
+                                      30.verticalSpace,
+                                      Image.asset(
+                                        notFoundImage,
+                                        height: 250,
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        notFound,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        seeAllEventNotFoundSubString,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : !_tc.isSearch &&
+                                        _tc.cancelledTicketListAll.isEmpty
+                                    ? ListView(
+                                        children: [
+                                          30.verticalSpace,
+                                          Image.asset(
+                                            ticketEmptyImage,
+                                            height: 250,
+                                          ),
+                                          20.verticalSpace,
+                                          Text(
+                                            ticketEmptyTicketsString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          20.verticalSpace,
+                                          Text(
+                                            ticketEmptyTicketSubString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          30.verticalSpace,
+                                          Text(
+                                            ticketFindEventsString,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: kPrimaryColor,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                  ],
-                ))
-              ],
-            ),
+                                      )
+                                    : !_tc.isSearch &&
+                                            _tc.cancelledTicketListAll
+                                                .isNotEmpty &&
+                                            _tc.cancelledTicketList.isEmpty
+                                        ? Expanded(
+                                            child: ListView(
+                                              children: [
+                                                30.verticalSpace,
+                                                Image.asset(
+                                                  notFoundImage,
+                                                  height: 250,
+                                                ),
+                                                10.verticalSpace,
+                                                Text(
+                                                  notFound,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            itemCount:
+                                                _tc.cancelledTicketList.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10.0),
+                                                child: Container(
+                                                  padding: EdgeInsets.all(16.0),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        // mainAxisSize: MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          customCardImage(
+                                                              _tc
+                                                                  .cancelledTicketList[
+                                                                      index]
+                                                                  .imageURL
+                                                                  .toString(),
+                                                              110.h,
+                                                              100.h),
+                                                          8.horizontalSpace,
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              SizedBox(
+                                                                width: 0.5.sw,
+                                                                child: Text(
+                                                                  _tc
+                                                                      .cancelledTicketList[
+                                                                          index]
+                                                                      .eventName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  maxLines: 1,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Text(
+                                                                  splitDateTimeWithoutYear(_tc
+                                                                      .cancelledTicketList[
+                                                                          index]
+                                                                      .eventDate
+                                                                      .toString()),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      color:
+                                                                          kPrimaryColor),
+                                                                ),
+                                                              ),
+                                                              8.verticalSpace,
+                                                              FittedBox(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .location_on,
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      size: 25,
+                                                                    ),
+                                                                    5.horizontalSpace,
+                                                                    SizedBox(
+                                                                      width: 0.25
+                                                                          .sw,
+                                                                      child:
+                                                                          Text(
+                                                                        _tc.cancelledTicketList[index]
+                                                                            .city
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w400,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    5.horizontalSpace,
+                                                                    Container(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              5.0,
+                                                                          vertical:
+                                                                              5.0),
+                                                                      decoration: BoxDecoration(
+                                                                          border: Border.all(
+                                                                            color:
+                                                                                Color(0xffF75555),
+                                                                          ),
+                                                                          borderRadius: BorderRadius.circular(8.0)),
+                                                                      child:
+                                                                          Text(
+                                                                        ticketCancelledString,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.w400,
+                                                                            color: Color(0xffF75555)),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                          ],
+                        ))
+                      ],
+                    );
+            }),
           ),
         ),
       ),
     );
   }
 
-  cancelBookingBottomSheet(BuildContext context) {
+  cancelBookingBottomSheet(BuildContext context, String ticketUniqueNumber) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -1052,7 +1268,9 @@ class _TicketScreenState extends State<TicketScreen>
                       GestureDetector(
                         onTap: () {
                           Get.back();
-                          Get.to(() => CancelBookingScreen(),
+                          Get.to(
+                              () => CancelBookingScreen(
+                                  ticketUniqueNumber: ticketUniqueNumber),
                               transition: Transition.rightToLeft);
                         },
                         child: Container(
@@ -1250,148 +1468,4 @@ class _TicketScreenState extends State<TicketScreen>
       },
     );
   }
-
-  searchTicket(String query) {
-    ticketList = allTicketList;
-    final suggestion = ticketList.where((element) {
-      final eventName = element['name']!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
-    }).toList();
-    setState(() {
-      ticketList = suggestion;
-    });
-  }
-
-  List ticketList = [
-    {
-      "id": "1",
-      "name": "International Concert",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "upcoming",
-    },
-    {
-      "id": "2",
-      "name": "Jazz Music Festival",
-      "date": "Tue, Dec 19 • 19.00 - 22.00...",
-      "location": "New Avenue, Wa...",
-      "status": "cancelled",
-    },
-    {
-      "id": "3",
-      "name": "DJ Music Competition",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "Central Park, Ne...",
-      "status": "upcoming",
-    },
-    {
-      "id": "4",
-      "name": "National Music Fest",
-      "date": "Sun, Dec 16 • 11.00 - 13.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-    {
-      "id": "5",
-      "name": "Art Workshops",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-    {
-      "id": "6",
-      "name": "Tech Seminar",
-      "date": "Sat, Dec 22 • 10.00 - 12.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-    {
-      "id": "7",
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "cancelled",
-    },
-    {
-      "id": "8",
-      "name": "Tech Seminar",
-      "date": "Sat, Dec 22 • 10.00 - 12.00...",
-      "location": "New Avenue, Wa...",
-      "status": "upcoming",
-    },
-    {
-      "id": "9",
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-  ];
-
-  List allTicketList = [
-    {
-      "id": "1",
-      "name": "International Concert",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "upcoming",
-    },
-    {
-      "id": "2",
-      "name": "Jazz Music Festival",
-      "date": "Tue, Dec 19 • 19.00 - 22.00...",
-      "location": "New Avenue, Wa...",
-      "status": "cancelled",
-    },
-    {
-      "id": "3",
-      "name": "DJ Music Competition",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "Central Park, Ne...",
-      "status": "upcoming",
-    },
-    {
-      "id": "4",
-      "name": "National Music Fest",
-      "date": "Sun, Dec 16 • 11.00 - 13.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-    {
-      "id": "5",
-      "name": "Art Workshops",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-    {
-      "id": "6",
-      "name": "Tech Seminar",
-      "date": "Sat, Dec 22 • 10.00 - 12.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-    {
-      "id": "7",
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "cancelled",
-    },
-    {
-      "id": "8",
-      "name": "Tech Seminar",
-      "date": "Sat, Dec 22 • 10.00 - 12.00...",
-      "location": "New Avenue, Wa...",
-      "status": "upcoming",
-    },
-    {
-      "id": "9",
-      "name": "Mural Painting",
-      "date": "Fri, Dec 20 • 13.00 - 15.00...",
-      "location": "New Avenue, Wa...",
-      "status": "completed",
-    },
-  ];
 }

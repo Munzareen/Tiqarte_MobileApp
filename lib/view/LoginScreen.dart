@@ -8,7 +8,6 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/ForgotPasswordScreen.dart';
-import 'package:tiqarte/view/ForgotPasswordScreenOld.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,8 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool visiblePass = true;
   bool rememberMe = false;
-  Color _filledColorPass = kDisabledColor.withOpacity(0.4);
-  Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorPass = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
   Color _iconColorPass = Colors.grey;
   Color _iconColorEmail = Colors.grey;
 
@@ -37,12 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailFocusNode.addListener(() {
       if (_emailFocusNode.hasFocus) {
         setState(() {
-          _filledColorEmail = kPrimaryColor.withOpacity(0.2);
+          //_filledColorEmail = kPrimaryColor.withOpacity(0.2);
           _iconColorEmail = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorEmail = kDisabledColor.withOpacity(0.4);
+          //_filledColorEmail = kDisabledColor.withOpacity(0.4);
           _iconColorEmail = Colors.grey;
         });
       }
@@ -51,13 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordFocusNode.addListener(() {
       if (_passwordFocusNode.hasFocus) {
         setState(() {
-          _filledColorPass = kPrimaryColor.withOpacity(0.2);
+          // _filledColorPass = kPrimaryColor.withOpacity(0.2);
 
           _iconColorPass = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorPass = kDisabledColor.withOpacity(0.4);
+          //_filledColorPass = kDisabledColor.withOpacity(0.4);
           _iconColorPass = Colors.grey;
         });
       }

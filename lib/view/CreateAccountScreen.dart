@@ -26,8 +26,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   bool visiblePass = true;
   bool rememberMe = false;
-  Color _filledColorPass = kDisabledColor.withOpacity(0.4);
-  Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorPass = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
   Color _iconColorPass = Colors.grey;
   Color _iconColorEmail = Colors.grey;
 
@@ -37,12 +37,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     _emailFocusNode.addListener(() {
       if (_emailFocusNode.hasFocus) {
         setState(() {
-          _filledColorEmail = kPrimaryColor.withOpacity(0.2);
+          //   _filledColorEmail = kPrimaryColor.withOpacity(0.2);
           _iconColorEmail = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorEmail = kDisabledColor.withOpacity(0.4);
+          //     _filledColorEmail = kDisabledColor.withOpacity(0.4);
           _iconColorEmail = Colors.grey;
         });
       }
@@ -51,13 +51,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     _passwordFocusNode.addListener(() {
       if (_passwordFocusNode.hasFocus) {
         setState(() {
-          _filledColorPass = kPrimaryColor.withOpacity(0.2);
+          //  _filledColorPass = kPrimaryColor.withOpacity(0.2);
 
           _iconColorPass = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorPass = kDisabledColor.withOpacity(0.4);
+          //   _filledColorPass = kDisabledColor.withOpacity(0.4);
           _iconColorPass = Colors.grey;
         });
       }

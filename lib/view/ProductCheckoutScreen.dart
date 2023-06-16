@@ -27,8 +27,8 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
 
   final _emailFocusNode = FocusNode();
 
-  Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
-  Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
 
   Color _iconColorEmail = Colors.grey;
   String? phoneNumber;
@@ -37,12 +37,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
     _emailFocusNode.addListener(() {
       if (_emailFocusNode.hasFocus) {
         setState(() {
-          _filledColorEmail = kPrimaryColor.withOpacity(0.2);
+          // _filledColorEmail = kPrimaryColor.withOpacity(0.2);
           _iconColorEmail = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorEmail = kDisabledColor.withOpacity(0.4);
+          //_filledColorEmail = kDisabledColor.withOpacity(0.4);
           _iconColorEmail = Colors.grey;
         });
       }

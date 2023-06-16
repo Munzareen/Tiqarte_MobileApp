@@ -5,13 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
-import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/AccountSetupScreen.dart';
-import 'package:tiqarte/view/CreateAccountScreen.dart';
-import 'package:tiqarte/view/LoginScreen.dart';
-import 'package:tiqarte/view/MainScreen.dart';
 
 class PreLoginScreen extends StatefulWidget {
   const PreLoginScreen({super.key});

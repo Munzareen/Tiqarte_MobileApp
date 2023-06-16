@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
@@ -18,6 +19,9 @@ String accessToken = '';
 String userId = '';
 String userName = '';
 String userImage = '';
+
+SharedPreferences? prefs;
+String savedDir = '';
 
 SpinKitCircle spinkit = SpinKitCircle(
   color: kPrimaryColor,
@@ -131,7 +135,7 @@ customAlertDialogWithOneButton(BuildContext context, String logo, IconData icon,
       context: context,
       builder: (BuildContext context) {
         return WillPopScope(
-          onWillPop: () async => true,
+          onWillPop: () async => false,
           child: Container(
             height: 0.4.sh,
             width: 0.8.sw,
@@ -654,12 +658,30 @@ String splitDateTimeWithoutYear(String date) {
         var outPutFormate = DateFormat('E d • h:mm a');
         var OutPutDate = outPutFormate.format(inputDate);
         return OutPutDate;
-      } catch (_) {
-        DateTime parserDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
-        var inputDate = DateTime.parse(parserDate.toString());
-        var outPutFormate = DateFormat('E d • h:mm a');
-        var OutPutDate = outPutFormate.format(inputDate);
-        return OutPutDate;
+      } on Exception catch (_) {
+        try {
+          DateTime parserDate =
+              DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
+          var inputDate = DateTime.parse(parserDate.toString());
+          var outPutFormate = DateFormat('E d • h:mm a');
+          var OutPutDate = outPutFormate.format(inputDate);
+          return OutPutDate;
+        } on Exception catch (_) {
+          try {
+            DateTime parserDate = DateFormat("dd/MM/yyyy").parse(date);
+            var inputDate = DateTime.parse(parserDate.toString());
+            var outPutFormate = DateFormat('E d • h:mm a');
+            var OutPutDate = outPutFormate.format(inputDate);
+            return OutPutDate;
+          } catch (_) {
+            DateTime parserDate =
+                DateFormat("dd/MM/yyyy HH:mm:ss a").parse(date);
+            var inputDate = DateTime.parse(parserDate.toString());
+            var outPutFormate = DateFormat('E d • h:mm a');
+            var OutPutDate = outPutFormate.format(inputDate);
+            return OutPutDate;
+          }
+        }
       }
     }
   } else {
@@ -714,6 +736,62 @@ String splitTimeOnly(String date) {
         DateTime parserDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
         var inputDate = DateTime.parse(parserDate.toString());
         var outPutFormate = DateFormat('h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      }
+    }
+  } else {
+    return "";
+  }
+}
+
+String EventDateForETicket(String date) {
+  if (date.isNotEmpty && date != "null") {
+    try {
+      DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(date);
+      var inputDate = DateTime.parse(parserDate.toString());
+      var outPutFormate = DateFormat('EEEE, MMM d • h:mm a');
+      var OutPutDate = outPutFormate.format(inputDate);
+      return OutPutDate;
+    } on Exception catch (_) {
+      try {
+        DateTime parserDate = DateFormat("dd/MM/yyyy HH:mm:ss a").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('EEEE, MMM d • h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      } catch (_) {
+        DateTime parserDate = DateFormat("dd/MM/yyyy").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('EEEE, MMM d • h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      }
+    }
+  } else {
+    return "";
+  }
+}
+
+String EventDateForETicketForPDF(String date) {
+  if (date.isNotEmpty && date != "null") {
+    try {
+      DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(date);
+      var inputDate = DateTime.parse(parserDate.toString());
+      var outPutFormate = DateFormat('EEEE, MMM d , h:mm a');
+      var OutPutDate = outPutFormate.format(inputDate);
+      return OutPutDate;
+    } on Exception catch (_) {
+      try {
+        DateTime parserDate = DateFormat("dd/MM/yyyy HH:mm:ss a").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('EEEE, MMM d , h:mm a');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      } catch (_) {
+        DateTime parserDate = DateFormat("dd/MM/yyyy").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('EEEE, MMM d , h:mm a');
         var OutPutDate = outPutFormate.format(inputDate);
         return OutPutDate;
       }
@@ -1048,4 +1126,8 @@ String getUserIdFromJWT(String token) {
 
 // Retrieve the user ID from the decoded payload
   return payloadJson['userid'];
+}
+
+initializePrefs() async {
+  prefs = await SharedPreferences.getInstance();
 }

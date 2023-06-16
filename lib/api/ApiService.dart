@@ -1,12 +1,15 @@
 import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/api/ApiPoint.dart';
+import 'package:tiqarte/controller/ticketController.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/images.dart';
+import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
 
@@ -69,7 +72,9 @@ class ApiService {
         headers: headers,
       );
       if (response.statusCode == 200) {
-        SharedPreferences _prefs = await SharedPreferences.getInstance();
+        if (prefs == null) {
+          await initializePrefs();
+        }
         Get.back();
 
         var res_data = json.decode(response.body);
@@ -77,9 +82,9 @@ class ApiService {
         userId = getUserIdFromJWT(accessToken);
         userName = userData["userName"];
         userImage = userData["userImage"];
-        _prefs.setString("accessToken", accessToken);
-        _prefs.setString("userName", userName);
-        _prefs.setString("userImage", userImage);
+        prefs?.setString("accessToken", accessToken);
+        prefs?.setString("userName", userName);
+        prefs?.setString("userImage", userImage);
 
         Get.offAll(() => MainScreen(), transition: Transition.leftToRight);
       } else {
@@ -543,10 +548,154 @@ class ApiService {
     }
   }
 
+  getCustomerTicketList() async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getCustomerTicketList);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        customSnackBar("Error!", "Something went wrong!");
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getETicket(String ticketUniqueNumber) async {
+    final uri = Uri.parse(
+        ApiPoint().baseUrl + ApiPoint().getETicket + ticketUniqueNumber);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        customSnackBar("Error!", "Something went wrong!");
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  eventCancel(
+      BuildContext context, String ticketUniqueNumber, String reason) async {
+    String data = "TicketUniqueNumber=$ticketUniqueNumber&reason=$reason";
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().eventCancel + data);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.post(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        TicketController _ticketController = Get.find();
+
+        var res = await getCustomerTicketList();
+        if (res != null && res is List) {
+          _ticketController.addTicketData(ticketModelFromJson(res));
+        }
+        Get.back();
+        customAlertDialogWithOneButton(
+            context,
+            backgroundLogo,
+            Icons.verified_user,
+            ticketCancelBookingSuccessfulString,
+            ticketCancelBookingRefundString,
+            ticketCancelBookingOKString, () {
+          Get.back();
+          Get.back();
+        });
+      } else if (response.statusCode == 401) {
+        Get.back();
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+        customSnackBar("Error!", "Something went wrong!");
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  userLogout(BuildContext context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    if (prefs == null) {
+      await initializePrefs();
+    }
+    prefs?.clear();
+    GoogleSignIn().signOut();
+    isDarkTheme.value = false;
+    Get.changeThemeMode(
+      isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
+    );
+    accessToken = '';
+    userId = '';
+    userName = '';
+    userImage = '';
+
+    Get.back();
+    Get.offAll(() => PreLoginScreen(), transition: Transition.leftToRight);
+  }
+
   tokenExpiredLogout() async {
     try {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      _prefs.clear();
+      if (prefs == null) {
+        await initializePrefs();
+      }
+      prefs?.clear();
+      GoogleSignIn().signOut();
+      isDarkTheme.value = false;
+      Get.changeThemeMode(
+        isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
+      );
+      accessToken = '';
+      userId = '';
+      userName = '';
+      userImage = '';
+
       Get.offAll(() => PreLoginScreen(), transition: Transition.leftToRight);
       customSnackBar("Alert!", "Session expired please signin again");
     } catch (e) {

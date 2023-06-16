@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -35,6 +34,7 @@ class EventDetailScreenRelatedEvent extends StatefulWidget {
 class _EventDetailScreenRelatedEventState
     extends State<EventDetailScreenRelatedEvent> {
   GoogleMapController? _controller;
+  // ignore: unused_field
   final _homeController = Get.put(HomeController());
 
   final _eventDetailController = Get.put(EventDetailController());

@@ -27,8 +27,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   bool visibleConfirmPass = true;
 
   bool rememberMe = false;
-  Color _filledColorPass = kDisabledColor.withOpacity(0.4);
-  Color _filledColorConfirmPassword = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorPass = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorConfirmPassword = kDisabledColor.withOpacity(0.4);
   Color _iconColorPass = kDisabledColor;
   Color _iconColorConfirmPassword = kDisabledColor;
 
@@ -38,12 +38,12 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     _confirmPasswordFocusNode.addListener(() {
       if (_confirmPasswordFocusNode.hasFocus) {
         setState(() {
-          _filledColorConfirmPassword = kPrimaryColor.withOpacity(0.2);
+          //     _filledColorConfirmPassword = kPrimaryColor.withOpacity(0.2);
           _iconColorConfirmPassword = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorConfirmPassword = kDisabledColor.withOpacity(0.4);
+          //    _filledColorConfirmPassword = kDisabledColor.withOpacity(0.4);
           _iconColorConfirmPassword = kDisabledColor;
         });
       }
@@ -52,13 +52,13 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     _passwordFocusNode.addListener(() {
       if (_passwordFocusNode.hasFocus) {
         setState(() {
-          _filledColorPass = kPrimaryColor.withOpacity(0.2);
+          //   _filledColorPass = kPrimaryColor.withOpacity(0.2);
 
           _iconColorPass = kPrimaryColor;
         });
       } else {
         setState(() {
-          _filledColorPass = kDisabledColor.withOpacity(0.4);
+          //    _filledColorPass = kDisabledColor.withOpacity(0.4);
           _iconColorPass = kDisabledColor;
         });
       }

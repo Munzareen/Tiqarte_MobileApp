@@ -7,7 +7,6 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AddCardScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
-import 'package:tiqarte/view/ReviewSummaryScreen.dart';
 import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 
 class ProductCheckoutPaymentScreen extends StatefulWidget {

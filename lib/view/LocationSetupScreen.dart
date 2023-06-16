@@ -9,7 +9,6 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/LoginScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 
 class LocationSetupScreen extends StatefulWidget {
@@ -23,7 +22,7 @@ class LocationSetupScreen extends StatefulWidget {
 }
 
 class _LocationSetupScreenState extends State<LocationSetupScreen> {
-  Set<Marker>? _markers;
+  Set<Marker>? markers;
 
   double? latitude;
   double? longitude;
@@ -52,7 +51,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
       draggable: true,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
-    _markers = {_marker};
+    markers = {_marker};
   }
 
   @override

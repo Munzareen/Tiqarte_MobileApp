@@ -20,4 +20,7 @@ class ApiPoint {
   String getSingleProductDetail = "getSingleProductById?ProductId=";
   String getMoreLikeProducts = "getAllProductListByCatagoryId?CatagoryId=";
   String setOrganizerFollow = "setOrganizerFollow";
+  String getCustomerTicketList = "getCustomerTicketList";
+  String getETicket = "getETicket?TicketUniqueNumber=";
+  String eventCancel = "eventCancel?";
 }

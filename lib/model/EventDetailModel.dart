@@ -11,30 +11,38 @@ class EventDetailModel {
   Event? event;
   Organizer? organizer;
   List<Customer>? customers;
+  List<EventTicketDetails>? eventTicketDetails;
 
-  EventDetailModel({
-    this.isOrganizerFollow,
-    this.event,
-    this.organizer,
-    this.customers,
-  });
+  EventDetailModel(
+      {this.isOrganizerFollow,
+      this.event,
+      this.organizer,
+      this.customers,
+      this.eventTicketDetails});
 
   factory EventDetailModel.fromJson(Map<String, dynamic> json) =>
       EventDetailModel(
-        isOrganizerFollow: json['isOrganizerFollow'],
-        event: Event.fromJson(json["Event"]),
-        organizer: json["Organizer"] != null
-            ? Organizer.fromJson(json["Organizer"])
-            : null,
-        customers: List<Customer>.from(
-            json["Customers"].map((x) => Customer.fromJson(x))),
-      );
+          isOrganizerFollow: json['isOrganizerFollow'],
+          event: Event.fromJson(json["Event"]),
+          organizer: json["Organizer"] != null
+              ? Organizer.fromJson(json["Organizer"])
+              : null,
+          customers: json["Customers"] != null
+              ? List<Customer>.from(
+                  json["Customers"].map((x) => Customer.fromJson(x)))
+              : [],
+          eventTicketDetails: json["EventTicketDetails"] != null
+              ? List<EventTicketDetails>.from(json["EventTicketDetails"]
+                  .map((x) => EventTicketDetails.fromJson(x)))
+              : []);
 
   Map<String, dynamic> toJson() => {
         "isOrganizerFollow": isOrganizerFollow,
         "Event": event?.toJson(),
         "Organizer": organizer?.toJson(),
         "Customers": List<dynamic>.from(customers!.map((x) => x.toJson())),
+        "EventTicketDetails":
+            List<dynamic>.from(eventTicketDetails!.map((x) => x.toJson())),
       };
 }
 
@@ -205,6 +213,32 @@ class Organizer {
         "Collection": collection,
         "Events": events,
       };
+}
+
+class EventTicketDetails {
+  num? id;
+  String? ticketType;
+  num? ticketPrice;
+  num? ticketCount;
+
+  EventTicketDetails(
+      {this.id, this.ticketType, this.ticketPrice, this.ticketCount});
+
+  EventTicketDetails.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    ticketType = json['TicketType'];
+    ticketPrice = json['TicketPrice'];
+    ticketCount = json['TicketCount'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['TicketType'] = this.ticketType;
+    data['TicketPrice'] = this.ticketPrice;
+    data['TicketCount'] = this.ticketCount;
+    return data;
+  }
 }
 
 

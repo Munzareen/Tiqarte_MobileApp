@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/bookEventController.dart';
 import 'package:tiqarte/controller/eventDetailController.dart';
 import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
@@ -33,9 +33,10 @@ class EventDetailScreen extends StatefulWidget {
 
 class _EventDetailScreenState extends State<EventDetailScreen> {
   GoogleMapController? _controller;
+  // ignore: unused_field
   final _homeController = Get.put(HomeController());
-
   final _eventDetailController = Get.put(EventDetailController());
+  final _bookEventController = Get.put(BookEventController());
 
   //ScrollController _scrollController = ScrollController();
 
@@ -1264,8 +1265,46 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(() => BookEventScreen(),
-                            transition: Transition.rightToLeft);
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return WillPopScope(
+                                  onWillPop: () async => false, child: spinkit);
+                            });
+                        if (_eventDetailController
+                            .eventDetailModel.eventTicketDetails!.isNotEmpty) {
+                          _eventDetailController
+                              .eventDetailModel.eventTicketDetails
+                              ?.forEach((element) {
+                            if (element.ticketType!
+                                .toUpperCase()
+                                .contains("ECO")) {
+                              _bookEventController.economyPrice =
+                                  element.ticketPrice!.toDouble();
+                              _bookEventController.baseEconomyPrice =
+                                  element.ticketPrice!.toDouble();
+                            } else if (element.ticketType!
+                                .toUpperCase()
+                                .contains("VIP")) {
+                              _bookEventController.vipPrice =
+                                  element.ticketPrice!.toDouble();
+                              _bookEventController.baseVipPrice =
+                                  element.ticketPrice!.toDouble();
+                            }
+                          });
+                          if (_bookEventController.economyPrice == null ||
+                              _bookEventController.vipPrice == null) {
+                            Get.back();
+                            customSnackBar("Error!", "Something went wrong");
+                          } else {
+                            Get.to(() => BookEventScreen(),
+                                transition: Transition.rightToLeft);
+                          }
+                        } else {
+                          Get.back();
+                          customSnackBar("Error!", "Something went wrong");
+                        }
                       },
                       child: customButton(bookEvent, kPrimaryColor),
                     )),

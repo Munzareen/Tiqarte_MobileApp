@@ -2,21 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/EditProfileScreen.dart';
 import 'package:tiqarte/view/HelpCenterScreen.dart';
 import 'package:tiqarte/view/InviteFriendScreen.dart';
 import 'package:tiqarte/view/LanguageScreen.dart';
 import 'package:tiqarte/view/LinkedAccountScreen.dart';
-import 'package:tiqarte/view/LoginScreen.dart';
 import 'package:tiqarte/view/NotificationSettingScreen.dart';
-import 'package:tiqarte/view/OtpVerificationScreen.dart';
-import 'package:tiqarte/view/PreLoginScreen.dart';
-import 'package:tiqarte/view/SecurityScreen.dart';
+
 import 'package:tiqarte/view/ViewPaymentsScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -311,9 +308,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           scale: 0.7,
                           child: CupertinoSwitch(
                             activeColor: kPrimaryColor,
-                            onChanged: (val) {
+                            onChanged: (val) async {
                               isDarkTheme.value = val;
-
+                              if (prefs == null) {
+                                await initializePrefs();
+                              }
+                              prefs?.setBool("themeMode", isDarkTheme.value);
                               Get.changeThemeMode(
                                 //ThemeMode.dark
 
@@ -321,12 +321,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ? ThemeMode.dark
                                     : ThemeMode.light,
                               );
-
-                              // setState(
-                              //   () {
-                              //     isDarkMode = value;
-                              //   },
-                              // );
                             },
                             value: isDarkTheme.value,
                           ),
@@ -486,8 +480,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       GestureDetector(
                         onTap: () {
                           Get.back();
-                          Get.offAll(() => PreLoginScreen(),
-                              transition: Transition.leftToRight);
+                          ApiService().userLogout(context);
                         },
                         child: Container(
                           height: 55,

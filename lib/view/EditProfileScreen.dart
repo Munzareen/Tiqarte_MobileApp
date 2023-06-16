@@ -35,10 +35,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _nickNameFocusNode = FocusNode();
   final _phoneFocusNode = FocusNode();
 
-  Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
-  Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
-  Color _filledColorNickName = kDisabledColor.withOpacity(0.4);
-  Color _filledColorPhone = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorNickName = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorPhone = kDisabledColor.withOpacity(0.4);
 
   Color _iconColorEmail = Colors.grey;
 
@@ -52,54 +52,54 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _fullNameFocusNode.addListener(() {
-      if (_fullNameFocusNode.hasFocus) {
-        setState(() {
-          _filledColorFullName = kPrimaryColor.withOpacity(0.2);
-        });
-      } else {
-        setState(() {
-          _filledColorFullName = kDisabledColor.withOpacity(0.4);
-        });
-      }
-    });
+    // _fullNameFocusNode.addListener(() {
+    //   if (_fullNameFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorFullName = kPrimaryColor.withOpacity(0.2);
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorFullName = kDisabledColor.withOpacity(0.4);
+    //     });
+    //   }
+    // });
 
-    _nickNameFocusNode.addListener(() {
-      if (_nickNameFocusNode.hasFocus) {
-        setState(() {
-          _filledColorNickName = kPrimaryColor.withOpacity(0.2);
-        });
-      } else {
-        setState(() {
-          _filledColorNickName = kDisabledColor.withOpacity(0.4);
-        });
-      }
-    });
-    _emailFocusNode.addListener(() {
-      if (_emailFocusNode.hasFocus) {
-        setState(() {
-          _filledColorEmail = kPrimaryColor.withOpacity(0.2);
-          _iconColorEmail = kPrimaryColor;
-        });
-      } else {
-        setState(() {
-          _filledColorEmail = kDisabledColor.withOpacity(0.4);
-          _iconColorEmail = Colors.grey;
-        });
-      }
-    });
+    // _nickNameFocusNode.addListener(() {
+    //   if (_nickNameFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorNickName = kPrimaryColor.withOpacity(0.2);
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorNickName = kDisabledColor.withOpacity(0.4);
+    //     });
+    //   }
+    // });
+    // _emailFocusNode.addListener(() {
+    //   if (_emailFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorEmail = kPrimaryColor.withOpacity(0.2);
+    //       _iconColorEmail = kPrimaryColor;
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorEmail = kDisabledColor.withOpacity(0.4);
+    //       _iconColorEmail = Colors.grey;
+    //     });
+    //   }
+    // });
 
-    _phoneFocusNode.addListener(() {
-      if (_phoneFocusNode.hasFocus) {
-        setState(() {
-          _filledColorPhone = kPrimaryColor.withOpacity(0.2);
-        });
-      } else {
-        setState(() {
-          _filledColorPhone = kDisabledColor.withOpacity(0.4);
-        });
-      }
-    });
+    // _phoneFocusNode.addListener(() {
+    //   if (_phoneFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorPhone = kPrimaryColor.withOpacity(0.2);
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorPhone = kDisabledColor.withOpacity(0.4);
+    //     });
+    //   }
+    // });
   }
 
   @override

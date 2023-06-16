@@ -11,7 +11,7 @@ class EventModel {
   int? eventTypeId;
   List<String>? postEventImages;
   List<String>? preEventImages;
-  Null? catagoryId;
+  String? catagoryId;
   int? price;
   int? organizerID;
 

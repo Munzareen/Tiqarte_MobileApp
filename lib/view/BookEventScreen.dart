@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:tiqarte/controller/bookEventController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/strings.dart';
@@ -16,6 +17,9 @@ class BookEventScreen extends StatefulWidget {
 class _BookEventScreenState extends State<BookEventScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
+
+  BookEventController _bookEventController = Get.find();
+
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -23,29 +27,23 @@ class _BookEventScreenState extends State<BookEventScreen>
     super.initState();
   }
 
-  int economySeatCount = 1;
-  int vipSeatCount = 1;
-  double baseEconomyPrice = 50.00;
-  double baseVipPrice = 100.00;
-  double economyPrice = 50.00;
-  double vipPrice = 100.00;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: kSecondBackgroundColor,
-        appBar: AppBar(
-          toolbarHeight: 0,
-          //  backgroundColor: kSecondBackgroundColor,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-        ),
-        body: Container(
-          height: 1.sh,
-          width: 1.sw,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Column(
+      // backgroundColor: kSecondBackgroundColor,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        //  backgroundColor: kSecondBackgroundColor,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
+      body: Container(
+        height: 1.sh,
+        width: 1.sw,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: GetBuilder<BookEventController>(builder: (_bec) {
+            return Column(
               children: [
                 20.verticalSpace,
                 Row(
@@ -67,7 +65,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                 20.verticalSpace,
                 TabBar(
                   onTap: (value) {
-                    setState(() {});
+                    //  setState(() {});
                   },
                   labelStyle: TextStyle(color: kPrimaryColor),
                   unselectedLabelStyle: TextStyle(color: kDisabledColor),
@@ -129,13 +127,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                             splashColor: kPrimaryColor,
                             highlightColor: kPrimaryColor,
                             onPressed: () {
-                              setState(() {
-                                if (economySeatCount > 1) {
-                                  economySeatCount--;
-                                  economyPrice =
-                                      economyPrice - baseEconomyPrice;
-                                }
-                              });
+                              _bec.subtractEconomy();
                             },
                             // color: Colors.transparent,
                             textColor: Colors.white,
@@ -153,7 +145,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
-                              economySeatCount.toString(),
+                              _bec.economySeatCount.toString(),
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold),
                             ),
@@ -165,10 +157,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                             splashColor: kPrimaryColor,
                             highlightColor: kPrimaryColor,
                             onPressed: () {
-                              setState(() {
-                                economySeatCount++;
-                                economyPrice = economyPrice + baseEconomyPrice;
-                              });
+                              _bec.addEconomy();
                             },
                             // color: Colors.transparent,
                             textColor: Colors.white,
@@ -210,12 +199,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                             splashColor: kPrimaryColor,
                             highlightColor: kPrimaryColor,
                             onPressed: () {
-                              setState(() {
-                                if (vipSeatCount > 1) {
-                                  vipSeatCount--;
-                                  vipPrice = vipPrice - baseVipPrice;
-                                }
-                              });
+                              _bec.subtractVip();
                             },
                             // color: Colors.transparent,
                             textColor: Colors.white,
@@ -233,7 +217,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
-                              vipSeatCount.toString(),
+                              _bec.vipSeatCount.toString(),
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold),
                             ),
@@ -245,10 +229,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                             splashColor: kPrimaryColor,
                             highlightColor: kPrimaryColor,
                             onPressed: () {
-                              setState(() {
-                                vipSeatCount++;
-                                vipPrice = vipPrice + baseVipPrice;
-                              });
+                              _bec.addVip();
                             },
                             // color: Colors.transparent,
                             textColor: Colors.white,
@@ -266,25 +247,28 @@ class _BookEventScreenState extends State<BookEventScreen>
                       ),
                     ],
                   )
-                ]))
+                ])),
+                Container(
+                  width: 1.sw,
+                  color: Theme.of(context).secondaryHeaderColor,
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 20.0),
+                      child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => BookEventContactInfoScreen(),
+                                transition: Transition.rightToLeft);
+                          },
+                          child: customButton(
+                              continueButton +
+                                  " - ${_bookEventController.economyPrice! + _bookEventController.vipPrice!} \$",
+                              kPrimaryColor))),
+                )
               ],
-            ),
-          ),
+            );
+          }),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-          width: 1.sw,
-          color: Theme.of(context).secondaryHeaderColor,
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              child: GestureDetector(
-                  onTap: () {
-                    Get.to(() => BookEventContactInfoScreen(),
-                        transition: Transition.rightToLeft);
-                  },
-                  child: customButton(
-                      continueButton + " - ${economyPrice + vipPrice} \$",
-                      kPrimaryColor))),
-        ));
+      ),
+    );
   }
 }

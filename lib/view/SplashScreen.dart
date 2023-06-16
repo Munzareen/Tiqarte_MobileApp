@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/view/MainScreen.dart';
@@ -24,10 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   getPrefs() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    accessToken = _prefs.getString("accessToken") ?? '';
-    userName = _prefs.getString("userName") ?? '';
-    userImage = _prefs.getString("userImage") ?? '';
+    if (prefs == null) {
+      await initializePrefs();
+    }
+
+    accessToken = prefs?.getString("accessToken") ?? '';
+    userName = prefs?.getString("userName") ?? '';
+    userImage = prefs?.getString("userImage") ?? '';
 
     if (accessToken.isNotEmpty) {
       userId = getUserIdFromJWT(accessToken);

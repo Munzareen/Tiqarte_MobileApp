@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:tiqarte/controller/bookEventController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -20,6 +21,9 @@ class BookEventContactInfoScreen extends StatefulWidget {
 
 class _BookEventContactInfoScreenState
     extends State<BookEventContactInfoScreen> {
+  // ignore: unused_field
+  BookEventController _bookEventController = Get.find();
+
   String? phoneNumber;
   bool privacyCheck = false;
 
@@ -33,10 +37,10 @@ class _BookEventContactInfoScreenState
   final _emailFocusNode = FocusNode();
   final _nickNameFocusNode = FocusNode();
 
-  Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
-  Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
-  Color _filledColorNickName = kDisabledColor.withOpacity(0.4);
-  Color _filledColorPhone = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorNickName = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorPhone = kDisabledColor.withOpacity(0.4);
 
   Color _iconColorEmail = Colors.grey;
 
@@ -50,42 +54,42 @@ class _BookEventContactInfoScreenState
   @override
   void initState() {
     super.initState();
-    _fullNameFocusNode.addListener(() {
-      if (_fullNameFocusNode.hasFocus) {
-        setState(() {
-          _filledColorFullName = kPrimaryColor.withOpacity(0.2);
-        });
-      } else {
-        setState(() {
-          _filledColorFullName = kDisabledColor.withOpacity(0.4);
-        });
-      }
-    });
+    // _fullNameFocusNode.addListener(() {
+    //   if (_fullNameFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorFullName = kPrimaryColor.withOpacity(0.2);
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorFullName = kDisabledColor.withOpacity(0.4);
+    //     });
+    //   }
+    // });
 
-    _nickNameFocusNode.addListener(() {
-      if (_nickNameFocusNode.hasFocus) {
-        setState(() {
-          _filledColorNickName = kPrimaryColor.withOpacity(0.2);
-        });
-      } else {
-        setState(() {
-          _filledColorNickName = kDisabledColor.withOpacity(0.4);
-        });
-      }
-    });
-    _emailFocusNode.addListener(() {
-      if (_emailFocusNode.hasFocus) {
-        setState(() {
-          _filledColorEmail = kPrimaryColor.withOpacity(0.2);
-          _iconColorEmail = kPrimaryColor;
-        });
-      } else {
-        setState(() {
-          _filledColorEmail = kDisabledColor.withOpacity(0.4);
-          _iconColorEmail = Colors.grey;
-        });
-      }
-    });
+    // _nickNameFocusNode.addListener(() {
+    //   if (_nickNameFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorNickName = kPrimaryColor.withOpacity(0.2);
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorNickName = kDisabledColor.withOpacity(0.4);
+    //     });
+    //   }
+    // });
+    // _emailFocusNode.addListener(() {
+    //   if (_emailFocusNode.hasFocus) {
+    //     setState(() {
+    //       _filledColorEmail = kPrimaryColor.withOpacity(0.2);
+    //       _iconColorEmail = kPrimaryColor;
+    //     });
+    //   } else {
+    //     setState(() {
+    //       _filledColorEmail = kDisabledColor.withOpacity(0.4);
+    //       _iconColorEmail = Colors.grey;
+    //     });
+    //   }
+    // });
   }
 
   @override

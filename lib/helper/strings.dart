@@ -200,6 +200,8 @@ String about = "About";
 String free = "Free";
 String economy = "Economy";
 String vip = "VIP";
+String seat = "Seat";
+
 String chooseNumberOfSeats = "Choose number of seats";
 String continueButton = "Continue";
 String contactInformation = "Contact Information";

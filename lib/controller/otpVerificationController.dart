@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 
 class OtpVerificationController extends GetxController {
-  Timer? _timer;
+  Timer? timer;
   int remainSeconds = 1;
   final time = '60'.obs;
 
@@ -16,7 +16,7 @@ class OtpVerificationController extends GetxController {
   startTimer(int seconds) {
     const duration = Duration(seconds: 1);
     remainSeconds = seconds;
-    _timer = Timer.periodic(duration, (Timer timer) {
+    timer = Timer.periodic(duration, (Timer timer) {
       if (remainSeconds == 0) {
         timer.cancel();
       } else {

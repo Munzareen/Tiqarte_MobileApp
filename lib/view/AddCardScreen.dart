@@ -21,8 +21,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
   bool _isExpiryDateEnabled = false;
   bool _isCvvEnabled = false;
 
-  TextEditingController _controller = TextEditingController();
-
   List<TextInputFormatter> _cardNumberFormatter = <TextInputFormatter>[
     FilteringTextInputFormatter.allow(numberRegExp),
     LengthLimitingTextInputFormatter(16),
@@ -40,9 +38,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
   final _cardNumberFocusNode = FocusNode();
   final _cvvFocusNode = FocusNode();
 
-  Color _filledColorCardName = kDisabledColor.withOpacity(0.4);
-  Color _filledColorCardNumber = kDisabledColor.withOpacity(0.4);
-  Color _filledColorCvv = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorCardName = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorCardNumber = kDisabledColor.withOpacity(0.4);
+  // Color _filledColorCvv = kDisabledColor.withOpacity(0.4);
 
   @override
   void initState() {
@@ -91,11 +89,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
     _cardNameFocusNode.addListener(() {
       if (_cardNameFocusNode.hasFocus) {
         setState(() {
-          _filledColorCardName = kPrimaryColor.withOpacity(0.2);
+          //  _filledColorCardName = kPrimaryColor.withOpacity(0.2);
         });
       } else {
         setState(() {
-          _filledColorCardName = kDisabledColor.withOpacity(0.4);
+          //   _filledColorCardName = kDisabledColor.withOpacity(0.4);
         });
       }
     });
@@ -103,22 +101,22 @@ class _AddCardScreenState extends State<AddCardScreen> {
     _cardNumberFocusNode.addListener(() {
       if (_cardNumberFocusNode.hasFocus) {
         setState(() {
-          _filledColorCardNumber = kPrimaryColor.withOpacity(0.2);
+          //   _filledColorCardNumber = kPrimaryColor.withOpacity(0.2);
         });
       } else {
         setState(() {
-          _filledColorCardNumber = kDisabledColor.withOpacity(0.4);
+          //   _filledColorCardNumber = kDisabledColor.withOpacity(0.4);
         });
       }
     });
     _cvvFocusNode.addListener(() {
       if (_cvvFocusNode.hasFocus) {
         setState(() {
-          _filledColorCvv = kPrimaryColor.withOpacity(0.2);
+          //   _filledColorCvv = kPrimaryColor.withOpacity(0.2);
         });
       } else {
         setState(() {
-          _filledColorCvv = kDisabledColor.withOpacity(0.4);
+          //    _filledColorCvv = kDisabledColor.withOpacity(0.4);
         });
       }
     });
