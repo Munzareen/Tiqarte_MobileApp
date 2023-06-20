@@ -23,4 +23,8 @@ class ApiPoint {
   String getCustomerTicketList = "getCustomerTicketList";
   String getETicket = "getETicket?TicketUniqueNumber=";
   String eventCancel = "eventCancel?";
+  String eventReview = "eventReview?";
+  String getAllFAQTypes = "getAllFAQTypes";
+  String getAllFAQs = "getAllFAQs";
+  String searchFAQByType = "searchFAQByType?SearchText=";
 }

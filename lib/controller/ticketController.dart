@@ -12,8 +12,11 @@ class TicketController extends GetxController {
   List<TicketModel> cancelledTicketListAll = [];
 
   bool isSearch = false;
+  double? rating;
 
   final searchController = TextEditingController();
+  final reviewControlller = TextEditingController();
+
   Color filledColorSearch = kDisabledColor.withOpacity(0.4);
   Color iconColorSearch = kDisabledColor;
   final searchFocusNode = FocusNode();

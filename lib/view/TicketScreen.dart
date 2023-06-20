@@ -831,7 +831,12 @@ class _TicketScreenState extends State<TicketScreen>
                                                           GestureDetector(
                                                             onTap: () {
                                                               reviewSheet(
-                                                                  context);
+                                                                  context,
+                                                                  _tc
+                                                                      .completedTicketList[
+                                                                          index]
+                                                                      .ticketId
+                                                                      .toString()); //here event id require
                                                             },
                                                             child: Container(
                                                               width: 0.4.sw,
@@ -1301,7 +1306,7 @@ class _TicketScreenState extends State<TicketScreen>
     );
   }
 
-  reviewSheet(BuildContext context) {
+  reviewSheet(BuildContext context, String eventId) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -1357,7 +1362,7 @@ class _TicketScreenState extends State<TicketScreen>
                       color: kPrimaryColor,
                     ),
                     onRatingUpdate: (rating) {
-                      print(rating);
+                      _ticketController.rating = rating;
                     },
                   ),
                   10.verticalSpace,
@@ -1380,7 +1385,7 @@ class _TicketScreenState extends State<TicketScreen>
                     child: TextFormField(
                       // focusNode: _otherReasonFocusNode,
                       cursorColor: kPrimaryColor,
-                      //  controller: _otherReasonController,
+                      controller: _ticketController.reviewControlller,
                       style: const TextStyle(color: Colors.black),
                       keyboardType: TextInputType.text,
                       // validator: (value) {
@@ -1439,8 +1444,21 @@ class _TicketScreenState extends State<TicketScreen>
                       ),
                       20.horizontalSpace,
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
+                        onTap: () async {
+                          if (_ticketController.rating == null) {
+                            customSnackBar(
+                                "Alert!", "Please fill the rating stars");
+                          } else if (_ticketController.reviewControlller.text
+                              .trim()
+                              .isEmpty) {
+                            customSnackBar("Alert!", "Please write a review");
+                          } else {
+                            String data =
+                                "eventID=$eventId&review=${_ticketController.reviewControlller.text.trim()}&rating=${(_ticketController.rating)?.round().toString()}";
+                            await ApiService().eventReview(context, data);
+                            _ticketController.reviewControlller.clear();
+                            _ticketController.rating = null;
+                          }
                         },
                         child: Container(
                           height: 55,
