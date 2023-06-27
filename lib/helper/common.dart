@@ -19,6 +19,7 @@ String accessToken = '';
 String userId = '';
 String userName = '';
 String userImage = '';
+String userEmail = '';
 
 SharedPreferences? prefs;
 String savedDir = '';

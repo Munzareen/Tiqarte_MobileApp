@@ -16,8 +16,12 @@ class HelpCenterController extends GetxController {
 
   addFAQTypes(List data) {
     //FAQTypeModel ff = FAQTypeModel.fromJson(data as List<String>);
-    fAQTypeList =
-        FAQTypeModel.fromJson(data as List<String>) as List<FAQTypeModel>;
+    // List<String> hcList = [];
+    // data.forEach((element) {
+    //   hcList.add(element);
+    // });
+
+    fAQTypeList = categoryModelFromJson(data);
     fAQTypeList?[0].isSelected = true;
     update();
   }
@@ -55,8 +59,9 @@ class HelpCenterController extends GetxController {
         fAQTypeList!.firstWhere((element) => element.isSelected == true);
 
     faqModelList = [...faqModelListAll!];
-    faqModelList?.removeWhere(
-        (element) => element.fAQType?.toUpperCase() != cat.name?.toUpperCase());
+    if (cat.name?.toUpperCase() != "ALL")
+      faqModelList?.removeWhere((element) =>
+          element.fAQType?.toUpperCase() != cat.name?.toUpperCase());
     final suggestion = faqModelList!.where((element) {
       final eventName = element.fAQQuestion!.toLowerCase();
       final input = query.toLowerCase();

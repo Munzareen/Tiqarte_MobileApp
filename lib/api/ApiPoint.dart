@@ -27,4 +27,7 @@ class ApiPoint {
   String getAllFAQTypes = "getAllFAQTypes";
   String getAllFAQs = "getAllFAQs";
   String searchFAQByType = "searchFAQByType?SearchText=";
+  String addToCart = "addToCart";
+  String addToCartDelete = "addToCartDelete?Id=";
+  String getAddToCartByUser = "getAddToCartByUser";
 }

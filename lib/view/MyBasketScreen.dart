@@ -15,8 +15,6 @@ class MyBasketScreen extends StatefulWidget {
 }
 
 class _MyBasketScreenState extends State<MyBasketScreen> {
-  String? selectedQuantity;
-
   List quantityList = [
     '1',
     '2',
@@ -160,64 +158,6 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                           color: kPrimaryColor),
                                     ),
                                   ],
-                                ),
-                                15.verticalSpace,
-                                Text(
-                                  quantity,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Container(
-                                  height: 48.h,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondary,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: DropdownButtonFormField(
-                                    dropdownColor:
-                                        Theme.of(context).colorScheme.secondary,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    decoration: InputDecoration(
-                                        constraints: BoxConstraints(),
-                                        isDense: true,
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide.none)),
-                                    alignment: AlignmentDirectional.centerStart,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      size: 30,
-                                      // color: Colors.black,
-                                    ),
-                                    iconEnabledColor: kDisabledColor,
-                                    hint: Text(
-                                      "Select " + quantity,
-                                      style: TextStyle(fontSize: 15.sp),
-                                    ),
-                                    value: selectedQuantity,
-                                    onChanged: (value) {
-                                      selectedQuantity = value;
-                                    },
-                                    items: quantityList //items
-                                        .map(
-                                          (item) => DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item.toString(),
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
                                 ),
                               ],
                             ),

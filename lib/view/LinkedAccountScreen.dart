@@ -16,8 +16,8 @@ class LinkedAccountScreen extends StatefulWidget {
 }
 
 class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
-  bool isGoogleEnable = false;
-  bool isFacebookEnable = true;
+  bool isGoogleEnable = true;
+  bool isFacebookEnable = false;
   bool isAppleEnable = false;
 
   @override
@@ -78,11 +78,11 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                             // thumb,
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
-                              setState(
-                                () {
-                                  isGoogleEnable = value;
-                                },
-                              );
+                              // setState(
+                              //   () {
+                              //     isGoogleEnable = value;
+                              //   },
+                              // );
                             },
                             value: isGoogleEnable,
                           ),
@@ -115,11 +115,11 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                                       // thumb,
                                       activeColor: kPrimaryColor,
                                       onChanged: (value) {
-                                        setState(
-                                          () {
-                                            isAppleEnable = value;
-                                          },
-                                        );
+                                        // setState(
+                                        //   () {
+                                        //     isAppleEnable = value;
+                                        //   },
+                                        // );
                                       },
                                       value: isAppleEnable,
                                     ),
@@ -151,11 +151,11 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                             // thumb,
                             activeColor: kPrimaryColor,
                             onChanged: (value) {
-                              setState(
-                                () {
-                                  isFacebookEnable = value;
-                                },
-                              );
+                              // setState(
+                              //   () {
+                              //     isFacebookEnable = value;
+                              //   },
+                              // );
                             },
                             value: isFacebookEnable,
                           ),

@@ -11,6 +11,7 @@ import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/MainScreen.dart';
+import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
 
 class ApiService {
@@ -42,7 +43,8 @@ class ApiService {
 
         var userData = {
           "userName": googleUser.displayName.toString(),
-          "userImage": googleUser.photoUrl
+          "userImage": googleUser.photoUrl,
+          "userEmail": googleUser.email.toString()
         };
 
         socialLogin(context, data, userData);
@@ -82,9 +84,11 @@ class ApiService {
         userId = getUserIdFromJWT(accessToken);
         userName = userData["userName"];
         userImage = userData["userImage"];
+        userEmail = userData['userEmail'];
         prefs?.setString("accessToken", accessToken);
         prefs?.setString("userName", userName);
         prefs?.setString("userImage", userImage);
+        prefs?.setString("userEmail", userEmail);
 
         Get.offAll(() => MainScreen(), transition: Transition.leftToRight);
       } else {
@@ -786,6 +790,106 @@ class ApiService {
         tokenExpiredLogout();
       } else {
         customSnackBar("Error!", "Something went wrong!");
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  addToCart(BuildContext context, dynamic data) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().addToCart);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    String jsonBody = json.encode(data);
+    try {
+      http.Response response =
+          await http.post(uri, headers: headers, body: jsonBody);
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+
+        Get.to(() => MyBasketScreen());
+      } else if (response.statusCode == 401) {
+        Get.back();
+
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+
+        customSnackBar("Error!", "Something went wrong!");
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  addToCartDelete(BuildContext context, String data) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().addToCartDelete + data);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.post(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        Get.back();
+
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+
+        return "Something went wrong!";
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
+  getAddToCartByUser() async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getAddToCartByUser);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       }
     } catch (e) {
       Get.back();

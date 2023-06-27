@@ -8,18 +8,26 @@ class ViewProductController extends GetxController {
   List<Variation> colorList = [];
   List<Variation> sizeList = [];
   List<SeeAllProductModel> moreLikeProducts = [];
-  //List<Variation> quantityList = [];
+  List<String> quantityList = [];
 
   String? selectedColor;
   String? selectedSize;
+  String? selectedQuantity;
+
   int customIndex = 0;
 
   addViewProductData(dynamic data) {
     colorList.clear();
     sizeList.clear();
-    // quantityList.clear();
+    quantityList.clear();
     viewProductModel = ViewProductModel.fromJson(data);
     if (viewProductModel.attributes!.isNotEmpty) {
+      if (viewProductModel.attributes![0].variations!.isNotEmpty) {
+        quantityList = generateQuantityList(4);
+        // viewProductModel
+        //     .attributes![0].variations![0].availableQuantity!
+        //     .toInt()
+      }
       viewProductModel.attributes?.forEach((element) {
         if (element.attributeName!.toUpperCase().contains("COLOR")) {
           colorList = element.variations!;
@@ -42,6 +50,14 @@ class ViewProductController extends GetxController {
       Get.back();
       customSnackBar("Error!", "Something went wrong!");
     }
+  }
+
+  List<String> generateQuantityList(int value) {
+    List<String> numberList = [];
+    for (int i = 1; i <= value; i++) {
+      numberList.add(i.toString());
+    }
+    return numberList;
   }
 
   addMoreLikeProductsData(List data, String productId) {

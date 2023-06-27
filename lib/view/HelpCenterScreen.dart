@@ -67,7 +67,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: GetBuilder<HelpCenterController>(builder: (_hcc) {
                     return _hcc.faqModelList != null &&
-                            _hcc.faqModelList!.isNotEmpty
+                            _hcc.faqModelListAll!.isNotEmpty
                         ? Column(children: [
                             20.verticalSpace,
                             Row(
@@ -156,6 +156,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                     children: [
                                       20.verticalSpace,
                                       Container(
+                                        width: 1.sw,
                                         height: 45,
                                         child: ListView.builder(
                                           shrinkWrap: true,
@@ -242,7 +243,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                                   customOutlineBorder,
                                               //  fillColor: filledColorSearch,
                                               filled: true,
-                                              hintText: "Search",
+                                              hintText: search,
                                               hintStyle: TextStyle(
                                                   color: Color(0xff9E9E9E),
                                                   fontSize: 14)),
@@ -254,15 +255,36 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                         ),
                                       ),
                                       20.verticalSpace,
-                                      Expanded(
-                                        child: ListView.builder(
-                                          itemCount: _hcc.faqModelList?.length,
-                                          itemBuilder: (context, index) {
-                                            return customExpandableCard(
-                                                index, _hcc);
-                                          },
-                                        ),
-                                      )
+                                      _hcc.faqModelList!.isEmpty
+                                          ? Expanded(
+                                              child: ListView(
+                                              children: [
+                                                30.verticalSpace,
+                                                Image.asset(
+                                                  notFoundImage,
+                                                  height: 250,
+                                                ),
+                                                10.verticalSpace,
+                                                Text(
+                                                  notFound,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ))
+                                          : Expanded(
+                                              child: ListView.builder(
+                                                itemCount:
+                                                    _hcc.faqModelList?.length,
+                                                itemBuilder: (context, index) {
+                                                  return customExpandableCard(
+                                                      index, _hcc);
+                                                },
+                                              ),
+                                            )
                                     ],
                                   ),
 
@@ -278,7 +300,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                       20.verticalSpace,
                                       customContainer(website, websiteIcon),
                                       20.verticalSpace,
-                                      customContainer(facebook, facebookIcon),
+                                      customContainer(facebook,
+                                          facebookIconWithPrimaryColor),
                                       20.verticalSpace,
                                       customContainer(twitter, twitterIcon),
                                       20.verticalSpace,
@@ -320,27 +343,32 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       color: Theme.of(context).secondaryHeaderColor,
-      child: ExpansionTile(
-        collapsedShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20), side: BorderSide.none),
-        tilePadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-        title: Text(
-          _hcc.faqModelList![index].fAQQuestion.toString(),
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent,
         ),
-        trailing: Icon(
-          Icons.arrow_drop_down,
-          color: kPrimaryColor,
-          size: 25,
+        child: ExpansionTile(
+          collapsedShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide.none),
+          tilePadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+          title: Text(
+            _hcc.faqModelList![index].fAQQuestion.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          trailing: Icon(
+            Icons.arrow_drop_down,
+            color: kPrimaryColor,
+            size: 25,
+          ),
+          children: [expandedCard(index, _hcc)],
         ),
-        children: [expandedCard(index, _hcc)],
       ),
     );
   }
 
   expandedCard(int index, HelpCenterController _hcc) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,

@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+// import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
@@ -24,10 +25,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File? imageFile;
   String? phoneNumber;
 
-  final _fullNameController = TextEditingController(text: "Andrew Ainsley");
+  final _fullNameController = TextEditingController();
   final _nickNameController = TextEditingController(text: "Andrew");
-  final _emailController =
-      TextEditingController(text: "andrew_ainsley@yourdomain.com");
+  final _emailController = TextEditingController();
   final _dobController = TextEditingController(text: "12/27/1995");
 
   final _fullNameFocusNode = FocusNode();
@@ -52,6 +52,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
+
+    _fullNameController.text = userName;
+    _emailController.text = userEmail;
     // _fullNameFocusNode.addListener(() {
     //   if (_fullNameFocusNode.hasFocus) {
     //     setState(() {
@@ -154,22 +157,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       alignment: Alignment.bottomRight,
                       children: [
                         imageFile == null
-                            ? Container(
-                                width: 110.h,
-                                height: 110.h,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(200.0),
-                                    border: Border.all(
-                                      color: kDisabledColor,
-                                      style: BorderStyle.solid,
-                                    ),
-                                    color: kDisabledColor.withOpacity(0.2)),
-                                child: Icon(
-                                  Icons.person,
-                                  color: kDisabledColor,
-                                  size: 100,
-                                ),
-                              )
+                            ? customProfileImage(userImage, 110.h, 110.h)
+                            //  Container(
+                            //     width: 110.h,
+                            //     height: 110.h,
+                            //     decoration: BoxDecoration(
+                            //         borderRadius: BorderRadius.circular(200.0),
+                            //         border: Border.all(
+                            //           color: kDisabledColor,
+                            //           style: BorderStyle.solid,
+                            //         ),
+                            //         color: kDisabledColor.withOpacity(0.2)),
+                            //     child: Icon(
+                            //       Icons.person,
+                            //       color: kDisabledColor,
+                            //       size: 100,
+                            //     ),
+                            //   )
                             : Container(
                                 width: 110.h,
                                 height: 110.h,
@@ -184,37 +188,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         image: FileImage(imageFile!),
                                         fit: BoxFit.cover)),
                               ),
-                        PopupMenuButton(
-                            color: Theme.of(context).colorScheme.secondary,
-                            offset: Offset(50, -5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(4.0),
-                                child: Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
-                              ),
-                            ),
-                            itemBuilder: (_) => <PopupMenuItem<String>>[
-                                  PopupMenuItem<String>(
-                                    child: Text("Camera"),
-                                    value: 'Camera',
-                                    onTap: () =>
-                                        checkCameraPermissionAndOpenCamera(),
-                                  ),
-                                  PopupMenuItem<String>(
-                                      child: Text("Gallery"),
-                                      value: 'Gallery',
-                                      onTap: () =>
-                                          //  checkGalleryPermissionAndPickImage(),
-                                          _getFromGallery())
-                                ])
+                        // PopupMenuButton(
+                        //     color: Theme.of(context).colorScheme.secondary,
+                        //     offset: Offset(50, -5),
+                        //     child: Container(
+                        //       decoration: BoxDecoration(
+                        //         color: kPrimaryColor,
+                        //         borderRadius: BorderRadius.circular(12.0),
+                        //       ),
+                        //       child: Padding(
+                        //         padding: EdgeInsets.all(4.0),
+                        //         child: Icon(
+                        //           Icons.edit,
+                        //           color: Colors.white,
+                        //           size: 25,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     itemBuilder: (_) => <PopupMenuItem<String>>[
+                        //           PopupMenuItem<String>(
+                        //             child: Text("Camera"),
+                        //             value: 'Camera',
+                        //             onTap: () =>
+                        //                 checkCameraPermissionAndOpenCamera(),
+                        //           ),
+                        //           PopupMenuItem<String>(
+                        //               child: Text("Gallery"),
+                        //               value: 'Gallery',
+                        //               onTap: () =>
+                        //                   //  checkGalleryPermissionAndPickImage(),
+                        //                   _getFromGallery())
+                        //         ])
                       ],
                     ),
                     20.verticalSpace,
@@ -224,6 +228,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           child: ListView(
                         children: [
                           TextFormField(
+                            enabled: false,
+
                             cursorColor: kPrimaryColor,
                             controller: _fullNameController,
                             keyboardType: TextInputType.text,
@@ -252,65 +258,66 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               FilteringTextInputFormatter.allow(textRegExp),
                             ],
                           ),
+                          // 20.verticalSpace,
+                          // TextFormField(
+                          //   cursorColor: kPrimaryColor,
+                          //   controller: _nickNameController,
+                          //   keyboardType: TextInputType.text,
+                          //   focusNode: _nickNameFocusNode,
+                          //   // validator: (value) {
+                          //   //   if (value!.isEmpty) {
+                          //   //     return 'Please enter your username';
+                          //   //   }
+                          //   //   return null;
+                          //   // },
+                          //   decoration: InputDecoration(
+                          //       errorBorder: customOutlineBorder,
+                          //       enabledBorder: customOutlineBorder,
+                          //       focusedBorder: OutlineInputBorder(
+                          //           borderRadius:
+                          //               BorderRadius.all(Radius.circular(12.0)),
+                          //           borderSide:
+                          //               BorderSide(color: kPrimaryColor)),
+                          //       disabledBorder: customOutlineBorder,
+                          //       // fillColor: _filledColorNickName,
+                          //       filled: true,
+                          //       hintText: nickName,
+                          //       hintStyle: TextStyle(
+                          //           color: Color(0xff9E9E9E), fontSize: 14)),
+                          //   inputFormatters: [
+                          //     FilteringTextInputFormatter.allow(textRegExp),
+                          //   ],
+                          // ),
+                          // 20.verticalSpace,
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     _selectDate(context);
+                          //   },
+                          //   child: TextFormField(
+                          //     controller: _dobController,
+                          //     enabled: false,
+                          //     cursorColor: kPrimaryColor,
+                          //     decoration: InputDecoration(
+                          //       hintText: "Date of Birth",
+                          //       hintStyle: TextStyle(
+                          //         color: Colors.grey,
+                          //       ),
+                          //       suffixIcon: Image.asset(
+                          //         calendarIcon,
+                          //         color: Colors.grey,
+                          //       ),
+                          //       errorBorder: customOutlineBorder,
+                          //       enabledBorder: customOutlineBorder,
+                          //       focusedBorder: customOutlineBorder,
+                          //       disabledBorder: customOutlineBorder,
+                          //       // fillColor: kDisabledColor.withOpacity(0.4),
+                          //       filled: true,
+                          //     ),
+                          //   ),
+                          // ),
                           20.verticalSpace,
                           TextFormField(
-                            cursorColor: kPrimaryColor,
-                            controller: _nickNameController,
-                            keyboardType: TextInputType.text,
-                            focusNode: _nickNameFocusNode,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your username';
-                            //   }
-                            //   return null;
-                            // },
-                            decoration: InputDecoration(
-                                errorBorder: customOutlineBorder,
-                                enabledBorder: customOutlineBorder,
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12.0)),
-                                    borderSide:
-                                        BorderSide(color: kPrimaryColor)),
-                                disabledBorder: customOutlineBorder,
-                                // fillColor: _filledColorNickName,
-                                filled: true,
-                                hintText: nickName,
-                                hintStyle: TextStyle(
-                                    color: Color(0xff9E9E9E), fontSize: 14)),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(textRegExp),
-                            ],
-                          ),
-                          20.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              _selectDate(context);
-                            },
-                            child: TextFormField(
-                              controller: _dobController,
-                              enabled: false,
-                              cursorColor: kPrimaryColor,
-                              decoration: InputDecoration(
-                                hintText: "Date of Birth",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
-                                suffixIcon: Image.asset(
-                                  calendarIcon,
-                                  color: Colors.grey,
-                                ),
-                                errorBorder: customOutlineBorder,
-                                enabledBorder: customOutlineBorder,
-                                focusedBorder: customOutlineBorder,
-                                disabledBorder: customOutlineBorder,
-                                // fillColor: kDisabledColor.withOpacity(0.4),
-                                filled: true,
-                              ),
-                            ),
-                          ),
-                          20.verticalSpace,
-                          TextFormField(
+                            enabled: false,
                             cursorColor: kPrimaryColor,
                             controller: _emailController,
                             keyboardType: TextInputType.text,
@@ -338,141 +345,141 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ],
                           ),
                           20.verticalSpace,
-                          IntlPhoneField(
-                            initialValue: "1467378399",
-                            focusNode: _phoneFocusNode,
-                            // controller: _phoneController,
-                            flagsButtonPadding:
-                                const EdgeInsets.symmetric(horizontal: 20),
-                            //cursorColor: Colors.black,
-                            showDropdownIcon: false,
-                            showCountryFlag: true, //showFlag
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp('[0-9]')),
-                            ],
-                            style: const TextStyle(letterSpacing: 3),
-                            keyboardType: TextInputType.number,
-                            autovalidateMode: AutovalidateMode.disabled,
-                            dropdownTextStyle: const TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 15),
-                            decoration: InputDecoration(
-                                hintText: '000 000 000',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                // fillColor: _filledColorPhone,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12.0)),
-                                    borderSide:
-                                        BorderSide(color: kPrimaryColor)),
-                                disabledBorder: customOutlineBorder,
-                                errorBorder: customOutlineBorder,
-                                border: customOutlineBorder),
-                            initialCountryCode: 'US',
-                            onChanged: (phone) {
-                              phoneNumber = phone.countryCode + phone.number;
-                            },
-                          ),
-                          20.verticalSpace,
-                          Container(
-                            height: 48.h,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: DropdownButtonFormField(
-                              dropdownColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              borderRadius: BorderRadius.circular(12.0),
-                              decoration: InputDecoration(
-                                  constraints: BoxConstraints(),
-                                  isDense: true,
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
-                              alignment: AlignmentDirectional.centerStart,
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                size: 25,
-                              ),
-                              iconEnabledColor: Colors.grey,
-                              hint: Text(
-                                gender,
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 15.sp),
-                              ),
-                              value: selectedGender,
-                              onChanged: (value) {
-                                selectedGender = value;
-                              },
-                              items: genderList //items
-                                  .map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item.toString(),
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                          20.verticalSpace,
-                          Container(
-                            height: 48.h,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: DropdownButtonFormField(
-                              dropdownColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              borderRadius: BorderRadius.circular(12.0),
-                              decoration: InputDecoration(
-                                  constraints: BoxConstraints(),
-                                  isDense: true,
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
-                              alignment: AlignmentDirectional.centerStart,
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                size: 25,
-                              ),
-                              iconEnabledColor: Colors.grey,
-                              hint: Text(
-                                location,
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 15.sp),
-                              ),
-                              value: selectedLocation,
-                              onChanged: (value) {
-                                selectedLocation = value;
-                              },
-                              items: locationList //items
-                                  .map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item.toString(),
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                          20.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: customButton(continueButton, kPrimaryColor),
-                          ),
+                          // IntlPhoneField(
+                          //   initialValue: "1467378399",
+                          //   focusNode: _phoneFocusNode,
+                          //   // controller: _phoneController,
+                          //   flagsButtonPadding:
+                          //       const EdgeInsets.symmetric(horizontal: 20),
+                          //   //cursorColor: Colors.black,
+                          //   showDropdownIcon: false,
+                          //   showCountryFlag: true, //showFlag
+                          //   inputFormatters: [
+                          //     FilteringTextInputFormatter.allow(
+                          //         RegExp('[0-9]')),
+                          //   ],
+                          //   style: const TextStyle(letterSpacing: 3),
+                          //   keyboardType: TextInputType.number,
+                          //   autovalidateMode: AutovalidateMode.disabled,
+                          //   dropdownTextStyle: const TextStyle(
+                          //       fontWeight: FontWeight.w400, fontSize: 15),
+                          //   decoration: InputDecoration(
+                          //       hintText: '000 000 000',
+                          //       hintStyle: TextStyle(color: Colors.grey),
+                          //       // fillColor: _filledColorPhone,
+                          //       filled: true,
+                          //       focusedBorder: OutlineInputBorder(
+                          //           borderRadius:
+                          //               BorderRadius.all(Radius.circular(12.0)),
+                          //           borderSide:
+                          //               BorderSide(color: kPrimaryColor)),
+                          //       disabledBorder: customOutlineBorder,
+                          //       errorBorder: customOutlineBorder,
+                          //       border: customOutlineBorder),
+                          //   initialCountryCode: 'US',
+                          //   onChanged: (phone) {
+                          //     phoneNumber = phone.countryCode + phone.number;
+                          //   },
+                          // ),
+                          // 20.verticalSpace,
+                          // Container(
+                          //   height: 48.h,
+                          //   decoration: BoxDecoration(
+                          //     color: Theme.of(context).colorScheme.onSecondary,
+                          //     borderRadius: BorderRadius.circular(12.0),
+                          //   ),
+                          //   child: DropdownButtonFormField(
+                          //     dropdownColor:
+                          //         Theme.of(context).colorScheme.secondary,
+                          //     borderRadius: BorderRadius.circular(12.0),
+                          //     decoration: InputDecoration(
+                          //         constraints: BoxConstraints(),
+                          //         isDense: true,
+                          //         border: OutlineInputBorder(
+                          //             borderSide: BorderSide.none)),
+                          //     alignment: AlignmentDirectional.centerStart,
+                          //     icon: Icon(
+                          //       Icons.arrow_drop_down,
+                          //       size: 25,
+                          //     ),
+                          //     iconEnabledColor: Colors.grey,
+                          //     hint: Text(
+                          //       gender,
+                          //       style: TextStyle(
+                          //           color: Colors.grey, fontSize: 15.sp),
+                          //     ),
+                          //     value: selectedGender,
+                          //     onChanged: (value) {
+                          //       selectedGender = value;
+                          //     },
+                          //     items: genderList //items
+                          //         .map(
+                          //           (item) => DropdownMenuItem<String>(
+                          //             value: item,
+                          //             child: Text(
+                          //               item.toString(),
+                          //               style: TextStyle(
+                          //                   fontSize: 15,
+                          //                   fontWeight: FontWeight.w300),
+                          //             ),
+                          //           ),
+                          //         )
+                          //         .toList(),
+                          //   ),
+                          // ),
+                          // 20.verticalSpace,
+                          // Container(
+                          //   height: 48.h,
+                          //   decoration: BoxDecoration(
+                          //     color: Theme.of(context).colorScheme.onSecondary,
+                          //     borderRadius: BorderRadius.circular(12.0),
+                          //   ),
+                          //   child: DropdownButtonFormField(
+                          //     dropdownColor:
+                          //         Theme.of(context).colorScheme.secondary,
+                          //     borderRadius: BorderRadius.circular(12.0),
+                          //     decoration: InputDecoration(
+                          //         constraints: BoxConstraints(),
+                          //         isDense: true,
+                          //         border: OutlineInputBorder(
+                          //             borderSide: BorderSide.none)),
+                          //     alignment: AlignmentDirectional.centerStart,
+                          //     icon: Icon(
+                          //       Icons.arrow_drop_down,
+                          //       size: 25,
+                          //     ),
+                          //     iconEnabledColor: Colors.grey,
+                          //     hint: Text(
+                          //       location,
+                          //       style: TextStyle(
+                          //           color: Colors.grey, fontSize: 15.sp),
+                          //     ),
+                          //     value: selectedLocation,
+                          //     onChanged: (value) {
+                          //       selectedLocation = value;
+                          //     },
+                          //     items: locationList //items
+                          //         .map(
+                          //           (item) => DropdownMenuItem<String>(
+                          //             value: item,
+                          //             child: Text(
+                          //               item.toString(),
+                          //               style: TextStyle(
+                          //                   fontSize: 15,
+                          //                   fontWeight: FontWeight.w300),
+                          //             ),
+                          //           ),
+                          //         )
+                          //         .toList(),
+                          //   ),
+                          // ),
+                          // 20.verticalSpace,
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Get.back();
+                          //   },
+                          //   child: customButton(continueButton, kPrimaryColor),
+                          // ),
                           20.verticalSpace,
                         ],
                       )),

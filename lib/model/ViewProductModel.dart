@@ -143,6 +143,8 @@ class Variation {
   num? attributeId;
   String? variationName;
   String? variationDescription;
+  num? availableQuantity;
+
   bool? isSelected;
 
   Variation({
@@ -151,6 +153,7 @@ class Variation {
     this.attributeId,
     this.variationName,
     this.variationDescription,
+    this.availableQuantity,
     this.isSelected,
   });
 
@@ -160,6 +163,7 @@ class Variation {
         attributeId: json["AttributeId"],
         variationName: json["VariationName"],
         variationDescription: json["VariationDescription"],
+        availableQuantity: json['AvailableQuantity'],
         isSelected: false,
       );
 
@@ -169,5 +173,6 @@ class Variation {
         "AttributeId": attributeId,
         "VariationName": variationName,
         "VariationDescription": variationDescription,
+        "AvailableQuantity": availableQuantity,
       };
 }

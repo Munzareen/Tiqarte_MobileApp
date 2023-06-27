@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/viewProductController.dart';
 import 'package:tiqarte/helper/colors.dart';
@@ -280,6 +279,63 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                               ),
                             ),
                             20.verticalSpace,
+                            Text(
+                              quantity,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            10.verticalSpace,
+                            Container(
+                              height: 48.h,
+                              decoration: BoxDecoration(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: DropdownButtonFormField(
+                                dropdownColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                borderRadius: BorderRadius.circular(12.0),
+                                decoration: InputDecoration(
+                                    constraints: BoxConstraints(),
+                                    isDense: true,
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none)),
+                                alignment: AlignmentDirectional.centerStart,
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 30,
+                                  // color: Colors.black,
+                                ),
+                                iconEnabledColor: kDisabledColor,
+                                hint: Text(
+                                  "Select " + quantity,
+                                  style: TextStyle(fontSize: 15.sp),
+                                ),
+                                value: _vpc.selectedQuantity,
+                                onChanged: (value) {
+                                  _vpc.selectedQuantity = value;
+                                },
+                                items: _vpc.quantityList //items
+                                    .map(
+                                      (item) => DropdownMenuItem<String>(
+                                        value: item.toString(),
+                                        child: Text(
+                                          item.toString(),
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                            20.verticalSpace,
                             TabBar(
                               labelStyle: TextStyle(color: kPrimaryColor),
                               unselectedLabelStyle:
@@ -495,7 +551,24 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                     ],
                                   ),
                             GestureDetector(
-                              onTap: () => Get.to(() => MyBasketScreen()),
+                              onTap: () {
+                                if (_vpc.selectedColor == null ||
+                                    _vpc.selectedSize == null ||
+                                    _vpc.selectedQuantity == null) {
+                                  customSnackBar(
+                                      "Alert", "Please select all details");
+                                } else {
+                                  var data = {
+                                    "ProductId": int.parse(
+                                        _vpc.viewProductModel.id.toString()),
+                                    "AttributeId": 1,
+                                    "VariationId": 3,
+                                    "Quantity": int.parse(
+                                        _vpc.selectedQuantity.toString())
+                                  };
+                                  ApiService().addToCart(context, data);
+                                }
+                              },
                               child: customButton(addtoBasket, kPrimaryColor),
                             ),
                             20.verticalSpace,

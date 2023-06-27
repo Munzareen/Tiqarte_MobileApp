@@ -6,6 +6,9 @@ class HomeDataModel {
   List<Event>? upComingEvents;
   List<Shop>? shop;
   //Null? eventType;
+  EventCounts? eventCounts;
+  String? inviteFriendsLink;
+
   num? userId;
 
   HomeDataModel(
@@ -16,6 +19,8 @@ class HomeDataModel {
       this.upComingEvents,
       this.shop,
       // this.eventType,
+      this.eventCounts,
+      this.inviteFriendsLink,
       this.userId});
 
   HomeDataModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +46,10 @@ class HomeDataModel {
       });
     }
     //eventType = json['EventType'];
+    eventCounts = json['EventCounts'] != null
+        ? new EventCounts.fromJson(json['EventCounts'])
+        : null;
+    inviteFriendsLink = json['InviteFriendsLink'];
     userId = json['UserId'];
   }
 
@@ -61,6 +70,10 @@ class HomeDataModel {
       data['Shop'] = this.shop!.map((v) => v.toJson()).toList();
     }
     // data['EventType'] = this.eventType;
+    if (this.eventCounts != null) {
+      data['EventCounts'] = this.eventCounts!.toJson();
+    }
+    data['InviteFriendsLink'] = this.inviteFriendsLink;
     data['UserId'] = this.userId;
     return data;
   }
@@ -230,6 +243,28 @@ class Shop {
         "Attributes": List<dynamic>.from(attributes!.map((x) => x)),
         "CreatedDate": createdDate,
       };
+}
+
+class EventCounts {
+  num? cancelled;
+  num? going;
+  num? completed;
+
+  EventCounts({this.cancelled, this.going, this.completed});
+
+  EventCounts.fromJson(Map<String, dynamic> json) {
+    cancelled = json['Cancelled'] != null ? json['Cancelled'] : 0;
+    going = json['Going'] != null ? json['Going'] : 0;
+    completed = json['Completed'] != null ? json['Completed'] : 0;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Cancelled'] = this.cancelled;
+    data['Going'] = this.going;
+    data['Completed'] = this.completed;
+    return data;
+  }
 }
 
 // class UpComingEvents {

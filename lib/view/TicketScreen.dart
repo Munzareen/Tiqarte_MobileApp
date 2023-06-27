@@ -1316,172 +1316,174 @@ class _TicketScreenState extends State<TicketScreen>
             topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
       ),
       builder: (BuildContext context) {
-        return Wrap(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  5.verticalSpace,
-                  Container(
-                    height: 5,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: kDisabledColor.withOpacity(0.6)),
+        return Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              right: 10.0,
+              left: 10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                5.verticalSpace,
+                Container(
+                  height: 5,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: kDisabledColor.withOpacity(0.6)),
+                ),
+                15.verticalSpace,
+                Text(
+                  leaveAReview,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  15.verticalSpace,
-                  Text(
-                    leaveAReview,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                Divider(),
+                10.verticalSpace,
+                Text(
+                  leaveAReviewSub,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Divider(),
-                  10.verticalSpace,
-                  Text(
-                    leaveAReviewSub,
-                    textAlign: TextAlign.center,
+                ),
+                20.verticalSpace,
+                RatingBar.builder(
+                  initialRating: 0,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: kPrimaryColor,
+                  ),
+                  onRatingUpdate: (rating) {
+                    _ticketController.rating = rating;
+                  },
+                ),
+                10.verticalSpace,
+                Divider(),
+                10.verticalSpace,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    writeYourReview,
+                    textAlign: TextAlign.start,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  20.verticalSpace,
-                  RatingBar.builder(
-                    initialRating: 0,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: kPrimaryColor,
-                    ),
-                    onRatingUpdate: (rating) {
-                      _ticketController.rating = rating;
-                    },
-                  ),
-                  10.verticalSpace,
-                  Divider(),
-                  10.verticalSpace,
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      writeYourReview,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  10.verticalSpace,
-                  Container(
-                    height: 120,
-                    child: TextFormField(
-                      // focusNode: _otherReasonFocusNode,
-                      cursorColor: kPrimaryColor,
-                      controller: _ticketController.reviewControlller,
-                      style: const TextStyle(color: Colors.black),
-                      keyboardType: TextInputType.text,
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'Please enter your username';
-                      //   }
-                      //   return null;
-                      // },
-                      textAlign: TextAlign.start,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 90.0, horizontal: 10.0),
-                          errorBorder: customOutlineBorder,
-                          enabledBorder: customOutlineBorder,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
-                              borderSide: BorderSide(color: kPrimaryColor)),
-                          disabledBorder: customOutlineBorder,
-                          //  fillColor: kDisabledColor.withOpacity(0.4),
-                          filled: true,
-                          hintText: ticketCancelBookingReasonOthersSubString,
-                          hintStyle: TextStyle(
-                              color: Color(0xff9E9E9E), fontSize: 14)),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(textRegExp),
-                      ],
-                    ),
-                  ),
-                  10.verticalSpace,
-                  Divider(),
-                  10.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 55,
-                          width: 0.4.sw,
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          decoration: BoxDecoration(
-                              color: kPrimaryColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(50.0)),
-                          child: Center(
-                            child: Text(maybeLater,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: kPrimaryColor,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
-                      20.horizontalSpace,
-                      GestureDetector(
-                        onTap: () async {
-                          if (_ticketController.rating == null) {
-                            customSnackBar(
-                                "Alert!", "Please fill the rating stars");
-                          } else if (_ticketController.reviewControlller.text
-                              .trim()
-                              .isEmpty) {
-                            customSnackBar("Alert!", "Please write a review");
-                          } else {
-                            String data =
-                                "eventID=$eventId&review=${_ticketController.reviewControlller.text.trim()}&rating=${(_ticketController.rating)?.round().toString()}";
-                            await ApiService().eventReview(context, data);
-                            _ticketController.reviewControlller.clear();
-                            _ticketController.rating = null;
-                          }
-                        },
-                        child: Container(
-                          height: 55,
-                          width: 0.4.sw,
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(50.0)),
-                          child: Center(
-                            child: Text(submit,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.white)),
-                          ),
-                        ),
-                      ),
+                ),
+                10.verticalSpace,
+                Container(
+                  height: 120,
+                  child: TextFormField(
+                    // focusNode: _otherReasonFocusNode,
+                    cursorColor: kPrimaryColor,
+                    controller: _ticketController.reviewControlller,
+                    style: const TextStyle(color: Colors.black),
+                    keyboardType: TextInputType.text,
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please enter your username';
+                    //   }
+                    //   return null;
+                    // },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 90.0, horizontal: 10.0),
+                        errorBorder: customOutlineBorder,
+                        enabledBorder: customOutlineBorder,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12.0)),
+                            borderSide: BorderSide(color: kPrimaryColor)),
+                        disabledBorder: customOutlineBorder,
+                        //  fillColor: kDisabledColor.withOpacity(0.4),
+                        filled: true,
+                        hintText: ticketCancelBookingReasonOthersSubString,
+                        hintStyle:
+                            TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(textRegExp),
                     ],
                   ),
-                  20.verticalSpace
-                ],
-              ),
+                ),
+                10.verticalSpace,
+                Divider(),
+                10.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 55,
+                        width: 0.4.sw,
+                        padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        decoration: BoxDecoration(
+                            color: kPrimaryColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(50.0)),
+                        child: Center(
+                          child: Text(maybeLater,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: kPrimaryColor,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ),
+                    20.horizontalSpace,
+                    GestureDetector(
+                      onTap: () async {
+                        if (_ticketController.rating == null) {
+                          customSnackBar(
+                              "Alert!", "Please fill the rating stars");
+                        } else if (_ticketController.reviewControlller.text
+                            .trim()
+                            .isEmpty) {
+                          customSnackBar("Alert!", "Please write a review");
+                        } else {
+                          String data =
+                              "eventID=$eventId&review=${_ticketController.reviewControlller.text.trim()}&rating=${(_ticketController.rating)?.round().toString()}";
+                          await ApiService().eventReview(context, data);
+                          _ticketController.reviewControlller.clear();
+                          _ticketController.rating = null;
+                        }
+                      },
+                      child: Container(
+                        height: 55,
+                        width: 0.4.sw,
+                        padding: EdgeInsets.symmetric(horizontal: 15.0),
+                        decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(50.0)),
+                        child: Center(
+                          child: Text(submit,
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                20.verticalSpace
+              ],
             ),
-          ],
+          ),
         );
       },
     );

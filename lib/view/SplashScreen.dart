@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     accessToken = prefs?.getString("accessToken") ?? '';
     userName = prefs?.getString("userName") ?? '';
     userImage = prefs?.getString("userImage") ?? '';
+    userEmail = prefs?.getString("userEmail") ?? '';
 
     if (accessToken.isNotEmpty) {
       userId = getUserIdFromJWT(accessToken);

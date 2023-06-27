@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -24,6 +26,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  HomeController _homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +116,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Column(
                             children: [
                               Text(
-                                "12",
+                                (int.parse((_homeController.homeDataModel
+                                                .eventCounts!.going! +
+                                            _homeController.homeDataModel
+                                                .eventCounts!.completed! +
+                                            _homeController.homeDataModel
+                                                .eventCounts!.cancelled!)
+                                        .toString()))
+                                    .toString(),
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 32,
@@ -186,14 +197,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: kDisabledColor,
                   ),
                   20.verticalSpace,
-                  customRow(calendarIcon, manageEvents),
-                  20.verticalSpace,
-                  customRow(messageCenterIcon, messageCenter),
-                  20.verticalSpace,
-                  Divider(
-                    color: kDisabledColor,
-                  ),
-                  20.verticalSpace,
+                  // customRow(calendarIcon, manageEvents),
+                  // 20.verticalSpace,
+                  // customRow(messageCenterIcon, messageCenter),
+                  // 20.verticalSpace,
+                  // Divider(
+                  //   color: kDisabledColor,
+                  // ),
+                  // 20.verticalSpace,
                   GestureDetector(
                     onTap: () {
                       Get.to(() => EditProfileScreen(),
@@ -209,14 +220,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     child: customRow(notificationIcon, notification),
                   ),
-                  20.verticalSpace,
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => ViewPaymentsScreen(),
-                          transition: Transition.rightToLeft);
-                    },
-                    child: customRow(paymentIcon, payments),
-                  ),
+                  // 20.verticalSpace,
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Get.to(() => ViewPaymentsScreen(),
+                  //         transition: Transition.rightToLeft);
+                  //   },
+                  //   child: customRow(paymentIcon, payments),
+                  // ),
                   20.verticalSpace,
                   GestureDetector(
                     onTap: () {
@@ -226,8 +237,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: customRow(linkedAccountIcon, linkedAccounts),
                   ),
                   20.verticalSpace,
-                  customRow(ticketIcon, ticketIssues),
-                  20.verticalSpace,
+                  // customRow(ticketIcon, ticketIssues),
+                  // 20.verticalSpace,
                   // GestureDetector(
                   //   onTap: () {
                   //     Get.to(() => SecurityScreen(),
@@ -340,8 +351,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   20.verticalSpace,
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => InviteFriendsScreen(),
-                          transition: Transition.rightToLeft);
+                      // Get.to(() => InviteFriendsScreen(),
+                      //     transition: Transition.rightToLeft);
+
+                      Share.share(
+                          _homeController.homeDataModel.inviteFriendsLink
+                              .toString(),
+                          subject: 'Invite Friends');
                     },
                     child: customRow(inviteFriendsIcon, inviteFriends),
                   ),

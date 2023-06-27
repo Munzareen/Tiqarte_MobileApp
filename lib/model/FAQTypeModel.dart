@@ -1,13 +1,12 @@
+List<FAQTypeModel> categoryModelFromJson(List data) =>
+    List<FAQTypeModel>.from(data.map((x) => FAQTypeModel.fromJson(x)));
+
 class FAQTypeModel {
   String? name;
   bool? isSelected;
 
   FAQTypeModel({this.name, this.isSelected});
 
-  factory FAQTypeModel.fromJson(List<String> json) {
-    return FAQTypeModel(
-      name: json[0],
-      isSelected: false,
-    );
-  }
+  factory FAQTypeModel.fromJson(String json) =>
+      FAQTypeModel(name: json, isSelected: false);
 }

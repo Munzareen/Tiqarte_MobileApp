@@ -331,6 +331,7 @@ String done = "Done";
 String shopMore = "Shop More";
 String notFound = "Not Found";
 String empty = "Empty";
+String search = "Search";
 
 String placeOrderSuccess =
     "You have successfully placed an order for Classic pullover t-shirt.!";

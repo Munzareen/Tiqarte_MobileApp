@@ -42,6 +42,8 @@ String getStartedGirl3 = "assets/images/getStartedGirl3.png";
 String backgroundLogo = "assets/images/backgroundLogo.png";
 String preLoginLogo = "assets/images/preLoginLogo.png";
 String facebookIcon = "assets/images/facebookIcon.png";
+String facebookIconWithPrimaryColor =
+    "assets/images/facebookIconWithPrimaryColor.png";
 String cardLogo = "assets/images/cardLogo.png";
 String googleIcon = "assets/images/googleIcon.png";
 String appleIcon = "assets/images/appleIcon.png";
