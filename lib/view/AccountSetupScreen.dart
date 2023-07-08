@@ -520,7 +520,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
   //     return Future.value(false);
   //   }
   //   customAlertDialog(
-  //       context, "Alert!", "Are you sure you want to exit from app?", () {
+  //       context, alert, "Are you sure you want to exit from app?", () {
   //     exitUser();
   //   });
 

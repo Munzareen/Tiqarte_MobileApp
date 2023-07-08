@@ -67,7 +67,7 @@ class _EventDetailScreenRelatedEventState
       _eventDetailController.addEventDetail(res, widget.eventId);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -119,7 +119,7 @@ class _EventDetailScreenRelatedEventState
                           _edc.eventDetailModel.event?.isFav = false;
                           _edc.update();
                         }
-                        customSnackBar("Alert!", res);
+                        customSnackBar(alert, res);
                       }
                     },
                     child: Image.asset(
@@ -446,8 +446,8 @@ class _EventDetailScreenRelatedEventState
                                                       .trim()),
                                             );
                                           } else {
-                                            customSnackBar("Error!",
-                                                "Something went wrong!");
+                                            customSnackBar(
+                                                error, somethingWentWrong);
                                             //checkLocationPermission();
                                           }
                                         },
@@ -642,7 +642,7 @@ class _EventDetailScreenRelatedEventState
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = true;
                                         _edc.update();
-                                        customSnackBar("Alert!",
+                                        customSnackBar(alert,
                                             "You are now following ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       } else if (res
                                           .toUpperCase()
@@ -650,7 +650,7 @@ class _EventDetailScreenRelatedEventState
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = false;
                                         _edc.update();
-                                        customSnackBar("Alert!",
+                                        customSnackBar(alert,
                                             "You unfollowed ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       }
                                     }
@@ -1223,8 +1223,7 @@ class _EventDetailScreenRelatedEventState
                                                                   _edc.update();
                                                                 }
                                                                 customSnackBar(
-                                                                    "Alert!",
-                                                                    res);
+                                                                    alert, res);
                                                               }
                                                             },
                                                             child: Image.asset(

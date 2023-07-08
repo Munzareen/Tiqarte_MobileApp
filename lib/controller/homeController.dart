@@ -4,6 +4,7 @@ import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/favoriteController.dart';
 import 'package:tiqarte/controller/seeAllEventController.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/HomeDataModel.dart';
 
@@ -49,7 +50,7 @@ class HomeController extends GetxController {
 
       update();
     } else if (res != null && res is String) {
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 

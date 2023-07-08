@@ -159,15 +159,13 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                         onTap: () {
                           if (_cbc.selectedValue == -1 &&
                               _cbc.otherSelectedValue == -1) {
-                            customSnackBar(
-                                "Alert", "Please Select your reason");
+                            customSnackBar(alert, "Please Select your reason");
                           } else {
                             if (_cbc.otherSelectedValue != -1 &&
                                 _cbc.otherReasonController.text
                                     .trim()
                                     .isEmpty) {
-                              customSnackBar(
-                                  "Alert", "Please enter your reason");
+                              customSnackBar(alert, "Please enter your reason");
                             } else if (_cbc.otherSelectedValue != -1 &&
                                 _cbc.otherReasonController.text
                                     .trim()

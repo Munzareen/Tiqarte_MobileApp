@@ -353,7 +353,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                               _ec.update();
                                                             }
                                                             customSnackBar(
-                                                                "Alert!", res);
+                                                                alert, res);
                                                           }
                                                         },
                                                         child: Image.asset(
@@ -438,7 +438,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       if (res != null && res is List) {
         _exploreController.addExploreListData(res);
       } else if (res != null && res is String) {
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     }
   }

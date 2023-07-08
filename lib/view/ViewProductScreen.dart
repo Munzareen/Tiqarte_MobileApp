@@ -8,6 +8,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/model/ViewProductModel.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 
@@ -44,7 +45,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
             res_more, widget.productId);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -550,27 +551,71 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                       20.verticalSpace,
                                     ],
                                   ),
-                            GestureDetector(
-                              onTap: () {
-                                if (_vpc.selectedColor == null ||
-                                    _vpc.selectedSize == null ||
-                                    _vpc.selectedQuantity == null) {
-                                  customSnackBar(
-                                      "Alert", "Please select all details");
-                                } else {
-                                  var data = {
-                                    "ProductId": int.parse(
-                                        _vpc.viewProductModel.id.toString()),
-                                    "AttributeId": 1,
-                                    "VariationId": 3,
-                                    "Quantity": int.parse(
-                                        _vpc.selectedQuantity.toString())
-                                  };
-                                  ApiService().addToCart(context, data);
-                                }
-                              },
-                              child: customButton(addtoBasket, kPrimaryColor),
-                            ),
+                            _vpc.quantityList.isEmpty
+                                ? customButton(outOfStock, Colors.red)
+                                : GestureDetector(
+                                    onTap: () {
+                                      if (_vpc.selectedColor == null ||
+                                          _vpc.selectedSize == null ||
+                                          _vpc.selectedQuantity == null) {
+                                        customSnackBar(
+                                            alert, "Please select all details");
+                                      } else {
+                                        Attribute colorAttribute = _vpc
+                                            .viewProductModel.attributes!
+                                            .firstWhere((element) => element
+                                                .attributeName!
+                                                .toUpperCase()
+                                                .contains("COLOR"));
+                                        Variation colorVariation =
+                                            colorAttribute.variations!
+                                                .firstWhere((element) => element
+                                                    .variationName!
+                                                    .toUpperCase()
+                                                    .contains(_vpc
+                                                        .selectedColor!
+                                                        .toUpperCase()));
+
+                                        Attribute sizeAttribute = _vpc
+                                            .viewProductModel.attributes!
+                                            .firstWhere((element) => element
+                                                .attributeName!
+                                                .toUpperCase()
+                                                .contains("SIZE"));
+                                        Variation sizeVariation = sizeAttribute
+                                            .variations!
+                                            .firstWhere((element) => element
+                                                .variationName!
+                                                .toUpperCase()
+                                                .contains(_vpc.selectedSize!
+                                                    .toUpperCase()));
+                                        var data = {
+                                          "ProductId": int.parse(_vpc
+                                              .viewProductModel.id
+                                              .toString()),
+                                          "Quantity": int.parse(
+                                              _vpc.selectedQuantity.toString()),
+                                          "Attributes": [
+                                            {
+                                              "AttributeId":
+                                                  colorAttribute.id?.toInt(),
+                                              "VariationId":
+                                                  colorVariation.id?.toInt()
+                                            },
+                                            {
+                                              "AttributeId":
+                                                  sizeAttribute.id?.toInt(),
+                                              "VariationId":
+                                                  sizeVariation.id?.toInt()
+                                            }
+                                          ],
+                                        };
+                                        ApiService().addToCart(context, data);
+                                      }
+                                    },
+                                    child: customButton(
+                                        addtoBasket, kPrimaryColor),
+                                  ),
                             20.verticalSpace,
                           ],
                         ),

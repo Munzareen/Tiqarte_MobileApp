@@ -40,7 +40,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
     if (res != null && res is List) {
       _seeAllEventController.addSeeAllData(res);
     } else if (res != null && res is String) {
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -65,7 +65,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
   //       if (res != null && res is List) {
   //         _seeAllEventController.addSeeAllData(res);
   //       } else {
-  //         customSnackBar("Error!", "Something went wrong!");
+  //         customSnackBar(error, somethingWentWrong);
   //       }
   //     }
   //   });
@@ -505,7 +505,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                     _sc.update();
                                                                   }
                                                                   customSnackBar(
-                                                                      "Alert!",
+                                                                      alert,
                                                                       res);
                                                                 }
                                                               },
@@ -714,7 +714,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                           _sc.update();
                                                                         }
                                                                         customSnackBar(
-                                                                            "Alert!",
+                                                                            alert,
                                                                             res);
                                                                       }
                                                                     },

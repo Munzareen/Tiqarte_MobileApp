@@ -828,49 +828,81 @@ class _TicketScreenState extends State<TicketScreen>
                                                             MainAxisAlignment
                                                                 .center,
                                                         children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              reviewSheet(
-                                                                  context,
-                                                                  _tc
-                                                                      .completedTicketList[
-                                                                          index]
-                                                                      .ticketId
-                                                                      .toString()); //here event id require
-                                                            },
-                                                            child: Container(
-                                                              width: 0.4.sw,
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
+                                                          _tc
+                                                                  .completedTicketList[
+                                                                      index]
+                                                                  .isReviewed!
+                                                              ? Container(
+                                                                  width: 0.4.sw,
+                                                                  padding: EdgeInsets.symmetric(
                                                                       horizontal:
                                                                           0.0,
                                                                       vertical:
                                                                           10.0),
-                                                              decoration: BoxDecoration(
-                                                                  border: Border.all(
-                                                                      color:
-                                                                          kPrimaryColor,
-                                                                      width: 2),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color:
+                                                                              kPrimaryColor,
+                                                                          width:
+                                                                              2),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
                                                                               20.0)),
-                                                              child: Text(
-                                                                leaveAReview,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color:
-                                                                        kPrimaryColor),
-                                                              ),
-                                                            ),
-                                                          ),
+                                                                  child: Text(
+                                                                    alreadyReviewed,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w400,
+                                                                        color:
+                                                                            kPrimaryColor),
+                                                                  ),
+                                                                )
+                                                              : GestureDetector(
+                                                                  onTap: () {
+                                                                    reviewSheet(
+                                                                        context,
+                                                                        _tc.completedTicketList[index]
+                                                                            .ticketId
+                                                                            .toString()); //here event id require
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        0.4.sw,
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            0.0,
+                                                                        vertical:
+                                                                            10.0),
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                kPrimaryColor,
+                                                                            width:
+                                                                                2),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20.0)),
+                                                                    child: Text(
+                                                                      leaveAReview,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight: FontWeight
+                                                                              .w400,
+                                                                          color:
+                                                                              kPrimaryColor),
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                           10.horizontalSpace,
                                                           GestureDetector(
                                                             onTap: () {
@@ -1449,12 +1481,11 @@ class _TicketScreenState extends State<TicketScreen>
                     GestureDetector(
                       onTap: () async {
                         if (_ticketController.rating == null) {
-                          customSnackBar(
-                              "Alert!", "Please fill the rating stars");
+                          customSnackBar(alert, "Please fill the rating stars");
                         } else if (_ticketController.reviewControlller.text
                             .trim()
                             .isEmpty) {
-                          customSnackBar("Alert!", "Please write a review");
+                          customSnackBar(alert, "Please write a review");
                         } else {
                           String data =
                               "eventID=$eventId&review=${_ticketController.reviewControlller.text.trim()}&rating=${(_ticketController.rating)?.round().toString()}";

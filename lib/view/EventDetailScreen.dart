@@ -66,7 +66,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       _eventDetailController.addEventDetail(res, widget.eventId);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -118,7 +118,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           _edc.eventDetailModel.event?.isFav = false;
                           _edc.update();
                         }
-                        customSnackBar("Alert!", res);
+                        customSnackBar(alert, res);
                       }
                     },
                     child: Image.asset(
@@ -445,8 +445,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                       .trim()),
                                             );
                                           } else {
-                                            customSnackBar("Error!",
-                                                "Something went wrong!");
+                                            customSnackBar(
+                                                error, somethingWentWrong);
                                             //checkLocationPermission();
                                           }
                                         },
@@ -641,7 +641,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = true;
                                         _edc.update();
-                                        customSnackBar("Alert!",
+                                        customSnackBar(alert,
                                             "You are now following ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       } else if (res
                                           .toUpperCase()
@@ -649,7 +649,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = false;
                                         _edc.update();
-                                        customSnackBar("Alert!",
+                                        customSnackBar(alert,
                                             "You unfollowed ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       }
                                     }
@@ -1223,8 +1223,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                   _edc.update();
                                                                 }
                                                                 customSnackBar(
-                                                                    "Alert!",
-                                                                    res);
+                                                                    alert, res);
                                                               }
                                                             },
                                                             child: Image.asset(
@@ -1296,14 +1295,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           if (_bookEventController.economyPrice == null ||
                               _bookEventController.vipPrice == null) {
                             Get.back();
-                            customSnackBar("Error!", "Something went wrong");
+                            customSnackBar(error, somethingWentWrong);
                           } else {
                             Get.to(() => BookEventScreen(),
                                 transition: Transition.rightToLeft);
                           }
                         } else {
                           Get.back();
-                          customSnackBar("Error!", "Something went wrong");
+                          customSnackBar(error, somethingWentWrong);
                         }
                       },
                       child: customButton(bookEvent, kPrimaryColor),

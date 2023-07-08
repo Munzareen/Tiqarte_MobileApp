@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -15,13 +17,27 @@ class MyBasketScreen extends StatefulWidget {
 }
 
 class _MyBasketScreenState extends State<MyBasketScreen> {
-  List quantityList = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-  ];
+  final _myBasketController = Get.put(MyBasketController());
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    var res = await ApiService().getAddToCartByUser();
+
+    if (res != null && res is List) {
+      _myBasketController.addMyBasketData(res);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,176 +49,393 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
         body: Container(
             height: 1.sh,
             width: 1.sw,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        onPressed: () => Get.back(),
-                        icon: Icon(Icons.arrow_back)),
-                    15.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          myBasket,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
+            child: GetBuilder<MyBasketController>(builder: (_mbc) {
+              return _mbc.myBasketProductsModel == null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                              onPressed: () => Get.back(),
+                              icon: Icon(Icons.arrow_back)),
+                          15.verticalSpace,
+                          Text(
+                            myBasket,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "1 " + item,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w400,
+                          30.verticalSpace,
+                          Expanded(
+                            child: Center(child: spinkit),
+                          )
+                        ],
+                      ),
+                    )
+                  : _mbc.myBasketProductsModel!.isEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                  onPressed: () => Get.back(),
+                                  icon: Icon(Icons.arrow_back)),
+                              15.verticalSpace,
+                              Text(
+                                myBasket,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              30.verticalSpace,
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        noNotificationImage,
+                                        height: 250,
+                                      ),
+                                      20.verticalSpace,
+                                      Text(
+                                        empty,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    20.verticalSpace,
-                    Expanded(
-                      child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 15.0),
-                            child: Column(
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                IconButton(
+                                    onPressed: () => Get.back(),
+                                    icon: Icon(Icons.arrow_back)),
+                                15.verticalSpace,
                                 Row(
-                                  // mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    // Container(
-                                    //   decoration: BoxDecoration(
-                                    //       borderRadius: BorderRadius.circular(22.0),
-                                    //       border:
-                                    //           Border.all(color: Colors.grey, width: 2)),
-                                    //   child: customCardImage(tshirtImage, 110.h, 120.h),
-                                    // ),
-                                    customCardImage(tshirtImage, 90.h, 120.h),
-                                    8.horizontalSpace,
-                                    SizedBox(
-                                      width: 0.4.sw,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 0.5.sw,
-                                            child: Text(
-                                              "White Last Team Standing .......",
-                                              textAlign: TextAlign.start,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          8.verticalSpace,
-                                          Text(
-                                            "Classic pullover t-shirt",
-                                            textAlign: TextAlign.start,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          8.verticalSpace,
-                                          Text(
-                                            size + ": XL",
-                                            textAlign: TextAlign.start,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          8.verticalSpace,
-                                          Text(
-                                            remove,
-                                            textAlign: TextAlign.start,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
+                                    Text(
+                                      myBasket,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      "€20.00",
+                                      "${_mbc.myBasketProductsModel!.length.toString()} " +
+                                          item,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                20.verticalSpace,
+                                Expanded(
+                                  child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        _mbc.myBasketProductsModel?.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 15.0),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            customAlertDialogWithoutLogo(
+                                                context,
+                                                alert,
+                                                "Are you sure you want to remove ${_mbc.myBasketProductsModel![index].productName.toString()}?",
+                                                "Yes",
+                                                "No", () async {
+                                              Get.back();
+                                              var res = await ApiService()
+                                                  .addToCartDelete(
+                                                      context,
+                                                      int.parse(_mbc
+                                                              .myBasketProductsModel![
+                                                                  index]
+                                                              .id
+                                                              .toString())
+                                                          .toString());
+                                              if (res != null) {
+                                                getData();
+                                              }
+                                            });
+                                          },
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                // mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  // Container(
+                                                  //   decoration: BoxDecoration(
+                                                  //       borderRadius: BorderRadius.circular(22.0),
+                                                  //       border:
+                                                  //           Border.all(color: Colors.grey, width: 2)),
+                                                  //   child: customCardImage(tshirtImage, 110.h, 120.h),
+                                                  // ),
+                                                  customCardImage(
+                                                      _mbc
+                                                          .myBasketProductsModel![
+                                                              index]
+                                                          .productURLs
+                                                          .toString(),
+                                                      90.h,
+                                                      120.h),
+                                                  8.horizontalSpace,
+                                                  SizedBox(
+                                                    width: 0.4.sw,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 0.5.sw,
+                                                          child: Text(
+                                                            _mbc
+                                                                .myBasketProductsModel![
+                                                                    index]
+                                                                .productName
+                                                                .toString(),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 2,
+                                                            style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        8.verticalSpace,
+                                                        Text(
+                                                          _mbc
+                                                              .myBasketProductsModel![
+                                                                  index]
+                                                              .description
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        8.verticalSpace,
+                                                        _mbc
+                                                                        .myBasketProductsModel![
+                                                                            index]
+                                                                        .attributes![
+                                                                            0]
+                                                                        .attributeName
+                                                                        .toString()
+                                                                        .trim() ==
+                                                                    "null" ||
+                                                                _mbc
+                                                                        .myBasketProductsModel![
+                                                                            index]
+                                                                        .attributes![
+                                                                            0]
+                                                                        .attributeName
+                                                                        .toString()
+                                                                        .trim() ==
+                                                                    ""
+                                                            ? SizedBox()
+                                                            : Text(
+                                                                "${_mbc.myBasketProductsModel![index].attributes![0].attributeName.toString()}: ${_mbc.myBasketProductsModel![index].attributes![0].variationName.toString()}",
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                        8.verticalSpace,
+                                                        _mbc
+                                                                        .myBasketProductsModel![
+                                                                            index]
+                                                                        .attributes![
+                                                                            1]
+                                                                        .attributeName
+                                                                        .toString()
+                                                                        .trim() ==
+                                                                    "null" ||
+                                                                _mbc
+                                                                        .myBasketProductsModel![
+                                                                            index]
+                                                                        .attributes![
+                                                                            1]
+                                                                        .attributeName
+                                                                        .toString()
+                                                                        .trim() ==
+                                                                    ""
+                                                            ? SizedBox()
+                                                            : Text(
+                                                                "${_mbc.myBasketProductsModel![index].attributes![1].attributeName.toString()}: ${_mbc.myBasketProductsModel![index].attributes![1].variationName.toString()}",
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                        8.verticalSpace,
+                                                        Text(
+                                                          "$quantity: ${_mbc.myBasketProductsModel![index].quantity.toString()}",
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        8.verticalSpace,
+                                                        Text(
+                                                          remove,
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    _mbc
+                                                        .myBasketProductsModel![
+                                                            index]
+                                                        .price
+                                                        .toString(),
+                                                    textAlign: TextAlign.start,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                20.verticalSpace,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      subtotal,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      _mbc.subTotalPrice.toString(),
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: kPrimaryColor),
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    20.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          subtotal,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "€20.00",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColor),
-                        ),
-                      ],
-                    ),
-                    20.verticalSpace,
-                    Text(
-                      shippingTaxesAtCheckout,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    20.verticalSpace,
-                    GestureDetector(
-                      onTap: () => Get.to(() => ProductCheckoutScreen()),
-                      child: customButton(checkout, kPrimaryColor),
-                    ),
-                    20.verticalSpace
-                  ]),
-            )));
+                                20.verticalSpace,
+                                Text(
+                                  shippingTaxesAtCheckout,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                20.verticalSpace,
+                                GestureDetector(
+                                  onTap: () =>
+                                      Get.to(() => ProductCheckoutScreen()),
+                                  child: customButton(checkout, kPrimaryColor),
+                                ),
+                                20.verticalSpace
+                              ]),
+                        );
+            })));
   }
 }

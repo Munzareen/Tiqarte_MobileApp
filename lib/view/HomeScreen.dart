@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (res != null && res is Map) {
       _homeController.addHomeData(res);
     } else if (res != null && res is String) {
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -468,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         _hc.update();
                                                                       }
                                                                       customSnackBar(
-                                                                          "Alert!",
+                                                                          alert,
                                                                           res);
                                                                     }
                                                                   },
@@ -980,7 +980,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           _hc.update();
                                                                         }
                                                                         customSnackBar(
-                                                                            "Alert!",
+                                                                            alert,
                                                                             res);
                                                                       }
                                                                     },

@@ -37,7 +37,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
       _organizerDetailController.addOrganizerDetail(res);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -271,7 +271,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     if (res.toUpperCase().contains("ADDED")) {
                                       _oc.organizerDetailModel?.isFollow = true;
                                       _oc.update();
-                                      customSnackBar("Alert!",
+                                      customSnackBar(alert,
                                           "You are now following ${_oc.organizerDetailModel!.organizer?.name.toString()}");
                                     } else if (res
                                         .toUpperCase()
@@ -279,7 +279,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                       _oc.organizerDetailModel?.isFollow =
                                           false;
                                       _oc.update();
-                                      customSnackBar("Alert!",
+                                      customSnackBar(alert,
                                           "You unfollowed ${_oc.organizerDetailModel!.organizer?.name.toString()}");
                                     }
                                   }

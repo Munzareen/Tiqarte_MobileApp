@@ -53,7 +53,7 @@ class ApiService {
       // return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -94,11 +94,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -124,7 +124,7 @@ class ApiService {
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -145,11 +145,11 @@ class ApiService {
 
         return res_data;
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -172,11 +172,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -200,11 +200,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -227,11 +227,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -263,11 +263,11 @@ class ApiService {
       } else {
         Get.back();
 
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -290,11 +290,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -317,11 +317,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -344,11 +344,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -375,11 +375,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -403,11 +403,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -431,11 +431,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -460,11 +460,11 @@ class ApiService {
       } else {
         Get.back();
 
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -488,11 +488,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -516,11 +516,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -544,11 +544,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return "Something went wrong!";
+        return somethingWentWrong;
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -572,11 +572,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -600,11 +600,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -651,11 +651,11 @@ class ApiService {
         tokenExpiredLogout();
       } else {
         Get.back();
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -705,13 +705,13 @@ class ApiService {
         Get.back();
         Get.back();
 
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
       Get.back();
 
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -734,11 +734,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -761,11 +761,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -789,11 +789,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -825,11 +825,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -852,10 +852,9 @@ class ApiService {
         headers: headers,
       );
       if (response.statusCode == 200) {
-        var res_data = json.decode(response.body);
         Get.back();
 
-        return res_data;
+        return response.statusCode;
       } else if (response.statusCode == 401) {
         Get.back();
 
@@ -863,11 +862,11 @@ class ApiService {
       } else {
         Get.back();
 
-        return "Something went wrong!";
+        customSnackBar(error, somethingWentWrong);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -893,7 +892,7 @@ class ApiService {
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -939,9 +938,9 @@ class ApiService {
       userImage = '';
 
       Get.offAll(() => PreLoginScreen(), transition: Transition.leftToRight);
-      customSnackBar("Alert!", "Session expired please signin again");
+      customSnackBar(alert, "Session expired please signin again");
     } catch (e) {
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 }

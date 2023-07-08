@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/SeeAllEventModel.dart';
 
@@ -78,7 +79,7 @@ class SeeAllEventController extends GetxController {
         if (res != null && res is List) {
           addSeeAllData(res);
         } else {
-          customSnackBar("Error!", "Something went wrong!");
+          customSnackBar(error, somethingWentWrong);
         }
       }
     });

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/SeeAllProductModel.dart';
 import 'package:tiqarte/model/ViewProductModel.dart';
 
@@ -23,10 +24,9 @@ class ViewProductController extends GetxController {
     viewProductModel = ViewProductModel.fromJson(data);
     if (viewProductModel.attributes!.isNotEmpty) {
       if (viewProductModel.attributes![0].variations!.isNotEmpty) {
-        quantityList = generateQuantityList(4);
-        // viewProductModel
-        //     .attributes![0].variations![0].availableQuantity!
-        //     .toInt()
+        quantityList = generateQuantityList(viewProductModel
+            .attributes![0].variations![0].availableQuantity!
+            .toInt());
       }
       viewProductModel.attributes?.forEach((element) {
         if (element.attributeName!.toUpperCase().contains("COLOR")) {
@@ -42,13 +42,13 @@ class ViewProductController extends GetxController {
       if (colorList.isEmpty || sizeList.isEmpty) {
         //|| quantityList.isEmpty
         Get.back();
-        customSnackBar("Error!", "Something went wrong!");
+        customSnackBar(error, somethingWentWrong);
       } else {
         update();
       }
     } else {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 

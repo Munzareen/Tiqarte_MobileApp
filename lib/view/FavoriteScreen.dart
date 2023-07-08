@@ -33,7 +33,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     if (res != null && res is List) {
       _favoriteController.addFavoriteData(res);
     } else if (res != null && res is String) {
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 
@@ -872,14 +872,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               if (res != null && res is String) {
                                 Get.back();
                                 Get.back();
-                                if (!res.contains("Something went wrong")) {
+                                if (!res.contains(somethingWentWrong)) {
                                   _favoriteController.favoriteList!
                                       .removeAt(index);
                                   _favoriteController.update();
                                   customSnackBar("Success!", res);
                                 } else {
-                                  customSnackBar(
-                                      "Error!", "Something went wrong!");
+                                  customSnackBar(error, somethingWentWrong);
                                 }
                               }
                             },

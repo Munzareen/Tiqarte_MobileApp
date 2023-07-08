@@ -34,7 +34,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
     if (res != null && res is List) {
       _seeAllProductController.addSeeAllProductData(res);
     } else if (res != null && res is String) {
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar(error, somethingWentWrong);
     }
   }
 

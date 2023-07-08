@@ -165,6 +165,8 @@ String whatEventAreYouLookingFor = "What event are you looking for...";
 String featured = "Featured";
 String fillYourProfile = "Fill Your Profile";
 String fullName = "Full Name";
+String state = "State";
+String postalCode = "Postal Code";
 String nickName = "Nickname";
 String dateOfBirth = "Date of Birth";
 String email = "Email";
@@ -302,6 +304,8 @@ String instagram = "Instagram";
 String logoutSub = "Are you sure you want to log out?";
 String yesLogout = "Yes, Logout";
 String leaveAReview = "Leave a Review";
+String alreadyReviewed = "Already Reviewed";
+
 String leaveAReviewSub =
     "How was your experience with Art & Painting Training?";
 String writeYourReview = "Write Your Review";
@@ -316,6 +320,8 @@ String description = "Description";
 String deliveryDetails = "Delivery details";
 String moreLikeThis = "More like this";
 String addtoBasket = "Add to basket";
+String outOfStock = "Out of stock";
+
 String size = "Size";
 String color = "Color";
 String myBasket = "My basket";
@@ -332,6 +338,12 @@ String shopMore = "Shop More";
 String notFound = "Not Found";
 String empty = "Empty";
 String search = "Search";
+String alert = "Alert";
+String error = "Error";
+String totalItem = "Total Item";
+String totalAmount = "Total Amount";
+
+String somethingWentWrong = "Something went wrong";
 
 String placeOrderSuccess =
     "You have successfully placed an order for Classic pullover t-shirt.!";

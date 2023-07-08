@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -17,23 +19,27 @@ class ProductCheckoutScreen extends StatefulWidget {
 }
 
 class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
-  final _emailController =
-      TextEditingController(text: "andrew_ainsley@yourdomain.com");
-  final _fullNameController = TextEditingController(text: "Andrew Ainsley");
+  final _emailController = TextEditingController();
+  final _fullNameController = TextEditingController();
 
-  final _countryController = TextEditingController(text: "Florida");
-  final _stateController = TextEditingController(text: "Miami");
-  final _postalCodeController = TextEditingController(text: "65453");
-
+  final _countryController = TextEditingController();
+  final _stateController = TextEditingController();
+  final _postalCodeController = TextEditingController();
+  String? phoneNumber;
   final _emailFocusNode = FocusNode();
+
+  MyBasketController _myBasketController = Get.find();
+  final _formKey = GlobalKey<FormState>();
 
   // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
   // Color _filledColorFullName = kDisabledColor.withOpacity(0.4);
 
   Color _iconColorEmail = Colors.grey;
-  String? phoneNumber;
+
   @override
   void initState() {
+    _fullNameController.text = userName;
+    _emailController.text = userEmail;
     _emailFocusNode.addListener(() {
       if (_emailFocusNode.hasFocus) {
         setState(() {
@@ -87,71 +93,103 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
               ),
               15.verticalSpace,
               Container(
-                padding: EdgeInsets.all(16.0),
-                color: kDisabledColor.withOpacity(0.4),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    // mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      customCardImage(tshirtImage, 90.h, 120.h),
-                      8.horizontalSpace,
-                      SizedBox(
-                        width: 0.35.sw,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "White Last Team Standing .......",
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            8.verticalSpace,
-                            Text(
-                              "Classic pullover t-shirt",
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            8.verticalSpace,
-                            Text(
-                              size + ": XL",
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "€20.00",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 20,
+                  width: 1.sw,
+                  padding: EdgeInsets.all(16.0),
+                  color: kDisabledColor.withOpacity(0.4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "$totalItem : ${_myBasketController.myBasketProductsModel!.length.toString()}",
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: kPrimaryColor),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                          ),
+                        ),
+                        Text(
+                          "$totalAmount : ${_myBasketController.subTotalPrice.toString()}",
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              // Container(
+              //   padding: EdgeInsets.all(16.0),
+              //   color: kDisabledColor.withOpacity(0.4),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              //     child: Row(
+              //       // mainAxisSize: MainAxisSize.min,
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: [
+              //         customCardImage(tshirtImage, 90.h, 120.h),
+              //         8.horizontalSpace,
+              //         SizedBox(
+              //           width: 0.35.sw,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               Text(
+              //                 "White Last Team Standing .......",
+              //                 textAlign: TextAlign.start,
+              //                 overflow: TextOverflow.ellipsis,
+              //                 maxLines: 2,
+              //                 style: TextStyle(
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.bold,
+              //                 ),
+              //               ),
+              //               8.verticalSpace,
+              //               Text(
+              //                 "Classic pullover t-shirt",
+              //                 textAlign: TextAlign.start,
+              //                 overflow: TextOverflow.ellipsis,
+              //                 maxLines: 1,
+              //                 style: TextStyle(
+              //                   color: Colors.grey,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                 ),
+              //               ),
+              //               8.verticalSpace,
+              //               Text(
+              //                 size + ": XL",
+              //                 textAlign: TextAlign.start,
+              //                 overflow: TextOverflow.ellipsis,
+              //                 maxLines: 1,
+              //                 style: TextStyle(
+              //                   color: Colors.grey,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //         Text(
+              //           "€20.00",
+              //           textAlign: TextAlign.start,
+              //           style: TextStyle(
+              //               fontSize: 20,
+              //               fontWeight: FontWeight.bold,
+              //               color: kPrimaryColor),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               15.verticalSpace,
               Padding(
                 padding: const EdgeInsets.only(left: 15),
@@ -167,6 +205,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
               15.verticalSpace,
               Expanded(
                 child: Form(
+                  key: _formKey,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: SingleChildScrollView(
@@ -176,12 +215,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                             cursorColor: kPrimaryColor,
                             controller: _fullNameController,
                             keyboardType: TextInputType.text,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your username';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter full name';
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
                                 errorBorder: customOutlineBorder,
                                 enabledBorder: customOutlineBorder,
@@ -191,6 +230,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
                                 // fillColor: _filledColorFullName,
                                 filled: true,
                                 hintText: fullName,
@@ -205,6 +245,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                             cursorColor: kPrimaryColor,
                             controller: _emailController,
                             keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter email address';
+                              }
+                              return null;
+                            },
                             focusNode: _emailFocusNode,
                             decoration: InputDecoration(
                                 suffixIcon: Image.asset(
@@ -219,6 +265,8 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+
                                 // fillColor: _filledColorEmail,
                                 filled: true,
                                 hintText: email,
@@ -233,12 +281,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                             cursorColor: kPrimaryColor,
                             controller: _countryController,
                             keyboardType: TextInputType.text,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your username';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter country';
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
                                 errorBorder: customOutlineBorder,
                                 enabledBorder: customOutlineBorder,
@@ -248,6 +296,8 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+
                                 // fillColor: _filledColorFullName,
                                 filled: true,
                                 hintText: country,
@@ -262,12 +312,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                             cursorColor: kPrimaryColor,
                             controller: _stateController,
                             keyboardType: TextInputType.text,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your username';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter state';
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
                                 errorBorder: customOutlineBorder,
                                 enabledBorder: customOutlineBorder,
@@ -277,9 +327,11 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: fullName,
+                                hintText: state,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -291,12 +343,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                             cursorColor: kPrimaryColor,
                             controller: _postalCodeController,
                             keyboardType: TextInputType.number,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your username';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter postal code';
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
                                 errorBorder: customOutlineBorder,
                                 enabledBorder: customOutlineBorder,
@@ -306,9 +358,11 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: fullName,
+                                hintText: postalCode,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -317,12 +371,16 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                           ),
                           20.verticalSpace,
                           IntlPhoneField(
-                            initialValue: "1467378399",
-                            // controller: _phoneController,
                             flagsButtonPadding:
                                 const EdgeInsets.symmetric(horizontal: 20),
                             showDropdownIcon: false,
                             showCountryFlag: true, //showFlag
+                            validator: (value) {
+                              if (value!.number.isEmpty) {
+                                return 'Please enter phone number';
+                              }
+                              return null;
+                            },
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9]')),
@@ -343,6 +401,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                     borderSide:
                                         BorderSide(color: kPrimaryColor)),
                                 disabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
                                 errorBorder: customOutlineBorder,
                                 border: customOutlineBorder),
                             initialCountryCode: 'US',
@@ -352,8 +411,12 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                           ),
                           20.verticalSpace,
                           GestureDetector(
-                            onTap: () =>
-                                Get.to(() => ProductCheckoutPaymentScreen()),
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                customSnackBar(alert, "Its under development");
+                                // Get.to(() => ProductCheckoutPaymentScreen());
+                              }
+                            },
                             child:
                                 customButton(continuetoPayment, kPrimaryColor),
                           ),

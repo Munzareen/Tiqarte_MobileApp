@@ -17,6 +17,7 @@ class TicketModel {
   String? imageURL;
   String? status;
   num? ticketCount;
+  bool? isReviewed;
 
   TicketModel(
       {this.ticketId,
@@ -27,7 +28,8 @@ class TicketModel {
       this.location,
       this.imageURL,
       this.status,
-      this.ticketCount});
+      this.ticketCount,
+      this.isReviewed});
 
   TicketModel.fromJson(Map<String, dynamic> json) {
     ticketId = json['TicketId'];
@@ -39,6 +41,7 @@ class TicketModel {
     imageURL = json['ImageURL'];
     status = json['Status'];
     ticketCount = json['TicketCount'];
+    isReviewed = json['isReviewed'];
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +56,8 @@ class TicketModel {
     data['ImageURL'] = this.imageURL;
     data['Status'] = this.status;
     data['TicketCount'] = this.ticketCount;
+    data['isReviewed'] = this.isReviewed;
+
     return data;
   }
 }
