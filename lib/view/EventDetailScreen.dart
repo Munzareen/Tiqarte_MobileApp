@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -335,33 +336,88 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         ),
                                       ),
                                       15.verticalSpace,
-                                      Container(
-                                        // width: 0.2.sh,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 15.0, vertical: 10.0),
-                                        decoration: BoxDecoration(
-                                            color: kPrimaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(20.0)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_month,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                            10.horizontalSpace,
-                                            Text(
-                                              addToMyCalender,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (_edc.eventDetailModel.event!
+                                                      .eventDate
+                                                      .toString() ==
+                                                  "null" ||
+                                              _edc.eventDetailModel.event!
+                                                      .eventDate
+                                                      .toString()
+                                                      .trim() ==
+                                                  "") {
+                                            customSnackBar(
+                                                error, somethingWentWrong);
+                                          } else {
+                                            final Event event = Event(
+                                              title: _edc
+                                                  .eventDetailModel.event!.name
+                                                  .toString(),
+                                              description: _edc.eventDetailModel
+                                                  .event!.discription
+                                                  .toString(),
+                                              location: _edc.eventDetailModel
+                                                  .event!.locationName
+                                                  .toString(),
+                                              startDate: DateTime.parse(_edc
+                                                  .eventDetailModel
+                                                  .event!
+                                                  .eventDate
+                                                  .toString()),
+                                              endDate: DateTime.parse(_edc
+                                                      .eventDetailModel
+                                                      .event!
+                                                      .eventDate
+                                                      .toString())
+                                                  .add(Duration(minutes: 120)),
+                                              allDay: false,
+                                              recurrence: Recurrence(
+                                                frequency: Frequency.weekly,
+                                                interval: 2,
+                                                ocurrences: 6,
+                                              ),
+                                              iosParams: IOSParams(
+                                                reminder: Duration(minutes: 30),
+                                                //url: "http://example.com",
+                                              ),
+                                              // androidParams: AndroidParams(
+                                              //   emailInvites: [
+                                              //     "test@example.com"
+                                              //   ],
+                                              // ),
+                                            );
+                                            Add2Calendar.addEvent2Cal(event);
+                                          }
+                                        },
+                                        child: Container(
+                                          // width: 0.2.sh,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15.0, vertical: 10.0),
+                                          decoration: BoxDecoration(
+                                              color: kPrimaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.calendar_month,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                              10.horizontalSpace,
+                                              Text(
+                                                addToMyCalender,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -1297,6 +1353,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             Get.back();
                             customSnackBar(error, somethingWentWrong);
                           } else {
+                            Get.back();
                             Get.to(() => BookEventScreen(),
                                 transition: Transition.rightToLeft);
                           }

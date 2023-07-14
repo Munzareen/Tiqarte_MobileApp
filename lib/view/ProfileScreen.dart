@@ -113,34 +113,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                (int.parse((_homeController.homeDataModel
-                                                .eventCounts!.going! +
-                                            _homeController.homeDataModel
-                                                .eventCounts!.completed! +
-                                            _homeController.homeDataModel
-                                                .eventCounts!.cancelled!)
-                                        .toString()))
-                                    .toString(),
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              5.verticalSpace,
-                              Text(
-                                events,
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey),
-                              ),
-                            ],
-                          ),
+                          child:
+                              _homeController.homeDataModel.eventCounts == null
+                                  ? SizedBox()
+                                  : Column(
+                                      children: [
+                                        Text(
+                                          (int.parse((_homeController
+                                                          .homeDataModel
+                                                          .eventCounts!
+                                                          .going! +
+                                                      _homeController
+                                                          .homeDataModel
+                                                          .eventCounts!
+                                                          .completed! +
+                                                      _homeController
+                                                          .homeDataModel
+                                                          .eventCounts!
+                                                          .cancelled!)
+                                                  .toString()))
+                                              .toString(),
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        5.verticalSpace,
+                                        Text(
+                                          events,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
                         ),
 
                         // Column(

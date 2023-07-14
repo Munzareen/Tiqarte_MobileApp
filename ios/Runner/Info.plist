@@ -48,6 +48,15 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 
+	<!-- for add2Calender -->
+
+	<key>NSCalendarsUsageDescription</key>
+<string>In order to add event app needs calender access</string>
+<key>NSContactsUsageDescription</key>
+<string>In order to add event app needs contact access</string>
+	<!-- for add2Calender -->
+
+
 	<!--for light / dark mode-->
 	<key>UIUserInterfaceStyle</key>
 <string>Light</string>

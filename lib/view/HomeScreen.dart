@@ -7,11 +7,13 @@ import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/NavigationBarController.dart';
 import 'package:tiqarte/controller/homeController.dart';
+import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
+import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
 import 'package:tiqarte/view/SeeAllProductsScreen.dart';
@@ -26,12 +28,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _homeController = Get.put(HomeController());
+  final _myBasketController = Get.put(MyBasketController());
+
   final nbc = Get.put(NavigationBarController());
 
   @override
   void initState() {
     super.initState();
     getData();
+    getCartProducts();
+  }
+
+  getCartProducts() async {
+    var res = await ApiService().getAddToCartByUser();
+
+    if (res != null && res is List) {
+      _myBasketController.addMyBasketData(res);
+    }
   }
 
   @override
@@ -1019,13 +1032,77 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  shop,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      shop,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    5.horizontalSpace,
+                                                    GetBuilder<
+                                                            MyBasketController>(
+                                                        builder: (_mbc) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          Get.to(() =>
+                                                              MyBasketScreen());
+                                                        },
+                                                        child: Stack(
+                                                          clipBehavior:
+                                                              Clip.none,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .shopping_cart,
+                                                              size: 35,
+                                                            ),
+                                                            _mbc.myBasketProductsModel ==
+                                                                        null ||
+                                                                    _mbc.myBasketProductsModel!
+                                                                        .isEmpty
+                                                                ? SizedBox()
+                                                                : Positioned(
+                                                                    top: -15,
+                                                                    right: -5,
+                                                                    child:
+                                                                        Container(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          vertical:
+                                                                              3.0,
+                                                                          horizontal:
+                                                                              8),
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
+                                                                              6.0),
+                                                                          color:
+                                                                              Colors.red),
+                                                                      child:
+                                                                          Text(
+                                                                        _mbc.myBasketProductsModel!
+                                                                            .length
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.white),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ],
                                                 ),
                                                 _hc.shopList!.length > 12
                                                     ? GestureDetector(
@@ -1159,13 +1236,77 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  shop,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      shop,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    5.horizontalSpace,
+                                                    GetBuilder<
+                                                            MyBasketController>(
+                                                        builder: (_mbc) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          Get.to(() =>
+                                                              MyBasketScreen());
+                                                        },
+                                                        child: Stack(
+                                                          clipBehavior:
+                                                              Clip.none,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .shopping_cart,
+                                                              size: 35,
+                                                            ),
+                                                            _mbc.myBasketProductsModel ==
+                                                                        null ||
+                                                                    _mbc.myBasketProductsModel!
+                                                                        .isEmpty
+                                                                ? SizedBox()
+                                                                : Positioned(
+                                                                    top: -15,
+                                                                    right: -5,
+                                                                    child:
+                                                                        Container(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          vertical:
+                                                                              3.0,
+                                                                          horizontal:
+                                                                              8),
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
+                                                                              6.0),
+                                                                          color:
+                                                                              Colors.red),
+                                                                      child:
+                                                                          Text(
+                                                                        _mbc.myBasketProductsModel!
+                                                                            .length
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.white),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ],
                                                 ),
                                                 _hc.shopList!.length > 12
                                                     ? GestureDetector(

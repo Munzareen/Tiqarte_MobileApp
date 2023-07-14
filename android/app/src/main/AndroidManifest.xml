@@ -9,6 +9,8 @@
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+<uses-permission android:name="android.permission.READ_CALENDAR" />
 
    <application
         android:label="Tiqarte"
@@ -43,7 +45,15 @@
             <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDmCq_fm1CWaVH_AGqDH6VMMAQ6RMrTdXI"/>
 
-             
     </application>
+
+        <!-- for Add2Calender -->
+               <queries>
+  <intent>
+    <action android:name="android.intent.action.INSERT" />
+    <data android:mimeType="vnd.android.cursor.item/event" />
+  </intent>
+</queries>
+               <!-- for Add2Calender -->
     
 </manifest>

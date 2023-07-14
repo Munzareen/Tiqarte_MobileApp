@@ -17,11 +17,13 @@ class MyBasketScreen extends StatefulWidget {
 }
 
 class _MyBasketScreenState extends State<MyBasketScreen> {
-  final _myBasketController = Get.put(MyBasketController());
+  MyBasketController _myBasketController = Get.find();
 
   @override
   void initState() {
     super.initState();
+    _myBasketController.myBasketProductsModel = null;
+
     getData();
   }
 
@@ -162,199 +164,194 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(bottom: 15.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            customAlertDialogWithoutLogo(
-                                                context,
-                                                alert,
-                                                "Are you sure you want to remove ${_mbc.myBasketProductsModel![index].productName.toString()}?",
-                                                "Yes",
-                                                "No", () async {
-                                              Get.back();
-                                              var res = await ApiService()
-                                                  .addToCartDelete(
-                                                      context,
-                                                      int.parse(_mbc
-                                                              .myBasketProductsModel![
-                                                                  index]
-                                                              .id
-                                                              .toString())
-                                                          .toString());
-                                              if (res != null) {
-                                                getData();
-                                              }
-                                            });
-                                          },
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                // mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  // Container(
-                                                  //   decoration: BoxDecoration(
-                                                  //       borderRadius: BorderRadius.circular(22.0),
-                                                  //       border:
-                                                  //           Border.all(color: Colors.grey, width: 2)),
-                                                  //   child: customCardImage(tshirtImage, 110.h, 120.h),
-                                                  // ),
-                                                  customCardImage(
-                                                      _mbc
-                                                          .myBasketProductsModel![
-                                                              index]
-                                                          .productURLs
-                                                          .toString(),
-                                                      90.h,
-                                                      120.h),
-                                                  8.horizontalSpace,
-                                                  SizedBox(
-                                                    width: 0.4.sw,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 0.5.sw,
-                                                          child: Text(
-                                                            _mbc
-                                                                .myBasketProductsModel![
-                                                                    index]
-                                                                .productName
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 2,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        8.verticalSpace,
-                                                        Text(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              // mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                // Container(
+                                                //   decoration: BoxDecoration(
+                                                //       borderRadius: BorderRadius.circular(22.0),
+                                                //       border:
+                                                //           Border.all(color: Colors.grey, width: 2)),
+                                                //   child: customCardImage(tshirtImage, 110.h, 120.h),
+                                                // ),
+                                                customCardImage(
+                                                    _mbc
+                                                        .myBasketProductsModel![
+                                                            index]
+                                                        .productURLs
+                                                        .toString(),
+                                                    90.h,
+                                                    120.h),
+                                                8.horizontalSpace,
+                                                SizedBox(
+                                                  width: 0.4.sw,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 0.5.sw,
+                                                        child: Text(
                                                           _mbc
                                                               .myBasketProductsModel![
                                                                   index]
-                                                              .description
+                                                              .productName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.start,
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          maxLines: 1,
+                                                          maxLines: 2,
                                                           style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 15,
+                                                            fontSize: 18,
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
-                                                        8.verticalSpace,
+                                                      ),
+                                                      8.verticalSpace,
+                                                      Text(
                                                         _mbc
-                                                                        .myBasketProductsModel![
-                                                                            index]
-                                                                        .attributes![
-                                                                            0]
-                                                                        .attributeName
-                                                                        .toString()
-                                                                        .trim() ==
-                                                                    "null" ||
-                                                                _mbc
-                                                                        .myBasketProductsModel![
-                                                                            index]
-                                                                        .attributes![
-                                                                            0]
-                                                                        .attributeName
-                                                                        .toString()
-                                                                        .trim() ==
-                                                                    ""
-                                                            ? SizedBox()
-                                                            : Text(
-                                                                "${_mbc.myBasketProductsModel![index].attributes![0].attributeName.toString()}: ${_mbc.myBasketProductsModel![index].attributes![0].variationName.toString()}",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                        8.verticalSpace,
-                                                        _mbc
-                                                                        .myBasketProductsModel![
-                                                                            index]
-                                                                        .attributes![
-                                                                            1]
-                                                                        .attributeName
-                                                                        .toString()
-                                                                        .trim() ==
-                                                                    "null" ||
-                                                                _mbc
-                                                                        .myBasketProductsModel![
-                                                                            index]
-                                                                        .attributes![
-                                                                            1]
-                                                                        .attributeName
-                                                                        .toString()
-                                                                        .trim() ==
-                                                                    ""
-                                                            ? SizedBox()
-                                                            : Text(
-                                                                "${_mbc.myBasketProductsModel![index].attributes![1].attributeName.toString()}: ${_mbc.myBasketProductsModel![index].attributes![1].variationName.toString()}",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                        8.verticalSpace,
-                                                        Text(
-                                                          "$quantity: ${_mbc.myBasketProductsModel![index].quantity.toString()}",
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
+                                                            .myBasketProductsModel![
+                                                                index]
+                                                            .description
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w400,
                                                         ),
-                                                        8.verticalSpace,
-                                                        Text(
+                                                      ),
+                                                      8.verticalSpace,
+                                                      _mbc
+                                                                      .myBasketProductsModel![
+                                                                          index]
+                                                                      .attributes![
+                                                                          0]
+                                                                      .attributeName
+                                                                      .toString()
+                                                                      .trim() ==
+                                                                  "null" ||
+                                                              _mbc
+                                                                      .myBasketProductsModel![
+                                                                          index]
+                                                                      .attributes![
+                                                                          0]
+                                                                      .attributeName
+                                                                      .toString()
+                                                                      .trim() ==
+                                                                  ""
+                                                          ? SizedBox()
+                                                          : Text(
+                                                              "${_mbc.myBasketProductsModel![index].attributes![0].attributeName.toString()}: ${_mbc.myBasketProductsModel![index].attributes![0].variationName.toString()}",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                      8.verticalSpace,
+                                                      _mbc
+                                                                      .myBasketProductsModel![
+                                                                          index]
+                                                                      .attributes![
+                                                                          1]
+                                                                      .attributeName
+                                                                      .toString()
+                                                                      .trim() ==
+                                                                  "null" ||
+                                                              _mbc
+                                                                      .myBasketProductsModel![
+                                                                          index]
+                                                                      .attributes![
+                                                                          1]
+                                                                      .attributeName
+                                                                      .toString()
+                                                                      .trim() ==
+                                                                  ""
+                                                          ? SizedBox()
+                                                          : Text(
+                                                              "${_mbc.myBasketProductsModel![index].attributes![1].attributeName.toString()}: ${_mbc.myBasketProductsModel![index].attributes![1].variationName.toString()}",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                      8.verticalSpace,
+                                                      Text(
+                                                        "$quantity: ${_mbc.myBasketProductsModel![index].quantity.toString()}",
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      8.verticalSpace,
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          customAlertDialogWithoutLogo(
+                                                              context,
+                                                              alert,
+                                                              "Are you sure you want to remove ${_mbc.myBasketProductsModel![index].productName.toString()}?",
+                                                              "Yes",
+                                                              "No", () async {
+                                                            Get.back();
+                                                            var res = await ApiService().addToCartDelete(
+                                                                context,
+                                                                int.parse(_mbc
+                                                                        .myBasketProductsModel![
+                                                                            index]
+                                                                        .id
+                                                                        .toString())
+                                                                    .toString());
+                                                            if (res != null) {
+                                                              getData();
+                                                            }
+                                                          });
+                                                        },
+                                                        child: Text(
                                                           remove,
                                                           textAlign:
                                                               TextAlign.start,
@@ -370,26 +367,26 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                                                 FontWeight.w400,
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    _mbc
-                                                        .myBasketProductsModel![
-                                                            index]
-                                                        .price
-                                                        .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: kPrimaryColor),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                ),
+                                                Text(
+                                                  _mbc
+                                                      .myBasketProductsModel![
+                                                          index]
+                                                      .price
+                                                      .toString(),
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: kPrimaryColor),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       );
                                     },
