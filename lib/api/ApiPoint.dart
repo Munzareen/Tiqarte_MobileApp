@@ -3,6 +3,11 @@ class ApiPoint {
   String baseUrl = "https://tiqarte.azurewebsites.net/api/";
 
 //END POINT
+  String register = "customer/register";
+  String verifyOtp = "customer/VerifyEmailOTP?otp=";
+  String updateProfile = "customer/uploadProfilePicture";
+  String login = "customer/login";
+  String changePassword = "customer/ChangePassword";
   String socialLogin = "user/login_social?";
   String getHomeData = "getHomeData";
   String GetEvents = "GetEvents";

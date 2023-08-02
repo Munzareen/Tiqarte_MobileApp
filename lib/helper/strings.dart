@@ -342,6 +342,9 @@ String alert = "Alert";
 String error = "Error";
 String totalItem = "Total Item";
 String totalAmount = "Total Amount";
+String pleaseEnterPassword = "Please enter password";
+String pleaseEnterEmail = "Please enter email";
+String pleaseEnterValidEmail = "Please enter a valid email";
 
 String somethingWentWrong = "Something went wrong";
 

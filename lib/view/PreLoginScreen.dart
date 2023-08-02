@@ -5,8 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/view/CreateAccountScreen.dart';
+import 'package:tiqarte/view/LoginScreen.dart';
 
 class PreLoginScreen extends StatefulWidget {
   const PreLoginScreen({super.key});
@@ -144,59 +147,59 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                       ],
                     )
                   : SizedBox(),
-              // 30.verticalSpace,
-              // Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              //     child: Row(children: <Widget>[
-              //       Expanded(child: Divider()),
-              //       10.horizontalSpace,
-              //       Text(
-              //         preLoginOrString,
-              //         textAlign: TextAlign.center,
-              //         style: TextStyle(
-              //             fontSize: 16,
-              //             fontWeight: FontWeight.bold,
-              //             color: Color(0xff616161)),
-              //       ),
-              //       10.horizontalSpace,
-              //       Expanded(child: Divider()),
-              //     ])),
-              // 30.verticalSpace,
-              // GestureDetector(
-              //   onTap: () {
-              //     Get.to(() => LoginScreen(),
-              //         transition: Transition.rightToLeft);
-              //   },
-              //   child: customButton(preLoginButtonString, kPrimaryColor),
-              // ),
-              // 30.verticalSpace,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Text(
-              //       preLoginDontHaveAccountString,
-              //       textAlign: TextAlign.center,
-              //       style: TextStyle(
-              //           fontSize: 16,
-              //           fontWeight: FontWeight.w300,
-              //           color: Color(0xff9E9E9E)),
-              //     ),
-              //     5.horizontalSpace,
-              //     TextButton(
-              //       child: Text(preLoginSignUpString,
-              //           textAlign: TextAlign.center,
-              //           style: TextStyle(
-              //               fontSize: 14,
-              //               fontWeight: FontWeight.w600,
-              //               color: kPrimaryColor)),
-              //       onPressed: () {
-              //         Get.to(() => CreateAccountScreen(),
-              //             transition: Transition.rightToLeft);
-              //       },
-              //     ),
-              //   ],
-              // ),
-              // 30.verticalSpace,
+              30.verticalSpace,
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(children: <Widget>[
+                    Expanded(child: Divider()),
+                    10.horizontalSpace,
+                    Text(
+                      preLoginOrString,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff616161)),
+                    ),
+                    10.horizontalSpace,
+                    Expanded(child: Divider()),
+                  ])),
+              30.verticalSpace,
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => LoginScreen(),
+                      transition: Transition.rightToLeft);
+                },
+                child: customButton(preLoginButtonString, kPrimaryColor),
+              ),
+              30.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    preLoginDontHaveAccountString,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xff9E9E9E)),
+                  ),
+                  5.horizontalSpace,
+                  TextButton(
+                    child: Text(preLoginSignUpString,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: kPrimaryColor)),
+                    onPressed: () {
+                      Get.to(() => CreateAccountScreen(),
+                          transition: Transition.rightToLeft);
+                    },
+                  ),
+                ],
+              ),
+              30.verticalSpace,
             ],
           ),
         ),

@@ -1,20 +1,205 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:tiqarte/api/ApiPoint.dart';
 import 'package:tiqarte/controller/ticketController.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/TicketModel.dart';
+import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
+import 'package:tiqarte/view/OtpVerificationScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
 
 class ApiService {
+  // register(
+  //     BuildContext context, Map<String, String> data ) async {
+  //   final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().register);
+
+  //   showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context) {
+  //         return WillPopScope(onWillPop: () async => false, child: spinkit);
+  //       });
+  //   final headers = {
+  //     'Content-Type': 'application/json',
+  //   };
+
+  //   try {
+  //     var request = http.MultipartRequest('POST', uri);
+
+  //     request.fields.addAll(data);
+  //     request.headers.addAll(headers);
+
+  //     //String jsonBody = json.encode(request.fields);
+
+  //     var response = await request.send();
+
+  //     final res = await http.Response.fromStream(response);
+
+  //     if (res.statusCode == 200) {
+
+  //               Get.back();
+
+  //         Get.offAll(() => OtpVerificationScreen(),
+  //           transition: Transition.rightToLeft);
+  //     } else{
+  //       Get.back();
+  //     customSnackBar(error, somethingWentWrong);
+  //     }
+  //   } catch (e) {
+  //     Get.back();
+  //     customSnackBar(error, somethingWentWrong);
+  //   }
+  // }
+  register(BuildContext context, dynamic data) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().register);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    final headers = {
+      'Content-Type': 'application/form-data',
+    };
+    try {
+      String jsonBody = json.encode(data);
+
+      http.Response response =
+          await http.post(uri, headers: headers, body: jsonBody);
+      if (response.statusCode == 200) {
+        Get.back();
+
+        var res_data = json.decode(response.body);
+
+        Get.offAll(() => OtpVerificationScreen(),
+            transition: Transition.rightToLeft);
+      } else {
+        Get.back();
+
+        customSnackBar(error, somethingWentWrong);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar(error, somethingWentWrong);
+    }
+  }
+
+  verifyOtp(BuildContext context, String otp) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().verifyOtp + otp);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        Get.offAll(() => AccountSetupScreen(),
+            transition: Transition.rightToLeft);
+      } else {
+        Get.back();
+
+        customSnackBar(error, somethingWentWrong);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar(error, somethingWentWrong);
+    }
+  }
+
+  login(BuildContext context, dynamic data) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().login);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    final headers = {
+      'Content-Type': 'application/json',
+    };
+    try {
+      String jsonBody = json.encode(data);
+
+      http.Response response =
+          await http.post(uri, headers: headers, body: jsonBody);
+      if (response.statusCode == 200) {
+        Get.back();
+
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else {
+        Get.back();
+
+        customSnackBar(error, somethingWentWrong);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar(error, somethingWentWrong);
+    }
+  }
+
+  updateProfile(
+      BuildContext context, Map<String, String> data, File imageFile) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().updateProfile);
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', uri);
+
+      request.fields.addAll(data);
+      request.headers.addAll(headers);
+
+      var multipartFile = await http.MultipartFile.fromPath(
+          'imageUrl', imageFile.path,
+          filename: imageFile.path.split('/').last,
+          contentType: MediaType("image", "jpg"));
+      request.files.add(multipartFile);
+
+      //String jsonBody = json.encode(request.fields);
+
+      var response = await request.send();
+
+      final res = await http.Response.fromStream(response);
+      var res_data = json.decode(res.body.toString());
+
+      if (res.statusCode == 200) {
+      } else if (!res_data['status']) {
+        Get.back();
+        customSnackBar("Error!", res_data['message']);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar("Error!", "Something went wrong!");
+    }
+  }
+
   googleSignIn(BuildContext context) async {
     showDialog(
         context: context,

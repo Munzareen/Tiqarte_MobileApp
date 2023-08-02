@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -17,7 +18,7 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
-  // final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -114,88 +115,95 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                   40.verticalSpace,
                   Form(
-                      //     key: _formKey,
+                      key: _formKey,
                       child: Column(
-                    children: [
-                      TextFormField(
-                        cursorColor: kPrimaryColor,
-                        controller: _emailController,
-                        keyboardType: TextInputType.text,
-                        focusNode: _emailFocusNode,
-                        decoration: InputDecoration(
-                            prefixIcon: Image.asset(
-                              emailIcon,
-                              color: _iconColorEmail,
-                            ),
-                            errorBorder: customOutlineBorder,
-                            enabledBorder: customOutlineBorder,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0)),
-                                borderSide: BorderSide(color: kPrimaryColor)),
-                            disabledBorder: customOutlineBorder,
-                            //   fillColor: _filledColorEmail,
-                            filled: true,
-                            hintText: createAccountEmailString,
-                            hintStyle: TextStyle(
-                                color: Color(0xff9E9E9E), fontSize: 14)),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(textRegExp),
+                        children: [
+                          TextFormField(
+                            cursorColor: kPrimaryColor,
+                            controller: _emailController,
+                            keyboardType: TextInputType.text,
+                            focusNode: _emailFocusNode,
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return pleaseEnterEmail;
+                              } else if (!value.contains(RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                                return pleaseEnterValidEmail;
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: Image.asset(
+                                  emailIcon,
+                                  color: _iconColorEmail,
+                                ),
+                                errorBorder: customOutlineBorder,
+                                enabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12.0)),
+                                    borderSide:
+                                        BorderSide(color: kPrimaryColor)),
+                                disabledBorder: customOutlineBorder,
+                                //   fillColor: _filledColorEmail,
+                                filled: true,
+                                hintText: createAccountEmailString,
+                                hintStyle: TextStyle(
+                                    color: Color(0xff9E9E9E), fontSize: 14)),
+                          ),
+                          20.verticalSpace,
+                          TextFormField(
+                            cursorColor: kPrimaryColor,
+                            controller: _passwordController,
+                            keyboardType: TextInputType.text,
+                            obscureText: visiblePass,
+                            focusNode: _passwordFocusNode,
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return pleaseEnterPassword;
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  size: 20,
+                                  color: _iconColorPass,
+                                ),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        visiblePass = !visiblePass;
+                                      });
+                                    },
+                                    color: _iconColorPass,
+                                    icon: visiblePass
+                                        ? Icon(
+                                            Icons.visibility_off,
+                                            color: _iconColorPass,
+                                          )
+                                        : Icon(
+                                            Icons.visibility,
+                                            color: _iconColorPass,
+                                          )),
+                                errorBorder: customOutlineBorder,
+                                enabledBorder: customOutlineBorder,
+                                focusedErrorBorder: customOutlineBorder,
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12.0)),
+                                    borderSide:
+                                        BorderSide(color: kPrimaryColor)),
+                                disabledBorder: customOutlineBorder,
+                                //   fillColor: _filledColorPass,
+                                filled: true,
+                                hintText: createAccountPasswordString,
+                                hintStyle: TextStyle(
+                                    color: Color(0xff9E9E9E), fontSize: 14)),
+                          ),
                         ],
-                      ),
-                      20.verticalSpace,
-                      TextFormField(
-                        cursorColor: kPrimaryColor,
-                        controller: _passwordController,
-                        keyboardType: TextInputType.text,
-                        obscureText: visiblePass,
-                        focusNode: _passwordFocusNode,
-                        // validator: (value) {
-                        //   if (value!.isEmpty) {
-                        //     return 'Please enter your username';
-                        //   }
-                        //   return null;
-                        // },
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              size: 20,
-                              color: _iconColorPass,
-                            ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    visiblePass = !visiblePass;
-                                  });
-                                },
-                                color: _iconColorPass,
-                                icon: visiblePass
-                                    ? Icon(
-                                        Icons.visibility_off,
-                                        color: _iconColorPass,
-                                      )
-                                    : Icon(
-                                        Icons.visibility,
-                                        color: _iconColorPass,
-                                      )),
-                            errorBorder: customOutlineBorder,
-                            enabledBorder: customOutlineBorder,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0)),
-                                borderSide: BorderSide(color: kPrimaryColor)),
-                            disabledBorder: customOutlineBorder,
-                            //   fillColor: _filledColorPass,
-                            filled: true,
-                            hintText: createAccountPasswordString,
-                            hintStyle: TextStyle(
-                                color: Color(0xff9E9E9E), fontSize: 14)),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(textRegExp),
-                        ],
-                      ),
-                    ],
-                  )),
+                      )),
                   10.verticalSpace,
                   Container(
                     width: 200,
@@ -225,9 +233,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                   10.verticalSpace,
                   GestureDetector(
-                    onTap: () {
-                      Get.to(() => AccountSetupScreen(),
-                          transition: Transition.rightToLeft);
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        if (rememberMe) {
+                          prefs == null ? await initializePrefs() : null;
+                          prefs?.setString(
+                              "rememberMeEmail", _emailController.text.trim());
+                          prefs?.setString("rememberMePassword",
+                              _passwordController.text.trim());
+                        }
+                        var data = {
+                          "email": _emailController.text.trim(),
+                          "password": _passwordController.text.trim()
+                        };
+                        ApiService().register(context, data);
+                      }
                     },
                     child:
                         customButton(createAccountSignUpString, kPrimaryColor),
@@ -276,7 +296,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                 fontWeight: FontWeight.w600,
                                 color: kPrimaryColor)),
                         onPressed: () {
-                          Get.to(() => LoginScreen(),
+                          Get.off(() => LoginScreen(),
                               transition: Transition.rightToLeft);
                         },
                       ),
