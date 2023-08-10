@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
@@ -20,6 +21,7 @@ String userId = '';
 String userName = '';
 String userImage = '';
 String userEmail = '';
+String language = 'en';
 
 SharedPreferences? prefs;
 String savedDir = '';
@@ -914,10 +916,10 @@ RangeValues currentRangeValues = RangeValues(1, 50);
 String? selectedLocation;
 
 List eventsCatergoryList = [
-  {"name": homeAllString, "icon": allIcon, "isSelected": true},
-  {"name": homeMusicString, "icon": musicIcon, "isSelected": false},
-  {"name": homeArtString, "icon": artIcon, "isSelected": false},
-  {"name": homeWorkshopsString, "icon": workshopIcon, "isSelected": false}
+  {"name": 'home'.tr, "icon": allIcon, "isSelected": true},
+  {"name": 'music'.tr, "icon": musicIcon, "isSelected": false},
+  {"name": 'art'.tr, "icon": artIcon, "isSelected": false},
+  {"name": 'workshops'.tr, "icon": workshopIcon, "isSelected": false}
 ];
 
 List locationList = [
@@ -959,7 +961,7 @@ filterBottomSheet(
                     ),
                     15.verticalSpace,
                     Text(
-                      filter,
+                      'filter'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
@@ -974,7 +976,7 @@ filterBottomSheet(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          filterEventCategoryString,
+                          'eventCategory'.tr,
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 18,
@@ -982,7 +984,7 @@ filterBottomSheet(
                           ),
                         ),
                         Text(
-                          seeAll,
+                          'seeAll'.tr,
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontSize: 16,
@@ -1054,7 +1056,7 @@ filterBottomSheet(
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        location,
+                        'location'.tr,
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 20,
@@ -1112,7 +1114,7 @@ filterBottomSheet(
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        filterLocationRangeString,
+                        'eventLocationRange'.tr,
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 20,
@@ -1165,7 +1167,7 @@ filterBottomSheet(
                                 color: kPrimaryColor.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(50.0)),
                             child: Center(
-                              child: Text(filterButtonResetString,
+                              child: Text('reset'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16, color: Colors.white)),
@@ -1182,7 +1184,7 @@ filterBottomSheet(
                                 color: kPrimaryColor,
                                 borderRadius: BorderRadius.circular(50.0)),
                             child: Center(
-                              child: Text(filterButtonApplyString,
+                              child: Text('apply'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16, color: Colors.white)),

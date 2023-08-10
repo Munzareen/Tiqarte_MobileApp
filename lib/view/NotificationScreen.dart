@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -103,7 +103,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           onPressed: () => Get.back(),
                           icon: Icon(Icons.arrow_back)),
                       Text(
-                        notificationHeadingSrting,
+                        'notification'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -142,7 +142,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                           20.verticalSpace,
                           Text(
-                            empty,
+                            'empty'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 24,
@@ -152,7 +152,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           10.verticalSpace,
                           FittedBox(
                             child: Text(
-                              notificationSubSrting,
+                              'notificationSubSrting'.tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,

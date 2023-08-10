@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -72,10 +71,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             children: [
                               Text(
                                 index == 0
-                                    ? getStarted1HeadingString
+                                    ? 'getStarted1HeadingString'.tr
                                     : index == 1
-                                        ? getStarted2HeadingString
-                                        : getStarted3HeadingString,
+                                        ? 'getStarted2HeadingString'.tr
+                                        : 'getStarted3HeadingString'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 32,
@@ -85,10 +84,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                               20.verticalSpace,
                               Text(
                                 index == 0
-                                    ? getStarted1SubString
+                                    ? 'getStarted1SubString'.tr
                                     : index == 1
-                                        ? getStarted2SubString
-                                        : getStarted3SubString,
+                                        ? 'getStarted2SubString'.tr
+                                        : 'getStarted3SubString'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -147,10 +146,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                   },
                                   child: customButton(
                                       index == 0
-                                          ? getStarted1ButtonString
+                                          ? 'next'.tr
                                           : index == 1
-                                              ? getStarted2ButtonString
-                                              : getStarted3ButtonString,
+                                              ? 'next'.tr
+                                              : 'getStarted'.tr,
                                       kPrimaryColor)),
                             ],
                           ),

@@ -7,7 +7,6 @@ import 'package:tiqarte/controller/seeAllEventController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class SeeAllEventsScreen extends StatefulWidget {
@@ -40,7 +39,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
     if (res != null && res is List) {
       _seeAllEventController.addSeeAllData(res);
     } else if (res != null && res is String) {
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -257,7 +256,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                             Text(
                               _sc.seeAllEventModel!.length.toString() +
                                   " " +
-                                  seeAllEventFoundString,
+                                  'found'.tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -305,7 +304,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      notFound,
+                                      'notFound'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 24,
@@ -314,7 +313,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      seeAllEventNotFoundSubString,
+                                      'foundSubString'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18,
@@ -505,7 +504,8 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                     _sc.update();
                                                                   }
                                                                   customSnackBar(
-                                                                      alert,
+                                                                      'alert'
+                                                                          .tr,
                                                                       res);
                                                                 }
                                                               },
@@ -714,7 +714,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                           _sc.update();
                                                                         }
                                                                         customSnackBar(
-                                                                            alert,
+                                                                            'alert'.tr,
                                                                             res);
                                                                       }
                                                                     },

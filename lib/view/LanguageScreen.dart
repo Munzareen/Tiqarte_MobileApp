@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
-import 'package:tiqarte/helper/strings.dart';
+import 'package:tiqarte/helper/common.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
@@ -13,6 +14,21 @@ class LanguageScreen extends StatefulWidget {
 
 class _LanguageScreenState extends State<LanguageScreen> {
   int _selectedValue = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    getPref();
+  }
+
+  getPref() async {
+    if (prefs == null) {
+      await initializePrefs();
+    }
+    _selectedValue = prefs?.getInt("languageValue") ?? 1;
+    language = prefs?.getString("language") ?? 'en';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +57,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                               icon: Icon(Icons.arrow_back)),
                           18.horizontalSpace,
                           Text(
-                            language,
+                            'language'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 24,
@@ -57,7 +73,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                suggested,
+                                'suggested'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -72,7 +88,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                               Divider(),
                               10.verticalSpace,
                               Text(
-                                language,
+                                'language'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -82,7 +98,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                               18.verticalSpace,
                               customRadioButton(3, "German"),
                               18.verticalSpace,
-                              customRadioButton(4, "Italian"),
+                              customRadioButton(4, "French"),
+                              18.verticalSpace,
+                              customRadioButton(5, "Italian"),
                               18.verticalSpace,
                             ],
                           ),
@@ -111,6 +129,32 @@ class _LanguageScreenState extends State<LanguageScreen> {
         setState(() {
           _selectedValue = value!;
         });
+        if (_selectedValue == 1) {
+          var locale = Locale('en', 'US');
+          Get.updateLocale(locale);
+          prefs?.setString("language", "en");
+          prefs?.setInt("languageValue", _selectedValue);
+        } else if (_selectedValue == 2) {
+          var locale = Locale('es');
+          Get.updateLocale(locale);
+          prefs?.setString("language", "es");
+          prefs?.setInt("languageValue", _selectedValue);
+        } else if (_selectedValue == 3) {
+          var locale = Locale('de');
+          Get.updateLocale(locale);
+          prefs?.setString("language", "de");
+          prefs?.setInt("languageValue", _selectedValue);
+        } else if (_selectedValue == 4) {
+          var locale = Locale('fr');
+          Get.updateLocale(locale);
+          prefs?.setString("language", "fr");
+          prefs?.setInt("languageValue", _selectedValue);
+        } else if (_selectedValue == 5) {
+          var locale = Locale('it');
+          Get.updateLocale(locale);
+          prefs?.setString("language", "it");
+          prefs?.setInt("languageValue", _selectedValue);
+        }
       },
     );
   }

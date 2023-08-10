@@ -50,7 +50,7 @@ class HomeController extends GetxController {
 
       update();
     } else if (res != null && res is String) {
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 

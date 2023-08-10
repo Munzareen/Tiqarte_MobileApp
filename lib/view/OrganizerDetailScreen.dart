@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/organizerDetailController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/ImagePreviewDialog.dart';
 
@@ -37,7 +35,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
       _organizerDetailController.addOrganizerDetail(res);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -57,7 +55,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
         //toolbarHeight: 0,
         //  backgroundColor: kSecondBackgroundColor,
         title: Text(
-          organizer,
+          'organizer'.tr,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 24,
@@ -182,8 +180,8 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     Text(
                                       _oc.organizerDetailModel!.events!.length >
                                               1
-                                          ? events
-                                          : event,
+                                          ? 'events'.tr
+                                          : 'event'.tr,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                           fontSize: 16,
@@ -271,7 +269,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     if (res.toUpperCase().contains("ADDED")) {
                                       _oc.organizerDetailModel?.isFollow = true;
                                       _oc.update();
-                                      customSnackBar(alert,
+                                      customSnackBar('alert'.tr,
                                           "You are now following ${_oc.organizerDetailModel!.organizer?.name.toString()}");
                                     } else if (res
                                         .toUpperCase()
@@ -279,7 +277,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                       _oc.organizerDetailModel?.isFollow =
                                           false;
                                       _oc.update();
-                                      customSnackBar(alert,
+                                      customSnackBar('alert'.tr,
                                           "You unfollowed ${_oc.organizerDetailModel!.organizer?.name.toString()}");
                                     }
                                   }
@@ -304,8 +302,8 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                       Text(
                                         _oc.organizerDetailModel?.isFollow ==
                                                 true
-                                            ? following
-                                            : follow,
+                                            ? 'following'.tr
+                                            : 'follow'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -334,7 +332,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                     ),
                                     10.horizontalSpace,
                                     Text(
-                                      message,
+                                      'message'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 18,
@@ -373,19 +371,19 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                           indicatorWeight: 3.0,
                           tabs: [
                             FittedBox(
-                              child: Text(events,
+                              child: Text('events'.tr,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500)),
                             ),
                             FittedBox(
-                              child: Text(collections,
+                              child: Text('collections'.tr,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500)),
                             ),
                             FittedBox(
-                              child: Text(about,
+                              child: Text('about'.tr,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500)),

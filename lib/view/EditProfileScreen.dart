@@ -12,7 +12,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -42,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Color _iconColorEmail = Colors.grey;
 
-  List<String> genderList = [male, female, other];
+  List<String> genderList = ['male'.tr, 'female'.tr, 'other'.tr];
 
   List<String> locationList = ["United States", "United Kingdom", "Spain"];
 
@@ -143,7 +142,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             icon: Icon(Icons.arrow_back)),
                         20.horizontalSpace,
                         Text(
-                          profile,
+                          'profile'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
@@ -251,7 +250,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 disabledBorder: customOutlineBorder,
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: fullName,
+                                hintText: 'fullName'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -337,7 +336,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 disabledBorder: customOutlineBorder,
                                 // fillColor: _filledColorEmail,
                                 filled: true,
-                                hintText: email,
+                                hintText: 'email'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -526,10 +525,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             context,
             backgroundLogo,
             Icons.camera_alt,
-            cameraDialogHeadingString,
-            cameraDialogSubString,
-            cameraDialogButtonEnableString,
-            cameraDialogButtonCancelString, () {
+            'enableCamera'.tr,
+            'enableCameraSubString'.tr,
+            'enableCamera'.tr,
+            'cancel'.tr, () {
           openAppSettings().then((value) {
             checkCameraPermissionAndOpenCamera();
           });
@@ -543,10 +542,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           context,
           backgroundLogo,
           Icons.camera_alt,
-          cameraDialogHeadingString,
-          cameraDialogSubString,
-          cameraDialogButtonEnableString,
-          cameraDialogButtonCancelString, () {
+          'enableCamera'.tr,
+          'enableCameraSubString'.tr,
+          'enableCamera'.tr,
+          'cancel'.tr, () {
         openAppSettings().then((value) {
           checkCameraPermissionAndOpenCamera();
         });

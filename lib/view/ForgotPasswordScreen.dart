@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/OtpVerificationScreen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -58,7 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
-            forgotPasswordHeadingString,
+            'forgotPassword'.tr,
             style: TextStyle(
                 color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
           ),
@@ -111,7 +111,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       disabledBorder: customOutlineBorder,
                       fillColor: _filledColorEmail,
                       filled: true,
-                      hintText: LoginEmailString,
+                      hintText: 'email'.tr,
                       hintStyle:
                           TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
                   inputFormatters: [
@@ -124,7 +124,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Get.to(() => OtpVerificationScreen(),
                         transition: Transition.rightToLeft);
                   },
-                  child: customButton(continueButton, kPrimaryColor),
+                  child: customButton('continueButton'.tr, kPrimaryColor),
                 )
               ],
             ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class EventLocationScreen extends StatefulWidget {
   final String lat;
@@ -44,7 +43,7 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
         // backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         title: Text(
-          isDirection ? direction : eventLocation,
+          isDirection ? 'direction'.tr : 'eventLocation'.tr,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
@@ -127,7 +126,7 @@ class _EventLocationScreenState extends State<EventLocationScreen> {
                 //   isDirection = true;
                 // });
               },
-              child: customButton(getDirection, kPrimaryColor),
+              child: customButton('getDirection'.tr, kPrimaryColor),
             )),
       ),
     );

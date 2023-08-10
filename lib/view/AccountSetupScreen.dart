@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:tiqarte/view/LocationSetupScreen.dart';
 
@@ -46,7 +45,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
 
   Color _iconColorEmail = Colors.grey;
 
-  List<String> genderList = [male, female, other];
+  List<String> genderList = ['male'.tr, 'female'.tr, 'other'.tr];
 
   String? selectedGender;
 
@@ -125,7 +124,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
           backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
-            fillYourProfile,
+            'fillYourProfile'.tr,
             style: TextStyle(
                 color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
           ),
@@ -200,14 +199,14 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                           ),
                           itemBuilder: (_) => <PopupMenuItem<String>>[
                                 PopupMenuItem<String>(
-                                  child: Text("Camera"),
-                                  value: 'Camera',
+                                  child: Text('camera'.tr),
+                                  value: 'camera'.tr,
                                   onTap: () =>
                                       checkCameraPermissionAndOpenCamera(),
                                 ),
                                 PopupMenuItem<String>(
-                                    child: Text("Gallery"),
-                                    value: 'Gallery',
+                                    child: Text('gallery'.tr),
+                                    value: 'gallery'.tr,
                                     onTap: () =>
                                         //  checkGalleryPermissionAndPickImage(),
                                         _getFromGallery())
@@ -241,7 +240,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorFullName,
                             filled: true,
-                            hintText: fullName,
+                            hintText: 'fullName'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -271,7 +270,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorNickName,
                             filled: true,
-                            hintText: nickName,
+                            hintText: 'nickName'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -329,7 +328,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             disabledBorder: customOutlineBorder,
                             fillColor: _filledColorEmail,
                             filled: true,
-                            hintText: email,
+                            hintText: 'email'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -396,7 +395,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                           ),
                           iconEnabledColor: kDisabledColor,
                           hint: Text(
-                            gender,
+                            'gender'.tr,
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 15.sp),
                           ),
@@ -433,7 +432,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                             checkLocationPermission();
                           }
                         },
-                        child: customButton(continueButton, kPrimaryColor),
+                        child: customButton('continueButton'.tr, kPrimaryColor),
                       ),
                       20.verticalSpace,
                     ],
@@ -541,10 +540,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
             context,
             backgroundLogo,
             Icons.location_on,
-            enableLocation,
-            locationDialogSubString,
-            enableLocation,
-            cancel, () {
+            'enableLocation'.tr,
+            'locationDialogSubString'.tr,
+            'enableLocation'.tr,
+            'cancel'.tr, () {
           openAppSettings().then((value) {
             //checkLocationPermission();
           });
@@ -552,8 +551,14 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
         });
       }
     } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(context, backgroundLogo, Icons.location_on,
-          enableLocation, locationDialogSubString, enableLocation, cancel, () {
+      customAlertDialogForPermission(
+          context,
+          backgroundLogo,
+          Icons.location_on,
+          'enableLocation'.tr,
+          'locationDialogSubString'.tr,
+          'enableLocation'.tr,
+          'cancel'.tr, () {
         openAppSettings().then((value) {
           //checkLocationPermission();
         });
@@ -587,10 +592,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
             context,
             backgroundLogo,
             Icons.camera_alt,
-            cameraDialogHeadingString,
-            cameraDialogSubString,
-            cameraDialogButtonEnableString,
-            cameraDialogButtonCancelString, () {
+            'enableCamera'.tr,
+            'enableCameraSubString'.tr,
+            'enableCamera'.tr,
+            'cancel'.tr, () {
           openAppSettings().then((value) {
             checkCameraPermissionAndOpenCamera();
           });
@@ -604,10 +609,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
           context,
           backgroundLogo,
           Icons.camera_alt,
-          cameraDialogHeadingString,
-          cameraDialogSubString,
-          cameraDialogButtonEnableString,
-          cameraDialogButtonCancelString, () {
+          'enableCamera'.tr,
+          'enableCameraSubString'.tr,
+          'enableCamera'.tr,
+          'cancel'.tr, () {
         openAppSettings().then((value) {
           checkCameraPermissionAndOpenCamera();
         });
@@ -630,10 +635,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
             context,
             backgroundLogo,
             Icons.photo,
-            galleryDialogHeadingString,
-            galleryDialogSubString,
-            galleryDialogButtonEnableString,
-            galleryDialogButtonCancelString, () {
+            'enablePhoto'.tr,
+            'enablePhotoSubString'.tr,
+            'enablePhoto'.tr,
+            'cancel'.tr, () {
           openAppSettings().then((value) {
             checkGalleryPermissionAndPickImage();
           });
@@ -647,10 +652,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
           context,
           backgroundLogo,
           Icons.photo,
-          galleryDialogHeadingString,
-          galleryDialogSubString,
-          galleryDialogButtonEnableString,
-          galleryDialogButtonCancelString, () {
+          'enablePhoto'.tr,
+          'enablePhotoSubString'.tr,
+          'enablePhoto'.tr,
+          'cancel'.tr, () {
         openAppSettings().then((value) {
           checkGalleryPermissionAndPickImage();
         });

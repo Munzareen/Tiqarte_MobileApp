@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
 
@@ -45,7 +45,7 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                         icon: Icon(Icons.arrow_back)),
                     10.horizontalSpace,
                     Text(
-                      enterYourPin,
+                      'enterYourPin'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
@@ -58,7 +58,7 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                   height: 0.2.sh,
                 ),
                 Text(
-                  enterYourPinToConfirm,
+                  'enterYourPinToConfirm'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -128,10 +128,10 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                         context,
                         backgroundLogo,
                         Icons.verified_user_sharp,
-                        congratulations,
-                        successPlaceOrderEvent,
-                        viewETicket,
-                        cancel, () {
+                        'congratulations'.tr,
+                        'successPlaceOrderEvent'.tr,
+                        'viewETicket'.tr,
+                        'cancel'.tr, () {
                       Get.back();
                       Get.to(() => ViewETicketScreen(ticketUniqueNumber: ''),
                           transition: Transition.cupertinoDialog);
@@ -141,7 +141,7 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                           transition: Transition.cupertinoDialog);
                     });
                   },
-                  child: customButton(continueButton, kPrimaryColor),
+                  child: customButton('continueButton'.tr, kPrimaryColor),
                 ))),
       ),
     );

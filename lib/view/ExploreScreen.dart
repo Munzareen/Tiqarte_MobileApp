@@ -10,7 +10,6 @@ import 'package:tiqarte/controller/exploreController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -87,7 +86,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
                           10.verticalSpace,
                           Text(
-                            notFound,
+                            'notFound'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 24,
@@ -192,7 +191,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                           ),
                                           5.horizontalSpace,
                                           Text(
-                                            change,
+                                            'change'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 14,
@@ -353,7 +352,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                               _ec.update();
                                                             }
                                                             customSnackBar(
-                                                                alert, res);
+                                                                'alert'.tr,
+                                                                res);
                                                           }
                                                         },
                                                         child: Image.asset(
@@ -399,17 +399,23 @@ class _ExploreScreenState extends State<ExploreScreen> {
             context,
             backgroundLogo,
             Icons.location_on,
-            enableLocation,
-            locationDialogSubString,
-            enableLocation,
-            cancel, () {
+            'enableLocation'.tr,
+            'locationDialogSubString'.tr,
+            'enableLocation'.tr,
+            'cancel'.tr, () {
           openAppSettings();
           Get.back();
         });
       }
     } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(context, backgroundLogo, Icons.location_on,
-          enableLocation, locationDialogSubString, enableLocation, cancel, () {
+      customAlertDialogForPermission(
+          context,
+          backgroundLogo,
+          Icons.location_on,
+          'enableLocation'.tr,
+          'locationDialogSubString'.tr,
+          'enableLocation'.tr,
+          'cancel'.tr, () {
         openAppSettings();
         Get.back();
       });
@@ -438,7 +444,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       if (res != null && res is List) {
         _exploreController.addExploreListData(res);
       } else if (res != null && res is String) {
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     }
   }

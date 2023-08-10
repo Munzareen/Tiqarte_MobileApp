@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/ProductCheckoutPaymentScreen.dart';
 
 class ProductCheckoutScreen extends StatefulWidget {
   const ProductCheckoutScreen({super.key});
@@ -81,7 +78,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                         icon: Icon(Icons.arrow_back)),
                     10.horizontalSpace,
                     Text(
-                      checkout,
+                      'checkout'.tr,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 24,
@@ -102,7 +99,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$totalItem : ${_myBasketController.myBasketProductsModel!.length.toString()}",
+                          "${'totalItem'.tr} : ${_myBasketController.myBasketProductsModel!.length.toString()}",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -112,7 +109,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                           ),
                         ),
                         Text(
-                          "$totalAmount : ${_myBasketController.subTotalPrice.toString()}",
+                          "${'totalAmount'.tr} : ${_myBasketController.subTotalPrice.toString()}",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -194,7 +191,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: Text(
-                  contactDetail,
+                  'contactDetail'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -233,7 +230,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                 focusedErrorBorder: customOutlineBorder,
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: fullName,
+                                hintText: 'fullName'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -269,7 +266,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
 
                                 // fillColor: _filledColorEmail,
                                 filled: true,
-                                hintText: email,
+                                hintText: 'email'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -300,7 +297,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
 
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: country,
+                                hintText: 'country'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -331,7 +328,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
 
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: state,
+                                hintText: 'state'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -362,7 +359,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
 
                                 // fillColor: _filledColorFullName,
                                 filled: true,
-                                hintText: postalCode,
+                                hintText: 'postalCode'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -413,12 +410,13 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                           GestureDetector(
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
-                                customSnackBar(alert, "Its under development");
+                                customSnackBar(
+                                    'alert'.tr, "Its under development");
                                 // Get.to(() => ProductCheckoutPaymentScreen());
                               }
                             },
-                            child:
-                                customButton(continuetoPayment, kPrimaryColor),
+                            child: customButton(
+                                'continuetoPayment'.tr, kPrimaryColor),
                           ),
                         ],
                       ),

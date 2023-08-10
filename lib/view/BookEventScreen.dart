@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:tiqarte/controller/bookEventController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/BookEventContactInfoScreen.dart';
 
 class BookEventScreen extends StatefulWidget {
@@ -53,7 +52,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                         icon: Icon(Icons.arrow_back)),
                     10.horizontalSpace,
                     Text(
-                      bookEvent,
+                      'bookEvent'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
@@ -90,12 +89,12 @@ class _BookEventScreenState extends State<BookEventScreen>
                   indicatorWeight: 3.0,
                   tabs: [
                     FittedBox(
-                      child: Text(economy,
+                      child: Text('economy'.tr,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w500)),
                     ),
                     FittedBox(
-                      child: Text(vip,
+                      child: Text('vip'.tr,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w500)),
                     ),
@@ -109,7 +108,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        chooseNumberOfSeats,
+                        'chooseNumberOfSeats'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
@@ -181,7 +180,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        chooseNumberOfSeats,
+                        'chooseNumberOfSeats'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
@@ -260,7 +259,7 @@ class _BookEventScreenState extends State<BookEventScreen>
                                 transition: Transition.rightToLeft);
                           },
                           child: customButton(
-                              continueButton +
+                              'continueButton'.tr +
                                   " - ${_bookEventController.economyPrice! + _bookEventController.vipPrice!} \$",
                               kPrimaryColor))),
                 )

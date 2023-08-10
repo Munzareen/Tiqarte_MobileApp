@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 
 class LocationSetupScreen extends StatefulWidget {
@@ -63,7 +63,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
         // backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
         title: Text(
-          locationSetupHeadingString,
+          'setYourLocation'.tr,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
@@ -138,7 +138,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                       ),
                       10.verticalSpace,
                       Text(
-                        locationSetupLocationString,
+                        'location'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -183,8 +183,8 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                               context,
                               backgroundLogo,
                               Icons.person,
-                              locationSetupDialogCongratsString,
-                              locationSetupDialogSubString);
+                              'congratulations'.tr,
+                              'locationSetupDialogSubString'.tr);
                           Timer(Duration(seconds: 2), () {
                             Get.back();
 
@@ -192,8 +192,7 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
                                 transition: Transition.rightToLeft);
                           });
                         },
-                        child: customButton(
-                            locationSetupButtonString, kPrimaryColor),
+                        child: customButton('continueButton'.tr, kPrimaryColor),
                       )
                     ],
                   ),

@@ -10,7 +10,6 @@ import 'package:tiqarte/controller/viewETicketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'dart:io';
 import 'package:pdf/widgets.dart' as pw;
@@ -79,7 +78,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                   onPressed: () => Get.back(),
                                   icon: Icon(Icons.arrow_back)),
                               Text(
-                                eTicket,
+                                'eTicket'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 24,
@@ -137,22 +136,22 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                customColumn(event,
+                                customColumn('event'.tr,
                                     _vetc.viewETicketModel!.event.toString()),
                                 15.verticalSpace,
                                 customColumn(
-                                    dateAndHour,
+                                    'dateAndHour'.tr,
                                     EventDateForETicket(_vetc
                                         .viewETicketModel!.eventDate
                                         .toString())),
                                 15.verticalSpace,
                                 customColumn(
-                                    eventLocation,
+                                    'eventLocation'.tr,
                                     _vetc.viewETicketModel!.location
                                         .toString()),
                                 15.verticalSpace,
                                 customColumn(
-                                    eventOrganizer,
+                                    'eventOrganizer'.tr,
                                     _vetc.viewETicketModel!.organizer
                                         .toString()),
                               ],
@@ -170,30 +169,30 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 customRow(
-                                    fullName,
+                                    'fullName'.tr,
                                     _vetc.viewETicketModel!.fullName
                                         .toString()),
                                 10.verticalSpace,
                                 customRow(
-                                    nickName,
+                                    'nickName'.tr,
                                     _vetc.viewETicketModel!.nickName
                                         .toString()),
                                 10.verticalSpace,
-                                customRow(gender,
+                                customRow('gender'.tr,
                                     _vetc.viewETicketModel!.gender.toString()),
                                 10.verticalSpace,
-                                customRow(dateOfBirth,
+                                customRow('dateOfBirth'.tr,
                                     _vetc.viewETicketModel!.dOB.toString()),
                                 10.verticalSpace,
-                                customRow(country,
+                                customRow('country'.tr,
                                     _vetc.viewETicketModel!.country.toString()),
                                 10.verticalSpace,
                                 customRow(
-                                    phone,
+                                    'phone'.tr,
                                     _vetc.viewETicketModel!.mobileNo
                                         .toString()),
                                 10.verticalSpace,
-                                customRow(email,
+                                customRow('email'.tr,
                                     _vetc.viewETicketModel!.email.toString()),
                               ],
                             ),
@@ -213,7 +212,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                     ? Column(
                                         children: [
                                           customRow(
-                                              "${int.parse(_vetc.economy!.ticketCount.toString())} $seat ($economy)",
+                                              "${int.parse(_vetc.economy!.ticketCount.toString())} ${'seat'.tr} (${'economy'.tr})",
                                               "\$${_vetc.economy!.ticketPrice.toString()}"),
                                           10.verticalSpace,
                                         ],
@@ -223,14 +222,14 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                     ? Column(
                                         children: [
                                           customRow(
-                                              "${int.parse(_vetc.vip!.ticketCount.toString())} $seat ($vip)",
+                                              "${int.parse(_vetc.vip!.ticketCount.toString())} ${'seat'.tr} (${'vip'.tr})",
                                               "\$${_vetc.vip!.ticketPrice.toString()}"),
                                           10.verticalSpace,
                                         ],
                                       )
                                     : SizedBox(),
                                 customRow(
-                                    tax,
+                                    'tax'.tr,
                                     _vetc.economy != null && _vetc.vip != null
                                         ? "\$${(_vetc.economy!.taxAmount! + _vetc.vip!.taxAmount!).toString()}"
                                         : _vetc.economy != null
@@ -242,7 +241,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                 ),
                                 10.verticalSpace,
                                 customRow(
-                                    total,
+                                    'total'.tr,
                                     _vetc.economy != null && _vetc.vip != null
                                         ? "\$${(_vetc.economy!.ticketPrice! + _vetc.vip!.ticketPrice!).toString()}"
                                         : _vetc.economy != null
@@ -263,7 +262,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 customRow(
-                                    paymentMethods,
+                                    'paymentMethods'.tr,
                                     _vetc.viewETicketModel!.paymentMethod
                                         .toString()),
                                 10.verticalSpace,
@@ -272,7 +271,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      orderID,
+                                      'orderID'.tr,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400),
@@ -298,7 +297,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                                         .toString()));
 
                                             customSnackBar("Information",
-                                                "$orderID is copied to clipboard");
+                                                "${'orderID'.tr} is copied to clipboard");
                                           },
                                           child: Image.asset(
                                             copyIcon,
@@ -314,7 +313,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      status,
+                                      'status'.tr,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400),
@@ -329,7 +328,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                               color: kPrimaryColor,
                                               width: 1.5)),
                                       child: Text(
-                                        paid,
+                                        'paid'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 10,
@@ -364,8 +363,8 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                                 generatePDF(_vetc.viewETicketModel!.qRcodeURL
                                     .toString());
                               },
-                              child:
-                                  customButton(downloadTicket, kPrimaryColor),
+                              child: customButton(
+                                  'downloadTicket'.tr, kPrimaryColor),
                             )),
                       ),
                     ],
@@ -482,14 +481,14 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pwCustomColumn(
-                        event,
+                        'event'.tr,
                         _viewETicketController.viewETicketModel!.event
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomColumn(
-                        dateAndHour,
+                        'dateAndHour'.tr,
                         EventDateForETicketForPDF(_viewETicketController
                             .viewETicketModel!.eventDate
                             .toString())),
@@ -497,63 +496,63 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                       height: 10,
                     ),
                     pwCustomColumn(
-                        eventLocation,
+                        'eventLocation'.tr,
                         _viewETicketController.viewETicketModel!.location
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomColumn(
-                        eventOrganizer,
+                        'eventOrganizer'.tr,
                         _viewETicketController.viewETicketModel!.organizer
                             .toString()),
                     pw.SizedBox(
                       height: 30,
                     ),
                     pwCustomRow(
-                        fullName,
+                        'fullName'.tr,
                         _viewETicketController.viewETicketModel!.fullName
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        nickName,
+                        'nickName'.tr,
                         _viewETicketController.viewETicketModel!.nickName
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        gender,
+                        'gender'.tr,
                         _viewETicketController.viewETicketModel!.gender
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        dateOfBirth,
+                        'dateOfBirth'.tr,
                         _viewETicketController.viewETicketModel!.dOB
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        country,
+                        'country'.tr,
                         _viewETicketController.viewETicketModel!.country
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        phone,
+                        'phone'.tr,
                         _viewETicketController.viewETicketModel!.mobileNo
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        email,
+                        'email'.tr,
                         _viewETicketController.viewETicketModel!.email
                             .toString()),
                     pw.SizedBox(
@@ -563,7 +562,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                       pw.Column(
                         children: [
                           pwCustomRow(
-                              "${int.parse(_viewETicketController.economy!.ticketCount.toString())} $seat ($economy)",
+                              "${int.parse(_viewETicketController.economy!.ticketCount.toString())} ${'seat'.tr} (${'economy'.tr})",
                               "\$${_viewETicketController.economy!.ticketPrice.toString()}"),
                           pw.SizedBox(
                             height: 10,
@@ -576,7 +575,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                       pw.Column(
                         children: [
                           pwCustomRow(
-                              "${int.parse(_viewETicketController.vip!.ticketCount.toString())} $seat ($vip)",
+                              "${int.parse(_viewETicketController.vip!.ticketCount.toString())} ${'seat'.tr} (${'vip'.tr})",
                               "\$${_viewETicketController.vip!.ticketPrice.toString()}"),
                           pw.SizedBox(height: 10),
                         ],
@@ -584,7 +583,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                     else
                       pw.SizedBox(),
                     pwCustomRow(
-                        tax,
+                        'tax'.tr,
                         _viewETicketController.economy != null &&
                                 _viewETicketController.vip != null
                             ? "\$${(_viewETicketController.economy!.taxAmount! + _viewETicketController.vip!.taxAmount!).toString()}"
@@ -597,7 +596,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                     ),
                     pw.SizedBox(height: 5),
                     pwCustomRow(
-                        total,
+                        'total'.tr,
                         _viewETicketController.economy != null &&
                                 _viewETicketController.vip != null
                             ? "\$${(_viewETicketController.economy!.ticketPrice! + _viewETicketController.vip!.ticketPrice!).toString()}"
@@ -608,14 +607,14 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                       height: 30,
                     ),
                     pwCustomRow(
-                        paymentMethods,
+                        'paymentMethods'.tr,
                         _viewETicketController.viewETicketModel!.paymentMethod
                             .toString()),
                     pw.SizedBox(
                       height: 10,
                     ),
                     pwCustomRow(
-                        orderID,
+                        'orderID'.tr,
                         _viewETicketController.viewETicketModel!.orderId
                             .toString()),
                     pw.SizedBox(
@@ -625,7 +624,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: [
                         pw.Text(
-                          status,
+                          'status'.tr,
                           style: pw.TextStyle(
                               fontSize: 14, color: PdfColors.grey700),
                         ),
@@ -636,7 +635,7 @@ class _ViewETicketScreenState extends State<ViewETicketScreen> {
                               borderRadius: pw.BorderRadius.circular(12.0),
                               border: pw.Border.all(width: 1.5)),
                           child: pw.Text(
-                            paid,
+                            'paid'.tr,
                             textAlign: pw.TextAlign.center,
                             style: pw.TextStyle(
                               fontSize: 10,

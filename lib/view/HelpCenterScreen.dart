@@ -7,7 +7,6 @@ import 'package:tiqarte/controller/helpCenterController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class HelpCenterScreen extends StatefulWidget {
   const HelpCenterScreen({super.key});
@@ -79,7 +78,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                         onPressed: () => Get.back(),
                                         icon: Icon(Icons.arrow_back)),
                                     Text(
-                                      helpCenter,
+                                      'helpCenter'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 24,
@@ -132,13 +131,13 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                               indicatorWeight: 3.0,
                               tabs: [
                                 FittedBox(
-                                  child: Text(fAQ,
+                                  child: Text('fAQ'.tr,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)),
                                 ),
                                 FittedBox(
-                                  child: Text(contactUs,
+                                  child: Text('contactUs'.tr,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)),
@@ -243,7 +242,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                                   customOutlineBorder,
                                               //  fillColor: filledColorSearch,
                                               filled: true,
-                                              hintText: search,
+                                              hintText: 'search'.tr,
                                               hintStyle: TextStyle(
                                                   color: Color(0xff9E9E9E),
                                                   fontSize: 14)),
@@ -266,7 +265,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                                 ),
                                                 10.verticalSpace,
                                                 Text(
-                                                  notFound,
+                                                  'notFound'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 24,
@@ -293,19 +292,23 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                   Column(
                                     children: [
                                       20.verticalSpace,
+                                      customContainer('customerService'.tr,
+                                          customerSupportIcon),
+                                      20.verticalSpace,
                                       customContainer(
-                                          customerService, customerSupportIcon),
+                                          'whatsApp'.tr, whatsappIcon),
                                       20.verticalSpace,
-                                      customContainer(whatsApp, whatsappIcon),
+                                      customContainer(
+                                          'website'.tr, websiteIcon),
                                       20.verticalSpace,
-                                      customContainer(website, websiteIcon),
-                                      20.verticalSpace,
-                                      customContainer(facebook,
+                                      customContainer('facebook'.tr,
                                           facebookIconWithPrimaryColor),
                                       20.verticalSpace,
-                                      customContainer(twitter, twitterIcon),
+                                      customContainer(
+                                          'twitter'.tr, twitterIcon),
                                       20.verticalSpace,
-                                      customContainer(instagram, instagramIcon),
+                                      customContainer(
+                                          'instagram'.tr, instagramIcon),
                                     ],
                                   )
                                 ]))

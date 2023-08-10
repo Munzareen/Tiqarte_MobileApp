@@ -8,7 +8,6 @@ import 'package:tiqarte/controller/bookEventController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/PaymentScreen.dart';
 
 class BookEventContactInfoScreen extends StatefulWidget {
@@ -44,7 +43,7 @@ class _BookEventContactInfoScreenState
 
   Color _iconColorEmail = Colors.grey;
 
-  List<String> genderList = [male, female, other];
+  List<String> genderList = ['male'.tr, 'female'.tr, 'other'.tr];
 
   List<String> locationList = ["United States", "United Kingdom", "Spain"];
 
@@ -130,7 +129,7 @@ class _BookEventContactInfoScreenState
                         icon: Icon(Icons.arrow_back)),
                     10.horizontalSpace,
                     Text(
-                      bookEvent,
+                      'bookEvent'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
@@ -141,7 +140,7 @@ class _BookEventContactInfoScreenState
                 ),
                 20.verticalSpace,
                 Text(
-                  contactInformation,
+                  'contactInformation'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -175,7 +174,7 @@ class _BookEventContactInfoScreenState
                             disabledBorder: customOutlineBorder,
                             // fillColor: _filledColorFullName,
                             filled: true,
-                            hintText: fullName,
+                            hintText: 'fullName'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -204,7 +203,7 @@ class _BookEventContactInfoScreenState
                             disabledBorder: customOutlineBorder,
                             // fillColor: _filledColorNickName,
                             filled: true,
-                            hintText: nickName,
+                            hintText: 'nickName'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -259,7 +258,7 @@ class _BookEventContactInfoScreenState
                             disabledBorder: customOutlineBorder,
                             // fillColor: _filledColorEmail,
                             filled: true,
-                            hintText: email,
+                            hintText: 'email'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -322,7 +321,7 @@ class _BookEventContactInfoScreenState
                           ),
                           iconEnabledColor: Colors.grey,
                           hint: Text(
-                            gender,
+                            'gender'.tr,
                             style: TextStyle(fontSize: 15.sp),
                           ),
                           value: selectedGender,
@@ -367,7 +366,7 @@ class _BookEventContactInfoScreenState
                           ),
                           iconEnabledColor: Colors.grey,
                           hint: Text(
-                            location,
+                            'location'.tr,
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 15.sp),
                           ),
@@ -404,7 +403,7 @@ class _BookEventContactInfoScreenState
                           title: RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: iAcceptTheEveno + " ",
+                                  text: 'iAcceptTheEveno'.tr + " ",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -412,7 +411,7 @@ class _BookEventContactInfoScreenState
                                           .colorScheme
                                           .background)),
                               TextSpan(
-                                  text: termsOfService,
+                                  text: 'termsOfService'.tr,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -426,13 +425,13 @@ class _BookEventContactInfoScreenState
                                           .colorScheme
                                           .background)),
                               TextSpan(
-                                  text: communityGuidelines,
+                                  text: 'communityGuidelines'.tr,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                       color: kPrimaryColor)),
                               TextSpan(
-                                  text: ", $and ",
+                                  text: ", ${'and'.tr} ",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -440,13 +439,13 @@ class _BookEventContactInfoScreenState
                                           .colorScheme
                                           .background)),
                               TextSpan(
-                                  text: privacyPolicy,
+                                  text: 'privacyPolicy'.tr,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                       color: kPrimaryColor)),
                               TextSpan(
-                                  text: " " + require,
+                                  text: " " + 'require'.tr,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -472,7 +471,7 @@ class _BookEventContactInfoScreenState
                           Get.to(() => PaymentScreen(),
                               transition: Transition.rightToLeft);
                         },
-                        child: customButton(continueButton, kPrimaryColor),
+                        child: customButton('continueButton'.tr, kPrimaryColor),
                       ),
                       20.verticalSpace,
                     ],

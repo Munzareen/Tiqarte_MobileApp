@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AddCardScreen.dart';
 import 'package:tiqarte/view/PaymentPinScreen.dart';
 
@@ -42,7 +42,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                           icon: Icon(Icons.arrow_back)),
                       10.horizontalSpace,
                       Text(
-                        reviewSummary,
+                        'reviewSummary'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -129,11 +129,11 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        customRow(fullName, "Andrew Ainsley"),
+                        customRow('fullName'.tr, "Andrew Ainsley"),
                         10.verticalSpace,
-                        customRow(phone, "+1 111 467 378 399"),
+                        customRow('phone'.tr, "+1 111 467 378 399"),
                         10.verticalSpace,
-                        customRow(email, "andrew_ainsley@yo...com"),
+                        customRow('email'.tr, "andrew_ainsley@yo...com"),
                       ],
                     ),
                   ),
@@ -150,13 +150,13 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                       children: [
                         customRow("1 Seats (Economy)", "\$50.00"),
                         10.verticalSpace,
-                        customRow(tax, "\$5.00"),
+                        customRow('tax'.tr, "\$5.00"),
                         10.verticalSpace,
                         Divider(
                           color: kDisabledColor,
                         ),
                         10.verticalSpace,
-                        customRow(total, "\$55.00"),
+                        customRow('total'.tr, "\$55.00"),
                       ],
                     ),
                   ),
@@ -189,7 +189,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                                 transition: Transition.rightToLeft);
                           },
                           child: Text(
-                            change,
+                            'change'.tr,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                                 fontSize: 16,
@@ -216,7 +216,7 @@ class _ReviewSummaryScreenState extends State<ReviewSummaryScreen> {
                     Get.to(() => PaymentPinScreen(),
                         transition: Transition.rightToLeft);
                   },
-                  child: customButton(continueButton, kPrimaryColor))),
+                  child: customButton('continueButton'.tr, kPrimaryColor))),
         ));
   }
 

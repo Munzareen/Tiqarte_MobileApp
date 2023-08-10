@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class InviteFriendsScreen extends StatefulWidget {
   const InviteFriendsScreen({super.key});
@@ -63,7 +63,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                       icon: Icon(Icons.arrow_back)),
                   10.horizontalSpace,
                   Text(
-                    inviteFriends,
+                    'inviteFriends'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 24,
@@ -105,7 +105,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                                       border: Border.all(
                                           color: kPrimaryColor, width: 2)),
                                   child: Text(
-                                    invited,
+                                    'invited'.tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 14,
@@ -136,7 +136,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
                                   child: Text(
-                                    invite,
+                                    'invite'.tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 14,

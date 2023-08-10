@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AddCardScreen.dart';
 
 class ViewPaymentsScreen extends StatefulWidget {
@@ -46,7 +46,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                             icon: Icon(Icons.arrow_back)),
                         10.horizontalSpace,
                         Text(
-                          payments,
+                          'payments'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
@@ -70,7 +70,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
-                          child: customRow(paypalIcon, payPal),
+                          child: customRow(paypalIcon, 'payPal'.tr),
                         ),
                         20.verticalSpace,
                         Container(
@@ -80,7 +80,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
-                          child: customRow(googleIcon, googlePay),
+                          child: customRow(googleIcon, 'googlePay'.tr),
                         ),
                         Platform.isIOS
                             ? Column(
@@ -94,7 +94,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                                     ),
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 15.0),
-                                    child: customRow(appleIcon, applePay),
+                                    child: customRow(appleIcon, 'applePay'.tr),
                                   ),
                                 ],
                               )
@@ -151,7 +151,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
                     Get.to(() => AddCardScreen(),
                         transition: Transition.rightToLeft);
                   },
-                  child: customButton(addNewCard, kPrimaryColor))),
+                  child: customButton('addNewCard'.tr, kPrimaryColor))),
         ));
   }
 
@@ -174,7 +174,7 @@ class _ViewPaymentsScreenState extends State<ViewPaymentsScreen> {
           ],
         ),
         Text(
-          connected,
+          'connected'.tr,
           textAlign: TextAlign.start,
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.bold, color: kPrimaryColor),

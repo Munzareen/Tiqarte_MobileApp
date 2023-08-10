@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/PaymentScreen.dart';
 
 class AddCardScreen extends StatefulWidget {
@@ -167,7 +166,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               icon: Icon(Icons.arrow_back)),
                           10.horizontalSpace,
                           Text(
-                            addNewCard,
+                            'addNewCard'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 24,
@@ -252,7 +251,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  cardHolderName,
+                                  'cardHolderName'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 10,
@@ -290,7 +289,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  expiryDate,
+                                  'expiryDate'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 10,
@@ -337,7 +336,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            cardName,
+                            'cardName'.tr,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
@@ -366,7 +365,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 focusedErrorBorder: customOutlineBorder,
                                 //  fillColor: _filledColorCardName,
                                 filled: true,
-                                hintText: cardName,
+                                hintText: 'cardName'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -375,7 +374,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           ),
                           10.verticalSpace,
                           Text(
-                            cardNumber,
+                            'cardNumber'.tr,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
@@ -407,7 +406,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 focusedErrorBorder: customOutlineBorder,
                                 // fillColor: _filledColorCardNumber,
                                 filled: true,
-                                hintText: cardNumber,
+                                hintText: 'cardNumber'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: _cardNumberFormatter,
@@ -420,7 +419,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    expiryDate,
+                                    'expiryDate'.tr,
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
@@ -440,7 +439,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                         style: const TextStyle(),
                                         cursorColor: kPrimaryColor,
                                         decoration: InputDecoration(
-                                          hintText: expiryDate,
+                                          hintText: 'expiryDate'.tr,
                                           hintStyle: TextStyle(
                                             color: Colors.grey,
                                           ),
@@ -467,7 +466,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    cvv,
+                                    'cvv'.tr,
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
@@ -502,7 +501,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                               customOutlineBorder,
                                           //fillColor: _filledColorCvv,
                                           filled: true,
-                                          hintText: cvv,
+                                          hintText: 'cvv'.tr,
                                           hintStyle: TextStyle(
                                               color: Color(0xff9E9E9E),
                                               fontSize: 14)),
@@ -528,7 +527,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               preventDuplicates: false);
                         }
                       },
-                      child: customButton(add, kPrimaryColor))
+                      child: customButton('add'.tr, kPrimaryColor))
                 ],
               ),
             ),

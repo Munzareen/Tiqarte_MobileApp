@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -10,7 +9,6 @@ import 'package:tiqarte/api/ApiPoint.dart';
 import 'package:tiqarte/controller/ticketController.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
@@ -86,11 +84,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -114,11 +112,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -147,11 +145,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -238,7 +236,7 @@ class ApiService {
       // return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -279,11 +277,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -309,7 +307,7 @@ class ApiService {
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -330,11 +328,11 @@ class ApiService {
 
         return res_data;
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -357,11 +355,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -385,11 +383,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -412,11 +410,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -448,11 +446,11 @@ class ApiService {
       } else {
         Get.back();
 
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -475,11 +473,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -502,11 +500,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -529,11 +527,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -560,11 +558,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -588,11 +586,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -616,11 +614,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -645,11 +643,11 @@ class ApiService {
       } else {
         Get.back();
 
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -673,11 +671,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -701,11 +699,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -729,11 +727,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        return somethingWentWrong;
+        return 'somethingWentWrong'.tr;
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -757,11 +755,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -785,11 +783,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -825,9 +823,9 @@ class ApiService {
             context,
             backgroundLogo,
             Icons.verified_user,
-            ticketCancelBookingSuccessfulString,
-            ticketCancelBookingRefundString,
-            ticketCancelBookingOKString, () {
+            'successful'.tr,
+            'ticketCancelBookingRefundString'.tr,
+            'ok'.tr, () {
           Get.back();
           Get.back();
         });
@@ -836,11 +834,11 @@ class ApiService {
         tokenExpiredLogout();
       } else {
         Get.back();
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -890,13 +888,13 @@ class ApiService {
         Get.back();
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
       Get.back();
 
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -919,11 +917,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -946,11 +944,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -974,11 +972,11 @@ class ApiService {
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
       } else {
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -1010,11 +1008,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -1047,11 +1045,11 @@ class ApiService {
       } else {
         Get.back();
 
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -1077,7 +1075,7 @@ class ApiService {
       }
     } catch (e) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -1123,9 +1121,9 @@ class ApiService {
       userImage = '';
 
       Get.offAll(() => PreLoginScreen(), transition: Transition.leftToRight);
-      customSnackBar(alert, "Session expired please signin again");
+      customSnackBar('alert'.tr, "Session expired please signin again");
     } catch (e) {
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 }

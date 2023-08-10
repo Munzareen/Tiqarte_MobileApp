@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/CreateAccountScreen.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
 
@@ -45,7 +44,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
               Image.asset(preLoginLogo),
               30.verticalSpace,
               Text(
-                preLoginHeadingString,
+                'letsYouIn'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 32,
@@ -71,7 +70,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                       Image.asset(facebookIcon),
                       10.horizontalSpace,
                       Text(
-                        preLoginFacebookString,
+                        'continueWithFacebook'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -102,7 +101,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                       Image.asset(googleIcon),
                       10.horizontalSpace,
                       Text(
-                        preLoginGoogleString,
+                        'continueWithGoogle'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
@@ -133,7 +132,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                                 Image.asset(appleIcon),
                                 10.horizontalSpace,
                                 Text(
-                                  preLoginAppleString,
+                                  'continueWithApple'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -154,7 +153,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                     Expanded(child: Divider()),
                     10.horizontalSpace,
                     Text(
-                      preLoginOrString,
+                      'or'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 16,
@@ -170,14 +169,14 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                   Get.to(() => LoginScreen(),
                       transition: Transition.rightToLeft);
                 },
-                child: customButton(preLoginButtonString, kPrimaryColor),
+                child: customButton('letsYouIn'.tr, kPrimaryColor),
               ),
               30.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    preLoginDontHaveAccountString,
+                    'dontHaveAccount'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 16,
@@ -186,7 +185,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
                   ),
                   5.horizontalSpace,
                   TextButton(
-                    child: Text(preLoginSignUpString,
+                    child: Text('signUp'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,

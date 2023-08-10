@@ -6,7 +6,6 @@ import 'package:tiqarte/controller/goingController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/EventDetailModel.dart';
 
 class GoingScreen extends StatefulWidget {
@@ -151,7 +150,7 @@ class _GoingScreenState extends State<GoingScreen> {
                                   ),
                                   10.verticalSpace,
                                   Text(
-                                    notFound,
+                                    'notFound'.tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 24,
@@ -160,7 +159,7 @@ class _GoingScreenState extends State<GoingScreen> {
                                   ),
                                   10.verticalSpace,
                                   Text(
-                                    seeAllEventNotFoundSubString,
+                                    'foundSubString'.tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 18,

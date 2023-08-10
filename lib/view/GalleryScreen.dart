@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/ImagePreviewDialog.dart';
 
 class GalleryScreen extends StatefulWidget {
@@ -73,7 +73,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           icon: Icon(Icons.arrow_back)),
                       10.horizontalSpace,
                       Text(
-                        galleryPreEvent,
+                        'galleryPreEvent'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,

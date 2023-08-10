@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/GetStartedScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -45,7 +44,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Text(
-                  welcomeHeadingString + " 👋",
+                  'welcomeHeadingString'.tr + " 👋",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 48,
@@ -56,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             20.verticalSpace,
             Text(
-              welcomeSubString,
+              'welcomeSubString'.tr,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,

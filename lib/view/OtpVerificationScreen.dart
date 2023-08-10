@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tiqarte/controller/otpVerificationController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/NewPasswordScreen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -29,7 +28,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           //    backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
-            otpVerificationHeadingString,
+            'otpCodeVerification'.tr,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
@@ -49,7 +48,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  otpVerificationSubString + "andrew_ainsley@yourdomain.com",
+                  'codeHasBeenSendTo'.tr + "andrew_ainsley@yourdomain.com",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -108,7 +107,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             otpVerificationController.startTimer(59);
                           },
                           child: Text(
-                            otpVerificationResendOnlyString,
+                            'resend'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
@@ -120,7 +119,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       : RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                                text: otpVerificationResendString,
+                                text: 'resendCodeIn'.tr,
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
@@ -155,7 +154,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             Get.to(() => NewPasswordScreen(),
                 transition: Transition.rightToLeft);
           },
-          child: customButton(otpVerificationButtonString, kPrimaryColor),
+          child: customButton('verify'.tr, kPrimaryColor),
         ),
       ),
     );

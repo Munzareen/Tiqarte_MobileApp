@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
 
 class NewPasswordScreen extends StatefulWidget {
@@ -86,7 +85,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
           //   backgroundColor: kSecondBackgroundColor,
           automaticallyImplyLeading: false,
           title: Text(
-            newPasswordHeadingString,
+            'createNewPassword'.tr,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
@@ -115,7 +114,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      newPasswordSubString,
+                      'createYourNewPassword'.tr,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 18,
@@ -171,7 +170,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             disabledBorder: customOutlineBorder,
                             // fillColor: _filledColorPass,
                             filled: true,
-                            hintText: newPasswordNewPasswordString,
+                            hintText: 'enterNewPassword'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -222,7 +221,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             disabledBorder: customOutlineBorder,
                             // fillColor: _filledColorConfirmPassword,
                             filled: true,
-                            hintText: newPasswordConfirmPasswordString,
+                            hintText: 'confirmPassword'.tr,
                             hintStyle: TextStyle(
                                 color: Color(0xff9E9E9E), fontSize: 14)),
                         inputFormatters: [
@@ -243,7 +242,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       title: Text(
-                        LoginRememberMeString,
+                        'password'.tr,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w500),
                       ),
@@ -265,8 +264,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           context,
                           backgroundLogo,
                           Icons.verified_user,
-                          congratulations,
-                          newPasswordCongratsSubString);
+                          'congratulations'.tr,
+                          'newPasswordCongratsSubString'.tr);
                       Timer(Duration(seconds: 2), () {
                         Get.back();
 
@@ -274,7 +273,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             transition: Transition.zoom);
                       });
                     },
-                    child: customButton(newPasswordButtonString, kPrimaryColor),
+                    child: customButton('continueButton'.tr, kPrimaryColor),
                   ),
                 ],
               ),

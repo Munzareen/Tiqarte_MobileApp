@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/seeAllProductController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/ViewProductScreen.dart';
 
 class SeeAllProductsScreen extends StatefulWidget {
@@ -34,7 +32,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
     if (res != null && res is List) {
       _seeAllProductController.addSeeAllProductData(res);
     } else if (res != null && res is String) {
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -141,7 +139,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                           onPressed: () => Get.back(),
                                           icon: Icon(Icons.arrow_back)),
                                       Text(
-                                        shop,
+                                        'shop'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 20,
@@ -225,7 +223,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                             Text(
                               _spc.seeAllProductModel!.length.toString() +
                                   " " +
-                                  seeAllEventFoundString,
+                                  'found'.tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -273,7 +271,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      notFound,
+                                      'notFound'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 24,
@@ -282,7 +280,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      seeAllEventNotFoundSubString,
+                                      'foundSubString'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18,
@@ -379,7 +377,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                           ),
                                                           5.verticalSpace,
                                                           Text(
-                                                            forMen,
+                                                            'forMen'.tr,
                                                             textAlign:
                                                                 TextAlign.start,
                                                             overflow:
@@ -503,7 +501,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                             ),
                                                             8.verticalSpace,
                                                             Text(
-                                                              forMen,
+                                                              'forMen'.tr,
                                                               textAlign:
                                                                   TextAlign
                                                                       .start,

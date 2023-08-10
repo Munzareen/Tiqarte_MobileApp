@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:tiqarte/controller/NavigationBarController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/ExploreScreen.dart';
 import 'package:tiqarte/view/FavoriteScreen.dart';
 import 'package:tiqarte/view/HomeScreen.dart';
@@ -81,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                               2.verticalSpace,
                               Text(
-                                bottomNavBarHomeString,
+                                'home'.tr,
                                 style: TextStyle(
                                   color: bt.navigationBarIndexValue == 0
                                       ? kPrimaryColor
@@ -109,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                               2.verticalSpace,
                               Text(
-                                bottomNavBarExploreString,
+                                'explore'.tr,
                                 style: TextStyle(
                                   color: bt.navigationBarIndexValue == 1
                                       ? kPrimaryColor
@@ -137,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                               2.verticalSpace,
                               Text(
-                                bottomNavBarFavoritestring,
+                                'favorites'.tr,
                                 style: TextStyle(
                                   color: bt.navigationBarIndexValue == 2
                                       ? kPrimaryColor
@@ -165,7 +164,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                               2.verticalSpace,
                               Text(
-                                bottomNavBarTicketsString,
+                                'tickets'.tr,
                                 style: TextStyle(
                                   color: bt.navigationBarIndexValue == 3
                                       ? kPrimaryColor
@@ -193,7 +192,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                               2.verticalSpace,
                               Text(
-                                bottomNavBarProfileString,
+                                'profile'.tr,
                                 style: TextStyle(
                                   color: bt.navigationBarIndexValue == 4
                                       ? kPrimaryColor

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AddCardScreen.dart';
 import 'package:tiqarte/view/ReviewSummaryScreen.dart';
 
@@ -46,7 +46,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             icon: Icon(Icons.arrow_back)),
                         10.horizontalSpace,
                         Text(
-                          payments,
+                          'payments'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
@@ -67,7 +67,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     children: [
                       FittedBox(
                         child: Text(
-                          selectThePaymentMethod,
+                          'selectThePaymentMethod'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16,
@@ -83,7 +83,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
-                        child: customRadioButton(1, paypalIcon, payPal),
+                        child: customRadioButton(1, paypalIcon, 'payPal'.tr),
                       ),
                       20.verticalSpace,
                       Container(
@@ -93,7 +93,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
-                        child: customRadioButton(2, googleIcon, googlePay),
+                        child: customRadioButton(2, googleIcon, 'googlePay'.tr),
                       ),
                       20.verticalSpace,
                       Container(
@@ -103,7 +103,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 15.0),
-                        child: customRadioButton(3, appleIcon, applePay),
+                        child: customRadioButton(3, appleIcon, 'applePay'.tr),
                       ),
                       20.verticalSpace,
                       Container(
@@ -129,7 +129,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               borderRadius: BorderRadius.circular(50.0)),
                           padding: EdgeInsets.symmetric(vertical: 20.0),
                           child: Center(
-                            child: Text(addNewCard,
+                            child: Text('addNewCard'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -156,7 +156,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     Get.to(() => ReviewSummaryScreen(),
                         transition: Transition.rightToLeft);
                   },
-                  child: customButton(continueButton, kPrimaryColor))),
+                  child: customButton('continueButton'.tr, kPrimaryColor))),
         ));
   }
 

@@ -8,15 +8,11 @@ import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EditProfileScreen.dart';
 import 'package:tiqarte/view/HelpCenterScreen.dart';
-import 'package:tiqarte/view/InviteFriendScreen.dart';
 import 'package:tiqarte/view/LanguageScreen.dart';
 import 'package:tiqarte/view/LinkedAccountScreen.dart';
 import 'package:tiqarte/view/NotificationSettingScreen.dart';
-
-import 'package:tiqarte/view/ViewPaymentsScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -57,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       20.horizontalSpace,
                       Text(
-                        profile,
+                        'profile'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -141,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         5.verticalSpace,
                                         Text(
-                                          events,
+                                          'events'.tr,
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontSize: 16,
@@ -219,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(() => EditProfileScreen(),
                           transition: Transition.rightToLeft);
                     },
-                    child: customRow(profileIcon, profile),
+                    child: customRow(profileIcon, 'profile'.tr),
                   ),
                   20.verticalSpace,
                   GestureDetector(
@@ -227,7 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(() => NotificationSettingScreen(),
                           transition: Transition.rightToLeft);
                     },
-                    child: customRow(notificationIcon, notification),
+                    child: customRow(notificationIcon, 'notification'.tr),
                   ),
                   // 20.verticalSpace,
                   // GestureDetector(
@@ -243,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(() => LinkedAccountScreen(),
                           transition: Transition.rightToLeft);
                     },
-                    child: customRow(linkedAccountIcon, linkedAccounts),
+                    child: customRow(linkedAccountIcon, 'linkedAccounts'.tr),
                   ),
                   20.verticalSpace,
                   // customRow(ticketIcon, ticketIssues),
@@ -272,7 +268,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Theme.of(context).colorScheme.background),
                             10.horizontalSpace,
                             Text(
-                              language,
+                              'language'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,
@@ -314,7 +310,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           10.horizontalSpace,
                           Text(
-                            darkMode,
+                            'darkMode'.tr,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 18,
@@ -355,7 +351,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(() => HelpCenterScreen(),
                           transition: Transition.rightToLeft);
                     },
-                    child: customRow(helpCenterIcon, helpCenter),
+                    child: customRow(helpCenterIcon, 'helpCenter'.tr),
                   ),
                   20.verticalSpace,
                   GestureDetector(
@@ -366,12 +362,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Share.share(
                           _homeController.homeDataModel.inviteFriendsLink
                               .toString(),
-                          subject: 'Invite Friends');
+                          subject: 'inviteFriends'.tr);
                     },
-                    child: customRow(inviteFriendsIcon, inviteFriends),
+                    child: customRow(inviteFriendsIcon, 'inviteFriends'.tr),
                   ),
                   20.verticalSpace,
-                  customRow(rateUsIcon, rateUs),
+                  customRow(rateUsIcon, 'rateUs'.tr),
                   20.verticalSpace,
                   GestureDetector(
                     onTap: () {
@@ -386,7 +382,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         10.horizontalSpace,
                         Text(
-                          logout,
+                          'logout'.tr,
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontSize: 18,
@@ -459,7 +455,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   15.verticalSpace,
                   Text(
-                    logout,
+                    'logout'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 24,
@@ -469,7 +465,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Divider(),
                   10.verticalSpace,
                   Text(
-                    logoutSub,
+                    'logoutSub'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
@@ -492,7 +488,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: kPrimaryColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
-                            child: Text(cancel,
+                            child: Text('cancel'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -515,7 +511,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: kPrimaryColor,
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
-                            child: Text(yesLogout,
+                            child: Text('yesLogout'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white)),

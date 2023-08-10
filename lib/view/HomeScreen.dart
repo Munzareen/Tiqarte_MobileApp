@@ -11,7 +11,6 @@ import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
@@ -61,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (res != null && res is Map) {
       _homeController.addHomeData(res);
     } else if (res != null && res is String) {
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -190,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         //     borderSide: BorderSide(color: kPrimaryColor)),
                         disabledBorder: customOutlineBorder,
                         filled: true,
-                        hintText: whatEventAreYouLookingFor,
+                        hintText: 'whatEventAreYouLookingFor'.tr,
                         hintStyle:
                             TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
                     onChanged: _hc.homeSearch,
@@ -222,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  featured,
+                                                  'featured'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 20,
@@ -238,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             10.verticalSpace,
                                             Text(
-                                              notFound,
+                                              'notFound'.tr,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 24,
@@ -257,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  featured,
+                                                  'featured'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 20,
@@ -269,7 +268,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ? GestureDetector(
                                                         onTap: () => Get.to(
                                                             () => SeeAllEventsScreen(
-                                                                name: featured,
+                                                                name: 'featured'
+                                                                    .tr,
                                                                 img: '',
                                                                 eventTypeId: _hc
                                                                     .featuredEventList![
@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             transition: Transition
                                                                 .rightToLeft),
                                                         child: Text(
-                                                          seeAll,
+                                                          'seeAll'.tr,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
@@ -481,7 +481,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         _hc.update();
                                                                       }
                                                                       customSnackBar(
-                                                                          alert,
+                                                                          'alert'
+                                                                              .tr,
                                                                           res);
                                                                     }
                                                                   },
@@ -520,7 +521,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      upcomingEvent,
+                                                      'upcomingEvent'.tr,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -539,7 +540,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         onTap: () => Get.to(
                                                             () => SeeAllEventsScreen(
                                                                 name:
-                                                                    upcomingEvent,
+                                                                    'upcomingEvent'
+                                                                        .tr,
                                                                 img: fireIcon,
                                                                 eventTypeId: _hc
                                                                     .upcomingEventList![
@@ -550,7 +552,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             transition: Transition
                                                                 .rightToLeft),
                                                         child: Text(
-                                                          seeAll,
+                                                          'seeAll'.tr,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
@@ -656,7 +658,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 10.verticalSpace,
                                                 Text(
-                                                  notFound,
+                                                  'notFound'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 24,
@@ -678,7 +680,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      upcomingEvent,
+                                                      'upcomingEvent'.tr,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -697,7 +699,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         onTap: () => Get.to(
                                                             () => SeeAllEventsScreen(
                                                                 name:
-                                                                    upcomingEvent,
+                                                                    'upcomingEvent'
+                                                                        .tr,
                                                                 img: fireIcon,
                                                                 eventTypeId: _hc
                                                                     .upcomingEventList![
@@ -708,7 +711,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             transition: Transition
                                                                 .rightToLeft),
                                                         child: Text(
-                                                          seeAll,
+                                                          'seeAll'.tr,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
@@ -993,7 +996,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           _hc.update();
                                                                         }
                                                                         customSnackBar(
-                                                                            alert,
+                                                                            'alert'.tr,
                                                                             res);
                                                                       }
                                                                     },
@@ -1035,7 +1038,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      shop,
+                                                      'shop'.tr,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -1112,7 +1115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             transition: Transition
                                                                 .rightToLeft),
                                                         child: Text(
-                                                          seeAll,
+                                                          'seeAll'.tr,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
@@ -1217,7 +1220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 10.verticalSpace,
                                                 Text(
-                                                  notFound,
+                                                  'notFound'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 24,
@@ -1239,7 +1242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      shop,
+                                                      'shop'.tr,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -1316,7 +1319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             transition: Transition
                                                                 .rightToLeft),
                                                         child: Text(
-                                                          seeAll,
+                                                          'seeAll'.tr,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(

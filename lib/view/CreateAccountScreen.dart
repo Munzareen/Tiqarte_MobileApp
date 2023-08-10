@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
-import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/LoginScreen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -26,7 +24,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _passwordFocusNode = FocusNode();
 
   bool visiblePass = true;
-  bool rememberMe = false;
+  bool isRemember = false;
   // Color _filledColorPass = kDisabledColor.withOpacity(0.4);
   // Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
   Color _iconColorPass = Colors.grey;
@@ -109,7 +107,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                   40.verticalSpace,
                   Text(
-                    createAccountHeadingString,
+                    'createNewAccount'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
@@ -125,10 +123,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             focusNode: _emailFocusNode,
                             validator: (value) {
                               if (value!.trim().isEmpty) {
-                                return pleaseEnterEmail;
+                                return 'pleaseEnterEmail'.tr;
                               } else if (!value.contains(RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                                return pleaseEnterValidEmail;
+                                return 'pleaseEnterValidEmail'.tr;
                               }
                               return null;
                             },
@@ -148,7 +146,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                 disabledBorder: customOutlineBorder,
                                 //   fillColor: _filledColorEmail,
                                 filled: true,
-                                hintText: createAccountEmailString,
+                                hintText: 'email'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                           ),
@@ -161,7 +159,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             focusNode: _passwordFocusNode,
                             validator: (value) {
                               if (value!.trim().isEmpty) {
-                                return pleaseEnterPassword;
+                                return 'pleaseEnterPassword'.tr;
                               }
                               return null;
                             },
@@ -198,7 +196,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                 disabledBorder: customOutlineBorder,
                                 //   fillColor: _filledColorPass,
                                 filled: true,
-                                hintText: createAccountPasswordString,
+                                hintText: 'password'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                           ),
@@ -216,17 +214,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       title: Text(
-                        createAccountRememberMeString,
+                        'rememberMe'.tr,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       controlAffinity: ListTileControlAffinity.leading,
                       checkColor: Colors.white,
                       dense: false,
-                      value: rememberMe,
+                      value: isRemember,
                       onChanged: (value) {
                         setState(() {
-                          rememberMe = value!;
+                          isRemember = value!;
                         });
                       },
                     ),
@@ -235,7 +233,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   GestureDetector(
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
-                        if (rememberMe) {
+                        if (isRemember) {
                           prefs == null ? await initializePrefs() : null;
                           prefs?.setString(
                               "rememberMeEmail", _emailController.text.trim());
@@ -249,8 +247,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         ApiService().register(context, data);
                       }
                     },
-                    child:
-                        customButton(createAccountSignUpString, kPrimaryColor),
+                    child: customButton('signUp'.tr, kPrimaryColor),
                   ),
                   20.verticalSpace,
                   Padding(
@@ -262,7 +259,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         )),
                         10.horizontalSpace,
                         Text(
-                          createAccountOrContinueWithString,
+                          'orContinueWith'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,
@@ -280,7 +277,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        createAccountAlreadyHaveAccountString,
+                        'alreadyHaveAccount'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16,
@@ -289,7 +286,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                       10.horizontalSpace,
                       TextButton(
-                        child: Text(createAccountSignInString,
+                        child: Text('signIn'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14,

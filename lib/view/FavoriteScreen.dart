@@ -7,7 +7,6 @@ import 'package:tiqarte/controller/favoriteController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -33,7 +32,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     if (res != null && res is List) {
       _favoriteController.addFavoriteData(res);
     } else if (res != null && res is String) {
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -138,7 +137,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       ),
                                       20.horizontalSpace,
                                       Text(
-                                        favorites,
+                                        'favorites'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
@@ -234,10 +233,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               _fc.favoriteList!.length > 1
                                   ? _fc.favoriteList!.length.toString() +
                                       " " +
-                                      favorites.toLowerCase()
+                                      'favorites'.tr.toLowerCase()
                                   : _fc.favoriteList!.length.toString() +
                                       " " +
-                                      favorite.toLowerCase(),
+                                      'favorite'.tr.toLowerCase(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -285,7 +284,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      notFound,
+                                      'notFound'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 24,
@@ -294,7 +293,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     ),
                                     10.verticalSpace,
                                     Text(
-                                      seeAllEventNotFoundSubString,
+                                      'foundSubString'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 18),
                                     ),
@@ -312,7 +311,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         ),
                                         20.verticalSpace,
                                         Text(
-                                          empty,
+                                          'empty'.tr,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 24,
@@ -342,7 +341,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                             ),
                                             10.verticalSpace,
                                             Text(
-                                              notFound,
+                                              'notFound'.tr,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 24,
@@ -729,7 +728,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       ),
                       15.verticalSpace,
                       Text(
-                        removeFromFavorites,
+                        'removeFromFavorites'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -854,7 +853,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   color: kPrimaryColor.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(50.0)),
                               child: Center(
-                                child: Text(cancel,
+                                child: Text('cancel'.tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 16, color: Colors.white)),
@@ -872,13 +871,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               if (res != null && res is String) {
                                 Get.back();
                                 Get.back();
-                                if (!res.contains(somethingWentWrong)) {
+                                if (!res.contains('somethingWentWrong'.tr)) {
                                   _favoriteController.favoriteList!
                                       .removeAt(index);
                                   _favoriteController.update();
                                   customSnackBar("Success!", res);
                                 } else {
-                                  customSnackBar(error, somethingWentWrong);
+                                  customSnackBar(
+                                      'error'.tr, 'somethingWentWrong');
                                 }
                               }
                             },
@@ -889,7 +889,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   color: kPrimaryColor,
                                   borderRadius: BorderRadius.circular(50.0)),
                               child: Center(
-                                child: Text(yesRemove,
+                                child: Text('yesRemove'.tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 16, color: Colors.white)),

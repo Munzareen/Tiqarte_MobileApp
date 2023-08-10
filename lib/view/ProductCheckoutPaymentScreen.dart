@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/AddCardScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/SeeAllProductsScreen.dart';
@@ -46,7 +46,7 @@ class _ProductCheckoutPaymentScreenState
                         icon: Icon(Icons.arrow_back)),
                     10.horizontalSpace,
                     Text(
-                      checkout,
+                      'checkout'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
@@ -98,7 +98,7 @@ class _ProductCheckoutPaymentScreenState
                             ),
                             8.verticalSpace,
                             Text(
-                              size + ": XL",
+                              'size'.tr + ": XL",
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -133,7 +133,7 @@ class _ProductCheckoutPaymentScreenState
                       children: [
                         FittedBox(
                           child: Text(
-                            selectThePaymentMethod,
+                            'selectThePaymentMethod'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 16,
@@ -149,7 +149,7 @@ class _ProductCheckoutPaymentScreenState
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
-                          child: customRadioButton(1, paypalIcon, payPal),
+                          child: customRadioButton(1, paypalIcon, 'payPal'.tr),
                         ),
                         20.verticalSpace,
                         Container(
@@ -159,7 +159,8 @@ class _ProductCheckoutPaymentScreenState
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
-                          child: customRadioButton(2, googleIcon, googlePay),
+                          child:
+                              customRadioButton(2, googleIcon, 'googlePay'.tr),
                         ),
                         20.verticalSpace,
                         Container(
@@ -169,7 +170,7 @@ class _ProductCheckoutPaymentScreenState
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15.0),
-                          child: customRadioButton(3, appleIcon, applePay),
+                          child: customRadioButton(3, appleIcon, 'applePay'.tr),
                         ),
                         20.verticalSpace,
                         Container(
@@ -195,7 +196,7 @@ class _ProductCheckoutPaymentScreenState
                                 borderRadius: BorderRadius.circular(50.0)),
                             padding: EdgeInsets.symmetric(vertical: 20.0),
                             child: Center(
-                              child: Text(addNewCard,
+                              child: Text('addNewCard'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16,
@@ -225,10 +226,10 @@ class _ProductCheckoutPaymentScreenState
                         context,
                         backgroundLogo,
                         Icons.verified_user_sharp,
-                        congratulations,
-                        placeOrderSuccess,
-                        shopMore,
-                        cancel, () {
+                        'congratulations'.tr,
+                        'placeOrderSuccess'.tr,
+                        'shopMore'.tr,
+                        'cancel'.tr, () {
                       Get.back();
                       Get.off(() => SeeAllProductsScreen(),
                           transition: Transition.cupertinoDialog);
@@ -238,7 +239,7 @@ class _ProductCheckoutPaymentScreenState
                           transition: Transition.cupertinoDialog);
                     });
                   },
-                  child: customButton(done, kPrimaryColor))),
+                  child: customButton('done'.tr, kPrimaryColor))),
         ));
   }
 

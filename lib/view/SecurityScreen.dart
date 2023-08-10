@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:tiqarte/helper/colors.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class SecurityScreen extends StatefulWidget {
   const SecurityScreen({super.key});
@@ -43,7 +42,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                           icon: Icon(Icons.arrow_back)),
                       20.horizontalSpace,
                       Text(
-                        security,
+                        'security'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -60,7 +59,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(rememberme,
+                            Text('rememberMe'.tr,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 18,
@@ -87,7 +86,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(faceID,
+                            Text('faceID'.tr,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 18,
@@ -114,7 +113,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(biometricID,
+                            Text('biometricID'.tr,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 18,
@@ -142,7 +141,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              googleAuthenticator,
+                              'googleAuthenticator'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,
@@ -163,7 +162,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                               color: kPrimaryColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
-                            child: Text(changePIN,
+                            child: Text('changePIN'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -179,7 +178,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                               color: kPrimaryColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
-                            child: Text(changePassword,
+                            child: Text('changePassword'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,

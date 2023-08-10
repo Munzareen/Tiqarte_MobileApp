@@ -7,9 +7,7 @@ import 'package:tiqarte/controller/viewProductController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/ViewProductModel.dart';
-import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 
 class ViewProductScreen extends StatefulWidget {
@@ -45,7 +43,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
             res_more, widget.productId);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -167,7 +165,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                             ),
                             15.verticalSpace,
                             Text(
-                              color,
+                              'color'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 16,
@@ -199,7 +197,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                 ),
                                 iconEnabledColor: kDisabledColor,
                                 hint: Text(
-                                  "Select " + color,
+                                  "Select " + 'color'.tr,
                                   style: TextStyle(fontSize: 15.sp),
                                 ),
                                 value: _vpc.selectedColor,
@@ -224,7 +222,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                             ),
                             15.verticalSpace,
                             Text(
-                              size,
+                              'size'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 16,
@@ -256,7 +254,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                 ),
                                 iconEnabledColor: kDisabledColor,
                                 hint: Text(
-                                  "Select " + size,
+                                  "Select " + 'size'.tr,
                                   style: TextStyle(fontSize: 15.sp),
                                 ),
                                 value: _vpc.selectedSize,
@@ -281,7 +279,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                             ),
                             20.verticalSpace,
                             Text(
-                              quantity,
+                              'quantity'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 16,
@@ -313,7 +311,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                 ),
                                 iconEnabledColor: kDisabledColor,
                                 hint: Text(
-                                  "Select " + quantity,
+                                  "Select " + 'quantity'.tr,
                                   style: TextStyle(fontSize: 15.sp),
                                 ),
                                 value: _vpc.selectedQuantity,
@@ -362,13 +360,13 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                               indicatorWeight: 3.0,
                               tabs: [
                                 FittedBox(
-                                  child: Text(description,
+                                  child: Text('description'.tr,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)),
                                 ),
                                 FittedBox(
-                                  child: Text(deliveryDetails,
+                                  child: Text('deliveryDetails'.tr,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)),
@@ -413,7 +411,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            moreLikeThis,
+                                            'moreLikeThis'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 20,
@@ -431,7 +429,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                                       transition: Transition
                                                           .rightToLeft),
                                                   child: Text(
-                                                    seeAll,
+                                                    'seeAll'.tr,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -552,14 +550,14 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                     ],
                                   ),
                             _vpc.quantityList.isEmpty
-                                ? customButton(outOfStock, Colors.red)
+                                ? customButton('outOfStock'.tr, Colors.red)
                                 : GestureDetector(
                                     onTap: () {
                                       if (_vpc.selectedColor == null ||
                                           _vpc.selectedSize == null ||
                                           _vpc.selectedQuantity == null) {
-                                        customSnackBar(
-                                            alert, "Please select all details");
+                                        customSnackBar('alert'.tr,
+                                            "Please select all details");
                                       } else {
                                         Attribute colorAttribute = _vpc
                                             .viewProductModel.attributes!
@@ -614,7 +612,7 @@ class _ViewProductScreenState extends State<ViewProductScreen>
                                       }
                                     },
                                     child: customButton(
-                                        addtoBasket, kPrimaryColor),
+                                        'addtoBasket'.tr, kPrimaryColor),
                                   ),
                             20.verticalSpace,
                           ],

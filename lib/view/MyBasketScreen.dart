@@ -6,7 +6,6 @@ import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/ProductCheckoutScreen.dart';
 
 class MyBasketScreen extends StatefulWidget {
@@ -63,7 +62,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                               icon: Icon(Icons.arrow_back)),
                           15.verticalSpace,
                           Text(
-                            myBasket,
+                            'myBasket'.tr,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 30,
@@ -88,7 +87,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                   icon: Icon(Icons.arrow_back)),
                               15.verticalSpace,
                               Text(
-                                myBasket,
+                                'myBasket'.tr,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 30,
@@ -107,7 +106,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                       ),
                                       20.verticalSpace,
                                       Text(
-                                        empty,
+                                        'empty'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 24,
@@ -134,7 +133,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      myBasket,
+                                      'myBasket'.tr,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 30,
@@ -143,7 +142,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                     ),
                                     Text(
                                       "${_mbc.myBasketProductsModel!.length.toString()} " +
-                                          item,
+                                          'item'.tr,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 16,
@@ -315,7 +314,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                                             ),
                                                       8.verticalSpace,
                                                       Text(
-                                                        "$quantity: ${_mbc.myBasketProductsModel![index].quantity.toString()}",
+                                                        "${'quantity'.tr}: ${_mbc.myBasketProductsModel![index].quantity.toString()}",
                                                         textAlign:
                                                             TextAlign.start,
                                                         overflow: TextOverflow
@@ -333,7 +332,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                                         onTap: () {
                                                           customAlertDialogWithoutLogo(
                                                               context,
-                                                              alert,
+                                                              'alert'.tr,
                                                               "Are you sure you want to remove ${_mbc.myBasketProductsModel![index].productName.toString()}?",
                                                               "Yes",
                                                               "No", () async {
@@ -352,7 +351,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                                           });
                                                         },
                                                         child: Text(
-                                                          remove,
+                                                          'remove'.tr,
                                                           textAlign:
                                                               TextAlign.start,
                                                           overflow: TextOverflow
@@ -398,7 +397,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      subtotal,
+                                      'subtotal'.tr,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 20,
@@ -417,7 +416,7 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                 ),
                                 20.verticalSpace,
                                 Text(
-                                  shippingTaxesAtCheckout,
+                                  'shippingTaxesAtCheckout'.tr,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -428,7 +427,8 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                 GestureDetector(
                                   onTap: () =>
                                       Get.to(() => ProductCheckoutScreen()),
-                                  child: customButton(checkout, kPrimaryColor),
+                                  child: customButton(
+                                      'checkout'.tr, kPrimaryColor),
                                 ),
                                 20.verticalSpace
                               ]),

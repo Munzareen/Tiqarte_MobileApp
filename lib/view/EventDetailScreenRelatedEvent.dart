@@ -13,7 +13,6 @@ import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/BookEventScreen.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/EventLocationScreen.dart';
@@ -67,7 +66,7 @@ class _EventDetailScreenRelatedEventState
       _eventDetailController.addEventDetail(res, widget.eventId);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -119,7 +118,7 @@ class _EventDetailScreenRelatedEventState
                           _edc.eventDetailModel.event?.isFav = false;
                           _edc.update();
                         }
-                        customSnackBar(alert, res);
+                        customSnackBar('alert'.tr, res);
                       }
                     },
                     child: Image.asset(
@@ -355,7 +354,7 @@ class _EventDetailScreenRelatedEventState
                                             ),
                                             10.horizontalSpace,
                                             Text(
-                                              addToMyCalender,
+                                              'addToMyCalender'.tr,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 14,
@@ -446,8 +445,8 @@ class _EventDetailScreenRelatedEventState
                                                       .trim()),
                                             );
                                           } else {
-                                            customSnackBar(
-                                                error, somethingWentWrong);
+                                            customSnackBar('error'.tr,
+                                                'somethingWentWrong'.tr);
                                             //checkLocationPermission();
                                           }
                                         },
@@ -470,7 +469,7 @@ class _EventDetailScreenRelatedEventState
                                               ),
                                               10.horizontalSpace,
                                               Text(
-                                                seeLocationOnMaps,
+                                                'seeLocationOnMaps'.tr,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     fontSize: 14,
@@ -642,7 +641,7 @@ class _EventDetailScreenRelatedEventState
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = true;
                                         _edc.update();
-                                        customSnackBar(alert,
+                                        customSnackBar('alert'.tr,
                                             "You are now following ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       } else if (res
                                           .toUpperCase()
@@ -650,7 +649,7 @@ class _EventDetailScreenRelatedEventState
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = false;
                                         _edc.update();
-                                        customSnackBar(alert,
+                                        customSnackBar('alert'.tr,
                                             "You unfollowed ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       }
                                     }
@@ -672,8 +671,8 @@ class _EventDetailScreenRelatedEventState
                                     child: Text(
                                       _edc.eventDetailModel.isOrganizerFollow ==
                                               true
-                                          ? following
-                                          : follow,
+                                          ? 'following'.tr
+                                          : 'follow'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 14,
@@ -690,7 +689,7 @@ class _EventDetailScreenRelatedEventState
                             ),
                             10.verticalSpace,
                             Text(
-                              aboutEvent,
+                              'aboutEvent'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 20,
@@ -713,7 +712,7 @@ class _EventDetailScreenRelatedEventState
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            galleryPreEvent,
+                                            'galleryPreEvent'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -738,7 +737,7 @@ class _EventDetailScreenRelatedEventState
                                                         .length >
                                                     3
                                                 ? Text(
-                                                    seeAll,
+                                                    'seeAll'.tr,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -903,7 +902,7 @@ class _EventDetailScreenRelatedEventState
                                       10.verticalSpace,
                                     ],
                                   ),
-                            Text(location,
+                            Text('location'.tr,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -1010,7 +1009,7 @@ class _EventDetailScreenRelatedEventState
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            moreEventsLikeThis,
+                                            'moreEventsLikeThis'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 20,
@@ -1034,7 +1033,7 @@ class _EventDetailScreenRelatedEventState
                                                         .length >
                                                     12
                                                 ? Text(
-                                                    seeAll,
+                                                    'seeAll'.tr,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -1223,7 +1222,8 @@ class _EventDetailScreenRelatedEventState
                                                                   _edc.update();
                                                                 }
                                                                 customSnackBar(
-                                                                    alert, res);
+                                                                    'alert'.tr,
+                                                                    res);
                                                               }
                                                             },
                                                             child: Image.asset(
@@ -1267,7 +1267,7 @@ class _EventDetailScreenRelatedEventState
                         Get.to(() => BookEventScreen(),
                             transition: Transition.rightToLeft);
                       },
-                      child: customButton(bookEvent, kPrimaryColor),
+                      child: customButton('bookEvent'.tr, kPrimaryColor),
                     )),
               ),
             );
@@ -1447,10 +1447,10 @@ class _EventDetailScreenRelatedEventState
             context,
             backgroundLogo,
             Icons.location_on,
-            enableLocation,
-            locationDialogSubString,
-            enableLocation,
-            cancel, () {
+            'enableLocation'.tr,
+            'locationDialogSubString'.tr,
+            'enableLocation'.tr,
+            'cancel'.tr, () {
           openAppSettings().then((value) {
             //checkLocationPermission();
           });
@@ -1458,8 +1458,14 @@ class _EventDetailScreenRelatedEventState
         });
       }
     } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(context, backgroundLogo, Icons.location_on,
-          enableLocation, locationDialogSubString, enableLocation, cancel, () {
+      customAlertDialogForPermission(
+          context,
+          backgroundLogo,
+          Icons.location_on,
+          'enableLocation'.tr,
+          'locationDialogSubString'.tr,
+          'enableLocation'.tr,
+          'cancel'.tr, () {
         openAppSettings().then((value) {
           //checkLocationPermission();
         });
@@ -1538,7 +1544,7 @@ class _ReadMoreWidgetState extends State<ReadMoreWidget> {
                   });
                 },
                 child: Text(
-                  isExpanded ? showLess : readMore,
+                  isExpanded ? 'showLess'.tr : 'readMore'.tr,
                   style: TextStyle(
                     color: kPrimaryColor,
                     fontWeight: FontWeight.bold,

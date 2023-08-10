@@ -79,7 +79,7 @@ class SeeAllEventController extends GetxController {
         if (res != null && res is List) {
           addSeeAllData(res);
         } else {
-          customSnackBar(error, somethingWentWrong);
+          customSnackBar('error'.tr, 'somethingWentWrong'.tr);
         }
       }
     });

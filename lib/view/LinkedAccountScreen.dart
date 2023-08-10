@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class LinkedAccountScreen extends StatefulWidget {
   const LinkedAccountScreen({super.key});
@@ -47,7 +47,7 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                             icon: Icon(Icons.arrow_back)),
                         20.horizontalSpace,
                         Text(
-                          linkedAccounts,
+                          'linkedAccounts'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
@@ -64,7 +64,7 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                           children: [
                             Image.asset(googleIcon),
                             10.horizontalSpace,
-                            Text(google,
+                            Text('google'.tr,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 18,
@@ -101,7 +101,7 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                                     children: [
                                       Image.asset(appleIcon),
                                       10.horizontalSpace,
-                                      Text(apple,
+                                      Text('apple'.tr,
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             fontSize: 18,
@@ -137,7 +137,7 @@ class _LinkedAccountScreenState extends State<LinkedAccountScreen> {
                           children: [
                             Image.asset(facebookIcon),
                             10.horizontalSpace,
-                            Text(facebook,
+                            Text('facebook'.tr,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 18,

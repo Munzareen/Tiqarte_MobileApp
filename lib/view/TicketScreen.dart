@@ -8,7 +8,6 @@ import 'package:tiqarte/controller/ticketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/CancelBookingScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
@@ -136,7 +135,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       20.horizontalSpace,
                                       Text(
-                                        ticketHeadingString,
+                                        'tickets'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
@@ -199,13 +198,13 @@ class _TicketScreenState extends State<TicketScreen>
                           indicatorColor: kPrimaryColor,
                           indicatorWeight: 3.0,
                           tabs: [
-                            Text(ticketUpcomingString,
+                            Text('upcoming'.tr,
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500)),
-                            Text(ticketCompletedString,
+                            Text('completed'.tr,
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500)),
-                            Text(ticketCancelledString,
+                            Text('cancelled'.tr,
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500)),
                           ],
@@ -226,7 +225,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       10.verticalSpace,
                                       Text(
-                                        notFound,
+                                        'notFound'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
@@ -235,7 +234,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       10.verticalSpace,
                                       Text(
-                                        seeAllEventNotFoundSubString,
+                                        'foundSubString'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 18,
@@ -254,7 +253,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           20.verticalSpace,
                                           Text(
-                                            ticketEmptyTicketsString,
+                                            'emptyTickets'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 24,
@@ -263,7 +262,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           20.verticalSpace,
                                           Text(
-                                            ticketEmptyTicketSubString,
+                                            'emptyTicketsSubString'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 18,
@@ -271,7 +270,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           30.verticalSpace,
                                           Text(
-                                            ticketFindEventsString,
+                                            'findEvents'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -294,7 +293,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                 ),
                                                 10.verticalSpace,
                                                 Text(
-                                                  notFound,
+                                                  'notFound'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 24,
@@ -446,7 +445,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           borderRadius: BorderRadius.circular(8.0)),
                                                                       child:
                                                                           Text(
-                                                                        ticketPaidString,
+                                                                        'paid'
+                                                                            .tr,
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: TextStyle(
@@ -501,7 +501,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           .circular(
                                                                               20.0)),
                                                               child: Text(
-                                                                ticketCancelBookingHeadingString,
+                                                                'cancelBooking'
+                                                                    .tr,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -547,7 +548,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           .circular(
                                                                               20.0)),
                                                               child: Text(
-                                                                viewETicket,
+                                                                'viewETicket'
+                                                                    .tr,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -582,7 +584,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       10.verticalSpace,
                                       Text(
-                                        notFound,
+                                        'notFound'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
@@ -591,7 +593,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       10.verticalSpace,
                                       Text(
-                                        seeAllEventNotFoundSubString,
+                                        'foundSubString'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 18,
@@ -610,7 +612,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           20.verticalSpace,
                                           Text(
-                                            ticketEmptyTicketsString,
+                                            'emptyTickets'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 24,
@@ -619,7 +621,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           20.verticalSpace,
                                           Text(
-                                            ticketEmptyTicketSubString,
+                                            'emptyTicketsSubString'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 18,
@@ -627,7 +629,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           30.verticalSpace,
                                           Text(
-                                            ticketFindEventsString,
+                                            'findEvents'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -650,7 +652,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                 ),
                                                 10.verticalSpace,
                                                 Text(
-                                                  notFound,
+                                                  'notFound'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 24,
@@ -802,7 +804,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           borderRadius: BorderRadius.circular(8.0)),
                                                                       child:
                                                                           Text(
-                                                                        ticketCompletedString,
+                                                                        'completed'
+                                                                            .tr,
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: TextStyle(
@@ -849,7 +852,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           BorderRadius.circular(
                                                                               20.0)),
                                                                   child: Text(
-                                                                    alreadyReviewed,
+                                                                    'alreadyReviewed'
+                                                                        .tr,
                                                                     textAlign:
                                                                         TextAlign
                                                                             .center,
@@ -889,7 +893,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                         borderRadius:
                                                                             BorderRadius.circular(20.0)),
                                                                     child: Text(
-                                                                      leaveAReview,
+                                                                      'leaveAReview'
+                                                                          .tr,
                                                                       textAlign:
                                                                           TextAlign
                                                                               .center,
@@ -934,7 +939,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           .circular(
                                                                               20.0)),
                                                               child: Text(
-                                                                viewETicket,
+                                                                'viewETicket'
+                                                                    .tr,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -969,7 +975,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       10.verticalSpace,
                                       Text(
-                                        notFound,
+                                        'notFound'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
@@ -978,7 +984,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       ),
                                       10.verticalSpace,
                                       Text(
-                                        seeAllEventNotFoundSubString,
+                                        'foundSubString'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 18,
@@ -997,7 +1003,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           20.verticalSpace,
                                           Text(
-                                            ticketEmptyTicketsString,
+                                            'emptyTickets'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 24,
@@ -1006,7 +1012,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           20.verticalSpace,
                                           Text(
-                                            ticketEmptyTicketSubString,
+                                            'emptyTicketsSubString'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 18,
@@ -1014,7 +1020,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           ),
                                           30.verticalSpace,
                                           Text(
-                                            ticketFindEventsString,
+                                            'findEvents'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -1037,7 +1043,7 @@ class _TicketScreenState extends State<TicketScreen>
                                                 ),
                                                 10.verticalSpace,
                                                 Text(
-                                                  notFound,
+                                                  'notFound'.tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 24,
@@ -1189,7 +1195,8 @@ class _TicketScreenState extends State<TicketScreen>
                                                                           borderRadius: BorderRadius.circular(8.0)),
                                                                       child:
                                                                           Text(
-                                                                        ticketCancelledString,
+                                                                        'cancelled'
+                                                                            .tr,
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: TextStyle(
@@ -1250,7 +1257,7 @@ class _TicketScreenState extends State<TicketScreen>
                   ),
                   15.verticalSpace,
                   Text(
-                    ticketCancelBookingHeadingString,
+                    'cancelBooking'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 24,
@@ -1260,7 +1267,7 @@ class _TicketScreenState extends State<TicketScreen>
                   Divider(),
                   10.verticalSpace,
                   Text(
-                    ticketCancelBookingSubString,
+                    'cancelBookingSubString'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 24,
@@ -1269,7 +1276,7 @@ class _TicketScreenState extends State<TicketScreen>
                   ),
                   20.verticalSpace,
                   Text(
-                    ticketCancelBookingRefundString,
+                    'ticketCancelBookingRefundString'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -1292,7 +1299,7 @@ class _TicketScreenState extends State<TicketScreen>
                               color: kPrimaryColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
-                            child: Text(ticketNoDontCancelButtonString,
+                            child: Text('noDontCancel'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -1319,7 +1326,7 @@ class _TicketScreenState extends State<TicketScreen>
                               color: kPrimaryColor,
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Center(
-                            child: Text(ticketYesCancelButtonString,
+                            child: Text('yesCancel'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white)),
@@ -1367,7 +1374,7 @@ class _TicketScreenState extends State<TicketScreen>
                 ),
                 15.verticalSpace,
                 Text(
-                  leaveAReview,
+                  'leaveAReview'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -1377,7 +1384,7 @@ class _TicketScreenState extends State<TicketScreen>
                 Divider(),
                 10.verticalSpace,
                 Text(
-                  leaveAReviewSub,
+                  'leaveAReviewSub'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
@@ -1406,7 +1413,7 @@ class _TicketScreenState extends State<TicketScreen>
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    writeYourReview,
+                    'writeYourReview'.tr,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontSize: 20,
@@ -1442,7 +1449,7 @@ class _TicketScreenState extends State<TicketScreen>
                         disabledBorder: customOutlineBorder,
                         //  fillColor: kDisabledColor.withOpacity(0.4),
                         filled: true,
-                        hintText: ticketCancelBookingReasonOthersSubString,
+                        hintText: 'otherReason'.tr,
                         hintStyle:
                             TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
                     inputFormatters: [
@@ -1468,7 +1475,7 @@ class _TicketScreenState extends State<TicketScreen>
                             color: kPrimaryColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(50.0)),
                         child: Center(
-                          child: Text(maybeLater,
+                          child: Text('maybeLater'.tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
@@ -1481,11 +1488,12 @@ class _TicketScreenState extends State<TicketScreen>
                     GestureDetector(
                       onTap: () async {
                         if (_ticketController.rating == null) {
-                          customSnackBar(alert, "Please fill the rating stars");
+                          customSnackBar(
+                              'alert'.tr, "Please fill the rating stars");
                         } else if (_ticketController.reviewControlller.text
                             .trim()
                             .isEmpty) {
-                          customSnackBar(alert, "Please write a review");
+                          customSnackBar('alert'.tr, "Please write a review");
                         } else {
                           String data =
                               "eventID=$eventId&review=${_ticketController.reviewControlller.text.trim()}&rating=${(_ticketController.rating)?.round().toString()}";
@@ -1502,7 +1510,7 @@ class _TicketScreenState extends State<TicketScreen>
                             color: kPrimaryColor,
                             borderRadius: BorderRadius.circular(50.0)),
                         child: Center(
-                          child: Text(submit,
+                          child: Text('submit'.tr,
                               textAlign: TextAlign.center,
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white)),

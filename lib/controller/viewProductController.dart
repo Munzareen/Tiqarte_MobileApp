@@ -42,13 +42,13 @@ class ViewProductController extends GetxController {
       if (colorList.isEmpty || sizeList.isEmpty) {
         //|| quantityList.isEmpty
         Get.back();
-        customSnackBar(error, somethingWentWrong);
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       } else {
         update();
       }
     } else {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 

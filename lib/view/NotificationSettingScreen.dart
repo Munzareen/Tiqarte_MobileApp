@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:tiqarte/helper/colors.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class NotificationSettingScreen extends StatefulWidget {
   const NotificationSettingScreen({super.key});
@@ -52,7 +52,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                           icon: Icon(Icons.arrow_back)),
                       20.horizontalSpace,
                       Text(
-                        notification,
+                        'notification'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -68,7 +68,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(EnableSoundVibrate,
+                        Text('EnableSoundVibrate'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -95,7 +95,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(purchasedTickets,
+                        Text('purchasedTickets'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -122,7 +122,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(likedEvents,
+                        Text('likedEvents'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -149,7 +149,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(followedOrganizer,
+                        Text('followedOrganizer'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -176,7 +176,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(specialOffers,
+                        Text('specialOffers'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -203,7 +203,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(payment,
+                        Text('payment'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -230,7 +230,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(reminders,
+                        Text('reminders'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -257,7 +257,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(recommendations,
+                        Text('recommendations'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -284,7 +284,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appUpdates,
+                        Text('appUpdates'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -311,7 +311,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(newServiceAvailable,
+                        Text('newServiceAvailable'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -338,7 +338,7 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(newTipsAvailable,
+                        Text('newTipsAvailable'.tr,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),

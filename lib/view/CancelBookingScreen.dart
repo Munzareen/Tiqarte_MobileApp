@@ -6,7 +6,6 @@ import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/cancelBookingController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 class CancelBookingScreen extends StatefulWidget {
   final String ticketUniqueNumber;
@@ -59,7 +58,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                           icon: Icon(Icons.arrow_back)),
                       10.horizontalSpace,
                       Text(
-                        ticketCancelBookingHeadingString,
+                        'cancelBooking'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
@@ -74,7 +73,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                     children: [
                       FittedBox(
                         child: Text(
-                          ticketCancelBookingSelectReasonString,
+                          'pleaseSelectTheReasonForcancellation'.tr,
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 18,
@@ -101,7 +100,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                         contentPadding: EdgeInsets.zero,
                         activeColor: kPrimaryColor,
                         title: Text(
-                          ticketCancelBookingReasonOthersString,
+                          'others'.tr,
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 18,
@@ -143,8 +142,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                               disabledBorder: customOutlineBorder,
                               //  fillColor: filledColorOther,
                               filled: true,
-                              hintText:
-                                  ticketCancelBookingReasonOthersSubString,
+                              hintText: 'otherReason'.tr,
                               hintStyle: TextStyle(
                                   color: Color(0xff9E9E9E), fontSize: 14)),
                           inputFormatters: [
@@ -159,13 +157,15 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                         onTap: () {
                           if (_cbc.selectedValue == -1 &&
                               _cbc.otherSelectedValue == -1) {
-                            customSnackBar(alert, "Please Select your reason");
+                            customSnackBar(
+                                'alert'.tr, "Please Select your reason");
                           } else {
                             if (_cbc.otherSelectedValue != -1 &&
                                 _cbc.otherReasonController.text
                                     .trim()
                                     .isEmpty) {
-                              customSnackBar(alert, "Please enter your reason");
+                              customSnackBar(
+                                  'alert'.tr, "Please enter your reason");
                             } else if (_cbc.otherSelectedValue != -1 &&
                                 _cbc.otherReasonController.text
                                     .trim()
@@ -182,8 +182,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                             }
                           }
                         },
-                        child: customButton(
-                            ticketCancelBookingHeadingString, kPrimaryColor),
+                        child: customButton('cancelBooking'.tr, kPrimaryColor),
                       ),
                       20.verticalSpace
                     ],

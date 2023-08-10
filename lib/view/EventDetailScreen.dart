@@ -15,7 +15,6 @@ import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/view/BookEventScreen.dart';
 import 'package:tiqarte/view/EventDetailScreenRelatedEvent.dart';
 import 'package:tiqarte/view/EventLocationScreen.dart';
@@ -67,7 +66,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       _eventDetailController.addEventDetail(res, widget.eventId);
     } else if (res != null && res is String) {
       Get.back();
-      customSnackBar(error, somethingWentWrong);
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -119,7 +118,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           _edc.eventDetailModel.event?.isFav = false;
                           _edc.update();
                         }
-                        customSnackBar(alert, res);
+                        customSnackBar('alert'.tr, res);
                       }
                     },
                     child: Image.asset(
@@ -347,8 +346,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                       .toString()
                                                       .trim() ==
                                                   "") {
-                                            customSnackBar(
-                                                error, somethingWentWrong);
+                                            customSnackBar('error'.tr,
+                                                'somethingWentWrong'.tr);
                                           } else {
                                             final Event event = Event(
                                               title: _edc
@@ -409,7 +408,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                               ),
                                               10.horizontalSpace,
                                               Text(
-                                                addToMyCalender,
+                                                'addToMyCalender'.tr,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     fontSize: 14,
@@ -501,8 +500,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                       .trim()),
                                             );
                                           } else {
-                                            customSnackBar(
-                                                error, somethingWentWrong);
+                                            customSnackBar('error'.tr,
+                                                'somethingWentWrong'.tr);
                                             //checkLocationPermission();
                                           }
                                         },
@@ -525,7 +524,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                               ),
                                               10.horizontalSpace,
                                               Text(
-                                                seeLocationOnMaps,
+                                                'seeLocationOnMaps'.tr,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     fontSize: 14,
@@ -697,7 +696,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = true;
                                         _edc.update();
-                                        customSnackBar(alert,
+                                        customSnackBar('alert'.tr,
                                             "You are now following ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       } else if (res
                                           .toUpperCase()
@@ -705,7 +704,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                         _edc.eventDetailModel
                                             .isOrganizerFollow = false;
                                         _edc.update();
-                                        customSnackBar(alert,
+                                        customSnackBar('alert'.tr,
                                             "You unfollowed ${_edc.eventDetailModel.organizer?.name.toString()}");
                                       }
                                     }
@@ -727,8 +726,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                     child: Text(
                                       _edc.eventDetailModel.isOrganizerFollow ==
                                               true
-                                          ? following
-                                          : follow,
+                                          ? 'following'.tr
+                                          : 'follow'.tr,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 14,
@@ -745,7 +744,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             ),
                             10.verticalSpace,
                             Text(
-                              aboutEvent,
+                              'aboutEvent'.tr,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 20,
@@ -768,7 +767,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            galleryPreEvent,
+                                            'galleryPreEvent'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -793,7 +792,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                         .length >
                                                     3
                                                 ? Text(
-                                                    seeAll,
+                                                    'seeAll'.tr,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -958,7 +957,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                       10.verticalSpace,
                                     ],
                                   ),
-                            Text(location,
+                            Text('location'.tr,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -1065,7 +1064,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            moreEventsLikeThis,
+                                            'moreEventsLikeThis'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 20,
@@ -1089,7 +1088,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                         .length >
                                                     12
                                                 ? Text(
-                                                    seeAll,
+                                                    'seeAll'.tr,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -1279,7 +1278,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                   _edc.update();
                                                                 }
                                                                 customSnackBar(
-                                                                    alert, res);
+                                                                    'alert'.tr,
+                                                                    res);
                                                               }
                                                             },
                                                             child: Image.asset(
@@ -1351,7 +1351,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           if (_bookEventController.economyPrice == null ||
                               _bookEventController.vipPrice == null) {
                             Get.back();
-                            customSnackBar(error, somethingWentWrong);
+                            customSnackBar('error'.tr, 'somethingWentWrong'.tr);
                           } else {
                             Get.back();
                             Get.to(() => BookEventScreen(),
@@ -1359,10 +1359,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           }
                         } else {
                           Get.back();
-                          customSnackBar(error, somethingWentWrong);
+                          customSnackBar('error'.tr, 'somethingWentWrong'.tr);
                         }
                       },
-                      child: customButton(bookEvent, kPrimaryColor),
+                      child: customButton('bookEvent'.tr, kPrimaryColor),
                     )),
               ),
             );
@@ -1542,10 +1542,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             context,
             backgroundLogo,
             Icons.location_on,
-            enableLocation,
-            locationDialogSubString,
-            enableLocation,
-            cancel, () {
+            'enableLocation'.tr,
+            'locationDialogSubString'.tr,
+            'enableLocation'.tr,
+            'cancel'.tr, () {
           openAppSettings().then((value) {
             //checkLocationPermission();
           });
@@ -1553,8 +1553,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         });
       }
     } else if (permission == LocationPermission.deniedForever) {
-      customAlertDialogForPermission(context, backgroundLogo, Icons.location_on,
-          enableLocation, locationDialogSubString, enableLocation, cancel, () {
+      customAlertDialogForPermission(
+          context,
+          backgroundLogo,
+          Icons.location_on,
+          'enableLocation'.tr,
+          'locationDialogSubString'.tr,
+          'enableLocation'.tr,
+          'cancel'.tr, () {
         openAppSettings().then((value) {
           //checkLocationPermission();
         });
@@ -1633,7 +1639,7 @@ class _ReadMoreWidgetState extends State<ReadMoreWidget> {
                   });
                 },
                 child: Text(
-                  isExpanded ? showLess : readMore,
+                  isExpanded ? 'showLess'.tr : 'readMore'.tr,
                   style: TextStyle(
                     color: kPrimaryColor,
                     fontWeight: FontWeight.bold,
