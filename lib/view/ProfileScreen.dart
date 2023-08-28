@@ -280,7 +280,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Row(
                           children: [
                             Text(
-                              "English (US)",
+                              language == 'en'
+                                  ? "English (US)"
+                                  : language == 'es'
+                                      ? "Spanish"
+                                      : language == 'de'
+                                          ? "German"
+                                          : language == 'fr'
+                                              ? "French"
+                                              : language == 'it'
+                                                  ? "Italian"
+                                                  : "English (US)",
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,

@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/otpVerificationController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
-import 'package:tiqarte/view/NewPasswordScreen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({super.key});
+  final String email;
+  const OtpVerificationScreen({super.key, required this.email});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -17,6 +18,7 @@ class OtpVerificationScreen extends StatefulWidget {
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final otpVerificationController = Get.put(OtpVerificationController());
+  TextEditingController _otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -48,7 +50,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'codeHasBeenSendTo'.tr + "andrew_ainsley@yourdomain.com",
+                  'codeHasBeenSentTo'.tr + widget.email,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -86,7 +88,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   backgroundColor: Colors.transparent,
                   enableActiveFill: true,
                   //   errorAnimationController: errorController,
-                  //  controller: _pinController,
+                  controller: _otpController,
                   onCompleted: (v) {},
                   onChanged: (value) {
                     // setState(() {
@@ -103,7 +105,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 Obx(
                   () => otpVerificationController.time.value == '01'
                       ? GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            await ApiService().generateOtpTemp(
+                                context, widget.email.toString());
+                            _otpController.clear();
                             otpVerificationController.startTimer(59);
                           },
                           child: Text(
@@ -151,8 +156,15 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
         floatingActionButton: GestureDetector(
           onTap: () {
-            Get.to(() => NewPasswordScreen(),
-                transition: Transition.rightToLeft);
+            if (_otpController.text.length == 4) {
+              String data =
+                  "emailAddress=${widget.email.toString()}&otp=${_otpController.text}";
+              ApiService().verifyOtp(context, widget.email, data);
+            } else {
+              customSnackBar("alert".tr, "Please enter 4 digit code");
+            }
+            // Get.to(() => NewPasswordScreen(),
+            //     transition: Transition.rightToLeft);
           },
           child: customButton('verify'.tr, kPrimaryColor),
         ),

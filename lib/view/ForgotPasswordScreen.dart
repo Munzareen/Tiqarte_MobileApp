@@ -121,7 +121,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 50.verticalSpace,
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => OtpVerificationScreen(),
+                    Get.to(
+                        () => OtpVerificationScreen(
+                            email: _emailController.text.trim()),
                         transition: Transition.rightToLeft);
                   },
                   child: customButton('continueButton'.tr, kPrimaryColor),

@@ -139,7 +139,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                           disabledBorder: customOutlineBorder,
                                           //  fillColor: filledColorSearch,
                                           filled: true,
-                                          hintText: "Search",
+                                          hintText: "search".tr,
                                           hintStyle: TextStyle(
                                               color: Color(0xff9E9E9E),
                                               fontSize: 14)),

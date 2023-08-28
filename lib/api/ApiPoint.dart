@@ -7,6 +7,9 @@ class ApiPoint {
   String verifyOtp = "customer/VerifyEmailOTP?otp=";
   String updateProfile = "customer/uploadProfilePicture";
   String login = "customer/login";
+  String generateOtpTemp = "customer/GenerateEmailOTPTemp?emailAddress=";
+  String verifyEmailOTPTemp = "customer/VerifyEmailOTPTemp?";
+
   String changePassword = "customer/ChangePassword";
   String socialLogin = "user/login_social?";
   String getHomeData = "getHomeData";

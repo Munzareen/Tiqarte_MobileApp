@@ -132,26 +132,31 @@ class _LanguageScreenState extends State<LanguageScreen> {
         if (_selectedValue == 1) {
           var locale = Locale('en', 'US');
           Get.updateLocale(locale);
+          language = 'en';
           prefs?.setString("language", "en");
           prefs?.setInt("languageValue", _selectedValue);
         } else if (_selectedValue == 2) {
           var locale = Locale('es');
           Get.updateLocale(locale);
+          language = 'es';
           prefs?.setString("language", "es");
           prefs?.setInt("languageValue", _selectedValue);
         } else if (_selectedValue == 3) {
           var locale = Locale('de');
           Get.updateLocale(locale);
+          language = 'de';
           prefs?.setString("language", "de");
           prefs?.setInt("languageValue", _selectedValue);
         } else if (_selectedValue == 4) {
           var locale = Locale('fr');
           Get.updateLocale(locale);
+          language = 'fr';
           prefs?.setString("language", "fr");
           prefs?.setInt("languageValue", _selectedValue);
         } else if (_selectedValue == 5) {
           var locale = Locale('it');
           Get.updateLocale(locale);
+          language = 'it';
           prefs?.setString("language", "it");
           prefs?.setInt("languageValue", _selectedValue);
         }

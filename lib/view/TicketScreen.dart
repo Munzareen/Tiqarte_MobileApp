@@ -10,6 +10,7 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/CancelBookingScreen.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
 
 class TicketScreen extends StatefulWidget {
@@ -105,7 +106,7 @@ class _TicketScreenState extends State<TicketScreen>
                                           disabledBorder: customOutlineBorder,
                                           // fillColor: filledColorSearch,
                                           filled: true,
-                                          hintText: "Search",
+                                          hintText: "search".tr,
                                           hintStyle: TextStyle(
                                               color: Color(0xff9E9E9E),
                                               fontSize: 14)),
@@ -198,15 +199,24 @@ class _TicketScreenState extends State<TicketScreen>
                           indicatorColor: kPrimaryColor,
                           indicatorWeight: 3.0,
                           tabs: [
-                            Text('upcoming'.tr,
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                            Text('completed'.tr,
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                            Text('cancelled'.tr,
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            FittedBox(
+                              child: Text('upcoming'.tr,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                            FittedBox(
+                              child: Text('completed'.tr,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                            FittedBox(
+                              child: Text('cancelled'.tr,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500)),
+                            ),
                           ],
                         ),
                         20.verticalSpace,
@@ -269,13 +279,18 @@ class _TicketScreenState extends State<TicketScreen>
                                             ),
                                           ),
                                           30.verticalSpace,
-                                          Text(
-                                            'findEvents'.tr,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: kPrimaryColor,
-                                                fontWeight: FontWeight.bold),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.offAll(() => MainScreen());
+                                            },
+                                            child: Text(
+                                              'findEvents'.tr,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: kPrimaryColor,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ],
                                       )
@@ -628,13 +643,18 @@ class _TicketScreenState extends State<TicketScreen>
                                             ),
                                           ),
                                           30.verticalSpace,
-                                          Text(
-                                            'findEvents'.tr,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: kPrimaryColor,
-                                                fontWeight: FontWeight.bold),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.offAll(() => MainScreen());
+                                            },
+                                            child: Text(
+                                              'findEvents'.tr,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: kPrimaryColor,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ],
                                       )
@@ -682,146 +702,146 @@ class _TicketScreenState extends State<TicketScreen>
                                                           .secondaryHeaderColor),
                                                   child: Column(
                                                     children: [
-                                                      Row(
-                                                        // mainAxisSize: MainAxisSize.min,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          customCardImage(
-                                                              _tc
-                                                                  .completedTicketList[
-                                                                      index]
-                                                                  .imageURL
-                                                                  .toString(),
-                                                              110.h,
-                                                              100.h),
-                                                          8.horizontalSpace,
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              SizedBox(
-                                                                width: 0.5.sw,
-                                                                child: Text(
-                                                                  _tc
-                                                                      .completedTicketList[
-                                                                          index]
-                                                                      .eventName
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  maxLines: 1,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              8.verticalSpace,
-                                                              FittedBox(
-                                                                child: Text(
-                                                                  splitDateTimeWithoutYear(_tc
-                                                                      .completedTicketList[
-                                                                          index]
-                                                                      .eventDate
-                                                                      .toString()),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: TextStyle(
+                                                      FittedBox(
+                                                        child: Row(
+                                                          // mainAxisSize: MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            customCardImage(
+                                                                _tc
+                                                                    .completedTicketList[
+                                                                        index]
+                                                                    .imageURL
+                                                                    .toString(),
+                                                                110.h,
+                                                                100.h),
+                                                            8.horizontalSpace,
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: 0.5.sw,
+                                                                  child: Text(
+                                                                    _tc
+                                                                        .completedTicketList[
+                                                                            index]
+                                                                        .eventName
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    maxLines: 1,
+                                                                    style:
+                                                                        TextStyle(
                                                                       fontSize:
-                                                                          14,
+                                                                          18,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w600,
-                                                                      color:
-                                                                          kPrimaryColor),
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              8.verticalSpace,
-                                                              FittedBox(
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .location_on,
-                                                                      color:
-                                                                          kPrimaryColor,
-                                                                      size: 25,
-                                                                    ),
-                                                                    5.horizontalSpace,
-                                                                    SizedBox(
-                                                                      width: 0.25
-                                                                          .sw,
-                                                                      child:
-                                                                          Text(
-                                                                        _tc.completedTicketList[index]
-                                                                            .city
-                                                                            .toString(),
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        maxLines:
-                                                                            1,
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.w400,
-                                                                        ),
+                                                                8.verticalSpace,
+                                                                FittedBox(
+                                                                  child: Text(
+                                                                    splitDateTimeWithoutYear(_tc
+                                                                        .completedTicketList[
+                                                                            index]
+                                                                        .eventDate
+                                                                        .toString()),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color:
+                                                                            kPrimaryColor),
+                                                                  ),
+                                                                ),
+                                                                8.verticalSpace,
+                                                                FittedBox(
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .location_on,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                        size:
+                                                                            25,
                                                                       ),
-                                                                    ),
-                                                                    5.horizontalSpace,
-                                                                    Container(
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          horizontal:
-                                                                              5.0,
-                                                                          vertical:
-                                                                              5.0),
-                                                                      decoration: BoxDecoration(
-                                                                          border: Border.all(
-                                                                            color:
-                                                                                Color(0xff07BD74),
-                                                                          ),
-                                                                          borderRadius: BorderRadius.circular(8.0)),
-                                                                      child:
-                                                                          Text(
-                                                                        'completed'
-                                                                            .tr,
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: TextStyle(
+                                                                      5.horizontalSpace,
+                                                                      SizedBox(
+                                                                        width: 0.25
+                                                                            .sw,
+                                                                        child:
+                                                                            Text(
+                                                                          _tc.completedTicketList[index]
+                                                                              .city
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          maxLines:
+                                                                              1,
+                                                                          style:
+                                                                              TextStyle(
                                                                             fontSize:
-                                                                                10,
+                                                                                12,
                                                                             fontWeight:
                                                                                 FontWeight.w400,
-                                                                            color: Color(0xff07BD74)),
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                    )
-                                                                  ],
+                                                                      5.horizontalSpace,
+                                                                      Container(
+                                                                        padding: EdgeInsets.symmetric(
+                                                                            horizontal:
+                                                                                5.0,
+                                                                            vertical:
+                                                                                5.0),
+                                                                        decoration: BoxDecoration(
+                                                                            border: Border.all(
+                                                                              color: Color(0xff07BD74),
+                                                                            ),
+                                                                            borderRadius: BorderRadius.circular(8.0)),
+                                                                        child:
+                                                                            Text(
+                                                                          'completed'
+                                                                              .tr,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: TextStyle(
+                                                                              fontSize: 10,
+                                                                              fontWeight: FontWeight.w400,
+                                                                              color: Color(0xff07BD74)),
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          )
-                                                        ],
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
                                                       5.verticalSpace,
                                                       Divider(),
@@ -1019,13 +1039,18 @@ class _TicketScreenState extends State<TicketScreen>
                                             ),
                                           ),
                                           30.verticalSpace,
-                                          Text(
-                                            'findEvents'.tr,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: kPrimaryColor,
-                                                fontWeight: FontWeight.bold),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.offAll(() => MainScreen());
+                                            },
+                                            child: Text(
+                                              'findEvents'.tr,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: kPrimaryColor,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ],
                                       )

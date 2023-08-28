@@ -1583,13 +1583,13 @@ class _HomeScreenState extends State<HomeScreen> {
     int currentHour = now.hour;
 
     if (currentHour >= 6 && currentHour < 12) {
-      return 'Good Morning';
+      return 'goodMorning'.tr;
     } else if (currentHour >= 12 && currentHour < 18) {
-      return 'Good Afternoon';
+      return 'goodAfternoon'.tr;
     } else if (currentHour >= 18 && currentHour < 24) {
-      return 'Good Evening';
+      return 'goodEvening'.tr;
     } else {
-      return 'Good Night';
+      return 'goodNight'.tr;
     }
   }
 }

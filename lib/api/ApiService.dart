@@ -11,55 +11,17 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/AccountSetupScreen.dart';
+import 'package:tiqarte/view/EditProfileScreen.dart';
+import 'package:tiqarte/view/HomeScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/OtpVerificationScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
 
 class ApiService {
-  // register(
-  //     BuildContext context, Map<String, String> data ) async {
-  //   final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().register);
-
-  //   showDialog(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (BuildContext context) {
-  //         return WillPopScope(onWillPop: () async => false, child: spinkit);
-  //       });
-  //   final headers = {
-  //     'Content-Type': 'application/json',
-  //   };
-
-  //   try {
-  //     var request = http.MultipartRequest('POST', uri);
-
-  //     request.fields.addAll(data);
-  //     request.headers.addAll(headers);
-
-  //     //String jsonBody = json.encode(request.fields);
-
-  //     var response = await request.send();
-
-  //     final res = await http.Response.fromStream(response);
-
-  //     if (res.statusCode == 200) {
-
-  //               Get.back();
-
-  //         Get.offAll(() => OtpVerificationScreen(),
-  //           transition: Transition.rightToLeft);
-  //     } else{
-  //       Get.back();
-  //     customSnackBar(error, somethingWentWrong);
-  //     }
-  //   } catch (e) {
-  //     Get.back();
-  //     customSnackBar(error, somethingWentWrong);
-  //   }
-  // }
-  register(BuildContext context, dynamic data) async {
+  register(BuildContext context, Map<String, String> data) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().register);
+
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -69,18 +31,30 @@ class ApiService {
     final headers = {
       'Content-Type': 'application/form-data',
     };
-    try {
-      String jsonBody = json.encode(data);
 
-      http.Response response =
-          await http.post(uri, headers: headers, body: jsonBody);
-      if (response.statusCode == 200) {
+    try {
+      var request = http.MultipartRequest('POST', uri);
+
+      request.fields.addAll(data);
+      request.headers.addAll(headers);
+
+      //String jsonBody = json.encode(request.fields);
+
+      var response = await request.send();
+
+      final res = await http.Response.fromStream(response);
+
+      if (res.statusCode == 200) {
         Get.back();
 
-        var res_data = json.decode(response.body);
-
-        Get.offAll(() => OtpVerificationScreen(),
-            transition: Transition.rightToLeft);
+        var res_data = json.decode(res.body);
+        if (res_data is Map &&
+            res_data['message'].toString().toUpperCase().contains("ALREADY")) {
+          customSnackBar('alert'.tr, "Email already exist, please try login");
+        } else {
+          Get.offAll(() => OtpVerificationScreen(email: data['email']!),
+              transition: Transition.rightToLeft);
+        }
       } else {
         Get.back();
 
@@ -92,23 +66,35 @@ class ApiService {
     }
   }
 
-  verifyOtp(BuildContext context, String otp) async {
-    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().verifyOtp + otp);
+  verifyOtp(BuildContext context, String email, String data) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().verifyEmailOTPTemp + data);
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
 
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $accessToken'
     };
     try {
       http.Response response = await http.get(
         uri,
-        headers: headers,
+        //  headers: headers,
       );
       if (response.statusCode == 200) {
         var res_data = json.decode(response.body);
-
-        Get.offAll(() => AccountSetupScreen(),
-            transition: Transition.rightToLeft);
+        Get.back();
+        if (res_data is Map && res_data['isSuccess']) {
+          userEmail = email;
+          Get.offAll(() => AccountSetupScreen(email: email),
+              transition: Transition.rightToLeft);
+        } else {
+          customSnackBar('error'.tr, 'Invalid code');
+        }
       } else {
         Get.back();
 
@@ -120,7 +106,7 @@ class ApiService {
     }
   }
 
-  login(BuildContext context, dynamic data) async {
+  login(BuildContext context, Map<String, String> data) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().login);
     showDialog(
         context: context,
@@ -132,16 +118,66 @@ class ApiService {
       'Content-Type': 'application/json',
     };
     try {
-      String jsonBody = json.encode(data);
+      var request = http.MultipartRequest('POST', uri);
 
-      http.Response response =
-          await http.post(uri, headers: headers, body: jsonBody);
-      if (response.statusCode == 200) {
+      request.fields.addAll(data);
+      request.headers.addAll(headers);
+
+      //String jsonBody = json.encode(request.fields);
+
+      var response = await request.send();
+
+      final res = await http.Response.fromStream(response);
+
+      if (res.statusCode == 200) {
         Get.back();
 
-        var res_data = json.decode(response.body);
+        var res_data = json.decode(res.body);
+        if (res_data is String && res_data.toUpperCase().contains("INVALID")) {
+          customSnackBar('error'.tr, res_data);
+        } else {
+          if (!res_data['isVerified']) {
+            Get.offAll(() => OtpVerificationScreen(email: data['email']!),
+                transition: Transition.rightToLeft);
+          } else if (!res_data['isProfileCompleted']) {
+            Get.offAll(() => AccountSetupScreen(email: data['email']!),
+                transition: Transition.rightToLeft);
+          } else {
+            Get.offAll(() => HomeScreen(), transition: Transition.rightToLeft);
+          }
+        }
+      } else {
+        Get.back();
 
-        return res_data;
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  generateOtpTemp(BuildContext context, String email) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().generateOtpTemp + email);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        // headers: headers,
+      );
+      if (response.statusCode == 200) {
+        Get.back();
+        customSnackBar('success', 'Otp successfully sent');
       } else {
         Get.back();
 
@@ -154,7 +190,7 @@ class ApiService {
   }
 
   updateProfile(
-      BuildContext context, Map<String, String> data, File imageFile) async {
+      BuildContext context, Map<String, String> data, File? imageFile) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().updateProfile);
 
     showDialog(
@@ -165,7 +201,6 @@ class ApiService {
         });
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $accessToken'
     };
 
     try {
@@ -174,11 +209,13 @@ class ApiService {
       request.fields.addAll(data);
       request.headers.addAll(headers);
 
-      var multipartFile = await http.MultipartFile.fromPath(
-          'imageUrl', imageFile.path,
-          filename: imageFile.path.split('/').last,
-          contentType: MediaType("image", "jpg"));
-      request.files.add(multipartFile);
+      if (imageFile != null) {
+        var multipartFile = await http.MultipartFile.fromPath(
+            'imageUrl', imageFile.path,
+            filename: imageFile.path.split('/').last,
+            contentType: MediaType("image", "jpg"));
+        request.files.add(multipartFile);
+      }
 
       //String jsonBody = json.encode(request.fields);
 

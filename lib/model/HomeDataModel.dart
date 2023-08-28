@@ -220,10 +220,10 @@ class Shop {
         isActive: json["isActive"],
         promotorId: json["PromotorId"],
         productImages: json["ProductImages"] != null
-            ? List<String>.from(json["ProductImages"].map((x) => x))
+            ? List<String>.from(json["ProductImages"].where((x) => x != null))
             : [],
         attributes: json["Attributes"] != null
-            ? List<dynamic>.from(json["Attributes"].map((x) => x))
+            ? List<dynamic>.from(json["Attributes"].where((x) => x != null))
             : [],
         createdDate: json["CreatedDate"],
       );

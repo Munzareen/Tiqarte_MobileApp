@@ -7,13 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/images.dart';
-import 'package:tiqarte/helper/strings.dart';
 
 RxBool isDarkTheme = false.obs;
 String accessToken = '';

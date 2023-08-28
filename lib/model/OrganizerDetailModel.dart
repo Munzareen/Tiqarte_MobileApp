@@ -129,8 +129,9 @@ class Event {
         eventStatusId: json["EventStatusId"],
         eventTypeId: json["EventTypeId"],
         postEventImages:
-            List<String>.from(json["PostEventImages"].map((x) => x)),
-        preEventImages: List<String>.from(json["PreEventImages"].map((x) => x)),
+            List<String>.from(json["PostEventImages"].where((x) => x != null)),
+        preEventImages:
+            List<String>.from(json["PreEventImages"].where((x) => x != null)),
         catagoryId: json["CatagoryId"],
         price: json["Price"],
         organizerId: json["OrganizerID"],
