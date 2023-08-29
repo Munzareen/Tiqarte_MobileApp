@@ -7,6 +7,7 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/HomeDataModel.dart';
+import 'package:tiqarte/model/NewsModel.dart';
 
 class HomeController extends GetxController {
   final searchController = TextEditingController();
@@ -22,6 +23,9 @@ class HomeController extends GetxController {
   List<CategoryModel>? upcomingCategoryList;
   List<CategoryModel>? shopCategoryList;
 
+  List<NewsModel> newsList = [];
+  List<NewsModel> newsListAll = [];
+
   addHomeData(dynamic data) async {
     homeDataModel = HomeDataModel.fromJson(data);
     featuredEventList = homeDataModel.featuredEvents;
@@ -29,7 +33,7 @@ class HomeController extends GetxController {
     shopList = homeDataModel.shop;
     featuredEventListAll = [...homeDataModel.featuredEvents!];
     upcomingEventListAll = [...homeDataModel.upComingEvents!];
-    shopListAll = [...homeDataModel.shop!];
+    shopListAll = [...shopList!];
 
     var res = await ApiService().getCategories();
     if (res != null && res is List) {
@@ -134,8 +138,23 @@ class HomeController extends GetxController {
       }).toList();
       shopList = shop;
 
+      //for news
+      newsList = [...newsListAll];
+      final list = newsList.where((element) {
+        final title = element.title!.toLowerCase();
+        final input = query.toLowerCase();
+        return title.contains(input);
+      }).toList();
+      newsList = list;
+
       update();
     }
+  }
+
+  addNews(List data) {
+    newsList = newsModelFromJson(data);
+    newsListAll = [...newsList];
+    update();
   }
 
   @override

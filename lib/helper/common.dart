@@ -19,6 +19,7 @@ String userName = '';
 String userImage = '';
 String userEmail = '';
 String language = 'en';
+String promotorId = "1";
 
 SharedPreferences? prefs;
 String savedDir = '';

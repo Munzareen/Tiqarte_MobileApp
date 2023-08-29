@@ -227,11 +227,11 @@ class ApiService {
       if (res.statusCode == 200) {
       } else if (!res_data['status']) {
         Get.back();
-        customSnackBar("Error!", res_data['message']);
+        customSnackBar("error".tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();
-      customSnackBar("Error!", "Something went wrong!");
+      customSnackBar("error".tr, 'somethingWentWrong'.tr);
     }
   }
 
@@ -1132,6 +1132,9 @@ class ApiService {
     Get.changeThemeMode(
       isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
     );
+    var locale = Locale('en', 'US');
+    Get.updateLocale(locale);
+    language = 'en';
     accessToken = '';
     userId = '';
     userName = '';
@@ -1139,6 +1142,32 @@ class ApiService {
 
     Get.back();
     Get.offAll(() => PreLoginScreen(), transition: Transition.leftToRight);
+  }
+
+  getArticles() async {
+    final uri = Uri.parse(ApiPoint().getArticles + promotorId);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
   }
 
   tokenExpiredLogout() async {
@@ -1152,6 +1181,9 @@ class ApiService {
       Get.changeThemeMode(
         isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
       );
+      var locale = Locale('en', 'US');
+      Get.updateLocale(locale);
+      language = 'en';
       accessToken = '';
       userId = '';
       userName = '';

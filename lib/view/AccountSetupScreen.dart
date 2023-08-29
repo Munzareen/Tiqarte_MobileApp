@@ -590,11 +590,11 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                   if (_dobController.text.isEmpty ||
                                       phoneNumber == '' ||
                                       selectedGender == null) {
-                                    customSnackBar("error".tr,
+                                    customSnackBar("alert".tr,
                                         "Please add all the information");
                                   } else {
                                     if (imageFile == null) {
-                                      customSnackBar("error".tr,
+                                      customSnackBar("alert".tr,
                                           "Please add profile image");
                                     } else {
                                       Map<String, String> data = {

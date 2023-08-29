@@ -5,7 +5,7 @@ class ApiPoint {
 //END POINT
   String register = "customer/register";
   String verifyOtp = "customer/VerifyEmailOTP?otp=";
-  String updateProfile = "customer/uploadProfilePicture";
+  String updateProfile = "customer/updateProfile";
   String login = "customer/login";
   String generateOtpTemp = "customer/GenerateEmailOTPTemp?emailAddress=";
   String verifyEmailOTPTemp = "customer/VerifyEmailOTPTemp?";
@@ -38,4 +38,8 @@ class ApiPoint {
   String addToCart = "addToCart";
   String addToCartDelete = "addToCartDelete?Id=";
   String getAddToCartByUser = "getAddToCartByUser";
+
+  //admin
+  String getArticles =
+      "https://tiqarte.azurewebsites.net/admin/getAllArticleByPromotor?PromotorId=";
 }

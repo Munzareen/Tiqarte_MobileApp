@@ -15,6 +15,7 @@ import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
+import 'package:tiqarte/view/SeeAllNewsScreen.dart';
 import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 import 'package:tiqarte/view/ViewProductScreen.dart';
 
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getData();
     getCartProducts();
+    getNewsList();
   }
 
   getCartProducts() async {
@@ -43,6 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (res != null && res is List) {
       _myBasketController.addMyBasketData(res);
+    }
+  }
+
+  getNewsList() async {
+    var res = await ApiService().getArticles();
+
+    if (res != null && res is List) {
+      _homeController.addNews(res);
     }
   }
 
@@ -1559,7 +1569,232 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                              20.verticalSpace,
+                              _hc.newsListAll.isEmpty
+                                  ? SizedBox()
+                                  : _hc.newsListAll.isNotEmpty &&
+                                          _hc.newsList.isEmpty
+                                      ? Column(
+                                          children: [
+                                            20.verticalSpace,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'news'.tr,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            20.verticalSpace,
+                                            Image.asset(
+                                              notFoundImage,
+                                              height: 250,
+                                            ),
+                                            10.verticalSpace,
+                                            Text(
+                                              'notFound'.tr,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            10.verticalSpace,
+                                          ],
                                         )
+                                      : Column(children: [
+                                          20.verticalSpace,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'news'.tr,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              _hc.newsList.length > 12
+                                                  ? GestureDetector(
+                                                      onTap: () => Get.to(
+                                                          () => SeeAllNewsScreen(
+                                                              newsList: _hc
+                                                                  .newsListAll),
+                                                          transition: Transition
+                                                              .rightToLeft),
+                                                      child: Text(
+                                                        'seeAll'.tr,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                kPrimaryColor),
+                                                      ),
+                                                    )
+                                                  : SizedBox(),
+                                            ],
+                                          ),
+                                          20.verticalSpace,
+                                          CarouselSlider.builder(
+                                              options: CarouselOptions(
+                                                  height: 0.425.sh,
+                                                  enlargeCenterPage: true,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  enableInfiniteScroll: false,
+                                                  viewportFraction: 0.8),
+                                              itemCount: _hc.newsList.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int itemIndex,
+                                                      int pageViewIndex) {
+                                                return GestureDetector(
+                                                  // onTap: () {
+                                                  //   Get.to(
+                                                  //       () => EventDetailScreen(
+                                                  //             eventId: _hc
+                                                  //                 .featuredEventList![
+                                                  //                     itemIndex]
+                                                  //                 .eventId!
+                                                  //                 .toInt()
+                                                  //                 .toString(),
+                                                  //           ));
+                                                  // },
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
+                                                        color: Theme.of(context)
+                                                            .secondaryHeaderColor),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          customCardImage(
+                                                              _hc.newsList[itemIndex].imageUrl ==
+                                                                          null ||
+                                                                      _hc
+                                                                          .newsList[
+                                                                              itemIndex]
+                                                                          .imageUrl!
+                                                                          .trim()
+                                                                          .isEmpty
+                                                                  ? "null"
+                                                                  : _hc
+                                                                      .newsList[
+                                                                          itemIndex]
+                                                                      .imageUrl
+                                                                      .toString(),
+                                                              250.w,
+                                                              160.h),
+                                                          12.verticalSpace,
+                                                          SizedBox(
+                                                            width: 0.7.sw,
+                                                            child: Text(
+                                                              _hc
+                                                                  .newsList[
+                                                                      itemIndex]
+                                                                  .title
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 2,
+                                                              style: TextStyle(
+                                                                fontSize: 24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          12.verticalSpace,
+                                                          FittedBox(
+                                                            child: SizedBox(
+                                                              width: 0.7.sw,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Row(
+                                                                    children: [
+                                                                      Text(
+                                                                        'learnMore'
+                                                                            .tr,
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.w400,
+                                                                            color: kPrimaryColor),
+                                                                      ),
+                                                                      5.horizontalSpace,
+                                                                      Icon(
+                                                                        Icons
+                                                                            .arrow_outward,
+                                                                        size:
+                                                                            20,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  Text(
+                                                                    splitDateTimeWithoutYear(_hc
+                                                                        .newsList[
+                                                                            itemIndex]
+                                                                        .scheduled
+                                                                        .toString()),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              })
+                                        ])
                             ],
                           ),
                         ),
