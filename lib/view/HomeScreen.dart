@@ -1731,9 +1731,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                           ),
                                                           12.verticalSpace,
-                                                          SizedBox(
-                                                            width: 0.7.sw,
-                                                            child: FittedBox(
+                                                          FittedBox(
+                                                            child: SizedBox(
+                                                              width: 0.7.sw,
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -1741,17 +1741,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 children: [
                                                                   Row(
                                                                     children: [
-                                                                      Text(
-                                                                        'learnMore'
-                                                                            .tr,
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                18,
-                                                                            fontWeight:
-                                                                                FontWeight.w400,
-                                                                            color: kPrimaryColor),
+                                                                      SizedBox(
+                                                                        width: 0.25
+                                                                            .sw,
+                                                                        child:
+                                                                            Text(
+                                                                          'learnMore'
+                                                                              .tr,
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style: TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.w400,
+                                                                              color: kPrimaryColor),
+                                                                        ),
                                                                       ),
                                                                       3.horizontalSpace,
                                                                       Icon(
