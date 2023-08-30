@@ -900,6 +900,52 @@ String EventDateForETicketForPDF(String date) {
   }
 }
 
+String splitDateForNews(String date) {
+  if (date.isNotEmpty && date != "null") {
+    try {
+      DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(date);
+      var inputDate = DateTime.parse(parserDate.toString());
+      var outPutFormate = DateFormat('d MMM yyyy');
+      var OutPutDate = outPutFormate.format(inputDate);
+      return OutPutDate;
+    } on Exception catch (_) {
+      try {
+        DateTime parserDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+        var inputDate = DateTime.parse(parserDate.toString());
+        var outPutFormate = DateFormat('d MMM yyyy');
+        var OutPutDate = outPutFormate.format(inputDate);
+        return OutPutDate;
+      } on Exception catch (_) {
+        try {
+          DateTime parserDate =
+              DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
+          var inputDate = DateTime.parse(parserDate.toString());
+          var outPutFormate = DateFormat('d MMM yyyy');
+          var OutPutDate = outPutFormate.format(inputDate);
+          return OutPutDate;
+        } on Exception catch (_) {
+          try {
+            DateTime parserDate = DateFormat("dd/MM/yyyy").parse(date);
+            var inputDate = DateTime.parse(parserDate.toString());
+            var outPutFormate = DateFormat('d MMM yyyy');
+            var OutPutDate = outPutFormate.format(inputDate);
+            return OutPutDate;
+          } catch (_) {
+            DateTime parserDate =
+                DateFormat("dd/MM/yyyy HH:mm:ss a").parse(date);
+            var inputDate = DateTime.parse(parserDate.toString());
+            var outPutFormate = DateFormat('d MMM yyyy');
+            var OutPutDate = outPutFormate.format(inputDate);
+            return OutPutDate;
+          }
+        }
+      }
+    }
+  } else {
+    return "";
+  }
+}
+
 exitUser() {
   if (Platform.isAndroid) {
     SystemNavigator.pop();

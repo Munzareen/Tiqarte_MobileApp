@@ -200,7 +200,7 @@ class ApiService {
           return WillPopScope(onWillPop: () async => false, child: spinkit);
         });
     final headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     };
 
     try {
@@ -211,9 +211,9 @@ class ApiService {
 
       if (imageFile != null) {
         var multipartFile = await http.MultipartFile.fromPath(
-            'imageUrl', imageFile.path,
+            'ImageFile', imageFile.path,
             filename: imageFile.path.split('/').last,
-            contentType: MediaType("image", "jpg"));
+            contentType: MediaType("ImageFile", "jpg"));
         request.files.add(multipartFile);
       }
 
@@ -226,6 +226,9 @@ class ApiService {
 
       if (res.statusCode == 200) {
       } else if (!res_data['status']) {
+        Get.back();
+        customSnackBar("error".tr, 'somethingWentWrong'.tr);
+      } else {
         Get.back();
         customSnackBar("error".tr, 'somethingWentWrong'.tr);
       }
@@ -1146,6 +1149,32 @@ class ApiService {
 
   getArticles() async {
     final uri = Uri.parse(ApiPoint().getArticles + promotorId);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  getAllProductListByUser() async {
+    final uri = Uri.parse(ApiPoint().getAllProductListByUser);
 
     final headers = {
       'Content-Type': 'application/json',

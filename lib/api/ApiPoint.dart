@@ -38,6 +38,7 @@ class ApiPoint {
   String addToCart = "addToCart";
   String addToCartDelete = "addToCartDelete?Id=";
   String getAddToCartByUser = "getAddToCartByUser";
+  String getAllProductListByUser = "getAllProductListByUser";
 
   //admin
   String getArticles =

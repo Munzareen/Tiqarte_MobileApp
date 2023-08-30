@@ -282,7 +282,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w300,
-                            color: kDisabledColor),
+                            color: Colors.grey),
                       ),
                       10.horizontalSpace,
                       TextButton(

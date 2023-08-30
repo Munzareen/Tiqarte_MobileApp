@@ -241,37 +241,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         image: FileImage(imageFile!),
                                         fit: BoxFit.cover)),
                               ),
-                        // PopupMenuButton(
-                        //     color: Theme.of(context).colorScheme.secondary,
-                        //     offset: Offset(50, -5),
-                        //     child: Container(
-                        //       decoration: BoxDecoration(
-                        //         color: kPrimaryColor,
-                        //         borderRadius: BorderRadius.circular(12.0),
-                        //       ),
-                        //       child: Padding(
-                        //         padding: EdgeInsets.all(4.0),
-                        //         child: Icon(
-                        //           Icons.edit,
-                        //           color: Colors.white,
-                        //           size: 25,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     itemBuilder: (_) => <PopupMenuItem<String>>[
-                        //           PopupMenuItem<String>(
-                        //             child: Text("Camera"),
-                        //             value: 'Camera',
-                        //             onTap: () =>
-                        //                 checkCameraPermissionAndOpenCamera(),
-                        //           ),
-                        //           PopupMenuItem<String>(
-                        //               child: Text("Gallery"),
-                        //               value: 'Gallery',
-                        //               onTap: () =>
-                        //                   //  checkGalleryPermissionAndPickImage(),
-                        //                   _getFromGallery())
-                        //         ])
+                        PopupMenuButton(
+                            color: Theme.of(context).colorScheme.secondary,
+                            offset: Offset(50, -5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: kPrimaryColor,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ),
+                            ),
+                            itemBuilder: (_) => <PopupMenuItem<String>>[
+                                  PopupMenuItem<String>(
+                                    child: Text("Camera"),
+                                    value: 'Camera',
+                                    onTap: () =>
+                                        checkCameraPermissionAndOpenCamera(),
+                                  ),
+                                  PopupMenuItem<String>(
+                                      child: Text("Gallery"),
+                                      value: 'Gallery',
+                                      onTap: () =>
+                                          //  checkGalleryPermissionAndPickImage(),
+                                          _getFromGallery())
+                                ])
                       ],
                     ),
                     20.verticalSpace,

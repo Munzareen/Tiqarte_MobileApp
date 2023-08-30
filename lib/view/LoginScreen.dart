@@ -272,18 +272,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: customButton('signIn'.tr, kPrimaryColor),
                   ),
                   10.verticalSpace,
-                  TextButton(
-                    child: Text('forgotThePassword'.tr,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: kPrimaryColor)),
-                    onPressed: () {
-                      Get.to(() => ForgotPasswordScreen(),
-                          transition: Transition.rightToLeft);
-                    },
-                  ),
+                  // TextButton(
+                  //   child: Text('forgotThePassword'.tr,
+                  //       textAlign: TextAlign.center,
+                  //       style: TextStyle(
+                  //           fontSize: 16,
+                  //           fontWeight: FontWeight.w600,
+                  //           color: kPrimaryColor)),
+                  //   onPressed: () {
+                  //     Get.to(() => ForgotPasswordScreen(),
+                  //         transition: Transition.rightToLeft);
+                  //   },
+                  // ),
                   10.verticalSpace,
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -317,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w300,
-                            color: kDisabledColor),
+                            color: Colors.grey),
                       ),
                       10.horizontalSpace,
                       TextButton(

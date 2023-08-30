@@ -74,6 +74,8 @@ String profileIconSelected = "assets/images/profileIconSelected.png";
 String notificationIconWithBadge =
     "assets/images/notificationIconWithBadge.png";
 String notificationIcon = "assets/images/notificationIcon.png";
+String newsIcon = "assets/images/newsIcon.png";
+String merchandiseIcon = "assets/images/merchandiseIcon.png";
 
 String allIcon = "assets/images/allIcon.png";
 String musicIcon = "assets/images/musicIcon.png";

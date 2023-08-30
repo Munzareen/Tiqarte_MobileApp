@@ -12,7 +12,9 @@ import 'package:tiqarte/view/EditProfileScreen.dart';
 import 'package:tiqarte/view/HelpCenterScreen.dart';
 import 'package:tiqarte/view/LanguageScreen.dart';
 import 'package:tiqarte/view/LinkedAccountScreen.dart';
+import 'package:tiqarte/view/MerchandiseOrderHistoryScreen.dart';
 import 'package:tiqarte/view/NotificationSettingScreen.dart';
+import 'package:tiqarte/view/SeeAllNewsScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -236,6 +238,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   20.verticalSpace,
                   GestureDetector(
                     onTap: () {
+                      Get.to(() => SeeAllNewsScreen(),
+                          transition: Transition.rightToLeft);
+                    },
+                    child: customRow(newsIcon, 'news'.tr),
+                  ),
+                  20.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => MerchandiseOrderHistoryScreen(),
+                          transition: Transition.rightToLeft);
+                    },
+                    child: customRow(
+                        merchandiseIcon, 'merchandiseOrderHistory'.tr),
+                  ),
+                  20.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
                       Get.to(() => LinkedAccountScreen(),
                           transition: Transition.rightToLeft);
                     },
@@ -421,12 +440,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Image.asset(iconImage,
                 height: 28, color: Theme.of(context).colorScheme.background),
             10.horizontalSpace,
-            Text(
-              name,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+            SizedBox(
+              width: 0.6.sw,
+              child: Text(
+                name,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

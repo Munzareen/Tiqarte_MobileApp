@@ -300,6 +300,10 @@ class Localization extends Translations {
           'enablePhoto': "Enable Photo",
           'enablePhotoSubString':
               "To use this service, we need permission to access your photos.",
+          'learnMore': "Learn More",
+          'news': 'News',
+          'allNews': "All News",
+          "merchandiseOrderHistory": "Merchandise Order History"
         },
         'es': {
           'welcomeHeading': "¡Bienvenido/a a Tiqarte!",
@@ -601,6 +605,10 @@ class Localization extends Translations {
           'enablePhoto': "Activar foto",
           'enablePhotoSubString':
               "Para usar este servicio, necesitamos permiso para acceder a tus fotos.",
+          'learnMore': "Aprende más",
+          'news': 'Noticias',
+          'allNews': "Todas las noticias",
+          "merchandiseOrderHistory": "Historial de pedidos de mercancías"
         },
         'de': {
           'welcomeHeadingString': "Willkommen bei Tiqarte!",
@@ -679,7 +687,6 @@ class Localization extends Translations {
           'notification': "Benachrichtigung",
           'notificationSubSrting':
               "Sie haben derzeit keine Benachrichtigungen.",
-          'tickets': "Tickets",
           'upcoming': "Demnächst",
           'completed': "Abgeschlossen",
           'cancelled': "Abgebrochen",
@@ -718,10 +725,12 @@ class Localization extends Translations {
           'successful': "Erfolgreich!",
           'ok': "OK",
           'favorite': "Favorit",
-          'favorites': "Favoriten",
           'removeFromFavorites': "Aus Favoriten entfernen?",
           'yesRemove': "Ja, entfernen",
           'goodMorning': "Guten Morgen",
+          'goodAfternoon': 'Guten Tag',
+          'goodEvening': 'Guten Abend',
+          'goodNight': 'Gute Nacht',
           'whatEventAreYouLookingFor': "Nach welcher Veranstaltung suchen Sie?",
           'featured': "Angeboten",
           'fillYourProfile': "Vervollständigen Sie Ihr Profil",
@@ -834,7 +843,6 @@ class Localization extends Translations {
           'appUpdates': "Aktualisierte Anwendungen",
           'newServiceAvailable': "Neuer Service verfügbar",
           'newTipsAvailable': "Neue Tipps verfügbar",
-          'rememberMe': "Erinnern Sie mich",
           'faceID': "Gesichtserkennung",
           'biometricID': "Biometrische ID",
           'googleAuthenticator': "Google Authenticator",
@@ -865,7 +873,6 @@ class Localization extends Translations {
           'writeYourReview': "Ihre Bewertung hier...",
           'yourReviewHere': "Ihre Bewertung hier...",
           'maybeLater': "Vielleicht später",
-          'submit': "Senden",
           'upcomingEvent': "Kommende Veranstaltung",
           'shop': "Einkaufen",
           'forMen': "für Männer",
@@ -908,10 +915,13 @@ class Localization extends Translations {
           'enableCamera': "Kamera freischalten",
           'enableCameraSubString':
               "Um diesen Dienst nutzen zu können, benötigen wir die Erlaubnis, auf Ihre Kamera zuzugreifen.",
-          'cancel': "Abbrechen",
           'enablePhoto': "Foto freischalten",
           'enablePhotoSubString':
-              "Um diesen Service nutzen zu können, benötigen wir die Erlaubnis, auf Ihre Fotos zuzugreifen."
+              "Um diesen Service nutzen zu können, benötigen wir die Erlaubnis, auf Ihre Fotos zuzugreifen.",
+          'learnMore': "Erfahren Sie mehr",
+          'news': 'Nachricht',
+          'allNews': "Alle Nachrichten",
+          "merchandiseOrderHistory": "Warenbestellverlauf"
         },
         'fr': {
           'welcomeHeadingString': "Bienvenue à Tiqarte !",
@@ -988,7 +998,6 @@ class Localization extends Translations {
           'notification': "Notification",
           'notificationSubSrting':
               "Vous n'avez pas de notifications pour le moment",
-          'tickets': "Billets",
           'upcoming': "À venir",
           'completed': "Terminé",
           'cancelled': "Annulées",
@@ -1026,10 +1035,12 @@ class Localization extends Translations {
           'successful': "Réussir !",
           'ok': "OK",
           'favorite': "Signet",
-          'favorites': "Signets",
           'removeFromFavorites': "Supprimer des favoris ?",
           'yesRemove': "Oui, supprimer",
           'goodMorning': "Bonjour",
+          'goodAfternoon': 'Bon après-midi',
+          'goodEvening': 'Bonne soirée',
+          'goodNight': 'Bonne nuit',
           'whatEventAreYouLookingFor': "Quel événement recherchez-vous ?...",
           'featured': "En vedette",
           'fillYourProfile': "Complétez votre profil",
@@ -1143,7 +1154,6 @@ class Localization extends Translations {
           'appUpdates': "Mises à jour de l'application",
           'newServiceAvailable': "Nouveau service disponible",
           'newTipsAvailable': "Nouveaux conseils disponibles",
-          'rememberMe': "Me rappeler",
           'faceID': "Identifiant facial",
           'biometricID': "ID biométrique",
           'googleAuthenticator': "Google Authenticator",
@@ -1174,7 +1184,6 @@ class Localization extends Translations {
           'writeYourReview': "Donnez votre avis",
           'yourReviewHere': "Votre commentaire ici...",
           'maybeLater': "Peut-être plus tard",
-          'submit': "Envoyer",
           'upcomingEvent': "Événement à venir",
           'shop': "Boutique",
           'forMen': "Pour hommes",
@@ -1216,10 +1225,13 @@ class Localization extends Translations {
           'enableCamera': "Activer l'appareil photo",
           'enableCameraSubString':
               "Pour utiliser ce service, nous avons besoin d'une autorisation d'accès à votre appareil photo.",
-          'cancel': "Annuler",
           'enablePhoto': "Activer la photo",
           'enablePhotoSubString':
-              "Pour utiliser ce service, nous devons avoir la permission d'accéder à vos photos."
+              "Pour utiliser ce service, nous devons avoir la permission d'accéder à vos photos.",
+          'learnMore': "Apprendre encore plus",
+          'news': 'Nouvelles',
+          'allNews': "Toutes les nouvelles",
+          "merchandiseOrderHistory": "Historique des commandes de marchandises"
         },
         'it': {
           'welcomeHeadingString': "Benvenuti a Tiqarte!",
@@ -1295,7 +1307,6 @@ class Localization extends Translations {
           'apply': "Applica",
           'notification': "Notifiche",
           'notificationSubSrting': "Non hai notifiche in questo momento",
-          'tickets': "Biglietti",
           'upcoming': "Prossimamente",
           'completed': "Completato",
           'cancelled': "Annullato",
@@ -1333,10 +1344,12 @@ class Localization extends Translations {
           'successful': "Successo!",
           'ok': "OK",
           'favorite': "Segnalibro",
-          'favorites': "Segnalibri",
           'removeFromFavorites': "Rimuovere dai preferiti?",
           'yesRemove': "Sì, elimina",
           'goodMorning': "Buongiorno",
+          'goodAfternoon': 'Buon pomeriggio',
+          'goodEvening': 'Buonasera',
+          'goodNight': 'Buona notte',
           'whatEventAreYouLookingFor': "Quale evento stai cercando?...",
           'featured': "In primo piano",
           'fillYourProfile': "Completa il tuo profilo",
@@ -1449,7 +1462,6 @@ class Localization extends Translations {
           'appUpdates': "Aggiornamenti dell'applicazione",
           'newServiceAvailable': "Nuovo servizio disponibile",
           'newTipsAvailable': "Nuovi suggerimenti disponibili",
-          'rememberMe': "Ricordami",
           'faceID': "Face ID",
           'biometricID': "ID biometrico",
           'googleAuthenticator': "Autenticatore Google",
@@ -1479,8 +1491,6 @@ class Localization extends Translations {
               "Come è stata la tua esperienza con Formazione Arte e Pittura?",
           'writeYourReview': "Scrivi il tuo commento",
           'yourReviewHere': "Il tuo commento qui...",
-          'maybeLater': "Forse più tardi",
-          'submit': "Inviare",
           'upcomingEvent': "Prossimi eventi",
           'shop': "Negozio",
           'forMen': "per gli uomini",
@@ -1522,10 +1532,13 @@ class Localization extends Translations {
           'enableCamera': "Attivare la fotocamera",
           'enableCameraSubString':
               "Per utilizzare questo servizio, abbiamo bisogno del permesso di accedere alla vostra fotocamera.",
-          'cancel': "Annulla",
           'enablePhoto': "Attivare foto",
           'enablePhotoSubString':
-              "Per utilizzare questo servizio, abbiamo bisogno dell'autorizzazione ad accedere alle vostre foto."
+              "Per utilizzare questo servizio, abbiamo bisogno dell'autorizzazione ad accedere alle vostre foto.",
+          'learnMore': "Saperne di più",
+          'news': 'Notizia',
+          'allNews': "Tutte le novità",
+          "merchandiseOrderHistory": "Storico degli ordini di merce"
         },
         'ca': {
           'welcomeHeadingString': "Benvingut/da a Tiqarte!",
@@ -1602,7 +1615,6 @@ class Localization extends Translations {
           'apply': "Aplicar",
           'notification': "Notificació",
           'notificationSubSrting': "No tens cap notificació en aquest moment",
-          'tickets': "Entrades",
           'upcoming': "Propers",
           'completed': "Completats",
           'cancelled': "Cancel·lats",
@@ -1642,6 +1654,9 @@ class Localization extends Translations {
           'removeFromFavorites': "Eliminar de Preferits?",
           'yesRemove': "Sí, eliminar",
           'goodMorning': "Bon dia",
+          'goodAfternoon': 'Bona tarda',
+          'goodEvening': 'Bona nit',
+          'goodNight': 'Bona nit',
           'whatEventAreYouLookingFor': "Quin esdeveniment estàs buscant?...",
           'featured': "Destacats",
           'fillYourProfile': "Completa el teu perfil",
@@ -1828,7 +1843,11 @@ class Localization extends Translations {
               "Per utilitzar aquest servei, necessitem permís per accedir a la teva càmera",
           'enablePhoto': "Activar foto",
           'enablePhotoSubString':
-              "Per fer servir aquest servei, necessitem permís per accedir a les teves fotos."
+              "Per fer servir aquest servei, necessitem permís per accedir a les teves fotos.",
+          'learnMore': "Aprèn més",
+          'news': 'Notícies',
+          'allNews': "Totes les notícies",
+          "merchandiseOrderHistory": "Historial de comandes de mercaderies"
         },
         'eu': {
           'welcomeHeadingString': "Ongi etorri Tiqartera!",
@@ -1943,6 +1962,9 @@ class Localization extends Translations {
           'removeFromFavorites': "Kendu gogokitik?",
           'yesRemove': "Bai, kendu",
           'goodMorning': "Egun on",
+          'goodAfternoon': 'Arratsalde on',
+          'goodEvening': 'Arratsalde on',
+          'goodNight': 'Gau on',
           'whatEventAreYouLookingFor': "Zer ekitaldi bilatzen ari zara...",
           'featured': "Nabarmena",
           'fillYourProfile': "Osatu zure profila",
@@ -2128,7 +2150,11 @@ class Localization extends Translations {
               "Zerbitzu hau erabiltzeko, baimena behar dugu zure kamera atzitzeko.",
           'enablePhoto': "Gaitu argazkia",
           'enablePhotoSubString':
-              "Zerbitzu hau erabiltzeko, baimena behar dugu zure argazkiak atzitzeko."
+              "Zerbitzu hau erabiltzeko, baimena behar dugu zure argazkiak atzitzeko.",
+          'learnMore': "Gehiago ikasi",
+          'news': 'Berriak',
+          'allNews': "Berri guztiak",
+          "merchandiseOrderHistory": "Salgaien eskaeraren historia"
         }
       };
 }

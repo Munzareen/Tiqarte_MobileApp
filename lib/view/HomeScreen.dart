@@ -13,6 +13,7 @@ import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
+import 'package:tiqarte/view/NewsDetailScreen.dart';
 import 'package:tiqarte/view/NotificationScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
 import 'package:tiqarte/view/SeeAllNewsScreen.dart';
@@ -1627,9 +1628,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               _hc.newsList.length > 12
                                                   ? GestureDetector(
                                                       onTap: () => Get.to(
-                                                          () => SeeAllNewsScreen(
-                                                              newsList: _hc
-                                                                  .newsListAll),
+                                                          () =>
+                                                              SeeAllNewsScreen(),
                                                           transition: Transition
                                                               .rightToLeft),
                                                       child: Text(
@@ -1656,23 +1656,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       Axis.horizontal,
                                                   enableInfiniteScroll: false,
                                                   viewportFraction: 0.8),
-                                              itemCount: _hc.newsList.length,
+                                              itemCount:
+                                                  _hc.newsList.length > 12
+                                                      ? 12
+                                                      : _hc.newsList.length,
                                               itemBuilder:
                                                   (BuildContext context,
                                                       int itemIndex,
                                                       int pageViewIndex) {
                                                 return GestureDetector(
-                                                  // onTap: () {
-                                                  //   Get.to(
-                                                  //       () => EventDetailScreen(
-                                                  //             eventId: _hc
-                                                  //                 .featuredEventList![
-                                                  //                     itemIndex]
-                                                  //                 .eventId!
-                                                  //                 .toInt()
-                                                  //                 .toString(),
-                                                  //           ));
-                                                  // },
+                                                  onTap: () {
+                                                    Get.to(
+                                                        () => NewsDetailScreen(
+                                                              newsModel: _hc
+                                                                      .newsList[
+                                                                  itemIndex],
+                                                            ));
+                                                  },
                                                   child: Container(
                                                     padding:
                                                         EdgeInsets.all(16.0),
@@ -1731,9 +1731,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                           ),
                                                           12.verticalSpace,
-                                                          FittedBox(
-                                                            child: SizedBox(
-                                                              width: 0.7.sw,
+                                                          SizedBox(
+                                                            width: 0.7.sw,
+                                                            child: FittedBox(
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -1753,7 +1753,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 FontWeight.w400,
                                                                             color: kPrimaryColor),
                                                                       ),
-                                                                      5.horizontalSpace,
+                                                                      3.horizontalSpace,
                                                                       Icon(
                                                                         Icons
                                                                             .arrow_outward,
@@ -1765,7 +1765,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     ],
                                                                   ),
                                                                   Text(
-                                                                    splitDateTimeWithoutYear(_hc
+                                                                    splitDateForNews(_hc
                                                                         .newsList[
                                                                             itemIndex]
                                                                         .scheduled
