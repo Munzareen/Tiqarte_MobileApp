@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -13,10 +14,12 @@ import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/AccountSetupScreen.dart';
 import 'package:tiqarte/view/EditProfileScreen.dart';
 import 'package:tiqarte/view/HomeScreen.dart';
+import 'package:tiqarte/view/LoginScreen.dart';
 import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/OtpVerificationScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
+import 'package:tiqarte/view/newPasswordScreen.dart';
 
 class ApiService {
   register(BuildContext context, Map<String, String> data) async {
@@ -52,7 +55,9 @@ class ApiService {
             res_data['message'].toString().toUpperCase().contains("ALREADY")) {
           customSnackBar('alert'.tr, "Email already exist, please try login");
         } else {
-          Get.offAll(() => OtpVerificationScreen(email: data['email']!),
+          Get.offAll(
+              () => OtpVerificationScreen(
+                  email: data['email']!, type: "register"),
               transition: Transition.rightToLeft);
         }
       } else {
@@ -66,7 +71,8 @@ class ApiService {
     }
   }
 
-  verifyOtp(BuildContext context, String email, String data) async {
+  verifyOtp(
+      BuildContext context, String email, String data, String type) async {
     final uri =
         Uri.parse(ApiPoint().baseUrl + ApiPoint().verifyEmailOTPTemp + data);
 
@@ -88,12 +94,18 @@ class ApiService {
       if (response.statusCode == 200) {
         var res_data = json.decode(response.body);
         Get.back();
-        if (res_data is Map && res_data['isSuccess']) {
-          userEmail = email;
-          Get.offAll(() => AccountSetupScreen(email: email),
+
+        if (type.toUpperCase().contains("FORGOT")) {
+          Get.offAll(() => NewPasswordScreen(email: email),
               transition: Transition.rightToLeft);
         } else {
-          customSnackBar('error'.tr, 'Invalid code');
+          if (res_data is Map && res_data['isSuccess']) {
+            userEmail = email;
+            Get.offAll(() => AccountSetupScreen(email: email),
+                transition: Transition.rightToLeft);
+          } else {
+            customSnackBar('error'.tr, 'Invalid code');
+          }
         }
       } else {
         Get.back();
@@ -137,13 +149,52 @@ class ApiService {
           customSnackBar('error'.tr, res_data);
         } else {
           if (!res_data['isVerified']) {
-            Get.offAll(() => OtpVerificationScreen(email: data['email']!),
+            Get.offAll(
+                () =>
+                    OtpVerificationScreen(email: data['email']!, type: 'login'),
                 transition: Transition.rightToLeft);
           } else if (!res_data['isProfileCompleted']) {
             Get.offAll(() => AccountSetupScreen(email: data['email']!),
                 transition: Transition.rightToLeft);
           } else {
-            Get.offAll(() => HomeScreen(), transition: Transition.rightToLeft);
+            if (prefs == null) {
+              await initializePrefs();
+            }
+
+            accessToken = res_data['token']['data'];
+            userId = getUserIdFromJWT(accessToken);
+            userName =
+                '${res_data['user']['FirstName'].toString()} ${res_data['user']['LastName'].toString()}';
+            userImage = res_data['user']['ImageUrl'].toString();
+            userEmail = res_data['user']['Email'].toString();
+            userNickname = res_data['user']['NickName'].toString();
+            userDob = res_data['user']['DOB'].toString();
+            userState = res_data['user']['State'].toString();
+            userCity = res_data['user']['City'].toString();
+            userZipcode = res_data['user']['ZipCode'].toString();
+            userCountrycode = res_data['user']['CountryCode'].toString();
+            userNumber = res_data['user']['PhoneNumber'].toString();
+            userGender = res_data['user']['Gender'].toString();
+
+            prefs?.setString("userNickname", userNickname);
+            prefs?.setString("userDob", userDob);
+            prefs?.setString("userState", userState);
+            prefs?.setString("userCity", userCity);
+            prefs?.setString("userZipcode", userZipcode);
+            prefs?.setString("userCountrycode", userCountrycode);
+            prefs?.setString("userNumber", userNumber);
+            prefs?.setString("userGender", userGender);
+
+            prefs?.setString("accessToken", accessToken);
+            prefs?.setString("userId", userId);
+
+            prefs?.setString("userName", userName);
+
+            prefs?.setString("userImage", userImage);
+            prefs?.setString("userEmail", userEmail);
+            Get.back();
+
+            Get.offAll(() => MainScreen(), transition: Transition.rightToLeft);
           }
         }
       } else {
@@ -157,7 +208,7 @@ class ApiService {
     }
   }
 
-  generateOtpTemp(BuildContext context, String email) async {
+  generateOtpTemp(BuildContext context, String email, String type) async {
     final uri =
         Uri.parse(ApiPoint().baseUrl + ApiPoint().generateOtpTemp + email);
     showDialog(
@@ -177,7 +228,13 @@ class ApiService {
       );
       if (response.statusCode == 200) {
         Get.back();
-        customSnackBar('success', 'Otp successfully sent');
+
+        if (type.toUpperCase().contains("FORGOT")) {
+          Get.off(() => OtpVerificationScreen(email: email, type: type),
+              transition: Transition.rightToLeft);
+        } else {
+          customSnackBar('success'.tr, 'otpSuccessfullySent'.tr);
+        }
       } else {
         Get.back();
 
@@ -189,8 +246,57 @@ class ApiService {
     }
   }
 
-  updateProfile(
-      BuildContext context, Map<String, String> data, File? imageFile) async {
+  changePassword(BuildContext context, Map<String, String> data) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().changePassword);
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+    final headers = {
+      'Content-Type': 'application/form-data',
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', uri);
+
+      request.fields.addAll(data);
+      request.headers.addAll(headers);
+
+      //String jsonBody = json.encode(request.fields);
+
+      var response = await request.send();
+
+      final res = await http.Response.fromStream(response);
+
+      if (res.statusCode == 200) {
+        Get.back();
+        customAlertDialogWithSpinkit(
+            context,
+            backgroundLogo,
+            Icons.verified_user,
+            'congratulations'.tr,
+            'newPasswordCongratsSubString'.tr);
+        Timer(Duration(seconds: 2), () {
+          Get.back();
+
+          Get.offAll(() => LoginScreen(), transition: Transition.leftToRight);
+        });
+      } else {
+        Get.back();
+
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  updateProfile(BuildContext context, Map<String, String> data, File? imageFile,
+      String type) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().updateProfile);
 
     showDialog(
@@ -215,6 +321,9 @@ class ApiService {
             filename: imageFile.path.split('/').last,
             contentType: MediaType("ImageFile", "jpg"));
         request.files.add(multipartFile);
+      } else {
+        request.files.add(http.MultipartFile.fromBytes('ImageFile', [],
+            contentType: MediaType('image', 'png'), filename: ''));
       }
 
       //String jsonBody = json.encode(request.fields);
@@ -222,12 +331,53 @@ class ApiService {
       var response = await request.send();
 
       final res = await http.Response.fromStream(response);
-      var res_data = json.decode(res.body.toString());
 
       if (res.statusCode == 200) {
-      } else if (!res_data['status']) {
+        if (prefs == null) {
+          await initializePrefs();
+        }
+
+        var res_data = json.decode(res.body.toString());
+        accessToken = res_data['token']['data'];
+        userId = getUserIdFromJWT(accessToken);
+        userName =
+            '${res_data['user']['FirstName'].toString()} ${res_data['user']['LastName'].toString()}';
+        userImage = res_data['user']['ImageUrl'].toString();
+        userEmail = res_data['user']['Email'].toString();
+        userNickname = res_data['user']['NickName'].toString();
+        userDob = res_data['user']['DOB'].toString();
+        userState = res_data['user']['State'].toString();
+        userCity = res_data['user']['City'].toString();
+        userZipcode = res_data['user']['ZipCode'].toString();
+        userCountrycode = res_data['user']['CountryCode'].toString();
+        userNumber = res_data['user']['PhoneNumber'].toString();
+        userGender = res_data['user']['Gender'].toString();
+
+        prefs?.setString("userNickname", userNickname);
+        prefs?.setString("userDob", userDob);
+        prefs?.setString("userState", userState);
+        prefs?.setString("userCity", userCity);
+        prefs?.setString("userZipcode", userZipcode);
+        prefs?.setString("userCountrycode", userCountrycode);
+        prefs?.setString("userNumber", userNumber);
+        prefs?.setString("userGender", userGender);
+
+        prefs?.setString("accessToken", accessToken);
+        prefs?.setString("userId", userId);
+
+        prefs?.setString("userName", userName);
+
+        prefs?.setString("userImage", userImage);
+        prefs?.setString("userEmail", userEmail);
         Get.back();
-        customSnackBar("error".tr, 'somethingWentWrong'.tr);
+
+        if (type.toUpperCase().contains("EDIT")) {
+          customSnackBar("success".tr, 'profileSuccessfullyUpdated'.tr);
+        } else {
+          Get.offAll(() => MainScreen(), transition: Transition.leftToRight);
+        }
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
       } else {
         Get.back();
         customSnackBar("error".tr, 'somethingWentWrong'.tr);
@@ -309,6 +459,8 @@ class ApiService {
         userImage = userData["userImage"];
         userEmail = userData['userEmail'];
         prefs?.setString("accessToken", accessToken);
+        prefs?.setString("userId", userId);
+
         prefs?.setString("userName", userName);
         prefs?.setString("userImage", userImage);
         prefs?.setString("userEmail", userEmail);
@@ -1116,6 +1268,31 @@ class ApiService {
     } catch (e) {
       Get.back();
       customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  getProfile() async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getProfile);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      }
+    } catch (e) {
+      Get.back();
     }
   }
 

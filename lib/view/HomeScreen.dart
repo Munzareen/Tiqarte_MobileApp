@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getData();
     getCartProducts();
     getNewsList();
+    // ApiService().getProfile();
   }
 
   getCartProducts() async {

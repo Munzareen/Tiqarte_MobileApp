@@ -10,7 +10,9 @@ import 'package:tiqarte/helper/common.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String email;
-  const OtpVerificationScreen({super.key, required this.email});
+  final String type;
+  const OtpVerificationScreen(
+      {super.key, required this.email, required this.type});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -107,7 +109,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ? GestureDetector(
                           onTap: () async {
                             await ApiService().generateOtpTemp(
-                                context, widget.email.toString());
+                                context, widget.email.toString(), "RESEND");
                             _otpController.clear();
                             otpVerificationController.startTimer(59);
                           },
@@ -159,7 +161,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             if (_otpController.text.length == 4) {
               String data =
                   "emailAddress=${widget.email.toString()}&otp=${_otpController.text}";
-              ApiService().verifyOtp(context, widget.email, data);
+              ApiService().verifyOtp(context, widget.email, data, widget.type);
             } else {
               customSnackBar("alert".tr, "Please enter 4 digit code");
             }

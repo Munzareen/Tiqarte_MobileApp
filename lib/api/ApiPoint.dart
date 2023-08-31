@@ -9,7 +9,7 @@ class ApiPoint {
   String login = "customer/login";
   String generateOtpTemp = "customer/GenerateEmailOTPTemp?emailAddress=";
   String verifyEmailOTPTemp = "customer/VerifyEmailOTPTemp?";
-
+  String getProfile = "customer/GetProfile";
   String changePassword = "customer/ChangePassword";
   String socialLogin = "user/login_social?";
   String getHomeData = "getHomeData";

@@ -20,6 +20,14 @@ String userImage = '';
 String userEmail = '';
 String language = 'en';
 String promotorId = "1";
+String userNickname = '';
+String userDob = '';
+String userState = '';
+String userCity = '';
+String userZipcode = '';
+String userCountrycode = '';
+String userNumber = '';
+String userGender = '';
 
 SharedPreferences? prefs;
 String savedDir = '';

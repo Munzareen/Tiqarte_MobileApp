@@ -535,6 +535,9 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                               countryCode = phone.countryCode;
                               phoneNumber = phone.number;
                             },
+                            onCountryChanged: (country) {
+                              countryCode = "+${country.dialCode}";
+                            },
                           ),
                           20.verticalSpace,
                           Container(
@@ -591,11 +594,11 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                       phoneNumber == '' ||
                                       selectedGender == null) {
                                     customSnackBar("alert".tr,
-                                        "Please add all the information");
+                                        "pleaseAddAllTheInformation".tr);
                                   } else {
                                     if (imageFile == null) {
                                       customSnackBar("alert".tr,
-                                          "Please add profile image");
+                                          "pleaseAddProfileImage".tr);
                                     } else {
                                       Map<String, String> data = {
                                         'Email': widget.email,
@@ -619,8 +622,8 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                         'ZipCode':
                                             _zipCodeController.text.trim(),
                                       };
-                                      ApiService().updateProfile(
-                                          context, data, imageFile!);
+                                      ApiService().updateProfile(context, data,
+                                          imageFile!, 'account setup');
                                       // Get.to(
                                       //     () => LocationSetupScreen(
                                       //         lat: latitude.toString(),

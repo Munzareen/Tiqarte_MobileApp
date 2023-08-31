@@ -82,12 +82,13 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
-
+    _formKey.currentState?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    prefs;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -272,18 +273,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: customButton('signIn'.tr, kPrimaryColor),
                   ),
                   10.verticalSpace,
-                  // TextButton(
-                  //   child: Text('forgotThePassword'.tr,
-                  //       textAlign: TextAlign.center,
-                  //       style: TextStyle(
-                  //           fontSize: 16,
-                  //           fontWeight: FontWeight.w600,
-                  //           color: kPrimaryColor)),
-                  //   onPressed: () {
-                  //     Get.to(() => ForgotPasswordScreen(),
-                  //         transition: Transition.rightToLeft);
-                  //   },
-                  // ),
+                  TextButton(
+                    child: Text('forgotThePassword'.tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: kPrimaryColor)),
+                    onPressed: () {
+                      Get.to(() => ForgotPasswordScreen(),
+                          transition: Transition.rightToLeft);
+                    },
+                  ),
                   10.verticalSpace,
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),

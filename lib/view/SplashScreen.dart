@@ -31,10 +31,17 @@ class _SplashScreenState extends State<SplashScreen> {
     userName = prefs?.getString("userName") ?? '';
     userImage = prefs?.getString("userImage") ?? '';
     userEmail = prefs?.getString("userEmail") ?? '';
+    userId = prefs?.getString("userId") ?? '';
+    userNickname = prefs?.getString("userNickname") ?? '';
+    userDob = prefs?.getString("userDob") ?? '';
+    userState = prefs?.getString("userState") ?? '';
+    userCity = prefs?.getString("userCity") ?? '';
+    userZipcode = prefs?.getString("userZipcode") ?? '';
+    userCountrycode = prefs?.getString("userCountrycode") ?? '';
+    userNumber = prefs?.getString("userNumber") ?? '';
+    userGender = prefs?.getString("userGender") ?? '';
 
     if (accessToken.isNotEmpty) {
-      userId = getUserIdFromJWT(accessToken);
-
       Timer(Duration(seconds: 2), () {
         Get.offAll(() => MainScreen(), transition: Transition.rightToLeft);
       });

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
@@ -21,6 +22,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Color _filledColorEmail = kDisabledColor.withOpacity(0.4);
   Color _iconColorEmail = Colors.grey;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -44,6 +47,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   void dispose() {
     _emailController.dispose();
     _emailFocusNode.dispose();
+    _formKey.currentState?.dispose();
     super.dispose();
   }
 
@@ -76,59 +80,71 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           width: 1.sw,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              //  mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 0.25.sh,
-                ),
-                Text(
-                  "Enter Your Email",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
-                ),
-                30.verticalSpace,
-                TextFormField(
-                  cursorColor: kPrimaryColor,
-                  controller: _emailController,
-                  style: const TextStyle(color: Colors.black),
-                  keyboardType: TextInputType.text,
-                  focusNode: _emailFocusNode,
-                  decoration: InputDecoration(
-                      prefixIcon: Image.asset(
-                        emailIcon,
-                        color: _iconColorEmail,
-                      ),
-                      errorBorder: customOutlineBorder,
-                      enabledBorder: customOutlineBorder,
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          borderSide: BorderSide(color: kPrimaryColor)),
-                      disabledBorder: customOutlineBorder,
-                      fillColor: _filledColorEmail,
-                      filled: true,
-                      hintText: 'email'.tr,
-                      hintStyle:
-                          TextStyle(color: Color(0xff9E9E9E), fontSize: 14)),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(textRegExp),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  //  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 0.25.sh,
+                    ),
+                    Text(
+                      "Enter Your Email",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    30.verticalSpace,
+                    TextFormField(
+                      cursorColor: kPrimaryColor,
+                      controller: _emailController,
+                      keyboardType: TextInputType.text,
+                      focusNode: _emailFocusNode,
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return 'pleaseEnterEmail'.tr;
+                        } else if (!value.contains(RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                          return 'pleaseEnterValidEmail'.tr;
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          prefixIcon: Image.asset(
+                            emailIcon,
+                            color: _iconColorEmail,
+                          ),
+                          errorBorder: customOutlineBorder,
+                          enabledBorder: customOutlineBorder,
+                          focusedErrorBorder: customOutlineBorder,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.0)),
+                              borderSide: BorderSide(color: kPrimaryColor)),
+                          disabledBorder: customOutlineBorder,
+                          //  fillColor: _filledColorEmail,
+                          filled: true,
+                          hintText: 'email'.tr,
+                          hintStyle: TextStyle(
+                              color: Color(0xff9E9E9E), fontSize: 14)),
+                    ),
+                    50.verticalSpace,
+                    GestureDetector(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          ApiService().generateOtpTemp(context,
+                              _emailController.text.trim(), "FORGOT PASSWORD");
+                        }
+                      },
+                      child: customButton('continueButton'.tr, kPrimaryColor),
+                    )
                   ],
                 ),
-                50.verticalSpace,
-                GestureDetector(
-                  onTap: () {
-                    Get.to(
-                        () => OtpVerificationScreen(
-                            email: _emailController.text.trim()),
-                        transition: Transition.rightToLeft);
-                  },
-                  child: customButton('continueButton'.tr, kPrimaryColor),
-                )
-              ],
+              ),
             ),
           ),
         ),

@@ -303,7 +303,13 @@ class Localization extends Translations {
           'learnMore': "Learn More",
           'news': 'News',
           'allNews': "All News",
-          "merchandiseOrderHistory": "Merchandise Order History"
+          "merchandiseOrderHistory": "Merchandise Order History",
+          "passwordsDoNotMatch": "Passwords do not match",
+          "success": "Success",
+          "profileSuccessfullyUpdated": "Profile successfully updated",
+          "otpSuccessfullySent": "Otp successfully sent",
+          "pleaseAddAllTheInformation": "Please add all the information",
+          "pleaseAddProfileImage": "Please add profile image"
         },
         'es': {
           'welcomeHeading': "¡Bienvenido/a a Tiqarte!",
@@ -608,7 +614,13 @@ class Localization extends Translations {
           'learnMore': "Aprende más",
           'news': 'Noticias',
           'allNews': "Todas las noticias",
-          "merchandiseOrderHistory": "Historial de pedidos de mercancías"
+          "merchandiseOrderHistory": "Historial de pedidos de mercancías",
+          "passwordsDoNotMatch": "Las contraseñas no coinciden",
+          "success": "Éxito",
+          "profileSuccessfullyUpdated": "Perfil actualizado exitosamente",
+          "otpSuccessfullySent": "OTP enviado exitosamente",
+          "pleaseAddAllTheInformation": "Por favor agrega toda la información",
+          "pleaseAddProfileImage": "Por favor agregue imagen de perfil"
         },
         'de': {
           'welcomeHeadingString': "Willkommen bei Tiqarte!",
@@ -921,7 +933,14 @@ class Localization extends Translations {
           'learnMore': "Erfahren Sie mehr",
           'news': 'Nachricht',
           'allNews': "Alle Nachrichten",
-          "merchandiseOrderHistory": "Warenbestellverlauf"
+          "merchandiseOrderHistory": "Warenbestellverlauf",
+          "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+          "success": "Erfolg",
+          "profileSuccessfullyUpdated": "Profil erfolgreich aktualisiert",
+          "otpSuccessfullySent": "OTP erfolgreich gesendet",
+          "pleaseAddAllTheInformation":
+              "Bitte fügen Sie alle Informationen hinzu",
+          "pleaseAddProfileImage": "Bitte fügen Sie ein Profilbild hinzu"
         },
         'fr': {
           'welcomeHeadingString': "Bienvenue à Tiqarte !",
@@ -1231,7 +1250,15 @@ class Localization extends Translations {
           'learnMore': "Apprendre encore plus",
           'news': 'Nouvelles',
           'allNews': "Toutes les nouvelles",
-          "merchandiseOrderHistory": "Historique des commandes de marchandises"
+          "merchandiseOrderHistory": "Historique des commandes de marchandises",
+          "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+          "success": "Succès",
+          "profileSuccessfullyUpdated": "Profil mis à jour avec succès",
+          "otpSuccessfullySent": "OTP envoyé avec succès",
+          "pleaseAddAllTheInformation":
+              "Veuillez ajouter toutes les informations",
+          "pleaseAddProfileImage":
+              "Please add profile imageVeuillez ajouter une image de profil"
         },
         'it': {
           'welcomeHeadingString': "Benvenuti a Tiqarte!",
@@ -1538,7 +1565,14 @@ class Localization extends Translations {
           'learnMore': "Saperne di più",
           'news': 'Notizia',
           'allNews': "Tutte le novità",
-          "merchandiseOrderHistory": "Storico degli ordini di merce"
+          "merchandiseOrderHistory": "Storico degli ordini di merce",
+          "passwordsDoNotMatch": "le passwords non corrispondono",
+          "success": "Successo",
+          "profileSuccessfullyUpdated": "Profilo aggiornato con successo",
+          "otpSuccessfullySent": "OTP inviato con successo",
+          "pleaseAddAllTheInformation":
+              "Per favore aggiungi tutte le informazioni",
+          "pleaseAddProfileImage": "Per favore aggiungi l'immagine del profilo"
         },
         'ca': {
           'welcomeHeadingString': "Benvingut/da a Tiqarte!",
@@ -1847,7 +1881,14 @@ class Localization extends Translations {
           'learnMore': "Aprèn més",
           'news': 'Notícies',
           'allNews': "Totes les notícies",
-          "merchandiseOrderHistory": "Historial de comandes de mercaderies"
+          "merchandiseOrderHistory": "Historial de comandes de mercaderies",
+          "passwordsDoNotMatch": "Les contrasenyes no coincideixen",
+          "success": "Èxit",
+          "profileSuccessfullyUpdated":
+              "El perfil s'ha actualitzat correctament",
+          "otpSuccessfullySent": "Otp enviat correctament",
+          "pleaseAddAllTheInformation": "Si us plau, afegiu tota la informació",
+          "pleaseAddProfileImage": "Afegeix una imatge de perfil"
         },
         'eu': {
           'welcomeHeadingString': "Ongi etorri Tiqartera!",
@@ -2154,7 +2195,13 @@ class Localization extends Translations {
           'learnMore': "Gehiago ikasi",
           'news': 'Berriak',
           'allNews': "Berri guztiak",
-          "merchandiseOrderHistory": "Salgaien eskaeraren historia"
+          "merchandiseOrderHistory": "Salgaien eskaeraren historia",
+          "passwordsDoNotMatch": "Pasahitzak ez datoz bat",
+          "success": "Arrakasta",
+          "profileSuccessfullyUpdated": "Profila behar bezala eguneratu da",
+          "otpSuccessfullySent": "Otp behar bezala bidali da",
+          "pleaseAddAllTheInformation": "Mesedez, gehitu informazio guztia",
+          "pleaseAddProfileImage": "Mesedez, gehitu profileko irudia"
         }
       };
 }
