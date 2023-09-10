@@ -275,36 +275,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                _hc.featuredEventList!.length >
-                                                        12
-                                                    ? GestureDetector(
-                                                        onTap: () => Get.to(
-                                                            () => SeeAllEventsScreen(
-                                                                name: 'featured'
-                                                                    .tr,
-                                                                img: '',
-                                                                eventTypeId: _hc
-                                                                    .featuredEventList![
-                                                                        0]
-                                                                    .eventTypeId!
-                                                                    .toInt()
-                                                                    .toString()),
-                                                            transition: Transition
-                                                                .rightToLeft),
-                                                        child: Text(
-                                                          'seeAll'.tr,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      )
-                                                    : SizedBox(),
+                                                // _hc.featuredEventList!.length >
+                                                //         12
+                                                //     ?
+                                                GestureDetector(
+                                                  onTap: () => Get.to(
+                                                      () => SeeAllEventsScreen(
+                                                          name: 'featured'.tr,
+                                                          img: '',
+                                                          eventTypeId: _hc
+                                                              .featuredEventList![
+                                                                  0]
+                                                              .eventTypeId!
+                                                              .toInt()
+                                                              .toString()),
+                                                      transition: Transition
+                                                          .rightToLeft),
+                                                  child: Text(
+                                                    'seeAll'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                )
+                                                // : SizedBox(),
                                               ],
                                             ),
                                             20.verticalSpace,
@@ -546,37 +543,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Image.asset(fireIcon),
                                                   ],
                                                 ),
-                                                _hc.upcomingEventList!.length >
-                                                        12
-                                                    ? GestureDetector(
-                                                        onTap: () => Get.to(
-                                                            () => SeeAllEventsScreen(
-                                                                name:
-                                                                    'upcomingEvent'
-                                                                        .tr,
-                                                                img: fireIcon,
-                                                                eventTypeId: _hc
-                                                                    .upcomingEventList![
-                                                                        0]
-                                                                    .eventTypeId!
-                                                                    .toInt()
-                                                                    .toString()),
-                                                            transition: Transition
-                                                                .rightToLeft),
-                                                        child: Text(
-                                                          'seeAll'.tr,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      )
-                                                    : SizedBox(),
+                                                // _hc.upcomingEventList!.length >
+                                                //         12
+                                                //     ?
+                                                GestureDetector(
+                                                  onTap: () => Get.to(
+                                                      () => SeeAllEventsScreen(
+                                                          name: 'upcomingEvent'
+                                                              .tr,
+                                                          img: fireIcon,
+                                                          eventTypeId: _hc
+                                                              .upcomingEventList![
+                                                                  0]
+                                                              .eventTypeId!
+                                                              .toInt()
+                                                              .toString()),
+                                                      transition: Transition
+                                                          .rightToLeft),
+                                                  child: Text(
+                                                    'seeAll'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                )
+                                                //  : SizedBox(),
                                               ],
                                             ),
                                             20.verticalSpace,
@@ -705,37 +699,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Image.asset(fireIcon),
                                                   ],
                                                 ),
-                                                _hc.upcomingEventList!.length >
-                                                        12
-                                                    ? GestureDetector(
-                                                        onTap: () => Get.to(
-                                                            () => SeeAllEventsScreen(
-                                                                name:
-                                                                    'upcomingEvent'
-                                                                        .tr,
-                                                                img: fireIcon,
-                                                                eventTypeId: _hc
-                                                                    .upcomingEventList![
-                                                                        0]
-                                                                    .eventTypeId!
-                                                                    .toInt()
-                                                                    .toString()),
-                                                            transition: Transition
-                                                                .rightToLeft),
-                                                        child: Text(
-                                                          'seeAll'.tr,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      )
-                                                    : SizedBox(),
+                                                // _hc.upcomingEventList!.length >
+                                                //         12
+                                                //     ?
+                                                GestureDetector(
+                                                  onTap: () => Get.to(
+                                                      () => SeeAllEventsScreen(
+                                                          name: 'upcomingEvent'
+                                                              .tr,
+                                                          img: fireIcon,
+                                                          eventTypeId: _hc
+                                                              .upcomingEventList![
+                                                                  0]
+                                                              .eventTypeId!
+                                                              .toInt()
+                                                              .toString()),
+                                                      transition: Transition
+                                                          .rightToLeft),
+                                                  child: Text(
+                                                    'seeAll'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                )
+                                                //  : SizedBox(),
                                               ],
                                             ),
                                             20.verticalSpace,
@@ -1119,27 +1110,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     }),
                                                   ],
                                                 ),
-                                                _hc.shopList!.length > 12
-                                                    ? GestureDetector(
-                                                        onTap: () => Get.to(
-                                                            () =>
-                                                                SeeAllProductsScreen(),
-                                                            transition: Transition
-                                                                .rightToLeft),
-                                                        child: Text(
-                                                          'seeAll'.tr,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      )
-                                                    : SizedBox(),
+                                                // _hc.shopList!.length > 12
+                                                //     ?
+                                                GestureDetector(
+                                                  onTap: () => Get.to(
+                                                      () =>
+                                                          SeeAllProductsScreen(),
+                                                      transition: Transition
+                                                          .rightToLeft),
+                                                  child: Text(
+                                                    'seeAll'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                )
+                                                // : SizedBox(),
                                               ],
                                             ),
                                             20.verticalSpace,
@@ -1323,27 +1312,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     }),
                                                   ],
                                                 ),
-                                                _hc.shopList!.length > 12
-                                                    ? GestureDetector(
-                                                        onTap: () => Get.to(
-                                                            () =>
-                                                                SeeAllProductsScreen(),
-                                                            transition: Transition
-                                                                .rightToLeft),
-                                                        child: Text(
-                                                          'seeAll'.tr,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  kPrimaryColor),
-                                                        ),
-                                                      )
-                                                    : SizedBox(),
+                                                // _hc.shopList!.length > 12
+                                                //     ?
+                                                GestureDetector(
+                                                  onTap: () => Get.to(
+                                                      () =>
+                                                          SeeAllProductsScreen(),
+                                                      transition: Transition
+                                                          .rightToLeft),
+                                                  child: Text(
+                                                    'seeAll'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kPrimaryColor),
+                                                  ),
+                                                )
+                                                //  : SizedBox(),
                                               ],
                                             ),
                                             20.verticalSpace,
@@ -1626,26 +1613,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              _hc.newsList.length > 12
-                                                  ? GestureDetector(
-                                                      onTap: () => Get.to(
-                                                          () =>
-                                                              SeeAllNewsScreen(),
-                                                          transition: Transition
-                                                              .rightToLeft),
-                                                      child: Text(
-                                                        'seeAll'.tr,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                kPrimaryColor),
-                                                      ),
-                                                    )
-                                                  : SizedBox(),
+                                              // _hc.newsList.length > 12
+                                              //     ?
+                                              GestureDetector(
+                                                onTap: () => Get.to(
+                                                    () => SeeAllNewsScreen(),
+                                                    transition:
+                                                        Transition.rightToLeft),
+                                                child: Text(
+                                                  'seeAll'.tr,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: kPrimaryColor),
+                                                ),
+                                              )
+                                              // : SizedBox(),
                                             ],
                                           ),
                                           20.verticalSpace,
