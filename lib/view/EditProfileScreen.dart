@@ -32,9 +32,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _nickNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _dobController = TextEditingController();
-  final _stateController = TextEditingController();
+  final _provinceController = TextEditingController();
   final _cityController = TextEditingController();
-  final _zipCodeController = TextEditingController();
+  final _postalCodeController = TextEditingController();
   final _phoneController = TextEditingController();
 
   final _fullNameFocusNode = FocusNode();
@@ -72,9 +72,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _nickNameController.text = userNickname;
 
     _dobController.text = userDob;
-    _stateController.text = userState;
+    _provinceController.text = userState;
     _cityController.text = userCity;
-    _zipCodeController.text = userZipcode;
+    _postalCodeController.text = userZipcode;
 
     _emailController.text = userEmail;
     _phoneController.text = userNumber;
@@ -362,7 +362,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           fontSize: 14)),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        textRegExp),
+                                        alphanumeric),
                                   ],
                                 ),
                                 20.verticalSpace,
@@ -434,13 +434,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 20.verticalSpace,
                                 TextFormField(
                                   cursorColor: kPrimaryColor,
-                                  controller: _stateController,
+                                  controller: _provinceController,
                                   style: const TextStyle(color: Colors.black),
                                   keyboardType: TextInputType.text,
                                   focusNode: _stateFocusNode,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Please enter your state';
+                                      return 'Please enter your province';
                                     }
                                     return null;
                                   },
@@ -456,7 +456,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       disabledBorder: customOutlineBorder,
                                       fillColor: _filledColorState,
                                       filled: true,
-                                      hintText: 'state'.tr,
+                                      hintText: 'province'.tr,
                                       hintStyle: TextStyle(
                                           color: Color(0xff9E9E9E),
                                           fontSize: 14)),
@@ -502,13 +502,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 20.verticalSpace,
                                 TextFormField(
                                   cursorColor: kPrimaryColor,
-                                  controller: _zipCodeController,
+                                  controller: _postalCodeController,
                                   style: const TextStyle(color: Colors.black),
                                   keyboardType: TextInputType.text,
                                   focusNode: _zipCodeFocusNode,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Please enter your zip code';
+                                      return 'Please enter your postal code';
                                     }
                                     return null;
                                   },
@@ -524,7 +524,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       disabledBorder: customOutlineBorder,
                                       fillColor: _filledColorZipCode,
                                       filled: true,
-                                      hintText: 'zipcode'.tr,
+                                      hintText: 'postalCode'.tr,
                                       hintStyle: TextStyle(
                                           color: Color(0xff9E9E9E),
                                           fontSize: 14)),
@@ -662,10 +662,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                 _phoneController.text,
                                             'Location': '$latitude,$longitude',
                                             'State':
-                                                _stateController.text.trim(),
+                                                _provinceController.text.trim(),
                                             'City': _cityController.text.trim(),
-                                            'ZipCode':
-                                                _zipCodeController.text.trim(),
+                                            'ZipCode': _postalCodeController
+                                                .text
+                                                .trim(),
                                           };
                                           primaryFocus?.unfocus();
                                           ApiService().updateProfile(

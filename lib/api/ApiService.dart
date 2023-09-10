@@ -55,7 +55,7 @@ class ApiService {
             res_data['message'].toString().toUpperCase().contains("ALREADY")) {
           customSnackBar('alert'.tr, "Email already exist, please try login");
         } else {
-          Get.offAll(
+          Get.to(
               () => OtpVerificationScreen(
                   email: data['email']!, type: "register"),
               transition: Transition.rightToLeft);
@@ -149,7 +149,7 @@ class ApiService {
           customSnackBar('error'.tr, res_data);
         } else {
           if (!res_data['isVerified']) {
-            Get.offAll(
+            Get.to(
                 () =>
                     OtpVerificationScreen(email: data['email']!, type: 'login'),
                 transition: Transition.rightToLeft);
@@ -230,7 +230,7 @@ class ApiService {
         Get.back();
 
         if (type.toUpperCase().contains("FORGOT")) {
-          Get.off(() => OtpVerificationScreen(email: email, type: type),
+          Get.to(() => OtpVerificationScreen(email: email, type: type),
               transition: Transition.rightToLeft);
         } else {
           customSnackBar('success'.tr, 'otpSuccessfullySent'.tr);

@@ -43,6 +43,7 @@ const OutlineInputBorder customOutlineBorder = OutlineInputBorder(
 );
 
 final textRegExp = RegExp('[a-zA-Z\\s]*');
+final alphanumeric = RegExp('[a-zA-Z0-9\\s]*');
 final numberRegExp = RegExp('[0-9]*');
 
 customButton(String text, Color color) {

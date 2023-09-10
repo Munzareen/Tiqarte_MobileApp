@@ -102,6 +102,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
                               18.verticalSpace,
                               customRadioButton(5, "Italian"),
                               18.verticalSpace,
+                              customRadioButton(6, "Catalan"),
+                              18.verticalSpace,
+                              customRadioButton(7, "Basque"),
+                              18.verticalSpace,
                             ],
                           ),
                         ),
@@ -158,6 +162,18 @@ class _LanguageScreenState extends State<LanguageScreen> {
           Get.updateLocale(locale);
           language = 'it';
           prefs?.setString("language", "it");
+          prefs?.setInt("languageValue", _selectedValue);
+        } else if (_selectedValue == 6) {
+          var locale = Locale('ca');
+          Get.updateLocale(locale);
+          language = 'ca';
+          prefs?.setString("language", "ca");
+          prefs?.setInt("languageValue", _selectedValue);
+        } else if (_selectedValue == 7) {
+          var locale = Locale('eu');
+          Get.updateLocale(locale);
+          language = 'eu';
+          prefs?.setString("language", "eu");
           prefs?.setInt("languageValue", _selectedValue);
         }
       },

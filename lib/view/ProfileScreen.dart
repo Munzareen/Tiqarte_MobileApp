@@ -309,7 +309,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ? "French"
                                               : language == 'it'
                                                   ? "Italian"
-                                                  : "English (US)",
+                                                  : language == 'ca'
+                                                      ? "Catalan"
+                                                      : language == 'eu'
+                                                          ? "Basque"
+                                                          : "English (US)",
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,

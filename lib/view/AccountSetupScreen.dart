@@ -36,9 +36,9 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
   final _nickNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _dobController = TextEditingController();
-  final _stateController = TextEditingController();
+  final _provinceController = TextEditingController();
   final _cityController = TextEditingController();
-  final _zipCodeController = TextEditingController();
+  final _postalCodeController = TextEditingController();
 
   final _fullNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
@@ -332,7 +332,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(textRegExp),
+                              FilteringTextInputFormatter.allow(alphanumeric),
                             ],
                           ),
                           20.verticalSpace,
@@ -401,13 +401,13 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                           20.verticalSpace,
                           TextFormField(
                             cursorColor: kPrimaryColor,
-                            controller: _stateController,
+                            controller: _provinceController,
                             style: const TextStyle(color: Colors.black),
                             keyboardType: TextInputType.text,
                             focusNode: _stateFocusNode,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter your state';
+                                return 'Please enter your province';
                               }
                               return null;
                             },
@@ -423,7 +423,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                 disabledBorder: customOutlineBorder,
                                 fillColor: _filledColorState,
                                 filled: true,
-                                hintText: 'state'.tr,
+                                hintText: 'province'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -465,13 +465,13 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                           20.verticalSpace,
                           TextFormField(
                             cursorColor: kPrimaryColor,
-                            controller: _zipCodeController,
+                            controller: _postalCodeController,
                             style: const TextStyle(color: Colors.black),
                             keyboardType: TextInputType.text,
                             focusNode: _zipCodeFocusNode,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter your zip code';
+                                return 'Please enter your postal code';
                               }
                               return null;
                             },
@@ -487,7 +487,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                 disabledBorder: customOutlineBorder,
                                 fillColor: _filledColorZipCode,
                                 filled: true,
-                                hintText: 'zipcode'.tr,
+                                hintText: 'postalCode'.tr,
                                 hintStyle: TextStyle(
                                     color: Color(0xff9E9E9E), fontSize: 14)),
                             inputFormatters: [
@@ -596,40 +596,38 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                                     customSnackBar("alert".tr,
                                         "pleaseAddAllTheInformation".tr);
                                   } else {
-                                    if (imageFile == null) {
-                                      customSnackBar("alert".tr,
-                                          "pleaseAddProfileImage".tr);
-                                    } else {
-                                      Map<String, String> data = {
-                                        'Email': widget.email,
-                                        'FirstName': _fullNameController.text
-                                            .trim()
-                                            .split(' ')
-                                            .first,
-                                        'LastName': _fullNameController.text
-                                            .trim()
-                                            .split(' ')
-                                            .last,
-                                        'Gender': selectedGender.toString(),
-                                        'DOB': _dobController.text.trim(),
-                                        'NickName':
-                                            _nickNameController.text.trim(),
-                                        'CountryCode': countryCode.toString(),
-                                        'PhoneNumber': phoneNumber,
-                                        'Location': '$latitude,$longitude',
-                                        'State': _stateController.text.trim(),
-                                        'City': _cityController.text.trim(),
-                                        'ZipCode':
-                                            _zipCodeController.text.trim(),
-                                      };
-                                      ApiService().updateProfile(context, data,
-                                          imageFile!, 'account setup');
-                                      // Get.to(
-                                      //     () => LocationSetupScreen(
-                                      //         lat: latitude.toString(),
-                                      //         long: longitude.toString()),
-                                      //     transition: Transition.rightToLeft);
-                                    }
+                                    Map<String, String> data = {
+                                      'Email': widget.email,
+                                      'FirstName': _fullNameController.text
+                                          .trim()
+                                          .split(' ')
+                                          .first,
+                                      'LastName': _fullNameController.text
+                                          .trim()
+                                          .split(' ')
+                                          .last,
+                                      'Gender': selectedGender.toString(),
+                                      'DOB': _dobController.text.trim(),
+                                      'NickName':
+                                          _nickNameController.text.trim(),
+                                      'CountryCode': countryCode.toString(),
+                                      'PhoneNumber': phoneNumber,
+                                      'Location': '$latitude,$longitude',
+                                      'State': _provinceController.text.trim(),
+                                      'City': _cityController.text.trim(),
+                                      'ZipCode':
+                                          _postalCodeController.text.trim(),
+                                    };
+                                    ApiService().updateProfile(
+                                        context,
+                                        data,
+                                        imageFile == null ? null : imageFile,
+                                        'account setup');
+                                    // Get.to(
+                                    //     () => LocationSetupScreen(
+                                    //         lat: latitude.toString(),
+                                    //         long: longitude.toString()),
+                                    //     transition: Transition.rightToLeft);
                                   }
                                 }
                               } else {

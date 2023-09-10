@@ -84,9 +84,12 @@ List<ProductImageUrLs> convertJsonToProductImageUrLsList(
     List<dynamic> jsonImages) {
   List<ProductImageUrLs> imagesUrl = [];
 
-  for (String imageUrl in jsonImages) {
-    ProductImageUrLs productImageUrLs = ProductImageUrLs(imageUrl: imageUrl);
-    imagesUrl.add(productImageUrLs);
+  for (int i = 0; i < jsonImages.length; i++) {
+    if (jsonImages[i] != null) {
+      ProductImageUrLs productImageUrLs =
+          ProductImageUrLs(imageUrl: jsonImages[i]);
+      imagesUrl.add(productImageUrLs);
+    }
   }
 
   return imagesUrl;
