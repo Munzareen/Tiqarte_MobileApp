@@ -587,7 +587,6 @@ class _BookEventContactInfoScreenState
                                   "EventId": _bookEventController.eventId,
                                   "TicketDetails": ticketDetail,
                                   "CustomerContactInfo": {
-                                    "Id": 0,
                                     "UserId": int.parse(userId),
                                     "FullName": _fullNameController.text.trim(),
                                     "NickName": _nickNameController.text.trim(),
@@ -596,7 +595,7 @@ class _BookEventContactInfoScreenState
                                     "Email": _emailController.text.trim(),
                                     "MobileNumber":
                                         "$countryCode${_phoneController.text}",
-                                    "CountryId": 1
+                                    "CountryId": countryCode
                                   }
                                 };
 
