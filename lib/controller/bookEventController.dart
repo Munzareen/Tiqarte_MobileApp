@@ -1,15 +1,19 @@
 import 'package:get/get.dart';
 
 class BookEventController extends GetxController {
-  int economySeatCount = 1;
-  int vipSeatCount = 1;
+  int? eventId;
+  String eventName = '';
+  int economySeatCount = 0;
+  int vipSeatCount = 0;
+  int? economyId;
+  int? vipId;
   double? baseEconomyPrice = null;
   double? economyPrice = null;
   double? baseVipPrice = null;
   double? vipPrice = null;
 
   subtractEconomy() {
-    if (economySeatCount > 1) {
+    if (economySeatCount > 0) {
       economySeatCount--;
       economyPrice = economyPrice! - baseEconomyPrice!;
       update();
@@ -23,7 +27,7 @@ class BookEventController extends GetxController {
   }
 
   subtractVip() {
-    if (vipSeatCount > 1) {
+    if (vipSeatCount > 0) {
       vipSeatCount--;
       vipPrice = vipPrice! - baseVipPrice!;
       update();

@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/bookEventController.dart';
 import 'package:tiqarte/controller/eventDetailController.dart';
 import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/helper/colors.dart';
@@ -37,6 +38,7 @@ class _EventDetailScreenRelatedEventState
   final _homeController = Get.put(HomeController());
 
   final _eventDetailController = Get.put(EventDetailController());
+  final _bookEventController = Get.put(BookEventController());
 
   //ScrollController _scrollController = ScrollController();
 
@@ -1264,8 +1266,54 @@ class _EventDetailScreenRelatedEventState
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(() => BookEventScreen(),
-                            transition: Transition.rightToLeft);
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return WillPopScope(
+                                  onWillPop: () async => false, child: spinkit);
+                            });
+                        if (_eventDetailController
+                            .eventDetailModel.eventTicketDetails!.isNotEmpty) {
+                          _bookEventController.eventId =
+                              int.parse(widget.eventId);
+                          _bookEventController.eventName =
+                              _edc.eventDetailModel.event!.name.toString();
+                          _eventDetailController
+                              .eventDetailModel.eventTicketDetails
+                              ?.forEach((element) {
+                            if (element.ticketType!
+                                .toUpperCase()
+                                .contains("ECO")) {
+                              _bookEventController.economyPrice = 0.0;
+                              // element.ticketPrice!.toDouble();
+                              _bookEventController.baseEconomyPrice =
+                                  element.ticketPrice!.toDouble();
+                              _bookEventController.economyId =
+                                  element.id?.toInt();
+                            } else if (element.ticketType!
+                                .toUpperCase()
+                                .contains("VIP")) {
+                              _bookEventController.vipPrice = 0.0;
+                              //   element.ticketPrice!.toDouble();
+                              _bookEventController.baseVipPrice =
+                                  element.ticketPrice!.toDouble();
+                              _bookEventController.vipId = element.id?.toInt();
+                            }
+                          });
+                          if (_bookEventController.economyPrice == null ||
+                              _bookEventController.vipPrice == null) {
+                            Get.back();
+                            customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+                          } else {
+                            Get.back();
+                            Get.to(() => BookEventScreen(),
+                                transition: Transition.rightToLeft);
+                          }
+                        } else {
+                          Get.back();
+                          customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+                        }
                       },
                       child: customButton('bookEvent'.tr, kPrimaryColor),
                     )),

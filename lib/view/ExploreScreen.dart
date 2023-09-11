@@ -439,7 +439,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       _exploreController.myAddress =
           "${place.subAdministrativeArea}, ${place.country}";
       var res = await ApiService().getEventByLocation(
-          "${_exploreController.latitude},${_exploreController.longitude}");
+          "${_exploreController.latitude},${_exploreController.longitude}&distance=50");
 
       if (res != null && res is List) {
         _exploreController.addExploreListData(res);

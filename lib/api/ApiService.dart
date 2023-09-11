@@ -19,6 +19,8 @@ import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/OtpVerificationScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
+import 'package:tiqarte/view/TicketScreen.dart';
+import 'package:tiqarte/view/ViewETicketScreen.dart';
 import 'package:tiqarte/view/newPasswordScreen.dart';
 
 class ApiService {
@@ -1369,6 +1371,56 @@ class ApiService {
         return res_data;
       } else if (response.statusCode == 401) {
         tokenExpiredLogout();
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  ticketBooking(BuildContext context, dynamic data, String eventName) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().ticketBooking);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    final jsonBody = jsonEncode(data);
+
+    try {
+      http.Response response =
+          await http.post(uri, headers: headers, body: jsonBody);
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+        customAlertDialogWithTwoButtons(
+            context,
+            backgroundLogo,
+            Icons.verified_user_sharp,
+            'congratulations'.tr,
+            eventName,
+            'viewETicket'.tr,
+            'cancel'.tr, () {
+          Get.back();
+          Get.offAll(() => MainScreen(),
+              transition: Transition.cupertinoDialog);
+        }, () {
+          Get.back();
+          Get.offAll(() => MainScreen(),
+              transition: Transition.cupertinoDialog);
+        });
+      } else if (response.statusCode == 401) {
+        Get.back();
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     } catch (e) {
       Get.back();

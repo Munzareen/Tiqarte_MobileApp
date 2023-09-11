@@ -1329,23 +1329,31 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             });
                         if (_eventDetailController
                             .eventDetailModel.eventTicketDetails!.isNotEmpty) {
+                          _bookEventController.eventName =
+                              _edc.eventDetailModel.event!.name.toString();
+                          _bookEventController.eventId =
+                              int.parse(widget.eventId);
                           _eventDetailController
                               .eventDetailModel.eventTicketDetails
                               ?.forEach((element) {
                             if (element.ticketType!
                                 .toUpperCase()
                                 .contains("ECO")) {
-                              _bookEventController.economyPrice =
-                                  element.ticketPrice!.toDouble();
+                              _bookEventController.economyPrice = 0.0;
+                              // element.ticketPrice!.toDouble();
                               _bookEventController.baseEconomyPrice =
                                   element.ticketPrice!.toDouble();
+
+                              _bookEventController.economyId =
+                                  element.id?.toInt();
                             } else if (element.ticketType!
                                 .toUpperCase()
                                 .contains("VIP")) {
-                              _bookEventController.vipPrice =
-                                  element.ticketPrice!.toDouble();
+                              _bookEventController.vipPrice = 0.0;
+                              //   element.ticketPrice!.toDouble();
                               _bookEventController.baseVipPrice =
                                   element.ticketPrice!.toDouble();
+                              _bookEventController.vipId = element.id?.toInt();
                             }
                           });
                           if (_bookEventController.economyPrice == null ||

@@ -309,7 +309,8 @@ class Localization extends Translations {
           "profileSuccessfullyUpdated": "Profile successfully updated",
           "otpSuccessfullySent": "Otp successfully sent",
           "pleaseAddAllTheInformation": "Please add all the information",
-          "pleaseAddProfileImage": "Please add profile image"
+          "pleaseAddProfileImage": "Please add profile image",
+          'province': "Province",
         },
         'es': {
           'welcomeHeading': "¡Bienvenido/a a Tiqarte!",
@@ -620,7 +621,8 @@ class Localization extends Translations {
           "profileSuccessfullyUpdated": "Perfil actualizado exitosamente",
           "otpSuccessfullySent": "OTP enviado exitosamente",
           "pleaseAddAllTheInformation": "Por favor agrega toda la información",
-          "pleaseAddProfileImage": "Por favor agregue imagen de perfil"
+          "pleaseAddProfileImage": "Por favor agregue imagen de perfil",
+          'province': "Provincia",
         },
         'de': {
           'welcomeHeadingString': "Willkommen bei Tiqarte!",

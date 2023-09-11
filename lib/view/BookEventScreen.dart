@@ -255,8 +255,14 @@ class _BookEventScreenState extends State<BookEventScreen>
                           horizontal: 20.0, vertical: 20.0),
                       child: GestureDetector(
                           onTap: () {
-                            Get.to(() => BookEventContactInfoScreen(),
-                                transition: Transition.rightToLeft);
+                            if (_bookEventController.economyPrice! +
+                                    _bookEventController.vipPrice! >
+                                0) {
+                              Get.to(() => BookEventContactInfoScreen(),
+                                  transition: Transition.rightToLeft);
+                            } else {
+                              customSnackBar('alert'.tr, 'Please add seats');
+                            }
                           },
                           child: customButton(
                               'continueButton'.tr +
