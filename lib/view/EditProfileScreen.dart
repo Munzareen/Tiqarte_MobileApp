@@ -81,11 +81,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (userGender.toLowerCase().trim().isNotEmpty)
       selectedGender = userGender.toLowerCase().tr;
 
-    countryCode = userCountrycode;
-    dynamic codeData = countriesWithCode.firstWhereOrNull(
-        ((element) => element['dial_code'] == userCountrycode));
-    if (codeData != null) {
-      countryCode = codeData['code'];
+    if (userCountrycode.trim().isNotEmpty) {
+      countryCode = userCountrycode;
+      dynamic codeData = countriesWithCode.firstWhereOrNull(
+          ((element) => element['dial_code'] == userCountrycode));
+      if (codeData != null) {
+        countryCode = codeData['code'];
+      }
     }
 
     checkLocationPermission();

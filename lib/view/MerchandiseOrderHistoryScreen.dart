@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/merchandiseOrderHistoryController.dart';
+import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 
 class MerchandiseOrderHistoryScreen extends StatefulWidget {
@@ -23,6 +25,7 @@ class _MerchandiseOrderHistoryScreenState
   @override
   void initState() {
     super.initState();
+    getData();
   }
 
   getData() async {
@@ -98,91 +101,196 @@ class _MerchandiseOrderHistoryScreenState
                             itemCount: _mhc.merchandiseOrderHistoryList.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return SizedBox();
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     Get.to(() => NewsDetailScreen(
-                              //           newsModel: widget.newsList[index],
-                              //         ));
-                              //   },
-                              //   child: Padding(
-                              //     padding: const EdgeInsets.symmetric(vertical: 10.0),
-                              //     child: Container(
-                              //       padding: EdgeInsets.all(16.0),
-                              //       decoration: BoxDecoration(
-                              //           borderRadius: BorderRadius.circular(30.0),
-                              //           color: Theme.of(context).secondaryHeaderColor),
-                              //       child: Row(
-                              //         // mainAxisSize: MainAxisSize.min,
-                              //         crossAxisAlignment: CrossAxisAlignment.center,
-                              //         mainAxisAlignment: MainAxisAlignment.start,
-                              //         children: [
-                              //           customCardImage(
-                              //               widget.newsList[index].imageUrl == null ||
-                              //                       widget.newsList[index].imageUrl!
-                              //                           .trim()
-                              //                           .isEmpty
-                              //                   ? "null"
-                              //                   : widget.newsList[index].imageUrl
-                              //                       .toString(),
-                              //               100.h,
-                              //               100.h),
-                              //           8.horizontalSpace,
-                              //           Column(
-                              //             crossAxisAlignment: CrossAxisAlignment.start,
-                              //             children: [
-                              //               SizedBox(
-                              //                 width: 0.5.sw,
-                              //                 child: Text(
-                              //                   widget.newsList[index].title.toString(),
-                              //                   textAlign: TextAlign.start,
-                              //                   maxLines: 2,
-                              //                   overflow: TextOverflow.ellipsis,
-                              //                   style: TextStyle(
-                              //                     fontSize: 18,
-                              //                     fontWeight: FontWeight.bold,
-                              //                   ),
-                              //                 ),
-                              //               ),
-                              //               8.verticalSpace,
-                              //               FittedBox(
-                              //                 child: Text(
-                              //                   splitDateForNews(widget
-                              //                       .newsList[index].scheduled
-                              //                       .toString()),
-                              //                   textAlign: TextAlign.start,
-                              //                   style: TextStyle(
-                              //                       fontSize: 12,
-                              //                       fontWeight: FontWeight.w400,
-                              //                       color: Colors.grey),
-                              //                 ),
-                              //               ),
-                              //               8.verticalSpace,
-                              //               Row(
-                              //                 children: [
-                              //                   Text(
-                              //                     'learnMore'.tr,
-                              //                     textAlign: TextAlign.start,
-                              //                     style: TextStyle(
-                              //                         fontSize: 16,
-                              //                         fontWeight: FontWeight.w500,
-                              //                         color: kPrimaryColor),
-                              //                   ),
-                              //                   10.horizontalSpace,
-                              //                   Icon(
-                              //                     Icons.arrow_outward,
-                              //                     size: 16,
-                              //                     color: kPrimaryColor,
-                              //                   )
-                              //                 ],
-                              //               )
-                              //             ],
-                              //           )
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // );
+                              return Container(
+                                height: 1.sh,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      splitDateForNews(_mhc
+                                          .merchandiseOrderHistoryList[index]
+                                          .purchaseDate
+                                          .toString()),
+                                      textAlign: TextAlign.start,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.grey),
+                                    ),
+                                    Expanded(
+                                        child: ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            itemCount: _mhc
+                                                .merchandiseOrderHistoryList[
+                                                    index]
+                                                .checkOutProducts!
+                                                .length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, itemIndex) {
+                                              return GestureDetector(
+                                                onTap: () {},
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 10.0),
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
+                                                        color: Theme.of(context)
+                                                            .secondaryHeaderColor),
+                                                    child: Row(
+                                                      // mainAxisSize: MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        customCardImage(
+                                                            //  _mhc.merchandiseOrderHistoryList[index]. == null ||
+                                                            //           widget.newsList[index].imageUrl!
+                                                            //               .trim()
+                                                            //               .isEmpty
+                                                            //       ? "null"
+                                                            //       : widget.newsList[index].imageUrl
+                                                            //           .toString(),
+                                                            "null",
+                                                            100.h,
+                                                            100.h),
+                                                        8.horizontalSpace,
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 0.5.sw,
+                                                              child: Text(
+                                                                _mhc
+                                                                    .merchandiseOrderHistoryList[
+                                                                        index]
+                                                                    .checkOutProducts![
+                                                                        itemIndex]
+                                                                    .productName
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                maxLines: 2,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            8.verticalSpace,
+                                                            FittedBox(
+                                                              child: Row(
+                                                                children: [
+                                                                  Text(
+                                                                    "size".tr,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w300,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                  10.horizontalSpace,
+                                                                  Text(
+                                                                    _mhc
+                                                                        .merchandiseOrderHistoryList[
+                                                                            index]
+                                                                        .checkOutProducts![
+                                                                            itemIndex]
+                                                                        .attributeNames![
+                                                                            1]
+                                                                        .variationName
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            8.verticalSpace,
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  'quantity'.tr,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color:
+                                                                          kPrimaryColor),
+                                                                ),
+                                                                10.horizontalSpace,
+                                                                Text(
+                                                                  _mhc
+                                                                      .merchandiseOrderHistoryList[
+                                                                          index]
+                                                                      .checkOutProducts![
+                                                                          itemIndex]
+                                                                      .quantity
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }))
+                                  ],
+                                ),
+                              );
                             },
                           );
                   }),

@@ -5,6 +5,7 @@ class MyBasketController extends GetxController {
   List<MyBasketProductsModel>? myBasketProductsModel;
 
   num subTotalPrice = 0.0;
+  List cartIds = [];
 
   addMyBasketData(List data) {
     subTotalPrice = 0.0;

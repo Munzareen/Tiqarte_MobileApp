@@ -292,8 +292,7 @@ class Localization extends Translations {
           'camera': "Camera",
           'gallery': "Gallery",
           'somethingWentWrong': "Something went wrong",
-          'placeOrderSuccess':
-              "You have successfully placed an order for Classic pullover t-shirt.!",
+          'placeOrderSuccess': "You have successfully placed an order",
           'enableCamera': "Enable Camera",
           'enableCameraSubString':
               "To use this service, we need permission to access your camera.",
@@ -311,6 +310,8 @@ class Localization extends Translations {
           "pleaseAddAllTheInformation": "Please add all the information",
           "pleaseAddProfileImage": "Please add profile image",
           'province': "Province",
+          'cancelBookingSubString':
+              "Are you sure you want to cancel this purchase?",
         },
         'es': {
           'welcomeHeading': "¡Bienvenido/a a Tiqarte!",
@@ -604,8 +605,7 @@ class Localization extends Translations {
           'camera': "Cámara",
           'gallery': "Galería",
           'somethingWentWrong': "Algo salió mal",
-          'placeOrderSuccess':
-              "¡Has realizado con éxito un pedido para la camiseta con cuello clásico!",
+          'placeOrderSuccess': "¡Has realizado con éxito un pedido",
           'enableCamera': "Activar cámara",
           'enableCameraSubString':
               "Para usar este servicio, necesitamos permiso para acceder a tu cámara.",
@@ -924,8 +924,7 @@ class Localization extends Translations {
           'camera': "Kamera",
           'gallery': "Galerie",
           'somethingWentWrong': "Etwas ging schief",
-          'placeOrderSuccess':
-              "Sie haben erfolgreich eine Bestellung für das klassische T-Shirt mit Kragen aufgegeben!",
+          'placeOrderSuccess': "Sie haben erfolgreich eine Bestellung für",
           'enableCamera': "Kamera freischalten",
           'enableCameraSubString':
               "Um diesen Dienst nutzen zu können, benötigen wir die Erlaubnis, auf Ihre Kamera zuzugreifen.",
@@ -942,7 +941,9 @@ class Localization extends Translations {
           "otpSuccessfullySent": "OTP erfolgreich gesendet",
           "pleaseAddAllTheInformation":
               "Bitte fügen Sie alle Informationen hinzu",
-          "pleaseAddProfileImage": "Bitte fügen Sie ein Profilbild hinzu"
+          "pleaseAddProfileImage": "Bitte fügen Sie ein Profilbild hinzu",
+          'cancelBookingSubString':
+              "Möchten Sie diesen Kauf wirklich stornieren?",
         },
         'fr': {
           'welcomeHeadingString': "Bienvenue à Tiqarte !",
@@ -1241,8 +1242,7 @@ class Localization extends Translations {
           'camera': "Appareil photo",
           'gallery': "Galerie",
           'somethingWentWrong': "Quelque chose n'a pas fonctionné",
-          'placeOrderSuccess':
-              "Vous avez passé avec succès une commande pour le t-shirt à col classique !",
+          'placeOrderSuccess': "Vous avez passé avec succès une",
           'enableCamera': "Activer l'appareil photo",
           'enableCameraSubString':
               "Pour utiliser ce service, nous avons besoin d'une autorisation d'accès à votre appareil photo.",
@@ -1260,7 +1260,9 @@ class Localization extends Translations {
           "pleaseAddAllTheInformation":
               "Veuillez ajouter toutes les informations",
           "pleaseAddProfileImage":
-              "Please add profile imageVeuillez ajouter une image de profil"
+              "Please add profile imageVeuillez ajouter une image de profil",
+          'cancelBookingSubString':
+              "Êtes-vous sûr de vouloir annuler cet achat ?",
         },
         'it': {
           'welcomeHeadingString': "Benvenuti a Tiqarte!",
@@ -1556,8 +1558,7 @@ class Localization extends Translations {
           'camera': "Fotocamera",
           'gallery': "Galleria",
           'somethingWentWrong': "Qualcosa è andato storto",
-          'placeOrderSuccess':
-              "Hai effettuato con successo un ordine per la t-shirt classica con colletto!",
+          'placeOrderSuccess': "Hai effettuato con successo un ordine",
           'enableCamera': "Attivare la fotocamera",
           'enableCameraSubString':
               "Per utilizzare questo servizio, abbiamo bisogno del permesso di accedere alla vostra fotocamera.",
@@ -1574,7 +1575,9 @@ class Localization extends Translations {
           "otpSuccessfullySent": "OTP inviato con successo",
           "pleaseAddAllTheInformation":
               "Per favore aggiungi tutte le informazioni",
-          "pleaseAddProfileImage": "Per favore aggiungi l'immagine del profilo"
+          "pleaseAddProfileImage": "Per favore aggiungi l'immagine del profilo",
+          'cancelBookingSubString':
+              "Sei sicuro di voler annullare questo acquisto?",
         },
         'ca': {
           'welcomeHeadingString': "Benvingut/da a Tiqarte!",
@@ -1872,8 +1875,7 @@ class Localization extends Translations {
           'camera': "Cambra",
           'gallery': "Galeria",
           'somethingWentWrong': "Alguna cosa va sortir malament",
-          'placeOrderSuccess':
-              "Has fet amb èxit una comanda per a la samarreta amb coll clàssic!",
+          'placeOrderSuccess': "Has fet amb èxit una comanda",
           'enableCamera': "Activar càmera",
           'enableCameraSubString':
               "Per utilitzar aquest servei, necessitem permís per accedir a la teva càmera",
@@ -1890,7 +1892,9 @@ class Localization extends Translations {
               "El perfil s'ha actualitzat correctament",
           "otpSuccessfullySent": "Otp enviat correctament",
           "pleaseAddAllTheInformation": "Si us plau, afegiu tota la informació",
-          "pleaseAddProfileImage": "Afegeix una imatge de perfil"
+          "pleaseAddProfileImage": "Afegeix una imatge de perfil",
+          'cancelBookingSubString':
+              "Estàs segur que vols anul·lar aquesta compra?",
         },
         'eu': {
           'welcomeHeadingString': "Ongi etorri Tiqartera!",
@@ -2186,8 +2190,7 @@ class Localization extends Translations {
           'camera': "Kamera",
           'gallery': "Galeria",
           'somethingWentWrong': "Zerbait gaizki joan da",
-          'placeOrderSuccess':
-              "Oso arrakastatsua izan da Klasikoak Eskuarki egindako poloaren eskaera.!",
+          'placeOrderSuccess': "Oso arrakastatsua izan da Klasikoak Eskuarki",
           'enableCamera': "Gaitu kamera",
           'enableCameraSubString':
               "Zerbitzu hau erabiltzeko, baimena behar dugu zure kamera atzitzeko.",

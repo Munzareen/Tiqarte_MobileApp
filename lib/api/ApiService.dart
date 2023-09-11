@@ -19,6 +19,7 @@ import 'package:tiqarte/view/MainScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/OtpVerificationScreen.dart';
 import 'package:tiqarte/view/PreLoginScreen.dart';
+import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 import 'package:tiqarte/view/TicketScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
 import 'package:tiqarte/view/newPasswordScreen.dart';
@@ -817,7 +818,8 @@ class ApiService {
   }
 
   getAllProductList() async {
-    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getAllProductList);
+    final uri = Uri.parse(
+        ApiPoint().baseUrl + ApiPoint().getAllProductList + promotorId);
 
     final headers = {
       'Content-Type': 'application/json',
@@ -902,8 +904,10 @@ class ApiService {
   }
 
   getEventByLocation(String latLng) async {
-    final uri =
-        Uri.parse(ApiPoint().baseUrl + ApiPoint().getEventByLocation + latLng);
+    final uri = Uri.parse(ApiPoint().baseUrl +
+        ApiPoint().getEventByLocation +
+        latLng +
+        "&distance=100");
 
     final headers = {
       'Content-Type': 'application/json',
@@ -1018,7 +1022,7 @@ class ApiService {
             backgroundLogo,
             Icons.verified_user,
             'successful'.tr,
-            'ticketCancelBookingRefundString'.tr,
+            'ticketCancelBookingRefund'.tr,
             'ok'.tr, () {
           Get.back();
           Get.back();
@@ -1353,7 +1357,8 @@ class ApiService {
   }
 
   getAllProductListByUser() async {
-    final uri = Uri.parse(ApiPoint().getAllProductListByUser);
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getAllProductListByUser);
 
     final headers = {
       'Content-Type': 'application/json',
@@ -1406,6 +1411,56 @@ class ApiService {
             'congratulations'.tr,
             eventName,
             'viewETicket'.tr,
+            'cancel'.tr, () {
+          Get.back();
+          Get.offAll(() => MainScreen(),
+              transition: Transition.cupertinoDialog);
+        }, () {
+          Get.back();
+          Get.offAll(() => MainScreen(),
+              transition: Transition.cupertinoDialog);
+        });
+      } else if (response.statusCode == 401) {
+        Get.back();
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  shopProduct(BuildContext context, dynamic data) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().shopCheckout);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    final jsonBody = jsonEncode(data);
+
+    try {
+      http.Response response =
+          await http.post(uri, headers: headers, body: jsonBody);
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+        customAlertDialogWithTwoButtons(
+            context,
+            backgroundLogo,
+            Icons.verified_user_sharp,
+            'congratulations'.tr,
+            'placeOrderSuccess'.tr,
+            'shopMore'.tr,
             'cancel'.tr, () {
           Get.back();
           Get.offAll(() => MainScreen(),

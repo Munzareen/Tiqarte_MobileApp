@@ -1301,7 +1301,7 @@ class _TicketScreenState extends State<TicketScreen>
                   ),
                   20.verticalSpace,
                   Text(
-                    'ticketCancelBookingRefundString'.tr,
+                    'ticketCancelBookingRefund'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,

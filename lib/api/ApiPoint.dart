@@ -24,7 +24,7 @@ class ApiPoint {
   String getRelatedEvents = "getRelatedEvents?eventID=";
   String getEventsByType = "getEventsByType?eventTypeId=";
   String getEventSearch = "getEventSearch?searchText=";
-  String getAllProductList = "getAllProductList";
+  String getAllProductList = "getAllProductList?PromotorId=";
   String getSingleProductDetail = "getSingleProductById?ProductId=";
   String getMoreLikeProducts = "getAllProductListByCatagoryId?CatagoryId=";
   String setOrganizerFollow = "setOrganizerFollow";
@@ -40,6 +40,7 @@ class ApiPoint {
   String addToCartDelete = "addToCartDelete?Id=";
   String getAddToCartByUser = "getAddToCartByUser";
   String getAllProductListByUser = "getAllProductListByUser";
+  String shopCheckout = 'shopCheckOut';
 
   //admin
   String getArticles =

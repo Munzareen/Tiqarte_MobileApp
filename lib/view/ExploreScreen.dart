@@ -76,309 +76,298 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         // ),
                         ),
                   )
-                : _ec.exploreList!.isEmpty
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            notFoundImage,
-                            height: 250,
+                // : _ec.exploreList!.isEmpty
+                //     ? Column(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Image.asset(
+                //             notFoundImage,
+                //             height: 250,
+                //           ),
+                //           10.verticalSpace,
+                //           Text(
+                //             'notFound'.tr,
+                //             textAlign: TextAlign.center,
+                //             style: TextStyle(
+                //               fontSize: 24,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           ),
+                //         ],
+                //       )
+                : Stack(
+                    children: [
+                      Positioned.fill(
+                        child: GoogleMap(
+                          zoomControlsEnabled: false,
+                          mapType:
+                              !_ec.mapType ? MapType.normal : MapType.satellite,
+                          markers: _ec.markers,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller = controller;
+                          },
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(double.parse(_ec.latitude!),
+                                double.parse(_ec.longitude!)),
+                            zoom: 12,
                           ),
-                          10.verticalSpace,
-                          Text(
-                            'notFound'.tr,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )
-                    : Stack(
-                        children: [
-                          Positioned.fill(
-                            child: GoogleMap(
-                              zoomControlsEnabled: false,
-                              mapType: !_ec.mapType
-                                  ? MapType.normal
-                                  : MapType.satellite,
-                              markers: _ec.markers,
-                              onMapCreated: (GoogleMapController controller) {
-                                _controller = controller;
-                              },
-                              initialCameraPosition: CameraPosition(
-                                target: LatLng(double.parse(_ec.latitude!),
-                                    double.parse(_ec.longitude!)),
-                                zoom: 12,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 50,
-                            right: 0,
-                            left: 0,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 30.0),
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                        ),
+                      ),
+                      Positioned(
+                        top: 50,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 30.0),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              borderRadius: BorderRadius.circular(20.0)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FittedBox(
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: kPrimaryColor,
-                                              size: 25,
-                                            ),
-                                            10.horizontalSpace,
-                                            Text(
-                                              "Location (within 10 km)",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ])),
-                                      10.verticalSpace,
-                                      SizedBox(
-                                        width: 0.45.sw,
-                                        child: FittedBox(
-                                          child: Text(
-                                            _ec.myAddress.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                  FittedBox(
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                        Icon(
+                                          Icons.location_on,
+                                          color: kPrimaryColor,
+                                          size: 25,
+                                        ),
+                                        10.horizontalSpace,
+                                        Text(
+                                          "Location (within 10 km)",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                      ])),
+                                  10.verticalSpace,
+                                  SizedBox(
+                                    width: 0.45.sw,
+                                    child: FittedBox(
+                                      child: Text(
+                                        _ec.myAddress.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  _ec.changeMapType(!_ec.mapType);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.edit,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      5.horizontalSpace,
+                                      Text(
+                                        'change'.tr,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white),
                                       ),
                                     ],
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      _ec.changeMapType(!_ec.mapType);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 10.0),
-                                      decoration: BoxDecoration(
-                                          color: kPrimaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(20.0)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.edit,
-                                            color: Colors.white,
-                                            size: 15,
-                                          ),
-                                          5.horizontalSpace,
-                                          Text(
-                                            'change'.tr,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
+                                ),
+                              )
+                            ],
                           ),
-                          _ec.eventDetailShow
-                              ? Positioned(
-                                  bottom: 30,
-                                  right: 0,
-                                  left: 0,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.to(
-                                          () => EventDetailScreen(
-                                              eventId: _ec
-                                                  .selectedEventData!.eventId
-                                                  .toString()),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      child: Container(
-                                        padding: EdgeInsets.all(16.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                            color: Theme.of(context)
-                                                .secondaryHeaderColor),
-                                        child: Row(
-                                          // mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
+                      _ec.eventDetailShow
+                          ? Positioned(
+                              bottom: 30,
+                              right: 0,
+                              left: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                      () => EventDetailScreen(
+                                          eventId: _ec
+                                              .selectedEventData!.eventId
+                                              .toString()),
+                                      transition: Transition.rightToLeft);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor),
+                                    child: Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        customCardImage(
+                                            _ec.selectedEventData!
+                                                    .postEventImages!.isNotEmpty
+                                                ? _ec.selectedEventData!
+                                                    .postEventImages![0]
+                                                    .toString()
+                                                : "null",
+                                            110.h,
+                                            100.h),
+                                        8.horizontalSpace,
+                                        Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            customCardImage(
-                                                _ec
-                                                        .selectedEventData!
-                                                        .postEventImages!
-                                                        .isNotEmpty
-                                                    ? _ec.selectedEventData!
-                                                        .postEventImages![0]
-                                                        .toString()
-                                                    : "null",
-                                                110.h,
-                                                100.h),
-                                            8.horizontalSpace,
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: 0.5.sw,
-                                                  child: Text(
-                                                    _ec.selectedEventData!.name
-                                                        .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
+                                            SizedBox(
+                                              width: 0.5.sw,
+                                              child: Text(
+                                                _ec.selectedEventData!.name
+                                                    .toString(),
+                                                textAlign: TextAlign.start,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                8.verticalSpace,
-                                                FittedBox(
-                                                  child: Text(
-                                                    splitDateTimeWithoutYear(_ec
-                                                        .selectedEventData!
-                                                        .eventDate
-                                                        .toString()),
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
+                                              ),
+                                            ),
+                                            8.verticalSpace,
+                                            FittedBox(
+                                              child: Text(
+                                                splitDateTimeWithoutYear(_ec
+                                                    .selectedEventData!
+                                                    .eventDate
+                                                    .toString()),
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: kPrimaryColor),
+                                              ),
+                                            ),
+                                            8.verticalSpace,
+                                            FittedBox(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on,
+                                                    color: kPrimaryColor,
+                                                    size: 25,
+                                                  ),
+                                                  5.horizontalSpace,
+                                                  SizedBox(
+                                                    width: 0.3.sw,
+                                                    child: Text(
+                                                      _ec.selectedEventData!
+                                                          .city
+                                                          .toString(),
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.w400,
-                                                        color: kPrimaryColor),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                                8.verticalSpace,
-                                                FittedBox(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.location_on,
-                                                        color: kPrimaryColor,
-                                                        size: 25,
-                                                      ),
-                                                      5.horizontalSpace,
-                                                      SizedBox(
-                                                        width: 0.3.sw,
-                                                        child: Text(
-                                                          _ec.selectedEventData!
-                                                              .city
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      5.horizontalSpace,
-                                                      GestureDetector(
-                                                        onTap: () async {
-                                                          String data = '';
-                                                          if (_ec.selectedEventData!
-                                                                  .isFav ==
-                                                              true) {
-                                                            data =
-                                                                "?eventID=${_ec.selectedEventData!.eventId!.toInt()}&fav=false&customerID=$userId";
-                                                          } else {
-                                                            data =
-                                                                "?eventID=${_ec.selectedEventData!.eventId!.toInt()}&fav=true&customerID=$userId";
-                                                          }
+                                                  5.horizontalSpace,
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      String data = '';
+                                                      if (_ec.selectedEventData!
+                                                              .isFav ==
+                                                          true) {
+                                                        data =
+                                                            "?eventID=${_ec.selectedEventData!.eventId!.toInt()}&fav=false&customerID=$userId";
+                                                      } else {
+                                                        data =
+                                                            "?eventID=${_ec.selectedEventData!.eventId!.toInt()}&fav=true&customerID=$userId";
+                                                      }
 
-                                                          var res =
-                                                              await ApiService()
-                                                                  .addFavorite(
-                                                                      data);
-                                                          if (res != null &&
-                                                              res is String) {
-                                                            if (res
-                                                                .toUpperCase()
-                                                                .contains(
-                                                                    "ADDED")) {
-                                                              _ec.selectedEventData!
-                                                                  .isFav = true;
-                                                              _ec.update();
-                                                            } else if (res
-                                                                .toUpperCase()
-                                                                .contains(
-                                                                    "REMOVED")) {
-                                                              _ec.selectedEventData!
-                                                                      .isFav =
-                                                                  false;
-                                                              _ec.update();
-                                                            }
-                                                            customSnackBar(
-                                                                'alert'.tr,
-                                                                res);
-                                                          }
-                                                        },
-                                                        child: Image.asset(
+                                                      var res =
+                                                          await ApiService()
+                                                              .addFavorite(
+                                                                  data);
+                                                      if (res != null &&
+                                                          res is String) {
+                                                        if (res
+                                                            .toUpperCase()
+                                                            .contains(
+                                                                "ADDED")) {
                                                           _ec.selectedEventData!
-                                                                      .isFav ==
-                                                                  true
-                                                              ? favoriteIconSelected
-                                                              : favoriteIcon,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
+                                                              .isFav = true;
+                                                          _ec.update();
+                                                        } else if (res
+                                                            .toUpperCase()
+                                                            .contains(
+                                                                "REMOVED")) {
+                                                          _ec.selectedEventData!
+                                                              .isFav = false;
+                                                          _ec.update();
+                                                        }
+                                                        customSnackBar(
+                                                            'alert'.tr, res);
+                                                      }
+                                                    },
+                                                    child: Image.asset(
+                                                      _ec.selectedEventData!
+                                                                  .isFav ==
+                                                              true
+                                                          ? favoriteIconSelected
+                                                          : favoriteIcon,
+                                                      color: kPrimaryColor,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             )
                                           ],
-                                        ),
-                                      ),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                )
-                              : SizedBox(),
-                        ],
-                      ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
+                    ],
+                  ),
           );
         }),
       ),
@@ -439,11 +428,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
       _exploreController.myAddress =
           "${place.subAdministrativeArea}, ${place.country}";
       var res = await ApiService().getEventByLocation(
-          "${_exploreController.latitude},${_exploreController.longitude}&distance=50");
+          "${_exploreController.latitude},${_exploreController.longitude}");
 
       if (res != null && res is List) {
         _exploreController.addExploreListData(res);
       } else if (res != null && res is String) {
+        _exploreController.whenListisNull();
         customSnackBar('error'.tr, 'somethingWentWrong'.tr);
       }
     }

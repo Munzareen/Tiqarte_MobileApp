@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/model/ExploreModel.dart';
+import 'package:http/http.dart' as http;
 
 class ExploreController extends GetxController {
   List<ExploreModel>? exploreList;
@@ -25,22 +28,23 @@ class ExploreController extends GetxController {
       ImageConfiguration(devicePixelRatio: 2.5),
       eventMarker,
     );
-    myMarkerPin = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(devicePixelRatio: 2.5),
-      myMarker,
-    );
+    // myMarkerPin = await BitmapDescriptor.fromAssetImage(
+    //   ImageConfiguration(devicePixelRatio: 2.5),
+    //   myMarker,
+    // );
+    myMarkerPin = BitmapDescriptor.defaultMarkerWithHue(20);
   }
 
-// Future<void> _createCustomMarker() async {
-//   final imageUrl = 'https://example.com/image.png'; // Replace with your image URL
-//   final bytes = await _getBytesFromUrl(imageUrl);
-//   eventMarker = BitmapDescriptor.fromBytes(bytes);
-// }
+  Future<void> _createCustomMarker() async {
+    final imageUrl = userImage; // Replace with your image URL
+    final bytes = await _getBytesFromUrl(imageUrl);
+    myMarkerPin = BitmapDescriptor.fromBytes(bytes, size: Size(40, 40));
+  }
 
-// Future<Uint8List> _getBytesFromUrl(String url) async {
-//   final response = await http.get(Uri.parse(url));
-//   return response.bodyBytes;
-// }
+  Future<Uint8List> _getBytesFromUrl(String url) async {
+    final response = await http.get(Uri.parse(url));
+    return response.bodyBytes;
+  }
 
   addExploreListData(List data) {
     exploreList = exploreModelFromJson(data);
@@ -109,9 +113,23 @@ class ExploreController extends GetxController {
     update();
   }
 
+  whenListisNull() {
+    exploreList = [];
+    markers.add(Marker(
+        markerId: MarkerId("null"),
+        position: convertCoordinatesToLatLng("$latitude, $longitude"),
+        infoWindow: InfoWindow(
+          title: "You",
+        ),
+        icon: myMarkerPin!,
+        onTap: () {}));
+    update();
+  }
+
   @override
   void onInit() {
     markerPin();
+    //_createCustomMarker();
 
     super.onInit();
   }

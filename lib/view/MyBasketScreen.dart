@@ -425,8 +425,15 @@ class _MyBasketScreenState extends State<MyBasketScreen> {
                                 ),
                                 20.verticalSpace,
                                 GestureDetector(
-                                  onTap: () =>
-                                      Get.to(() => ProductCheckoutScreen()),
+                                  onTap: () {
+                                    _myBasketController.cartIds.clear();
+                                    _myBasketController.myBasketProductsModel
+                                        ?.forEach((element) {
+                                      _myBasketController.cartIds
+                                          .add(element.id?.toInt());
+                                    });
+                                    Get.to(() => ProductCheckoutScreen());
+                                  },
                                   child: customButton(
                                       'checkout'.tr, kPrimaryColor),
                                 ),

@@ -231,7 +231,7 @@ class _ProductCheckoutPaymentScreenState
                         'shopMore'.tr,
                         'cancel'.tr, () {
                       Get.back();
-                      Get.off(() => SeeAllProductsScreen(),
+                      Get.offAll(() => SeeAllProductsScreen(),
                           transition: Transition.cupertinoDialog);
                     }, () {
                       Get.back();

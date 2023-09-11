@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
+import 'package:tiqarte/model/merchandiseOrderHistoryModel.dart';
 
 class MerchandiseOrderHistoryController extends GetxController {
-  List merchandiseOrderHistoryList = [];
+  List<MerchandiseOrderHistoryModel> merchandiseOrderHistoryList = [];
 
   addData(List list) {
-    merchandiseOrderHistoryList = list;
+    merchandiseOrderHistoryList = merchandiseOrderHistoryModelFromJson(list);
     update();
   }
 }
