@@ -233,7 +233,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 10.horizontalSpace,
                                 Row(
                                   children: List<Widget>.generate(
-                                      _edc.eventDetailModel.customers!.length,
+                                      _edc.eventDetailModel.customers!.length >
+                                              6
+                                          ? 6
+                                          : _edc.eventDetailModel.customers!
+                                              .length,
                                       (index) => Align(
                                             widthFactor: 0.6,
                                             child: customProfileImage(

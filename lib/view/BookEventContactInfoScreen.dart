@@ -598,9 +598,15 @@ class _BookEventContactInfoScreenState
                                     "CountryId": countryCode
                                   }
                                 };
-
-                                ApiService().ticketBooking(context, data,
-                                    _bookEventController.eventName);
+                                var paymentData = {
+                                  "amount": _bookEventController.economyPrice! +
+                                      _bookEventController.vipPrice!,
+                                  "description":
+                                      _bookEventController.eventId.toString()
+                                };
+                                ApiService().createOrder(context, paymentData);
+                                // ApiService().ticketBooking(context, data,
+                                //     _bookEventController.eventName);
                               }
                               // Get.to(() => PaymentScreen(),
                               //     transition: Transition.rightToLeft);

@@ -60,6 +60,7 @@ dependencies:
   path_provider: ^2.0.15
   open_file: ^3.3.2
   add_2_calendar: ^2.2.3
+  webview_flutter: ^4.2.4
 
   
 dev_dependencies:

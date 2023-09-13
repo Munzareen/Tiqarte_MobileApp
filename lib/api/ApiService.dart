@@ -23,6 +23,7 @@ import 'package:tiqarte/view/SeeAllProductsScreen.dart';
 import 'package:tiqarte/view/TicketScreen.dart';
 import 'package:tiqarte/view/ViewETicketScreen.dart';
 import 'package:tiqarte/view/newPasswordScreen.dart';
+import 'package:tiqarte/view/paymentWebViewScreen.dart';
 
 class ApiService {
   register(BuildContext context, Map<String, String> data) async {
@@ -1470,6 +1471,45 @@ class ApiService {
           Get.offAll(() => MainScreen(),
               transition: Transition.cupertinoDialog);
         });
+      } else if (response.statusCode == 401) {
+        Get.back();
+        tokenExpiredLogout();
+      } else {
+        Get.back();
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  createOrder(BuildContext context, dynamic data) async {
+    final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().createOrder);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(onWillPop: () async => false, child: spinkit);
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    final jsonBody = jsonEncode(data);
+
+    try {
+      http.Response response =
+          await http.post(uri, headers: headers, body: jsonBody);
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+        if (res_data['isSuccess']) {
+          Get.to(() => PaymentWebViewScreen(url: res_data['token'].toString()));
+        } else {
+          customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+        }
       } else if (response.statusCode == 401) {
         Get.back();
         tokenExpiredLogout();

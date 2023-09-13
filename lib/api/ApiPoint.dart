@@ -12,7 +12,8 @@ class ApiPoint {
   String getProfile = "customer/GetProfile";
   String changePassword = "customer/ChangePassword";
   String socialLogin = "user/login_social?";
-  String getHomeData = "getHomeData";
+  String getHomeData =
+      "getHomeData?CategoryId=&City=&LocationSearch.la=t&LocationSearch.long=&LocationSearch.disctance=";
   String GetEvents = "GetEvents";
   String getEventDetail = "getEventDetail?eventID=";
   String getOrganizerDetails = "getOrganizerDetails?organizerID=";
@@ -41,6 +42,7 @@ class ApiPoint {
   String getAddToCartByUser = "getAddToCartByUser";
   String getAllProductListByUser = "getAllProductListByUser";
   String shopCheckout = 'shopCheckOut';
+  String createOrder = "payments/createorder";
 
   //admin
   String getArticles =
