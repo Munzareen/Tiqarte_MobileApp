@@ -481,6 +481,42 @@ class ApiService {
     }
   }
 
+  getHomeDataWithFilter(BuildContext context, String filterData) async {
+    final uri = Uri.parse(
+        ApiPoint().baseUrl + ApiPoint().getHomeDataWithFilter + filterData);
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          return spinkit;
+        });
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+        Get.back();
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        Get.back();
+        tokenExpiredLogout();
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
   getHomeData() async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getHomeData);
 
@@ -615,11 +651,11 @@ class ApiService {
   }
 
   getEventSearch(BuildContext context, String searchQuery) async {
-    final uri =
-        Uri.parse(ApiPoint().baseUrl + ApiPoint().getEventSearch + searchQuery);
+    final uri = Uri.parse(
+        ApiPoint().baseUrl + ApiPoint().getEventsBySearch + searchQuery);
     showDialog(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: true,
         builder: (_) {
           return spinkit;
         });
@@ -638,6 +674,7 @@ class ApiService {
         Get.back();
         return res_data;
       } else if (response.statusCode == 401) {
+        Get.back();
         tokenExpiredLogout();
       } else {
         Get.back();
@@ -1405,22 +1442,7 @@ class ApiService {
       if (response.statusCode == 200) {
         var res_data = json.decode(response.body);
         Get.back();
-        customAlertDialogWithTwoButtons(
-            context,
-            backgroundLogo,
-            Icons.verified_user_sharp,
-            'congratulations'.tr,
-            eventName,
-            'viewETicket'.tr,
-            'cancel'.tr, () {
-          Get.back();
-          Get.offAll(() => MainScreen(),
-              transition: Transition.cupertinoDialog);
-        }, () {
-          Get.back();
-          Get.offAll(() => MainScreen(),
-              transition: Transition.cupertinoDialog);
-        });
+        return res_data;
       } else if (response.statusCode == 401) {
         Get.back();
         tokenExpiredLogout();
@@ -1455,22 +1477,7 @@ class ApiService {
       if (response.statusCode == 200) {
         var res_data = json.decode(response.body);
         Get.back();
-        customAlertDialogWithTwoButtons(
-            context,
-            backgroundLogo,
-            Icons.verified_user_sharp,
-            'congratulations'.tr,
-            'placeOrderSuccess'.tr,
-            'shopMore'.tr,
-            'cancel'.tr, () {
-          Get.back();
-          Get.offAll(() => MainScreen(),
-              transition: Transition.cupertinoDialog);
-        }, () {
-          Get.back();
-          Get.offAll(() => MainScreen(),
-              transition: Transition.cupertinoDialog);
-        });
+        return res_data;
       } else if (response.statusCode == 401) {
         Get.back();
         tokenExpiredLogout();
@@ -1506,7 +1513,10 @@ class ApiService {
         var res_data = json.decode(response.body);
         Get.back();
         if (res_data['isSuccess']) {
-          Get.to(() => PaymentWebViewScreen(url: res_data['token'].toString()));
+          Get.to(() => PaymentWebViewScreen(
+                url: res_data['token'].toString(),
+                type: 'TICKET',
+              ));
         } else {
           customSnackBar('error'.tr, 'somethingWentWrong'.tr);
         }

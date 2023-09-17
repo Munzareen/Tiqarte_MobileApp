@@ -9,6 +9,7 @@ import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
+import 'package:tiqarte/view/PaymentWebViewScreen.dart';
 
 class ProductCheckoutScreen extends StatefulWidget {
   const ProductCheckoutScreen({super.key});
@@ -641,7 +642,7 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                           ),
                           20.verticalSpace,
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 var data = {
                                   "AddToCartIds": _myBasketController.cartIds,
@@ -657,7 +658,16 @@ class _ProductCheckoutScreenState extends State<ProductCheckoutScreen> {
                                   "PurchaseDate": DateTime.now().toString()
                                 };
 
-                                ApiService().shopProduct(context, data);
+                                var res_data = await ApiService()
+                                    .shopProduct(context, data);
+
+                                if (res_data != null && res_data['isSuccess']) {
+                                  _myBasketController.ticketId =
+                                      res_data['ticketId'].toString();
+                                  Get.to(() => PaymentWebViewScreen(
+                                      url: res_data['token'].toString(),
+                                      type: 'SHOP'));
+                                }
 
                                 // Get.to(() => ProductCheckoutPaymentScreen());
                               }

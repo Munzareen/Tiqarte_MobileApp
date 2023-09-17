@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/model/NewsModel.dart';
@@ -35,13 +36,12 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         actions: [
           GestureDetector(
             onTap: () {
-              Share.share(widget.newsModel.title.toString(),
-                  subject: 'Article');
+              Share.share(widget.newsModel.title.toString(), subject: 'News');
             },
             child: Image.asset(
               sendIcon,
               height: 50,
-              color: Colors.white,
+              color: kPrimaryColor,
             ),
           ),
         ],

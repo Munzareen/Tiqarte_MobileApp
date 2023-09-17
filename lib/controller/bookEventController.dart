@@ -12,6 +12,8 @@ class BookEventController extends GetxController {
   double? baseVipPrice = null;
   double? vipPrice = null;
 
+  String ticketId = '';
+
   subtractEconomy() {
     if (economySeatCount > 0) {
       economySeatCount--;

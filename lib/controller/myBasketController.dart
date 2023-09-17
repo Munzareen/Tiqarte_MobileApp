@@ -6,6 +6,7 @@ class MyBasketController extends GetxController {
 
   num subTotalPrice = 0.0;
   List cartIds = [];
+  String ticketId = '';
 
   addMyBasketData(List data) {
     subTotalPrice = 0.0;

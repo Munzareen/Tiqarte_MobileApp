@@ -68,24 +68,24 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
             icon: Icon(
               Icons.arrow_back,
             )),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                border: Border.all(
-                    width: 1, color: Theme.of(context).colorScheme.background),
-                borderRadius: BorderRadius.circular(50.0),
-              ),
-              child: Icon(
-                Icons.more_horiz_sharp,
-                size: 25,
-              ),
-            ),
-          )
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(12.0),
+        //     child: Container(
+        //       height: 30,
+        //       width: 30,
+        //       decoration: BoxDecoration(
+        //         border: Border.all(
+        //             width: 1, color: Theme.of(context).colorScheme.background),
+        //         borderRadius: BorderRadius.circular(50.0),
+        //       ),
+        //       child: Icon(
+        //         Icons.more_horiz_sharp,
+        //         size: 25,
+        //       ),
+        //     ),
+        //   )
+        // ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -249,7 +249,7 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               GestureDetector(
                                 onTap: () async {
@@ -314,34 +314,34 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: 0.4.sw,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    border: Border.all(
-                                        width: 2.0, color: kPrimaryColor)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      chatIcon,
-                                      color: kPrimaryColor,
-                                      height: 20.h,
-                                    ),
-                                    10.horizontalSpace,
-                                    Text(
-                                      'message'.tr,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: kPrimaryColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // Container(
+                              //   width: 0.4.sw,
+                              //   padding: EdgeInsets.symmetric(
+                              //       horizontal: 15.0, vertical: 10.0),
+                              //   decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(20.0),
+                              //       border: Border.all(
+                              //           width: 2.0, color: kPrimaryColor)),
+                              //   child: Row(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: [
+                              //       Image.asset(
+                              //         chatIcon,
+                              //         color: kPrimaryColor,
+                              //         height: 20.h,
+                              //       ),
+                              //       10.horizontalSpace,
+                              //       Text(
+                              //         'message'.tr,
+                              //         textAlign: TextAlign.center,
+                              //         style: TextStyle(
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.bold,
+                              //             color: kPrimaryColor),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -633,9 +633,12 @@ class _OrganizerDetailScreenState extends State<OrganizerDetailScreen>
                                               .secondaryHeaderColor),
                                       child: Text(
                                           _oc.organizerDetailModel!.organizer!
-                                              .about
-                                              .toString()
-                                              .toString(),
+                                                      .about !=
+                                                  null
+                                              ? _oc.organizerDetailModel!
+                                                  .organizer!.about
+                                                  .toString()
+                                              : '',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,

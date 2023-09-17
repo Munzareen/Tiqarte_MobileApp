@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/NavigationBarController.dart';
 import 'package:tiqarte/controller/homeController.dart';
@@ -11,6 +13,7 @@ import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
+import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/MyBasketScreen.dart';
 import 'package:tiqarte/view/NewsDetailScreen.dart';
@@ -33,12 +36,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final nbc = Get.put(NavigationBarController());
 
+  String? latitude;
+  String? longitude;
+  Position? position;
+  LocationPermission? permission;
+
   @override
   void initState() {
     super.initState();
     getData();
     getCartProducts();
     getNewsList();
+    checkLocationPermission();
+
     // ApiService().getProfile();
   }
 
@@ -185,12 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: kDisabledColor,
                         ),
                         suffixIcon: GestureDetector(
-                            onTap: () => filterBottomSheet(
-                                context,
-                                eventsCatergoryList,
-                                locationList,
-                                selectedLocation,
-                                currentRangeValues),
+                            onTap: () => filterBottomSheetHome(context),
                             child: Image.asset(filterIcon)),
                         errorBorder: customOutlineBorder,
                         enabledBorder: customOutlineBorder,
@@ -283,12 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       () => SeeAllEventsScreen(
                                                           name: 'featured'.tr,
                                                           img: '',
-                                                          eventTypeId: _hc
-                                                              .featuredEventList![
-                                                                  0]
-                                                              .eventTypeId!
-                                                              .toInt()
-                                                              .toString()),
+                                                          eventTypeId: "1.00"),
                                                       transition: Transition
                                                           .rightToLeft),
                                                   child: Text(
@@ -552,12 +552,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           name: 'upcomingEvent'
                                                               .tr,
                                                           img: fireIcon,
-                                                          eventTypeId: _hc
-                                                              .upcomingEventList![
-                                                                  0]
-                                                              .eventTypeId!
-                                                              .toInt()
-                                                              .toString()),
+                                                          eventTypeId: "3.00"),
                                                       transition: Transition
                                                           .rightToLeft),
                                                   child: Text(
@@ -708,12 +703,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           name: 'upcomingEvent'
                                                               .tr,
                                                           img: fireIcon,
-                                                          eventTypeId: _hc
-                                                              .upcomingEventList![
-                                                                  0]
-                                                              .eventTypeId!
-                                                              .toInt()
-                                                              .toString()),
+                                                          eventTypeId: "3.00"),
                                                       transition: Transition
                                                           .rightToLeft),
                                                   child: Text(
@@ -1814,6 +1804,388 @@ class _HomeScreenState extends State<HomeScreen> {
       return 'goodEvening'.tr;
     } else {
       return 'goodNight'.tr;
+    }
+  }
+
+  filterBottomSheetHome(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      ),
+      builder: (BuildContext context) {
+        return GetBuilder<HomeController>(builder: (_hc) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Wrap(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        5.verticalSpace,
+                        Container(
+                          height: 5,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: kDisabledColor.withOpacity(0.6)),
+                        ),
+                        15.verticalSpace,
+                        Text(
+                          'filter'.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Divider(
+                          color: kDisabledColor,
+                        ),
+                        10.verticalSpace,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'eventCategory'.tr,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace,
+                        Container(
+                          height: 45,
+                          width: 1.sw,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _hc.homeFilterCategoryList?.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  _hc.homeFilterCategoryList
+                                      ?.forEach((element) {
+                                    element.isSelected = false;
+                                  });
+                                  _hc.homeFilterCategoryList?[index]
+                                      .isSelected = true;
+                                  _hc.update();
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.0),
+                                  decoration: BoxDecoration(
+                                    color: _hc.homeFilterCategoryList![index]
+                                                .isSelected ==
+                                            true
+                                        ? kPrimaryColor
+                                        : Colors.transparent,
+                                    border: Border.all(
+                                        width: 2, color: kPrimaryColor),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        customCategoryImage(_hc
+                                            .homeFilterCategoryList![index]
+                                            .imageURL
+                                            .toString()),
+                                        5.horizontalSpace,
+                                        Text(
+                                          _hc.homeFilterCategoryList![index]
+                                              .catagoryName
+                                              .toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: _hc
+                                                          .homeFilterCategoryList![
+                                                              index]
+                                                          .isSelected ==
+                                                      true
+                                                  ? Colors.white
+                                                  : kPrimaryColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'location'.tr,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Container(
+                          height: 48.h,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: DropdownButtonFormField(
+                            dropdownColor:
+                                Theme.of(context).colorScheme.secondary,
+                            borderRadius: BorderRadius.circular(12.0),
+                            decoration: InputDecoration(
+                                constraints: BoxConstraints(),
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none)),
+                            alignment: AlignmentDirectional.centerStart,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              size: 30,
+                              // color: Colors.black,
+                            ),
+                            iconEnabledColor: kDisabledColor,
+                            // hint: Text(
+                            //   "New York, United States",
+                            //   style: TextStyle(fontSize: 15.sp),
+                            // ),
+                            value: _hc.selectedCity,
+                            onChanged: (value) {
+                              _hc.selectedCity = value;
+                              _hc.update();
+                            },
+                            items: _hc.cityListForFilter //items
+                                .map(
+                                  (item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                        20.verticalSpace,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'eventLocationRange'.tr,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Slider(
+                                inactiveColor: kDisabledColor,
+                                activeColor: kPrimaryColor,
+                                value: _hc.distanceValue,
+                                min: 0,
+                                max: 100,
+                                divisions: 100,
+                                label:
+                                    "${_hc.distanceValue.toInt().toString()} km",
+                                onChanged: (double values) {
+                                  _hc.updateDistanceValues(values);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                _hc.resetHomeFilter();
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 0.3.sw,
+                                decoration: BoxDecoration(
+                                    color: kPrimaryColor.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Center(
+                                  child: Text('reset'.tr,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                            20.horizontalSpace,
+                            GestureDetector(
+                              onTap: () async {
+                                if (latitude != null) {
+                                  CategoryModel catId = _hc
+                                      .homeFilterCategoryList!
+                                      .firstWhere((element) =>
+                                          element.isSelected == true);
+                                  String selectedLocation =
+                                      _hc.selectedCity != null
+                                          ? _hc.selectedCity!
+                                          : '';
+
+                                  String filterData;
+
+                                  if (selectedLocation == '') {
+                                    if (catId.id?.toInt() == 1) {
+                                      filterData =
+                                          "CategoryId=&City=&LocationSearch.lat=&LocationSearch.long=&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                    } else {
+                                      filterData =
+                                          "CategoryId=${catId.id!.toInt().toString()}&City=&LocationSearch.lat=&LocationSearch.long=&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                    }
+                                  } else {
+                                    if (catId.id?.toInt() == 1) {
+                                      filterData =
+                                          "CategoryId=&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                    } else {
+                                      filterData =
+                                          "CategoryId=${catId.id!.toInt().toString()}&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                    }
+                                  }
+
+                                  var res = await ApiService()
+                                      .getHomeDataWithFilter(
+                                          context, filterData);
+                                  if (res != null && res is Map) {
+                                    _homeController.addHomeDataForFilter(res);
+                                    Get.back();
+                                  } else if (res != null && res is String) {
+                                    customSnackBar(
+                                        'error'.tr, 'somethingWentWrong'.tr);
+                                  }
+                                } else {
+                                  checkLocationPermission();
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 0.3.sw,
+                                decoration: BoxDecoration(
+                                    color: kPrimaryColor,
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Center(
+                                  child: Text('apply'.tr,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
+      },
+    );
+  }
+
+  checkLocationPermission() async {
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      } else if (permission == LocationPermission.always ||
+          permission == LocationPermission.whileInUse) {
+        getLatLng();
+      } else if (permission == LocationPermission.deniedForever) {
+        customAlertDialogForPermission(
+            context,
+            backgroundLogo,
+            Icons.location_on,
+            'enableLocation'.tr,
+            'locationDialogSubString'.tr,
+            'enableLocation'.tr,
+            'cancel'.tr, () {
+          openAppSettings().then((value) {
+            //checkLocationPermission();
+          });
+          Get.back();
+        });
+      }
+    } else if (permission == LocationPermission.deniedForever) {
+      customAlertDialogForPermission(
+          context,
+          backgroundLogo,
+          Icons.location_on,
+          'enableLocation'.tr,
+          'locationDialogSubString'.tr,
+          'enableLocation'.tr,
+          'cancel'.tr, () {
+        openAppSettings().then((value) {
+          //checkLocationPermission();
+        });
+        Get.back();
+      });
+    } else if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      getLatLng();
+    }
+  }
+
+  getLatLng() async {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    if (position != null) {
+      latitude = position?.latitude.toString();
+      longitude = position?.longitude.toString();
+    }
+    _homeController.cityListForFilter = await getCitiesByCountry(
+        double.parse(latitude!), double.parse(longitude!));
+  }
+
+  Future<List<String>> getCitiesByCountry(
+      double latitude, double longitude) async {
+    try {
+      final placemarks = await placemarkFromCoordinates(latitude, longitude,
+          localeIdentifier: 'en_US');
+      final cityNames = placemarks
+          .where((placemark) => placemark.name != null)
+          .map((placemark) => placemark.name!)
+          .toList();
+
+      return cityNames.toSet().toList();
+    } catch (e) {
+      print("Error: $e");
+      return [];
     }
   }
 }

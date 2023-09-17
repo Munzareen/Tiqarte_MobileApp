@@ -14,6 +14,7 @@ class ApiPoint {
   String socialLogin = "user/login_social?";
   String getHomeData =
       "getHomeData?CategoryId=&City=&LocationSearch.la=t&LocationSearch.long=&LocationSearch.disctance=";
+  String getHomeDataWithFilter = "getHomeData?";
   String GetEvents = "GetEvents";
   String getEventDetail = "getEventDetail?eventID=";
   String getOrganizerDetails = "getOrganizerDetails?organizerID=";
@@ -24,7 +25,7 @@ class ApiPoint {
   String GetAllRoles = "GetAllRoles";
   String getRelatedEvents = "getRelatedEvents?eventID=";
   String getEventsByType = "getEventsByType?eventTypeId=";
-  String getEventSearch = "getEventSearch?searchText=";
+  String getEventsBySearch = "getEventsBySearch";
   String getAllProductList = "getAllProductList?PromotorId=";
   String getSingleProductDetail = "getSingleProductById?ProductId=";
   String getMoreLikeProducts = "getAllProductListByCatagoryId?CatagoryId=";

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/seeAllEventController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
+import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 
 class SeeAllEventsScreen extends StatefulWidget {
@@ -28,10 +32,17 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
   final _seeAllEventController = Get.put(SeeAllEventController());
   // Timer? _debounceTimer;
 
+  String? latitude;
+  String? longitude;
+  Position? position;
+  LocationPermission? permission;
+
   @override
   void initState() {
     super.initState();
+    _seeAllEventController.eventTypeId = widget.eventTypeId;
     getData();
+    checkLocationPermission();
   }
 
   getData() async {
@@ -47,6 +58,15 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
   void dispose() {
     _seeAllEventController.searchController.clear();
     _seeAllEventController.isSearch = false;
+    _seeAllEventController.distanceValue = 100.0;
+
+    _seeAllEventController.cityListForFilter = [];
+    _seeAllEventController.selectedCity = null;
+
+    _seeAllEventController.filterCategoryList?.forEach((element) {
+      element.isSelected = false;
+    });
+    _seeAllEventController.filterCategoryList?[0].isSelected = true;
 
     super.dispose();
   }
@@ -122,12 +142,9 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                             color: _sc.iconColorSearch,
                                           ),
                                           suffixIcon: GestureDetector(
-                                              onTap: () => filterBottomSheet(
-                                                  context,
-                                                  eventsCatergoryList,
-                                                  locationList,
-                                                  selectedLocation,
-                                                  currentRangeValues),
+                                              onTap: () =>
+                                                  filterBottomSheetSeeAll(
+                                                      context),
                                               child: Image.asset(filterIcon)),
                                           errorBorder: customOutlineBorder,
                                           enabledBorder: customOutlineBorder,
@@ -750,5 +767,384 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
         }),
       ),
     );
+  }
+
+  filterBottomSheetSeeAll(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      ),
+      builder: (BuildContext context) {
+        return GetBuilder<SeeAllEventController>(builder: (_sae) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Wrap(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        5.verticalSpace,
+                        Container(
+                          height: 5,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: kDisabledColor.withOpacity(0.6)),
+                        ),
+                        15.verticalSpace,
+                        Text(
+                          'filter'.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Divider(
+                          color: kDisabledColor,
+                        ),
+                        10.verticalSpace,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'eventCategory'.tr,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace,
+                        Container(
+                          height: 45,
+                          width: 1.sw,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _sae.filterCategoryList?.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  _sae.filterCategoryList?.forEach((element) {
+                                    element.isSelected = false;
+                                  });
+                                  _sae.filterCategoryList?[index].isSelected =
+                                      true;
+
+                                  _sae.seeAllCategoryList?.forEach((element) {
+                                    element.isSelected = false;
+                                  });
+                                  _sae.seeAllCategoryList?[index].isSelected =
+                                      true;
+                                  _sae.update();
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.0),
+                                  decoration: BoxDecoration(
+                                    color: _sae.filterCategoryList![index]
+                                                .isSelected ==
+                                            true
+                                        ? kPrimaryColor
+                                        : Colors.transparent,
+                                    border: Border.all(
+                                        width: 2, color: kPrimaryColor),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        customCategoryImage(_sae
+                                            .filterCategoryList![index].imageURL
+                                            .toString()),
+                                        5.horizontalSpace,
+                                        Text(
+                                          _sae.filterCategoryList![index]
+                                              .catagoryName
+                                              .toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: _sae
+                                                          .filterCategoryList![
+                                                              index]
+                                                          .isSelected ==
+                                                      true
+                                                  ? Colors.white
+                                                  : kPrimaryColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'location'.tr,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Container(
+                          height: 48.h,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: DropdownButtonFormField(
+                            dropdownColor:
+                                Theme.of(context).colorScheme.secondary,
+                            borderRadius: BorderRadius.circular(12.0),
+                            decoration: InputDecoration(
+                                constraints: BoxConstraints(),
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none)),
+                            alignment: AlignmentDirectional.centerStart,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              size: 30,
+                              // color: Colors.black,
+                            ),
+                            iconEnabledColor: kDisabledColor,
+                            // hint: Text(
+                            //   "New York, United States",
+                            //   style: TextStyle(fontSize: 15.sp),
+                            // ),
+                            value: _sae.selectedCity,
+                            onChanged: (value) {
+                              _sae.selectedCity = value;
+                              _sae.update();
+                            },
+                            items: _sae.cityListForFilter //items
+                                .map(
+                                  (item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                        20.verticalSpace,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'eventLocationRange'.tr,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Slider(
+                                inactiveColor: kDisabledColor,
+                                activeColor: kPrimaryColor,
+                                value: _sae.distanceValue,
+                                min: 0,
+                                max: 100,
+                                divisions: 100,
+                                label:
+                                    "${_sae.distanceValue.toInt().toString()} km",
+                                onChanged: (double values) {
+                                  _sae.updateDistanceValues(values);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                _sae.resetHomeFilter();
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 0.3.sw,
+                                decoration: BoxDecoration(
+                                    color: kPrimaryColor.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Center(
+                                  child: Text('reset'.tr,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                            20.horizontalSpace,
+                            GestureDetector(
+                              onTap: () async {
+                                Get.back();
+                                CategoryModel catId = _sae.filterCategoryList!
+                                    .firstWhere((element) =>
+                                        element.isSelected == true);
+                                String selectedLocation =
+                                    _sae.selectedCity != null
+                                        ? _sae.selectedCity!
+                                        : '';
+                                String filterData;
+
+                                if (selectedLocation == '') {
+                                  if (catId.id?.toInt() == 1) {
+                                    filterData =
+                                        "?searchText=${_sae.searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=${_sae.eventTypeId}&cityName=";
+                                  } else {
+                                    filterData =
+                                        "?searchText=${_sae.searchController.text.trim()}&eventDate&eventCategoryId=${catId.id!.toInt().toString()}&eventTypeId=${_sae.eventTypeId}&cityName=";
+                                  }
+                                } else {
+                                  if (catId.id?.toInt() == 1) {
+                                    filterData =
+                                        "?searchText=${_sae.searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=${_sae.eventTypeId}&cityName=$selectedLocation";
+                                  } else {
+                                    filterData =
+                                        "?searchText=${_sae.searchController.text.trim()}&eventDate&eventCategoryId=${catId.id!.toInt().toString()}&eventTypeId=${_sae.eventTypeId}&cityName=$selectedLocation";
+                                  }
+                                }
+
+                                var res = await ApiService()
+                                    .getEventSearch(Get.context!, filterData);
+                                if (res != null && res is List) {
+                                  _sae.addSeeAllData(res);
+                                } else {
+                                  customSnackBar(
+                                      'error'.tr, 'somethingWentWrong'.tr);
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 0.3.sw,
+                                decoration: BoxDecoration(
+                                    color: kPrimaryColor,
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Center(
+                                  child: Text('apply'.tr,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
+      },
+    );
+  }
+
+  checkLocationPermission() async {
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      } else if (permission == LocationPermission.always ||
+          permission == LocationPermission.whileInUse) {
+        getLatLng();
+      } else if (permission == LocationPermission.deniedForever) {
+        customAlertDialogForPermission(
+            context,
+            backgroundLogo,
+            Icons.location_on,
+            'enableLocation'.tr,
+            'locationDialogSubString'.tr,
+            'enableLocation'.tr,
+            'cancel'.tr, () {
+          openAppSettings().then((value) {
+            //checkLocationPermission();
+          });
+          Get.back();
+        });
+      }
+    } else if (permission == LocationPermission.deniedForever) {
+      customAlertDialogForPermission(
+          context,
+          backgroundLogo,
+          Icons.location_on,
+          'enableLocation'.tr,
+          'locationDialogSubString'.tr,
+          'enableLocation'.tr,
+          'cancel'.tr, () {
+        openAppSettings().then((value) {
+          //checkLocationPermission();
+        });
+        Get.back();
+      });
+    } else if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      getLatLng();
+    }
+  }
+
+  getLatLng() async {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    if (position != null) {
+      latitude = position?.latitude.toString();
+      longitude = position?.longitude.toString();
+    }
+    _seeAllEventController.cityListForFilter = await getCitiesByCountry(
+        double.parse(latitude!), double.parse(longitude!));
+  }
+
+  Future<List<String>> getCitiesByCountry(
+      double latitude, double longitude) async {
+    try {
+      final placemarks = await placemarkFromCoordinates(latitude, longitude,
+          localeIdentifier: 'en_US');
+      final cityNames = placemarks
+          .where((placemark) => placemark.name != null)
+          .map((placemark) => placemark.name!)
+          .toList();
+
+      return cityNames.toSet().toList();
+    } catch (e) {
+      print("Error: $e");
+      return [];
+    }
   }
 }

@@ -64,20 +64,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.background),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: Icon(
-                      Icons.more_horiz_sharp,
-                      size: 25,
-                    ),
-                  )
+                  // Container(
+                  //   height: 30,
+                  //   width: 30,
+                  //   decoration: BoxDecoration(
+                  //     border: Border.all(
+                  //         width: 1,
+                  //         color: Theme.of(context).colorScheme.background),
+                  //     borderRadius: BorderRadius.circular(50.0),
+                  //   ),
+                  //   child: Icon(
+                  //     Icons.more_horiz_sharp,
+                  //     size: 25,
+                  //   ),
+                  // )
                 ],
               ),
               30.verticalSpace,

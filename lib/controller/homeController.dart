@@ -22,9 +22,15 @@ class HomeController extends GetxController {
 
   List<CategoryModel>? upcomingCategoryList;
   List<CategoryModel>? shopCategoryList;
+  List<CategoryModel>? homeFilterCategoryList;
 
   List<NewsModel> newsList = [];
   List<NewsModel> newsListAll = [];
+
+  double distanceValue = 100.0;
+
+  List<String> cityListForFilter = [];
+  String? selectedCity;
 
   addHomeData(dynamic data) async {
     homeDataModel = HomeDataModel.fromJson(data);
@@ -52,10 +58,25 @@ class HomeController extends GetxController {
       shopCategoryList = categoryModelFromJson(res);
       shopCategoryList?[0].isSelected = true;
 
+      homeFilterCategoryList = categoryModelFromJson(res);
+      homeFilterCategoryList?[0].isSelected = true;
+
       update();
     } else if (res != null && res is String) {
       customSnackBar('error'.tr, 'somethingWentWrong'.tr);
     }
+  }
+
+  addHomeDataForFilter(dynamic data) async {
+    homeDataModel = HomeDataModel.fromJson(data);
+    featuredEventList = homeDataModel.featuredEvents;
+    upcomingEventList = homeDataModel.upComingEvents;
+    shopList = homeDataModel.shop;
+    featuredEventListAll = [...homeDataModel.featuredEvents!];
+    upcomingEventListAll = [...homeDataModel.upComingEvents!];
+    shopListAll = [...shopList!];
+
+    update();
   }
 
   selectUpcomingEventCategory(int index) {
@@ -160,5 +181,21 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  updateDistanceValues(values) {
+    distanceValue = values;
+    update();
+  }
+
+  resetHomeFilter() {
+    homeFilterCategoryList?.forEach((element) {
+      element.isSelected = false;
+    });
+    homeFilterCategoryList?[0].isSelected = true;
+
+    distanceValue = 100.0;
+    selectedCity = null;
+    update();
   }
 }

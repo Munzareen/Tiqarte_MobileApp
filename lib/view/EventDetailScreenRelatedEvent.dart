@@ -19,6 +19,7 @@ import 'package:tiqarte/view/EventDetailScreen.dart';
 import 'package:tiqarte/view/EventLocationScreen.dart';
 import 'package:tiqarte/view/GalleryScreen.dart';
 import 'package:tiqarte/view/GoingScreen.dart';
+import 'package:tiqarte/view/ImagePreviewDialog.dart';
 import 'package:tiqarte/view/OrganizerDetailScreen.dart';
 import 'package:tiqarte/view/SeeAllEventsScreen.dart';
 
@@ -605,11 +606,16 @@ class _EventDetailScreenRelatedEventState
                                           width: 0.4.sw,
                                           child: Text(
                                             _edc.eventDetailModel.organizer !=
-                                                    null
+                                                        null &&
+                                                    _edc
+                                                            .eventDetailModel
+                                                            .organizer!
+                                                            .description !=
+                                                        null
                                                 ? _edc.eventDetailModel
                                                     .organizer!.description
                                                     .toString()
-                                                : "null",
+                                                : "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.start,
@@ -722,33 +728,24 @@ class _EventDetailScreenRelatedEventState
                                                 color: Colors.black),
                                           ),
                                           GestureDetector(
-                                            onTap: () {
-                                              Get.to(
-                                                  () => GalleryScreen(
-                                                      previousEventImages: _edc
-                                                          .eventDetailModel
-                                                          .event!
-                                                          .preEventImages!),
-                                                  transition:
-                                                      Transition.rightToLeft);
-                                            },
-                                            child: _edc
-                                                        .eventDetailModel
-                                                        .event!
-                                                        .preEventImages!
-                                                        .length >
-                                                    3
-                                                ? Text(
-                                                    'seeAll'.tr,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: kPrimaryColor),
-                                                  )
-                                                : SizedBox(),
-                                          ),
+                                              onTap: () {
+                                                Get.to(
+                                                    () => GalleryScreen(
+                                                        previousEventImages: _edc
+                                                            .eventDetailModel
+                                                            .event!
+                                                            .preEventImages!),
+                                                    transition:
+                                                        Transition.rightToLeft);
+                                              },
+                                              child: Text(
+                                                'seeAll'.tr,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kPrimaryColor),
+                                              )),
                                         ],
                                       ),
                                       10.verticalSpace,
@@ -762,21 +759,43 @@ class _EventDetailScreenRelatedEventState
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
                                                 children: [
-                                                  customCardImage(
-                                                      _edc
-                                                              .eventDetailModel
-                                                              .event!
-                                                              .preEventImages!
-                                                              .isNotEmpty
-                                                          ? _edc
-                                                              .eventDetailModel
-                                                              .event!
-                                                              .preEventImages![
-                                                                  0]
-                                                              .toString()
-                                                          : "null",
-                                                      90.h,
-                                                      90.h),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (_) =>
+                                                            ImagePreviewDialog(
+                                                          imagePath: _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .preEventImages!
+                                                                  .isNotEmpty
+                                                              ? _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .preEventImages![
+                                                                      0]
+                                                                  .toString()
+                                                              : "null",
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: customCardImage(
+                                                        _edc
+                                                                .eventDetailModel
+                                                                .event!
+                                                                .preEventImages!
+                                                                .isNotEmpty
+                                                            ? _edc
+                                                                .eventDetailModel
+                                                                .event!
+                                                                .preEventImages![
+                                                                    0]
+                                                                .toString()
+                                                            : "null",
+                                                        90.h,
+                                                        90.h),
+                                                  )
                                                 ],
                                               )
                                             : _edc
@@ -789,25 +808,56 @@ class _EventDetailScreenRelatedEventState
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
-                                                      customCardImage(
-                                                          _edc
-                                                              .eventDetailModel
-                                                              .event!
-                                                              .preEventImages![
-                                                                  0]
-                                                              .toString(),
-                                                          90.h,
-                                                          90.h),
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (_) =>
+                                                                  ImagePreviewDialog(
+                                                                imagePath: _edc
+                                                                    .eventDetailModel
+                                                                    .event!
+                                                                    .preEventImages![
+                                                                        0]
+                                                                    .toString(),
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: customCardImage(
+                                                              _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .preEventImages![
+                                                                      0]
+                                                                  .toString(),
+                                                              90.h,
+                                                              90.h)),
                                                       5.horizontalSpace,
-                                                      customCardImage(
-                                                          _edc
-                                                              .eventDetailModel
-                                                              .event!
-                                                              .preEventImages![
-                                                                  1]
-                                                              .toString(),
-                                                          90.h,
-                                                          90.h),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (_) =>
+                                                                ImagePreviewDialog(
+                                                              imagePath: _edc
+                                                                  .eventDetailModel
+                                                                  .event!
+                                                                  .preEventImages![
+                                                                      1]
+                                                                  .toString(),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: customCardImage(
+                                                            _edc
+                                                                .eventDetailModel
+                                                                .event!
+                                                                .preEventImages![
+                                                                    1]
+                                                                .toString(),
+                                                            90.h,
+                                                            90.h),
+                                                      )
                                                     ],
                                                   )
                                                 : _edc
@@ -821,39 +871,96 @@ class _EventDetailScreenRelatedEventState
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: [
-                                                          customCardImage(
-                                                              _edc
-                                                                      .eventDetailModel
-                                                                      .event!
-                                                                      .preEventImages!
-                                                                      .isNotEmpty
-                                                                  ? _edc
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder: (_) =>
+                                                                    ImagePreviewDialog(
+                                                                  imagePath: _edc
+                                                                          .eventDetailModel
+                                                                          .event!
+                                                                          .preEventImages!
+                                                                          .isNotEmpty
+                                                                      ? _edc
+                                                                          .eventDetailModel
+                                                                          .event!
+                                                                          .preEventImages![
+                                                                              0]
+                                                                          .toString()
+                                                                      : "null",
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: customCardImage(
+                                                                _edc
+                                                                        .eventDetailModel
+                                                                        .event!
+                                                                        .preEventImages!
+                                                                        .isNotEmpty
+                                                                    ? _edc
+                                                                        .eventDetailModel
+                                                                        .event!
+                                                                        .preEventImages![
+                                                                            0]
+                                                                        .toString()
+                                                                    : "null",
+                                                                90.h,
+                                                                90.h),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder: (_) =>
+                                                                    ImagePreviewDialog(
+                                                                  imagePath: _edc
                                                                       .eventDetailModel
                                                                       .event!
                                                                       .preEventImages![
-                                                                          0]
-                                                                      .toString()
-                                                                  : "null",
-                                                              90.h,
-                                                              90.h),
-                                                          customCardImage(
-                                                              _edc
-                                                                  .eventDetailModel
-                                                                  .event!
-                                                                  .preEventImages![
-                                                                      1]
-                                                                  .toString(),
-                                                              90.h,
-                                                              90.h),
-                                                          customCardImage(
-                                                              _edc
-                                                                  .eventDetailModel
-                                                                  .event!
-                                                                  .preEventImages![
-                                                                      2]
-                                                                  .toString(),
-                                                              90.h,
-                                                              90.h)
+                                                                          1]
+                                                                      .toString(),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: customCardImage(
+                                                                _edc
+                                                                    .eventDetailModel
+                                                                    .event!
+                                                                    .preEventImages![
+                                                                        1]
+                                                                    .toString(),
+                                                                90.h,
+                                                                90.h),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder: (_) =>
+                                                                    ImagePreviewDialog(
+                                                                  imagePath: _edc
+                                                                      .eventDetailModel
+                                                                      .event!
+                                                                      .preEventImages![
+                                                                          2]
+                                                                      .toString(),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: customCardImage(
+                                                                _edc
+                                                                    .eventDetailModel
+                                                                    .event!
+                                                                    .preEventImages![
+                                                                        2]
+                                                                    .toString(),
+                                                                90.h,
+                                                                90.h),
+                                                          )
                                                         ],
                                                       )
                                                     : Row(
@@ -1019,32 +1126,21 @@ class _EventDetailScreenRelatedEventState
                                             ),
                                           ),
                                           GestureDetector(
-                                            onTap: () => Get.to(
-                                                () => SeeAllEventsScreen(
-                                                    name: "Events",
-                                                    img: '',
-                                                    eventTypeId: _edc
-                                                        .relatedEventModelList[
-                                                            0]
-                                                        .eventTypeId!
-                                                        .toInt()
-                                                        .toString()),
-                                                transition:
-                                                    Transition.rightToLeft),
-                                            child: _edc.relatedEventModelList
-                                                        .length >
-                                                    12
-                                                ? Text(
-                                                    'seeAll'.tr,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: kPrimaryColor),
-                                                  )
-                                                : SizedBox(),
-                                          ),
+                                              onTap: () => Get.to(
+                                                  () => SeeAllEventsScreen(
+                                                      name: "Events",
+                                                      img: '',
+                                                      eventTypeId: "4.00"),
+                                                  transition:
+                                                      Transition.rightToLeft),
+                                              child: Text(
+                                                'seeAll'.tr,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kPrimaryColor),
+                                              )),
                                         ],
                                       ),
                                       20.verticalSpace,

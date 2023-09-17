@@ -25,16 +25,28 @@ class SeeAllEventController extends GetxController {
   Timer? debounceTimer;
   final searchController = TextEditingController();
 
+  double distanceValue = 100.0;
+
+  List<String> cityListForFilter = [];
+  String? selectedCity;
+  List<CategoryModel>? filterCategoryList;
+
+  String eventTypeId = '';
+
   addSeeAllData(dynamic data) async {
     seeAllEventModel = seeAllEventModelFromJson(data);
     seeAllEventModelAll = [...seeAllEventModel!];
 
-    if (seeAllCategoryList == null) {
+    if (seeAllCategoryList == null || filterCategoryList == null) {
       var res = await ApiService().getCategories();
       if (res != null && res is List) {
         seeAllCategoryList = categoryModelFromJson(res);
 
         seeAllCategoryList?[0].isSelected = true;
+
+        filterCategoryList = categoryModelFromJson(res);
+
+        filterCategoryList?[0].isSelected = true;
       }
     }
 
@@ -74,8 +86,30 @@ class SeeAllEventController extends GetxController {
 
     debounceTimer = Timer(Duration(milliseconds: 1200), () async {
       if (searchController.text.trim() != '') {
-        var res = await ApiService()
-            .getEventSearch(Get.context!, searchController.text.trim());
+        CategoryModel catId = filterCategoryList!
+            .firstWhere((element) => element.isSelected == true);
+        String selectedLocation = selectedCity != null ? selectedCity! : '';
+        String filterData;
+
+        if (selectedLocation == '') {
+          if (catId.id?.toInt() == 1) {
+            filterData =
+                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=$eventTypeId&cityName=";
+          } else {
+            filterData =
+                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=${catId.id!.toInt().toString()}&eventTypeId=$eventTypeId&cityName=";
+          }
+        } else {
+          if (catId.id?.toInt() == 1) {
+            filterData =
+                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=$eventTypeId&cityName=$selectedLocation";
+          } else {
+            filterData =
+                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=${catId.id!.toInt().toString()}&eventTypeId=$eventTypeId&cityName=$selectedLocation";
+          }
+        }
+
+        var res = await ApiService().getEventSearch(Get.context!, filterData);
         if (res != null && res is List) {
           addSeeAllData(res);
         } else {
@@ -83,6 +117,26 @@ class SeeAllEventController extends GetxController {
         }
       }
     });
+  }
+
+  updateDistanceValues(values) {
+    distanceValue = values;
+    update();
+  }
+
+  resetHomeFilter() {
+    filterCategoryList?.forEach((element) {
+      element.isSelected = false;
+    });
+    filterCategoryList?[0].isSelected = true;
+    seeAllCategoryList?.forEach((element) {
+      element.isSelected = false;
+    });
+    seeAllCategoryList?[0].isSelected = true;
+
+    distanceValue = 100.0;
+    selectedCity = null;
+    update();
   }
 
   @override
@@ -110,6 +164,7 @@ class SeeAllEventController extends GetxController {
     searchController.removeListener(onTextChanged);
     debounceTimer?.cancel();
     searchController.dispose();
+
     super.onClose();
   }
 }

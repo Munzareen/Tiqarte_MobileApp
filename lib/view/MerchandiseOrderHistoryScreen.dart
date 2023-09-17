@@ -102,7 +102,7 @@ class _MerchandiseOrderHistoryScreenState
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return Container(
-                                height: 1.sh,
+                                //height: 1.sh,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -119,175 +119,165 @@ class _MerchandiseOrderHistoryScreenState
                                           fontWeight: FontWeight.w300,
                                           color: Colors.grey),
                                     ),
-                                    Expanded(
-                                        child: ListView.builder(
-                                            physics: BouncingScrollPhysics(),
-                                            itemCount: _mhc
-                                                .merchandiseOrderHistoryList[
-                                                    index]
-                                                .checkOutProducts!
-                                                .length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, itemIndex) {
-                                              return GestureDetector(
-                                                onTap: () {},
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
+                                    ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        itemCount: _mhc
+                                            .merchandiseOrderHistoryList[index]
+                                            .checkOutProducts!
+                                            .length,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, itemIndex) {
+                                          return GestureDetector(
+                                            onTap: () {},
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
                                                       vertical: 10.0),
-                                                  child: Container(
-                                                    padding:
-                                                        EdgeInsets.all(16.0),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
-                                                        color: Theme.of(context)
-                                                            .secondaryHeaderColor),
-                                                    child: Row(
-                                                      // mainAxisSize: MainAxisSize.min,
+                                              child: Container(
+                                                padding: EdgeInsets.all(16.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                    color: Theme.of(context)
+                                                        .secondaryHeaderColor),
+                                                child: Row(
+                                                  // mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    customCardImage(
+                                                        //  _mhc.merchandiseOrderHistoryList[index]. == null ||
+                                                        //           widget.newsList[index].imageUrl!
+                                                        //               .trim()
+                                                        //               .isEmpty
+                                                        //       ? "null"
+                                                        //       : widget.newsList[index].imageUrl
+                                                        //           .toString(),
+                                                        "null",
+                                                        100.h,
+                                                        100.h),
+                                                    8.horizontalSpace,
+                                                    Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
                                                               .start,
                                                       children: [
-                                                        customCardImage(
-                                                            //  _mhc.merchandiseOrderHistoryList[index]. == null ||
-                                                            //           widget.newsList[index].imageUrl!
-                                                            //               .trim()
-                                                            //               .isEmpty
-                                                            //       ? "null"
-                                                            //       : widget.newsList[index].imageUrl
-                                                            //           .toString(),
-                                                            "null",
-                                                            100.h,
-                                                            100.h),
-                                                        8.horizontalSpace,
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 0.5.sw,
-                                                              child: Text(
+                                                        SizedBox(
+                                                          width: 0.5.sw,
+                                                          child: Text(
+                                                            _mhc
+                                                                .merchandiseOrderHistoryList[
+                                                                    index]
+                                                                .checkOutProducts![
+                                                                    itemIndex]
+                                                                .productName
+                                                                .toString(),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        8.verticalSpace,
+                                                        FittedBox(
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "size".tr,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                              10.horizontalSpace,
+                                                              Text(
                                                                 _mhc
                                                                     .merchandiseOrderHistoryList[
                                                                         index]
                                                                     .checkOutProducts![
                                                                         itemIndex]
-                                                                    .productName
+                                                                    .attributeNames![
+                                                                        1]
+                                                                    .variationName
                                                                     .toString(),
                                                                 textAlign:
                                                                     TextAlign
                                                                         .start,
-                                                                maxLines: 2,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            8.verticalSpace,
-                                                            FittedBox(
-                                                              child: Row(
-                                                                children: [
-                                                                  Text(
-                                                                    "size".tr,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w300,
-                                                                        color: Colors
-                                                                            .grey),
-                                                                  ),
-                                                                  10.horizontalSpace,
-                                                                  Text(
-                                                                    _mhc
-                                                                        .merchandiseOrderHistoryList[
-                                                                            index]
-                                                                        .checkOutProducts![
-                                                                            itemIndex]
-                                                                        .attributeNames![
-                                                                            1]
-                                                                        .variationName
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        color: Colors
-                                                                            .grey),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            8.verticalSpace,
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  'quantity'.tr,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      color:
-                                                                          kPrimaryColor),
-                                                                ),
-                                                                10.horizontalSpace,
-                                                                Text(
-                                                                  _mhc
-                                                                      .merchandiseOrderHistoryList[
-                                                                          index]
-                                                                      .checkOutProducts![
-                                                                          itemIndex]
-                                                                      .quantity
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style:
-                                                                      TextStyle(
+                                                                style: TextStyle(
                                                                     fontSize:
-                                                                        16,
+                                                                        12,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            )
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        8.verticalSpace,
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              'quantity'.tr,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color:
+                                                                      kPrimaryColor),
+                                                            ),
+                                                            10.horizontalSpace,
+                                                            Text(
+                                                              _mhc
+                                                                  .merchandiseOrderHistoryList[
+                                                                      index]
+                                                                  .checkOutProducts![
+                                                                      itemIndex]
+                                                                  .quantity
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
                                                           ],
                                                         )
                                                       ],
-                                                    ),
-                                                  ),
+                                                    )
+                                                  ],
                                                 ),
-                                              );
-                                            }))
+                                              ),
+                                            ),
+                                          );
+                                        })
                                   ],
                                 ),
                               );

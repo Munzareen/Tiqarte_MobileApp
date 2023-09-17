@@ -10,6 +10,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/view/PaymentScreen.dart';
+import 'package:tiqarte/view/PaymentWebViewScreen.dart';
 
 class BookEventContactInfoScreen extends StatefulWidget {
   const BookEventContactInfoScreen({super.key});
@@ -555,7 +556,7 @@ class _BookEventContactInfoScreenState
                           ),
                           20.verticalSpace,
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 List ticketDetail = [];
                                 if (_bookEventController.economySeatCount > 0) {
@@ -604,9 +605,18 @@ class _BookEventContactInfoScreenState
                                   "description":
                                       _bookEventController.eventId.toString()
                                 };
-                                ApiService().createOrder(context, paymentData);
-                                // ApiService().ticketBooking(context, data,
-                                //     _bookEventController.eventName);
+                                // ApiService().createOrder(context, paymentData);
+                                var res_data = await ApiService().ticketBooking(
+                                    context,
+                                    data,
+                                    _bookEventController.eventName);
+                                if (res_data != null && res_data['isSuccess']) {
+                                  _bookEventController.ticketId =
+                                      res_data['ticketId'].toString();
+                                  Get.to(() => PaymentWebViewScreen(
+                                      url: res_data['token'].toString(),
+                                      type: 'TICKET'));
+                                }
                               }
                               // Get.to(() => PaymentScreen(),
                               //     transition: Transition.rightToLeft);

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
+import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/images.dart';
+import 'package:tiqarte/view/MainScreen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentWebViewScreen extends StatefulWidget {
   final String url;
-  PaymentWebViewScreen({Key? key, required this.url}) : super(key: key);
+  final String type;
+  PaymentWebViewScreen({Key? key, required this.url, required this.type})
+      : super(key: key);
 
   @override
   State<PaymentWebViewScreen> createState() => _PaymentWebViewScreenState();
@@ -27,15 +33,52 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
             },
             onPageStarted: (String url) {},
             onPageFinished: (String url) {
-              print(url);
+              if (url.toString().toUpperCase().contains("SUCCESS")) {
+                Get.back();
+                if (widget.type.toUpperCase().contains("TICKET")) {
+                  customAlertDialogWithTwoButtons(
+                      context,
+                      backgroundLogo,
+                      Icons.verified_user_sharp,
+                      'congratulations'.tr,
+                      '',
+                      'viewETicket'.tr,
+                      'cancel'.tr, () {
+                    Get.back();
+                    Get.offAll(() => MainScreen(),
+                        transition: Transition.cupertinoDialog);
+                  }, () {
+                    Get.back();
+                    Get.offAll(() => MainScreen(),
+                        transition: Transition.cupertinoDialog);
+                  });
+                } else {
+                  customAlertDialogWithTwoButtons(
+                      context,
+                      backgroundLogo,
+                      Icons.verified_user_sharp,
+                      'congratulations'.tr,
+                      'placeOrderSuccess'.tr,
+                      'shopMore'.tr,
+                      'cancel'.tr, () {
+                    Get.back();
+                    Get.offAll(() => MainScreen(),
+                        transition: Transition.cupertinoDialog);
+                  }, () {
+                    Get.back();
+                    Get.offAll(() => MainScreen(),
+                        transition: Transition.cupertinoDialog);
+                  });
+                }
+              } else if (url.toString().toUpperCase().contains("FAILER")) {
+                Get.back();
+              }
             },
             onWebResourceError: (WebResourceError error) {},
             onNavigationRequest: (NavigationRequest request) {
               return NavigationDecision.navigate;
             },
-            onUrlChange: (UrlChange urlChange) {
-              print(urlChange.url);
-            }),
+            onUrlChange: (UrlChange urlChange) {}),
       )
       ..loadRequest(Uri.parse(widget.url));
   }
