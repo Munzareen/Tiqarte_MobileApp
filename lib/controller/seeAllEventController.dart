@@ -70,11 +70,15 @@ class SeeAllEventController extends GetxController {
     seeAllCategoryList?[index].isSelected = true;
 
     seeAllEventModel = [...seeAllEventModelAll!];
-
-    seeAllEventModel?.removeWhere((element) =>
-        element.catagoryId != null &&
-        int.parse(element.catagoryId.toString()) !=
-            seeAllCategoryList![index].id!.toInt());
+    if (!seeAllCategoryList![index]
+        .catagoryName!
+        .toUpperCase()
+        .contains("ALL")) {
+      seeAllEventModel?.removeWhere((element) =>
+          element.catagoryId != null &&
+          int.parse(element.catagoryId.toString()) !=
+              seeAllCategoryList![index].id!.toInt());
+    }
 
     update();
   }
