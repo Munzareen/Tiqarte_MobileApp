@@ -110,50 +110,55 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              nbc.navBarChange(4);
-                            },
-                            child: customProfileImage(
-                                userImage.toString(), 40.h, 40.h),
-                          ),
-                          15.horizontalSpace,
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    getWelcomeMessage(),
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.grey),
-                                  ),
-                                  5.horizontalSpace,
-                                  Image.asset(
-                                    waveIcon,
-                                  )
-                                ],
-                              ),
-                              5.verticalSpace,
-                              SizedBox(
-                                width: 0.3.sw,
-                                child: Text(
-                                  userName,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      Image.asset(
+                        madridAppLogo,
+                        scale: 1.5,
                       ),
+                      // Row(
+                      //   children: [
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         nbc.navBarChange(4);
+                      //       },
+                      //       child: customProfileImage(
+                      //           userImage.toString(), 40.h, 40.h),
+                      //     ),
+                      //     15.horizontalSpace,
+                      //     Column(
+                      //       children: [
+                      //         Row(
+                      //           children: [
+                      //             Text(
+                      //               getWelcomeMessage(),
+                      //               textAlign: TextAlign.start,
+                      //               style: TextStyle(
+                      //                   fontSize: 16,
+                      //                   fontWeight: FontWeight.w400,
+                      //                   color: Colors.grey),
+                      //             ),
+                      //             5.horizontalSpace,
+                      //             Image.asset(
+                      //               waveIcon,
+                      //             )
+                      //           ],
+                      //         ),
+                      //         5.verticalSpace,
+                      //         SizedBox(
+                      //           width: 0.3.sw,
+                      //           child: Text(
+                      //             userName,
+                      //             textAlign: TextAlign.start,
+                      //             style: TextStyle(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
+
                       GestureDetector(
                         onTap: () => Get.to(() => NotificationScreen(),
                             transition: Transition.rightToLeft),

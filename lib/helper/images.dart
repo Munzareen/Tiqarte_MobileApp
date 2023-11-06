@@ -34,6 +34,8 @@ String goingUserImage8 = "assets/tempImages/goingUserImage8.png";
 String goingUserImage9 = "assets/tempImages/goingUserImage9.png";
 
 String appLogo = "assets/images/appLogo.png";
+String madridAppLogo = "assets/images/madridAppLogo.png";
+
 String appLogoWithName = "assets/images/appLogoWithName.png";
 String welcomeBackground = "assets/images/welcomeBackground.png";
 String getStartedGirl1 = "assets/images/getStartedGirl1.png";

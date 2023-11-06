@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/controller/NavigationBarController.dart';
 import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/view/ExploreScreen.dart';
 import 'package:tiqarte/view/FavoriteScreen.dart';
@@ -179,33 +180,38 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => _onItemTaapped(4),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              bt.navigationBarIndexValue == 4
-                                  ? Image.asset(
-                                      profileIconSelected,
-                                    )
-                                  : Image.asset(
-                                      profileIcon,
-                                    ),
-                              2.verticalSpace,
-                              Text(
-                                'profile'.tr,
-                                style: TextStyle(
-                                  color: bt.navigationBarIndexValue == 4
-                                      ? kPrimaryColor
-                                      : Colors.grey,
-                                  fontSize: 10,
-                                  fontWeight: bt.navigationBarIndexValue == 4
-                                      ? FontWeight.bold
-                                      : FontWeight.w300,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            onTap: () => _onItemTaapped(4),
+                            child: Center(
+                              child: customProfileImage(
+                                  userImage.toString(), 25.h, 25.h),
+                            )
+
+                            // Column(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     bt.navigationBarIndexValue == 4
+                            //         ? Image.asset(
+                            //             profileIconSelected,
+                            //           )
+                            //         : Image.asset(
+                            //             profileIcon,
+                            //           ),
+                            //     2.verticalSpace,
+                            //     Text(
+                            //       'profile'.tr,
+                            //       style: TextStyle(
+                            //         color: bt.navigationBarIndexValue == 4
+                            //             ? kPrimaryColor
+                            //             : Colors.grey,
+                            //         fontSize: 10,
+                            //         fontWeight: bt.navigationBarIndexValue == 4
+                            //             ? FontWeight.bold
+                            //             : FontWeight.w300,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            ),
                       ],
                     ),
                   ),
