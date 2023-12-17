@@ -12,29 +12,33 @@ class EventDetailModel {
   Organizer? organizer;
   List<Customer>? customers;
   List<EventTicketDetails>? eventTicketDetails;
+  num? reviewRating;
 
   EventDetailModel(
       {this.isOrganizerFollow,
       this.event,
       this.organizer,
       this.customers,
-      this.eventTicketDetails});
+      this.eventTicketDetails,
+      this.reviewRating});
 
   factory EventDetailModel.fromJson(Map<String, dynamic> json) =>
       EventDetailModel(
-          isOrganizerFollow: json['isOrganizerFollow'],
-          event: Event.fromJson(json["Event"]),
-          organizer: json["Organizer"] != null
-              ? Organizer.fromJson(json["Organizer"])
-              : null,
-          customers: json["Customers"] != null
-              ? List<Customer>.from(
-                  json["Customers"].map((x) => Customer.fromJson(x)))
-              : [],
-          eventTicketDetails: json["EventTicketDetails"] != null
-              ? List<EventTicketDetails>.from(json["EventTicketDetails"]
-                  .map((x) => EventTicketDetails.fromJson(x)))
-              : []);
+        isOrganizerFollow: json['isOrganizerFollow'],
+        event: Event.fromJson(json["Event"]),
+        organizer: json["Organizer"] != null
+            ? Organizer.fromJson(json["Organizer"])
+            : null,
+        customers: json["Customers"] != null
+            ? List<Customer>.from(
+                json["Customers"].map((x) => Customer.fromJson(x)))
+            : [],
+        eventTicketDetails: json["EventTicketDetails"] != null
+            ? List<EventTicketDetails>.from(json["EventTicketDetails"]
+                .map((x) => EventTicketDetails.fromJson(x)))
+            : [],
+        reviewRating: json['ReviewRating'],
+      );
 
   Map<String, dynamic> toJson() => {
         "isOrganizerFollow": isOrganizerFollow,
@@ -43,6 +47,7 @@ class EventDetailModel {
         "Customers": List<dynamic>.from(customers!.map((x) => x.toJson())),
         "EventTicketDetails":
             List<dynamic>.from(eventTicketDetails!.map((x) => x.toJson())),
+        "ReviewRating": reviewRating,
       };
 }
 

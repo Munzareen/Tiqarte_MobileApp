@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/route_manager.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tiqarte/helper/colors.dart';
@@ -63,45 +64,39 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    20.verticalSpace,
-                    Text(
-                      widget.newsModel.title.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      20.verticalSpace,
+                      Text(
+                        widget.newsModel.title.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    10.verticalSpace,
-                    Text(
-                      splitDateForNews(widget.newsModel.scheduled.toString()),
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
+                      10.verticalSpace,
+                      Text(
+                        splitDateForNews(widget.newsModel.scheduled.toString()),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    10.verticalSpace,
-                    Expanded(
-                        child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            widget.newsModel.articleText.toString(),
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ))
-                  ],
+                      10.verticalSpace,
+                      HtmlWidget(
+                        widget.newsModel.articleText.toString(),
+                        textStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )

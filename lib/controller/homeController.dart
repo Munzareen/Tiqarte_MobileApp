@@ -4,7 +4,6 @@ import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/favoriteController.dart';
 import 'package:tiqarte/controller/seeAllEventController.dart';
 import 'package:tiqarte/helper/common.dart';
-import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/HomeDataModel.dart';
 import 'package:tiqarte/model/NewsModel.dart';
@@ -129,16 +128,25 @@ class HomeController extends GetxController {
 
   homeSearch(String query) {
     if (featuredEventList != null) {
-      //for featured
+      // for featured
       featuredEventList = [...featuredEventListAll!];
       final featuredList = featuredEventList?.where((element) {
         final eventName = element.name!.toLowerCase();
-        final input = query.toLowerCase();
-        return eventName.contains(input);
+        final city = element.city!.toLowerCase();
+
+        final eventDate =
+            splitDateTimeWithoutYear(element.eventDate.toString());
+        final input = query.toLowerCase().trim();
+        final lwrDate = convertMonthToLowerCase(eventDate);
+        final containsQuery = lwrDate.contains(input);
+
+        return eventName.contains(input) ||
+            city.contains(input) ||
+            containsQuery;
       }).toList();
       featuredEventList = featuredList;
 
-// for upcoming
+      // for upcoming
       CategoryModel upcomingCat = upcomingCategoryList!
           .firstWhere((element) => element.isSelected == true);
       upcomingEventList = [...upcomingEventListAll!];
@@ -149,16 +157,23 @@ class HomeController extends GetxController {
 
       final upcomingList = upcomingEventList?.where((element) {
         final eventName = element.name!.toLowerCase();
-        final input = query.toLowerCase();
-        return eventName.contains(input);
+        final city = element.city!.toLowerCase();
+
+        final eventDate =
+            splitDateTimeWithoutYear(element.eventDate.toString());
+        final input = query.toLowerCase().trim();
+        final lwrDate = convertMonthToLowerCase(eventDate);
+        final containsQuery = lwrDate.contains(input);
+
+        return eventName.contains(input) ||
+            city.contains(input) ||
+            containsQuery;
       }).toList();
       upcomingEventList = upcomingList;
 
-//for shop
-
+      // for shop
       CategoryModel shopCat =
           shopCategoryList!.firstWhere((element) => element.isSelected == true);
-
       shopList = [...shopListAll!];
 
       if (!shopCat.catagoryName!.toUpperCase().contains("ALL")) {
@@ -167,23 +182,98 @@ class HomeController extends GetxController {
       }
       final shop = shopList?.where((element) {
         final eventName = element.productName!.toLowerCase();
-        final input = query.toLowerCase();
-        return eventName.contains(input);
+        final productFor = element.productFor?.toLowerCase() ?? '';
+        final price = element.price?.toDouble().toString() ?? '';
+
+        final input = query.toLowerCase().trim();
+        return eventName.contains(input) ||
+            productFor.contains(input) ||
+            price.contains(input);
       }).toList();
       shopList = shop;
 
-      //for news
+      // for news
       newsList = [...newsListAll];
       final list = newsList.where((element) {
         final title = element.title!.toLowerCase();
-        final input = query.toLowerCase();
-        return title.contains(input);
+        final scheduled =
+            splitDateForNews(element.scheduled?.toLowerCase() ?? '');
+        final input = query.toLowerCase().trim();
+        final lwrschedule = convertMonthToLowerCase(scheduled);
+        final containsQuery = lwrschedule.contains(input);
+
+        return title.contains(input) || containsQuery;
       }).toList();
       newsList = list;
 
       update();
     }
   }
+
+  String convertMonthToLowerCase(String inputDate) {
+    return inputDate.replaceAllMapped(
+      RegExp(r'\b(\w{3})\b'),
+      (match) => match.group(0)!.toLowerCase(),
+    );
+  }
+
+//   homeSearch(String query) {
+//     if (featuredEventList != null) {
+//       //for featured
+//       featuredEventList = [...featuredEventListAll!];
+//       final featuredList = featuredEventList?.where((element) {
+//         final eventName = element.name!.toLowerCase();
+//         final input = query.toLowerCase();
+//         return eventName.contains(input);
+//       }).toList();
+//       featuredEventList = featuredList;
+
+// // for upcoming
+//       CategoryModel upcomingCat = upcomingCategoryList!
+//           .firstWhere((element) => element.isSelected == true);
+//       upcomingEventList = [...upcomingEventListAll!];
+//       if (!upcomingCat.catagoryName!.toUpperCase().contains("ALL")) {
+//         upcomingEventList?.removeWhere((element) =>
+//             element.catagoryId != null && element.catagoryId != upcomingCat.id);
+//       }
+
+//       final upcomingList = upcomingEventList?.where((element) {
+//         final eventName = element.name!.toLowerCase();
+//         final input = query.toLowerCase();
+//         return eventName.contains(input);
+//       }).toList();
+//       upcomingEventList = upcomingList;
+
+// //for shop
+
+//       CategoryModel shopCat =
+//           shopCategoryList!.firstWhere((element) => element.isSelected == true);
+
+//       shopList = [...shopListAll!];
+
+//       if (!shopCat.catagoryName!.toUpperCase().contains("ALL")) {
+//         shopList?.removeWhere((element) =>
+//             element.catagoryId != null && element.catagoryId != shopCat.id);
+//       }
+//       final shop = shopList?.where((element) {
+//         final eventName = element.productName!.toLowerCase();
+//         final input = query.toLowerCase();
+//         return eventName.contains(input);
+//       }).toList();
+//       shopList = shop;
+
+//       //for news
+//       newsList = [...newsListAll];
+//       final list = newsList.where((element) {
+//         final title = element.title!.toLowerCase();
+//         final input = query.toLowerCase();
+//         return title.contains(input);
+//       }).toList();
+//       newsList = list;
+
+//       update();
+//     }
+//   }
 
   addNews(List data) {
     newsList = newsModelFromJson(data);

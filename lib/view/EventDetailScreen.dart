@@ -2,6 +2,7 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -203,14 +204,57 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 0.8.sw,
-                              child: Text(
-                                _edc.eventDetailModel.event!.name.toString(),
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              width: 0.9.sw,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 0.5.sw,
+                                    child: Text(
+                                      _edc.eventDetailModel.event!.name
+                                          .toString(),
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  _edc.eventDetailModel.reviewRating == null ||
+                                          !(_edc.eventDetailModel.reviewRating
+                                              is num)
+                                      ? SizedBox()
+                                      : SizedBox(
+                                          width: 0.4.sw,
+                                          child: RatingBar(
+                                            ignoreGestures: true,
+                                            itemSize: 30,
+                                            initialRating: _edc
+                                                .eventDetailModel.reviewRating!
+                                                .toDouble(),
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            ratingWidget: RatingWidget(
+                                              full: Icon(
+                                                Icons.star,
+                                                color: kPrimaryColor,
+                                              ),
+                                              half: Icon(
+                                                Icons.star_half,
+                                                color: kPrimaryColor,
+                                              ),
+                                              empty: Icon(
+                                                Icons.star_border,
+                                                color: kPrimaryColor,
+                                              ),
+                                            ),
+                                            itemPadding: EdgeInsets.symmetric(
+                                                horizontal: 1.0),
+                                            onRatingUpdate: (rating) => null,
+                                          ),
+                                        ),
+                                ],
                               ),
                             ),
                             10.verticalSpace,

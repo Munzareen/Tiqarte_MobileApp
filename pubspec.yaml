@@ -61,7 +61,7 @@ dependencies:
   open_file: ^3.3.2
   add_2_calendar: ^2.2.3
   webview_flutter: ^4.2.4
-
+  flutter_widget_from_html: ^0.14.9
   
 dev_dependencies:
   flutter_test:
