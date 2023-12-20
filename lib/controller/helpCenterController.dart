@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/model/ContactUsModel.dart';
 import 'package:tiqarte/model/FAQModel.dart';
 import 'package:tiqarte/model/FAQTypeModel.dart';
 
@@ -8,6 +9,8 @@ class HelpCenterController extends GetxController {
   List<FAQTypeModel>? fAQTypeList;
   List<FAQModel>? faqModelList;
   List<FAQModel>? faqModelListAll;
+
+  ContactUsModel? contactUsModel;
 
   final searchController = TextEditingController();
   Color filledColorSearch = kDisabledColor.withOpacity(0.4);
@@ -69,6 +72,11 @@ class HelpCenterController extends GetxController {
     }).toList();
     faqModelList = suggestion;
 
+    update();
+  }
+
+  addContactUsData(dynamic data) {
+    contactUsModel = ContactUsModel.fromJson(data);
     update();
   }
 

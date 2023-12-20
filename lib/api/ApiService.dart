@@ -1216,6 +1216,33 @@ class ApiService {
     }
   }
 
+  getPromotorContacts() async {
+    final uri = Uri.parse(
+        ApiPoint().baseUrl + ApiPoint().getPromotorContacts + promotorId);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+      }
+    } catch (e) {
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
   addToCart(BuildContext context, dynamic data) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().addToCart);
     showDialog(

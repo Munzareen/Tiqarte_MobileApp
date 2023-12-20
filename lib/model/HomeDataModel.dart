@@ -101,6 +101,7 @@ class Event {
   String? standingTitle;
   String? seatingTitle;
   String? ticketSoldOutText;
+  num? reviewRating;
 
   Event(
       {this.eventId,
@@ -123,7 +124,8 @@ class Event {
       this.isFav,
       this.standingTitle,
       this.seatingTitle,
-      this.ticketSoldOutText});
+      this.ticketSoldOutText,
+      this.reviewRating});
 
   Event.fromJson(Map<String, dynamic> json) {
     eventId = json['EventId'];
@@ -147,6 +149,7 @@ class Event {
     standingTitle = json['StandingTitle'];
     seatingTitle = json['SeatingTitle'];
     ticketSoldOutText = json['TicketSoldOutText'];
+    reviewRating = json['ReviewRating'];
   }
 
   Map<String, dynamic> toJson() {
@@ -172,6 +175,8 @@ class Event {
     data['StandingTitle'] = this.standingTitle;
     data['SeatingTitle'] = this.seatingTitle;
     data['TicketSoldOutText'] = this.ticketSoldOutText;
+    data['ReviewRating'] = this.reviewRating;
+
     return data;
   }
 }

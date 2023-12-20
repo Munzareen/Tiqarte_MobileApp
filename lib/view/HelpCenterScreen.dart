@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:tiqarte/controller/helpCenterController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HelpCenterScreen extends StatefulWidget {
   const HelpCenterScreen({super.key});
@@ -37,6 +40,11 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
     var res_data = await ApiService().getAllFAQs();
     if (res_data != null && res_data is List) {
       _helpCenterController.addFAQData(res_data);
+    }
+
+    var res_data_contactus = await ApiService().getPromotorContacts();
+    if (res_data_contactus != null && res_data_contactus is Map) {
+      _helpCenterController.addContactUsData(res_data_contactus);
     }
   }
 
@@ -288,29 +296,86 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                   ),
 
                                   //Contact US
-
-                                  Column(
-                                    children: [
-                                      20.verticalSpace,
-                                      customContainer('customerService'.tr,
-                                          customerSupportIcon),
-                                      20.verticalSpace,
-                                      customContainer(
-                                          'whatsApp'.tr, whatsappIcon),
-                                      20.verticalSpace,
-                                      customContainer(
-                                          'website'.tr, websiteIcon),
-                                      20.verticalSpace,
-                                      customContainer('facebook'.tr,
-                                          facebookIconWithPrimaryColor),
-                                      20.verticalSpace,
-                                      customContainer(
-                                          'twitter'.tr, twitterIcon),
-                                      20.verticalSpace,
-                                      customContainer(
-                                          'instagram'.tr, instagramIcon),
-                                    ],
-                                  )
+                                  _hcc.contactUsModel != null
+                                      ? Center(
+                                          child: Text(
+                                            'notFound'.tr,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        )
+                                      : Column(
+                                          children: [
+                                            20.verticalSpace,
+                                            GestureDetector(
+                                              onTap: () {
+                                                _customerService(_hcc
+                                                    .contactUsModel!
+                                                    .customerService
+                                                    .toString());
+                                              },
+                                              child: customContainer(
+                                                  'customerService'.tr,
+                                                  customerSupportIcon),
+                                            ),
+                                            20.verticalSpace,
+                                            GestureDetector(
+                                              onTap: () {
+                                                _openWhatsapp(_hcc
+                                                    .contactUsModel!
+                                                    .whatsAppNumber
+                                                    .toString());
+                                              },
+                                              child: customContainer(
+                                                  'whatsApp'.tr, whatsappIcon),
+                                            ),
+                                            20.verticalSpace,
+                                            GestureDetector(
+                                              onTap: () {
+                                                _openUrl(_hcc.contactUsModel!
+                                                    .websiteAddress
+                                                    .toString());
+                                              },
+                                              child: customContainer(
+                                                  'website'.tr, websiteIcon),
+                                            ),
+                                            20.verticalSpace,
+                                            GestureDetector(
+                                              onTap: () {
+                                                _openUrl(_hcc
+                                                    .contactUsModel!.facebookId
+                                                    .toString());
+                                              },
+                                              child: customContainer(
+                                                  'facebook'.tr,
+                                                  facebookIconWithPrimaryColor),
+                                            ),
+                                            20.verticalSpace,
+                                            GestureDetector(
+                                              onTap: () {
+                                                _openUrl(_hcc
+                                                    .contactUsModel!.twitterId
+                                                    .toString());
+                                              },
+                                              child: customContainer(
+                                                  'twitter'.tr, twitterIcon),
+                                            ),
+                                            20.verticalSpace,
+                                            GestureDetector(
+                                              onTap: () {
+                                                _openUrl(_hcc
+                                                    .contactUsModel!.instagramId
+                                                    .toString());
+                                              },
+                                              child: customContainer(
+                                                  'instagram'.tr,
+                                                  instagramIcon),
+                                            ),
+                                          ],
+                                        )
                                 ]))
                           ])
                         : Center(
@@ -386,5 +451,30 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
             ),
           ],
         ));
+  }
+
+  _customerService(String phoneNumber) async {
+    if (await canLaunchUrl(Uri.parse('tel:$phoneNumber'))) {
+      await launchUrl(Uri.parse('tel:$phoneNumber'));
+    } else {
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  _openUrl(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
+  _openWhatsapp(String phoneNumber) {
+    if (Platform.isAndroid) {
+      _openUrl("https://wa.me/$phoneNumber/?text=${Uri.parse('')}");
+    } else {
+      _openUrl(
+          "https://api.whatsapp.com/send?phone=$phoneNumber=${Uri.parse('')}");
+    }
   }
 }

@@ -36,6 +36,8 @@ class ApiPoint {
   String eventReview = "eventReview?";
   String getAllFAQTypes = "getAllFAQTypes";
   String getAllFAQs = "getAllFAQs";
+  String getPromotorContacts = "getPromotorContacts?PromotorId=";
+
   String ticketBooking = "ticketBooking";
   String searchFAQByType = "searchFAQByType?SearchText=";
   String addToCart = "addToCart";
@@ -44,6 +46,7 @@ class ApiPoint {
   String getAllProductListByUser = "getAllProductListByUser";
   String shopCheckout = 'shopCheckOut';
   String createOrder = "payments/createorder";
+  String getAllLocations = "getAllLocations";
 
   //admin
   String getArticles =
