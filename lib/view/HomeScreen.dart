@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           20.verticalSpace,
                                           CarouselSlider.builder(
                                               options: CarouselOptions(
-                                                  height: 0.425.sh,
+                                                  height: 0.45.sh,
                                                   enlargeCenterPage: true,
                                                   scrollDirection:
                                                       Axis.horizontal,
@@ -361,93 +361,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   : "null",
                                                               250.w,
                                                               160.h),
-                                                          12.verticalSpace,
+                                                          8.verticalSpace,
                                                           SizedBox(
                                                             width: 0.7.sw,
-                                                            child: Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 0.3.sw,
-                                                                  child: Text(
-                                                                    _hc
-                                                                        .featuredEventList![
-                                                                            itemIndex]
-                                                                        .name
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 1,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          24,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                _hc.featuredEventList![itemIndex]
-                                                                            .reviewRating !=
-                                                                        null
-                                                                    ? SizedBox(
-                                                                        width: 0.3
-                                                                            .sw,
-                                                                        child:
-                                                                            RatingBar(
-                                                                          ignoreGestures:
-                                                                              true,
-                                                                          itemSize:
-                                                                              20,
-                                                                          initialRating: _hc
-                                                                              .featuredEventList![itemIndex]
-                                                                              .reviewRating!
-                                                                              .toDouble(),
-                                                                          direction:
-                                                                              Axis.horizontal,
-                                                                          allowHalfRating:
-                                                                              true,
-                                                                          itemCount:
-                                                                              5,
-                                                                          ratingWidget:
-                                                                              RatingWidget(
-                                                                            full:
-                                                                                Icon(
-                                                                              Icons.star,
-                                                                              color: kPrimaryColor,
-                                                                            ),
-                                                                            half:
-                                                                                Icon(
-                                                                              Icons.star_half,
-                                                                              color: kPrimaryColor,
-                                                                            ),
-                                                                            empty:
-                                                                                Icon(
-                                                                              Icons.star_border,
-                                                                              color: kPrimaryColor,
-                                                                            ),
-                                                                          ),
-                                                                          itemPadding:
-                                                                              EdgeInsets.symmetric(horizontal: 1.0),
-                                                                          onRatingUpdate: (rating) =>
-                                                                              null,
-                                                                        ),
-                                                                      )
-                                                                    : SizedBox(),
-                                                              ],
+                                                            child: Text(
+                                                              _hc
+                                                                  .featuredEventList![
+                                                                      itemIndex]
+                                                                  .name
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                fontSize: 24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                             ),
                                                           ),
-                                                          12.verticalSpace,
+                                                          8.verticalSpace,
                                                           FittedBox(
                                                             child: Text(
                                                               splitDateTimeWithoutYear(_hc
@@ -467,7 +405,67 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       kPrimaryColor),
                                                             ),
                                                           ),
-                                                          12.verticalSpace,
+                                                          8.verticalSpace,
+                                                          _hc.featuredEventList![itemIndex].reviewRating !=
+                                                                      null &&
+                                                                  (_hc
+                                                                      .featuredEventList![
+                                                                          itemIndex]
+                                                                      .reviewRating is num)
+                                                              ? SizedBox(
+                                                                  width: 0.5.sw,
+                                                                  child:
+                                                                      RatingBar(
+                                                                    ignoreGestures:
+                                                                        true,
+                                                                    itemSize:
+                                                                        22,
+                                                                    initialRating: _hc
+                                                                        .featuredEventList![
+                                                                            itemIndex]
+                                                                        .reviewRating!
+                                                                        .toDouble(),
+                                                                    direction: Axis
+                                                                        .horizontal,
+                                                                    allowHalfRating:
+                                                                        true,
+                                                                    itemCount:
+                                                                        5,
+                                                                    ratingWidget:
+                                                                        RatingWidget(
+                                                                      full:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      ),
+                                                                      half:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star_half,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      ),
+                                                                      empty:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star_border,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      ),
+                                                                    ),
+                                                                    itemPadding:
+                                                                        EdgeInsets.symmetric(
+                                                                            horizontal:
+                                                                                1.0),
+                                                                    onRatingUpdate:
+                                                                        (rating) =>
+                                                                            null,
+                                                                  ),
+                                                                )
+                                                              : SizedBox(),
+                                                          8.verticalSpace,
                                                           Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -861,7 +859,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       childAspectRatio: 1,
                                                       crossAxisSpacing: 10,
                                                       mainAxisSpacing: 20,
-                                                      mainAxisExtent: 240),
+                                                      mainAxisExtent: 260),
                                               itemCount:
                                                   _hc.upcomingEventList?.length,
                                               shrinkWrap: true,
@@ -915,87 +913,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           8.verticalSpace,
                                                           SizedBox(
                                                             width: 0.5.sw,
-                                                            child: Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 0.2.sw,
-                                                                  child: Text(
-                                                                    _hc
-                                                                        .upcomingEventList![
-                                                                            index]
-                                                                        .name
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 1,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          15,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                _hc.upcomingEventList![index]
-                                                                            .reviewRating !=
-                                                                        null
-                                                                    ? SizedBox(
-                                                                        width: 0.2
-                                                                            .sw,
-                                                                        child:
-                                                                            RatingBar(
-                                                                          ignoreGestures:
-                                                                              true,
-                                                                          itemSize:
-                                                                              15,
-                                                                          initialRating: _hc
-                                                                              .upcomingEventList![index]
-                                                                              .reviewRating!
-                                                                              .toDouble(),
-                                                                          direction:
-                                                                              Axis.horizontal,
-                                                                          allowHalfRating:
-                                                                              true,
-                                                                          itemCount:
-                                                                              5,
-                                                                          ratingWidget:
-                                                                              RatingWidget(
-                                                                            full:
-                                                                                Icon(
-                                                                              Icons.star,
-                                                                              color: kPrimaryColor,
-                                                                            ),
-                                                                            half:
-                                                                                Icon(
-                                                                              Icons.star_half,
-                                                                              color: kPrimaryColor,
-                                                                            ),
-                                                                            empty:
-                                                                                Icon(
-                                                                              Icons.star_border,
-                                                                              color: kPrimaryColor,
-                                                                            ),
-                                                                          ),
-                                                                          itemPadding:
-                                                                              EdgeInsets.zero,
-                                                                          onRatingUpdate: (rating) =>
-                                                                              null,
-                                                                        ),
-                                                                      )
-                                                                    : SizedBox(),
-                                                              ],
+                                                            child: Text(
+                                                              _hc
+                                                                  .upcomingEventList![
+                                                                      index]
+                                                                  .name
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                             ),
                                                           ),
                                                           8.verticalSpace,
@@ -1018,6 +954,65 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       kPrimaryColor),
                                                             ),
                                                           ),
+                                                          8.verticalSpace,
+                                                          _hc.upcomingEventList![index].reviewRating !=
+                                                                      null &&
+                                                                  (_hc
+                                                                      .upcomingEventList![
+                                                                          index]
+                                                                      .reviewRating is num)
+                                                              ? SizedBox(
+                                                                  width: 0.2.sw,
+                                                                  child:
+                                                                      RatingBar(
+                                                                    ignoreGestures:
+                                                                        true,
+                                                                    itemSize:
+                                                                        15,
+                                                                    initialRating: _hc
+                                                                        .upcomingEventList![
+                                                                            index]
+                                                                        .reviewRating!
+                                                                        .toDouble(),
+                                                                    direction: Axis
+                                                                        .horizontal,
+                                                                    allowHalfRating:
+                                                                        true,
+                                                                    itemCount:
+                                                                        5,
+                                                                    ratingWidget:
+                                                                        RatingWidget(
+                                                                      full:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      ),
+                                                                      half:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star_half,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      ),
+                                                                      empty:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star_border,
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                      ),
+                                                                    ),
+                                                                    itemPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    onRatingUpdate:
+                                                                        (rating) =>
+                                                                            null,
+                                                                  ),
+                                                                )
+                                                              : SizedBox(),
                                                           8.verticalSpace,
                                                           FittedBox(
                                                             child: Row(

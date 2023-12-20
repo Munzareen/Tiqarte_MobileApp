@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -353,7 +354,7 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                     childAspectRatio: 1,
                                                     crossAxisSpacing: 10,
                                                     mainAxisSpacing: 20,
-                                                    mainAxisExtent: 245),
+                                                    mainAxisExtent: 280),
                                             itemCount:
                                                 _sc.seeAllEventModel?.length,
                                             shrinkWrap: true,
@@ -440,6 +441,61 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                   kPrimaryColor),
                                                         ),
                                                       ),
+                                                      8.verticalSpace,
+                                                      _sc
+                                                                      .seeAllEventModel![
+                                                                          index]
+                                                                      .reviewRating !=
+                                                                  null &&
+                                                              (_sc
+                                                                  .seeAllEventModel![
+                                                                      index]
+                                                                  .reviewRating is num)
+                                                          ? SizedBox(
+                                                              width: 0.4.sw,
+                                                              child: RatingBar(
+                                                                ignoreGestures:
+                                                                    true,
+                                                                itemSize: 20,
+                                                                initialRating: _sc
+                                                                    .seeAllEventModel![
+                                                                        index]
+                                                                    .reviewRating!
+                                                                    .toDouble(),
+                                                                direction: Axis
+                                                                    .horizontal,
+                                                                allowHalfRating:
+                                                                    true,
+                                                                itemCount: 5,
+                                                                ratingWidget:
+                                                                    RatingWidget(
+                                                                  full: Icon(
+                                                                    Icons.star,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                  half: Icon(
+                                                                    Icons
+                                                                        .star_half,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                  empty: Icon(
+                                                                    Icons
+                                                                        .star_border,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                ),
+                                                                itemPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                onRatingUpdate:
+                                                                    (rating) =>
+                                                                        null,
+                                                              ),
+                                                            )
+                                                          : SizedBox(),
                                                       8.verticalSpace,
                                                       FittedBox(
                                                         child: Row(
@@ -652,6 +708,66 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                                                         kPrimaryColor),
                                                               ),
                                                             ),
+                                                            8.verticalSpace,
+                                                            _sc.seeAllEventModel![index].reviewRating !=
+                                                                        null &&
+                                                                    (_sc
+                                                                        .seeAllEventModel![
+                                                                            index]
+                                                                        .reviewRating is num)
+                                                                ? SizedBox(
+                                                                    width:
+                                                                        0.4.sw,
+                                                                    child:
+                                                                        RatingBar(
+                                                                      ignoreGestures:
+                                                                          true,
+                                                                      itemSize:
+                                                                          20,
+                                                                      initialRating: _sc
+                                                                          .seeAllEventModel![
+                                                                              index]
+                                                                          .reviewRating!
+                                                                          .toDouble(),
+                                                                      direction:
+                                                                          Axis.horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          5,
+                                                                      ratingWidget:
+                                                                          RatingWidget(
+                                                                        full:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .star,
+                                                                          color:
+                                                                              kPrimaryColor,
+                                                                        ),
+                                                                        half:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .star_half,
+                                                                          color:
+                                                                              kPrimaryColor,
+                                                                        ),
+                                                                        empty:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .star_border,
+                                                                          color:
+                                                                              kPrimaryColor,
+                                                                        ),
+                                                                      ),
+                                                                      itemPadding:
+                                                                          EdgeInsets
+                                                                              .zero,
+                                                                      onRatingUpdate:
+                                                                          (rating) =>
+                                                                              null,
+                                                                    ),
+                                                                  )
+                                                                : SizedBox(),
                                                             8.verticalSpace,
                                                             FittedBox(
                                                               child: Row(

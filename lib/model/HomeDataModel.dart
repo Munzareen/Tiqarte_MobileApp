@@ -149,7 +149,10 @@ class Event {
     standingTitle = json['StandingTitle'];
     seatingTitle = json['SeatingTitle'];
     ticketSoldOutText = json['TicketSoldOutText'];
-    reviewRating = json['ReviewRating'];
+    reviewRating =
+        json['ReviewRating'] == null || (json['ReviewRating'] is String)
+            ? 0
+            : json['ReviewRating'];
   }
 
   Map<String, dynamic> toJson() {

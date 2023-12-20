@@ -220,11 +220,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                       ),
                                     ),
                                   ),
-                                  _edc.eventDetailModel.reviewRating == null ||
-                                          !(_edc.eventDetailModel.reviewRating
+                                  _edc.eventDetailModel.reviewRating != null &&
+                                          (_edc.eventDetailModel.reviewRating
                                               is num)
-                                      ? SizedBox()
-                                      : SizedBox(
+                                      ? SizedBox(
                                           width: 0.4.sw,
                                           child: RatingBar(
                                             ignoreGestures: true,
@@ -253,7 +252,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                 horizontal: 1.0),
                                             onRatingUpdate: (rating) => null,
                                           ),
-                                        ),
+                                        )
+                                      : SizedBox(),
                                 ],
                               ),
                             ),
@@ -1247,7 +1247,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                       20.verticalSpace,
                                       CarouselSlider.builder(
                                           options: CarouselOptions(
-                                              height: 0.425.sh,
+                                              height: 0.45.sh,
                                               enlargeCenterPage: true,
                                               scrollDirection: Axis.horizontal,
                                               enableInfiniteScroll: false,
@@ -1297,7 +1297,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                               : "null",
                                                           250.w,
                                                           160.h),
-                                                      12.verticalSpace,
+                                                      8.verticalSpace,
                                                       SizedBox(
                                                         width: 0.7.sw,
                                                         child: Text(
@@ -1318,7 +1318,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                           ),
                                                         ),
                                                       ),
-                                                      12.verticalSpace,
+                                                      8.verticalSpace,
                                                       FittedBox(
                                                         child: Text(
                                                           splitDateTimeWithoutYear(_edc
@@ -1337,7 +1337,63 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                                   kPrimaryColor),
                                                         ),
                                                       ),
-                                                      12.verticalSpace,
+                                                      8.verticalSpace,
+                                                      _edc
+                                                                      .relatedEventModelList[
+                                                                          itemIndex]
+                                                                      .reviewRating !=
+                                                                  null &&
+                                                              (_edc
+                                                                  .relatedEventModelList[
+                                                                      itemIndex]
+                                                                  .reviewRating is num)
+                                                          ? SizedBox(
+                                                              width: 0.5.sw,
+                                                              child: RatingBar(
+                                                                ignoreGestures:
+                                                                    true,
+                                                                itemSize: 22,
+                                                                initialRating: _edc
+                                                                    .relatedEventModelList[
+                                                                        itemIndex]
+                                                                    .reviewRating!
+                                                                    .toDouble(),
+                                                                direction: Axis
+                                                                    .horizontal,
+                                                                allowHalfRating:
+                                                                    true,
+                                                                itemCount: 5,
+                                                                ratingWidget:
+                                                                    RatingWidget(
+                                                                  full: Icon(
+                                                                    Icons.star,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                  half: Icon(
+                                                                    Icons
+                                                                        .star_half,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                  empty: Icon(
+                                                                    Icons
+                                                                        .star_border,
+                                                                    color:
+                                                                        kPrimaryColor,
+                                                                  ),
+                                                                ),
+                                                                itemPadding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            1.0),
+                                                                onRatingUpdate:
+                                                                    (rating) =>
+                                                                        null,
+                                                              ),
+                                                            )
+                                                          : SizedBox(),
+                                                      8.verticalSpace,
                                                       Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment

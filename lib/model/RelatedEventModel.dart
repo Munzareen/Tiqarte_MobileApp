@@ -33,30 +33,31 @@ class RelatedEventModel {
   dynamic standingTitle;
   dynamic seatingTitle;
   dynamic ticketSoldOutText;
+  num? reviewRating;
 
-  RelatedEventModel({
-    this.eventId,
-    this.name,
-    this.compnayName,
-    this.discription,
-    this.location,
-    this.city,
-    this.eventDate,
-    this.creationUserId,
-    this.eventStatusId,
-    this.eventTypeId,
-    this.postEventImages,
-    this.preEventImages,
-    this.catagoryId,
-    this.price,
-    this.organizerId,
-    this.isPublished,
-    this.lastUpdated,
-    this.isFav,
-    this.standingTitle,
-    this.seatingTitle,
-    this.ticketSoldOutText,
-  });
+  RelatedEventModel(
+      {this.eventId,
+      this.name,
+      this.compnayName,
+      this.discription,
+      this.location,
+      this.city,
+      this.eventDate,
+      this.creationUserId,
+      this.eventStatusId,
+      this.eventTypeId,
+      this.postEventImages,
+      this.preEventImages,
+      this.catagoryId,
+      this.price,
+      this.organizerId,
+      this.isPublished,
+      this.lastUpdated,
+      this.isFav,
+      this.standingTitle,
+      this.seatingTitle,
+      this.ticketSoldOutText,
+      this.reviewRating});
 
   factory RelatedEventModel.fromJson(Map<String, dynamic> json) =>
       RelatedEventModel(
@@ -83,6 +84,10 @@ class RelatedEventModel {
         standingTitle: json["StandingTitle"],
         seatingTitle: json["SeatingTitle"],
         ticketSoldOutText: json["TicketSoldOutText"],
+        reviewRating:
+            json['ReviewRating'] == null || (json['ReviewRating'] is String)
+                ? 0
+                : json['ReviewRating'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -107,5 +112,6 @@ class RelatedEventModel {
         "StandingTitle": standingTitle,
         "SeatingTitle": seatingTitle,
         "TicketSoldOutText": ticketSoldOutText,
+        "ReviewRating": reviewRating,
       };
 }

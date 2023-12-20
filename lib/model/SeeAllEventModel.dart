@@ -28,30 +28,31 @@ class SeeAllEventModel {
   dynamic standingTitle;
   dynamic seatingTitle;
   dynamic ticketSoldOutText;
+  num? reviewRating;
 
-  SeeAllEventModel({
-    this.eventId,
-    this.name,
-    this.compnayName,
-    this.discription,
-    this.location,
-    this.city,
-    this.eventDate,
-    this.creationUserId,
-    this.eventStatusId,
-    this.eventTypeId,
-    this.postEventImages,
-    this.preEventImages,
-    this.catagoryId,
-    this.price,
-    this.organizerId,
-    this.isPublished,
-    this.lastUpdated,
-    this.isFav,
-    this.standingTitle,
-    this.seatingTitle,
-    this.ticketSoldOutText,
-  });
+  SeeAllEventModel(
+      {this.eventId,
+      this.name,
+      this.compnayName,
+      this.discription,
+      this.location,
+      this.city,
+      this.eventDate,
+      this.creationUserId,
+      this.eventStatusId,
+      this.eventTypeId,
+      this.postEventImages,
+      this.preEventImages,
+      this.catagoryId,
+      this.price,
+      this.organizerId,
+      this.isPublished,
+      this.lastUpdated,
+      this.isFav,
+      this.standingTitle,
+      this.seatingTitle,
+      this.ticketSoldOutText,
+      this.reviewRating});
 
   factory SeeAllEventModel.fromJson(Map<String, dynamic> json) =>
       SeeAllEventModel(
@@ -78,6 +79,10 @@ class SeeAllEventModel {
         standingTitle: json["StandingTitle"],
         seatingTitle: json["SeatingTitle"],
         ticketSoldOutText: json["TicketSoldOutText"],
+        reviewRating:
+            json['ReviewRating'] == null || (json['ReviewRating'] is String)
+                ? 0
+                : json['ReviewRating'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -102,5 +107,6 @@ class SeeAllEventModel {
         "StandingTitle": standingTitle,
         "SeatingTitle": seatingTitle,
         "TicketSoldOutText": ticketSoldOutText,
+        "ReviewRating": reviewRating,
       };
 }
