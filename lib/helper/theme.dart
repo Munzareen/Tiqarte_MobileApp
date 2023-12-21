@@ -32,6 +32,7 @@ class MyTheme {
         iconTheme: IconThemeData(color: Colors.white),
         textTheme: GoogleFonts.urbanistTextTheme(
             Theme.of(context).textTheme.apply(bodyColor: Colors.white)),
+        indicatorColor: Colors.white,
         brightness: Brightness.dark,
         primaryColor: kPrimaryColor,
         secondaryHeaderColor: Color(0xff1F222A),
@@ -66,6 +67,7 @@ class MyTheme {
         iconTheme: IconThemeData(color: Colors.black),
         textTheme: GoogleFonts.urbanistTextTheme(
             Theme.of(context).textTheme.apply(bodyColor: Colors.black)),
+        indicatorColor: Colors.black,
         brightness: Brightness.dark,
         primaryColor: kPrimaryColor,
         secondaryHeaderColor: Colors.white,

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/navigationBarController.dart';
@@ -182,7 +183,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTapOutside: (_) => FocusScope.of(context).unfocus(),
                   cursorColor: kPrimaryColor,
                   controller: _hc.searchController,
-                  style: const TextStyle(color: Colors.black),
                   // validator: (value) {
                   //   if (value!.isEmpty) {
                   //     return 'Please enter your username';
@@ -366,48 +366,65 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               160.h),
                                                           8.verticalSpace,
                                                           SizedBox(
-                                                            width: 0.7.sw,
-                                                            child: Text(
-                                                              _hc
-                                                                  .featuredEventList![
-                                                                      itemIndex]
-                                                                  .name
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
+                                                              width: 0.7.sw,
+                                                              child:
+                                                                  HighlightedText(
+                                                                searchQuery: _hc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: _hc
+                                                                    .featuredEventList![
+                                                                        itemIndex]
+                                                                    .name
+                                                                    .toString(),
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .indicatorColor,
                                                                 fontSize: 24,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
+                                                                maxlines: 1,
+                                                              )
+                                                              //  Text(
+                                                              //   _hc
+                                                              //       .featuredEventList![
+                                                              //           itemIndex]
+                                                              //       .name
+                                                              //       .toString(),
+                                                              //   textAlign:
+                                                              //       TextAlign
+                                                              //           .start,
+                                                              //   overflow:
+                                                              //       TextOverflow
+                                                              //           .ellipsis,
+                                                              //   maxLines: 1,
+                                                              //   style: TextStyle(
+                                                              //     fontSize: 24,
+                                                              //     fontWeight:
+                                                              // FontWeight
+                                                              //     .bold,
+                                                              //   ),
+                                                              // ),
                                                               ),
-                                                            ),
-                                                          ),
                                                           8.verticalSpace,
                                                           FittedBox(
-                                                            child: Text(
-                                                              splitDateTimeWithoutYear(_hc
-                                                                  .featuredEventList![
-                                                                      itemIndex]
-                                                                  .eventDate
-                                                                  .toString()),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kPrimaryColor),
-                                                            ),
-                                                          ),
+                                                              child:
+                                                                  HighlightedText(
+                                                            searchQuery: _hc
+                                                                .searchController
+                                                                .text,
+                                                            text: splitDateTimeWithoutYear(_hc
+                                                                .featuredEventList![
+                                                                    itemIndex]
+                                                                .eventDate
+                                                                .toString()),
+                                                            color:
+                                                                kPrimaryColor,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          )),
                                                           8.verticalSpace,
                                                           _hc.featuredEventList![itemIndex].reviewRating !=
                                                                       null &&
@@ -485,32 +502,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   ),
                                                                   10.horizontalSpace,
                                                                   SizedBox(
-                                                                    width:
-                                                                        0.5.sw,
-                                                                    child: Text(
-                                                                      _hc
-                                                                          .featuredEventList![
-                                                                              itemIndex]
-                                                                          .city
-                                                                          .toString(),
-                                                                      maxLines:
-                                                                          1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style:
-                                                                          TextStyle(
+                                                                      width: 0.5
+                                                                          .sw,
+                                                                      child:
+                                                                          HighlightedText(
+                                                                        searchQuery: _hc
+                                                                            .searchController
+                                                                            .text,
+                                                                        text: _hc
+                                                                            .featuredEventList![itemIndex]
+                                                                            .city
+                                                                            .toString(),
+                                                                        color: Theme.of(context)
+                                                                            .indicatorColor,
                                                                         fontSize:
                                                                             18,
                                                                         fontWeight:
                                                                             FontWeight.w400,
-                                                                        //color: Color(0xff616161)
-                                                                      ),
-                                                                    ),
-                                                                  ),
+                                                                        maxlines:
+                                                                            1,
+                                                                      )),
                                                                 ],
                                                               ),
                                                               GestureDetector(
@@ -921,48 +932,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               100.h),
                                                           8.verticalSpace,
                                                           SizedBox(
-                                                            width: 0.5.sw,
-                                                            child: Text(
-                                                              _hc
-                                                                  .upcomingEventList![
-                                                                      index]
-                                                                  .name
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                fontSize: 15,
+                                                              width: 0.5.sw,
+                                                              child:
+                                                                  HighlightedText(
+                                                                searchQuery: _hc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: _hc
+                                                                    .upcomingEventList![
+                                                                        index]
+                                                                    .name
+                                                                    .toString(),
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .indicatorColor,
+                                                                fontSize: 16,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                                maxlines: 1,
+                                                              )),
                                                           8.verticalSpace,
                                                           FittedBox(
-                                                            child: Text(
-                                                              splitDateTimeWithoutYear(_hc
-                                                                  .upcomingEventList![
-                                                                      index]
-                                                                  .eventDate
-                                                                  .toString()),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kPrimaryColor),
-                                                            ),
-                                                          ),
+                                                              child:
+                                                                  HighlightedText(
+                                                            searchQuery: _hc
+                                                                .searchController
+                                                                .text,
+                                                            text: splitDateTimeWithoutYear(_hc
+                                                                .upcomingEventList![
+                                                                    index]
+                                                                .eventDate
+                                                                .toString()),
+                                                            color:
+                                                                kPrimaryColor,
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          )),
                                                           8.verticalSpace,
                                                           _hc.upcomingEventList![index].reviewRating !=
                                                                       null &&
@@ -1038,30 +1045,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 ),
                                                                 5.horizontalSpace,
                                                                 SizedBox(
-                                                                  width: 0.3.sw,
-                                                                  child: Text(
-                                                                    _hc
-                                                                        .upcomingEventList![
-                                                                            index]
-                                                                        .city
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 1,
-                                                                    style:
-                                                                        TextStyle(
+                                                                    width:
+                                                                        0.3.sw,
+                                                                    child:
+                                                                        HighlightedText(
+                                                                      searchQuery: _hc
+                                                                          .searchController
+                                                                          .text,
+                                                                      text: _hc
+                                                                          .upcomingEventList![
+                                                                              index]
+                                                                          .city
+                                                                          .toString(),
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .indicatorColor,
                                                                       fontSize:
-                                                                          12,
+                                                                          13,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w400,
-                                                                    ),
-                                                                  ),
-                                                                ),
+                                                                      maxlines:
+                                                                          1,
+                                                                    )),
                                                                 5.horizontalSpace,
                                                                 GestureDetector(
                                                                   onTap:
@@ -1575,68 +1581,61 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               120.h),
                                                           8.verticalSpace,
                                                           SizedBox(
-                                                            width: 0.5.sw,
-                                                            child: Text(
-                                                              _hc
-                                                                  .shopList![
-                                                                      index]
-                                                                  .productName
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                fontSize: 18,
+                                                              width: 0.5.sw,
+                                                              child:
+                                                                  HighlightedText(
+                                                                searchQuery: _hc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: _hc
+                                                                    .shopList![
+                                                                        index]
+                                                                    .productName
+                                                                    .toString(),
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .indicatorColor,
+                                                                fontSize: 19,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                                maxlines: 1,
+                                                              )),
                                                           5.verticalSpace,
-                                                          Text(
-                                                            _hc.shopList![index]
+                                                          HighlightedText(
+                                                            searchQuery: _hc
+                                                                .searchController
+                                                                .text,
+                                                            text: _hc
+                                                                .shopList![
+                                                                    index]
                                                                 .productFor
                                                                 .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
+                                                            color: Colors.grey,
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            maxlines: 1,
                                                           ),
                                                           5.verticalSpace,
                                                           FittedBox(
-                                                            child: Text(
-                                                              _hc
-                                                                  .shopList![
-                                                                      index]
-                                                                  .price
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kPrimaryColor),
-                                                            ),
-                                                          ),
+                                                              child:
+                                                                  HighlightedText(
+                                                            searchQuery: _hc
+                                                                .searchController
+                                                                .text,
+                                                            text: _hc
+                                                                .shopList![
+                                                                    index]
+                                                                .price
+                                                                .toString(),
+                                                            color:
+                                                                kPrimaryColor,
+                                                            fontSize: 17,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            maxlines: 1,
+                                                          )),
                                                         ],
                                                       ),
                                                     ),
@@ -1778,27 +1777,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             160.h),
                                                         12.verticalSpace,
                                                         SizedBox(
-                                                          width: 0.7.sw,
-                                                          child: Text(
-                                                            _hc
-                                                                .newsList[
-                                                                    itemIndex]
-                                                                .title
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              fontSize: 24,
+                                                            width: 0.7.sw,
+                                                            child:
+                                                                HighlightedText(
+                                                              searchQuery: _hc
+                                                                  .searchController
+                                                                  .text,
+                                                              text: _hc
+                                                                  .newsList[
+                                                                      itemIndex]
+                                                                  .title
+                                                                  .toString(),
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .indicatorColor,
+                                                              fontSize: 25,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                            ),
-                                                          ),
-                                                        ),
+                                                              maxlines: 1,
+                                                            )),
                                                         12.verticalSpace,
                                                         FittedBox(
                                                           child: SizedBox(
@@ -1837,26 +1835,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     )
                                                                   ],
                                                                 ),
-                                                                Text(
-                                                                  splitDateForNews(_hc
+                                                                HighlightedText(
+                                                                  searchQuery: _hc
+                                                                      .searchController
+                                                                      .text,
+                                                                  text: splitDateForNews(_hc
                                                                       .newsList[
                                                                           itemIndex]
                                                                       .scheduled
                                                                       .toString()),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  ),
-                                                                ),
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  maxlines: 1,
+                                                                )
                                                               ],
                                                             ),
                                                           ),
@@ -2280,5 +2275,110 @@ class _HomeScreenState extends State<HomeScreen> {
       print("Error: $e");
       return [];
     }
+  }
+}
+
+class HighlightedText extends StatelessWidget {
+  final String text;
+  final String searchQuery;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final Color color;
+  final int? maxlines;
+  HighlightedText(
+      {required this.text,
+      required this.searchQuery,
+      required this.fontSize,
+      required this.fontWeight,
+      required this.color,
+      this.maxlines = null});
+
+  @override
+  Widget build(BuildContext context) {
+    // Case-insensitive search
+    final RegExp regex = RegExp('($searchQuery)', caseSensitive: false);
+    final Iterable<Match> matches = regex.allMatches(text);
+
+    // If there are no matches, return the original text
+    if (matches.isEmpty) {
+      return Text(
+        text,
+        style: TextStyle(
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          color: color,
+          fontFamily: GoogleFonts.urbanist().fontFamily,
+        ),
+        maxLines: maxlines,
+      );
+    }
+
+    // Create a list of TextSpan widgets with highlighted matches
+    List<Widget> children = [];
+    int lastMatchEnd = 0;
+
+    for (Match match in matches) {
+      // Add the text before the match
+      if (match.start > lastMatchEnd) {
+        children.add(
+          Text(
+            text.substring(lastMatchEnd, match.start),
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              color: color,
+              fontFamily: GoogleFonts.urbanist().fontFamily,
+            ),
+          ),
+        );
+      }
+
+      // Add the highlighted match
+      children.add(
+        Container(
+          color: Colors.yellow, // Highlight color
+          child: Text(
+            match.group(0)!,
+            style: TextStyle(
+              fontWeight: fontWeight,
+              fontSize: fontSize,
+              color: Colors.black, // Text color on highlight
+              fontFamily: GoogleFonts.urbanist().fontFamily,
+            ),
+          ),
+        ),
+      );
+
+      lastMatchEnd = match.end;
+    }
+
+    // Add the remaining text after the last match
+    if (lastMatchEnd < text.length) {
+      children.add(
+        Text(
+          text.substring(lastMatchEnd),
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            color: color,
+            fontFamily: GoogleFonts.urbanist().fontFamily,
+          ),
+        ),
+      );
+    }
+
+    return RichText(
+      overflow: TextOverflow.ellipsis,
+      text: TextSpan(
+          children: children.map((widget) {
+            return WidgetSpan(child: widget);
+          }).toList(),
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            color: color,
+            fontFamily: GoogleFonts.urbanist().fontFamily,
+          )),
+    );
   }
 }
