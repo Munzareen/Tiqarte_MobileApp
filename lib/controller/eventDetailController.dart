@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/model/EventDetailModel.dart';
+import 'package:tiqarte/model/EventReviewModel.dart';
 import 'package:tiqarte/model/RelatedEventModel.dart';
 
 class EventDetailController extends GetxController {
@@ -12,6 +13,8 @@ class EventDetailController extends GetxController {
   EventDetailModel eventDetailModel = EventDetailModel();
 
   List<RelatedEventModel> relatedEventModelList = [];
+
+  List<EventReviewModel> eventReviewList = [];
 
   addEventDetail(dynamic data, String eventId) async {
     eventDetailModel = EventDetailModel.fromJson(data);
@@ -43,6 +46,13 @@ class EventDetailController extends GetxController {
         //}
       }
 
+      update();
+    }
+
+    var res_review = await ApiService()
+        .getReviewsByEvent('1'); //eventDetailModel.event!.eventId.toString()
+    if (res_review != null && res_review is List) {
+      eventReviewList = eventReviewModelFromJson(res_review);
       update();
     }
   }

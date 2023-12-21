@@ -227,32 +227,57 @@ class _EventDetailScreenRelatedEventState
                                               is num)
                                       ? SizedBox(
                                           width: 0.4.sw,
-                                          child: RatingBar(
-                                            ignoreGestures: true,
-                                            itemSize: 30,
-                                            initialRating: _edc
-                                                .eventDetailModel.reviewRating!
-                                                .toDouble(),
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            ratingWidget: RatingWidget(
-                                              full: Icon(
-                                                Icons.star,
-                                                color: kPrimaryColor,
+                                          child: Column(
+                                            children: [
+                                              RatingBar(
+                                                ignoreGestures: true,
+                                                itemSize: 30,
+                                                initialRating: _edc
+                                                    .eventDetailModel
+                                                    .reviewRating!
+                                                    .toDouble(),
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemCount: 5,
+                                                ratingWidget: RatingWidget(
+                                                  full: Icon(
+                                                    Icons.star,
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                  half: Icon(
+                                                    Icons.star_half,
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                  empty: Icon(
+                                                    Icons.star_border,
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                ),
+                                                itemPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 1.0),
+                                                onRatingUpdate: (rating) =>
+                                                    null,
                                               ),
-                                              half: Icon(
-                                                Icons.star_half,
-                                                color: kPrimaryColor,
+                                              5.verticalSpace,
+                                              GestureDetector(
+                                                onTap: () {
+                                                  reviewsBottomSheet(
+                                                      context, _edc);
+                                                },
+                                                child: Text(
+                                                  'seeAll'.tr,
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: kPrimaryColor),
+                                                ),
                                               ),
-                                              empty: Icon(
-                                                Icons.star_border,
-                                                color: kPrimaryColor,
-                                              ),
-                                            ),
-                                            itemPadding: EdgeInsets.symmetric(
-                                                horizontal: 1.0),
-                                            onRatingUpdate: (rating) => null,
+                                            ],
                                           ),
                                         )
                                       : SizedBox(),
@@ -280,7 +305,7 @@ class _EventDetailScreenRelatedEventState
                                       border: Border.all(
                                           color: kPrimaryColor, width: 1)),
                                   child: Text(
-                                    "Music",
+                                    'music'.tr,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontSize: 10,
@@ -504,7 +529,12 @@ class _EventDetailScreenRelatedEventState
                                                       .event!.location!
                                                       .split(",")
                                                       .last
-                                                      .trim()),
+                                                      .trim(),
+                                                  eventName: _edc
+                                                      .eventDetailModel
+                                                      .event!
+                                                      .name
+                                                      .toString()),
                                             );
                                           } else {
                                             customSnackBar('error'.tr,
@@ -1754,6 +1784,158 @@ class _EventDetailScreenRelatedEventState
     } else {
       return text.substring(0, maxLength);
     }
+  }
+
+  reviewsBottomSheet(BuildContext context, EventDetailController _edc) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      ),
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  5.verticalSpace,
+                  Container(
+                    height: 5,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: kDisabledColor.withOpacity(0.6)),
+                  ),
+                  20.verticalSpace,
+                  _edc.eventReviewList.isEmpty
+                      ? Center(
+                          child: Text(
+                            'notFound'.tr,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : SizedBox(
+                          height: 0.5.sh,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _edc.eventReviewList.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 0.4.sw,
+                                          child: Text(
+                                            _edc.eventReviewList[index].userName
+                                                .toString(),
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        10.horizontalSpace,
+                                        _edc.eventReviewList[index].rating !=
+                                                    null &&
+                                                (_edc.eventReviewList[index]
+                                                    .rating is num)
+                                            ? SizedBox(
+                                                width: 0.4.sw,
+                                                child: Column(children: [
+                                                  RatingBar(
+                                                    ignoreGestures: true,
+                                                    itemSize: 25,
+                                                    initialRating: _edc
+                                                        .eventReviewList[index]
+                                                        .rating!
+                                                        .toDouble(),
+                                                    direction: Axis.horizontal,
+                                                    allowHalfRating: true,
+                                                    itemCount: 5,
+                                                    ratingWidget: RatingWidget(
+                                                      full: Icon(
+                                                        Icons.star,
+                                                        color: kPrimaryColor,
+                                                      ),
+                                                      half: Icon(
+                                                        Icons.star_half,
+                                                        color: kPrimaryColor,
+                                                      ),
+                                                      empty: Icon(
+                                                        Icons.star_border,
+                                                        color: kPrimaryColor,
+                                                      ),
+                                                    ),
+                                                    itemPadding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 1.0),
+                                                    onRatingUpdate: (rating) =>
+                                                        null,
+                                                  ),
+                                                ]))
+                                            : SizedBox()
+                                      ]),
+                                  5.verticalSpace,
+                                  Text(
+                                    _edc.eventReviewList[index].description
+                                        .toString(),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                  5.verticalSpace,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        splitDateForNews(_edc
+                                            .eventReviewList[index].createDate
+                                            .toString()),
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  5.verticalSpace,
+                                  _edc.eventReviewList.length == index + 1
+                                      ? SizedBox()
+                                      : Divider(
+                                          color: Colors.grey,
+                                        ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                  20.verticalSpace
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

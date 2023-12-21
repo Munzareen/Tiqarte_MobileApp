@@ -623,6 +623,34 @@ class ApiService {
     }
   }
 
+  getReviewsByEvent(String id) async {
+    final uri =
+        Uri.parse(ApiPoint().baseUrl + ApiPoint().getReviewsByEvent + id);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      http.Response response = await http.get(
+        uri,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        var res_data = json.decode(response.body);
+
+        return res_data;
+      } else if (response.statusCode == 401) {
+        tokenExpiredLogout();
+      } else {
+        return 'somethingWentWrong'.tr;
+      }
+    } catch (e) {
+      Get.back();
+      customSnackBar('error'.tr, 'somethingWentWrong'.tr);
+    }
+  }
+
   getEventsByType(String id) async {
     final uri = Uri.parse(ApiPoint().baseUrl + ApiPoint().getEventsByType + id);
 
