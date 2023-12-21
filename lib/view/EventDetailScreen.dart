@@ -258,23 +258,28 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                                     null,
                                               ),
                                               5.verticalSpace,
-                                              GestureDetector(
-                                                onTap: () {
-                                                  reviewsBottomSheet(
-                                                      context, _edc);
-                                                },
-                                                child: Text(
-                                                  'seeAll'.tr,
-                                                  textAlign: TextAlign.end,
-                                                  style: TextStyle(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: kPrimaryColor),
-                                                ),
-                                              ),
+                                              _edc.eventReviewList.isEmpty
+                                                  ? SizedBox()
+                                                  : GestureDetector(
+                                                      onTap: () {
+                                                        reviewsBottomSheet(
+                                                            context, _edc);
+                                                      },
+                                                      child: Text(
+                                                        'seeAll'.tr,
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                kPrimaryColor),
+                                                      ),
+                                                    ),
                                             ],
                                           ),
                                         )
