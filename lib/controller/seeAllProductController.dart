@@ -53,10 +53,16 @@ class SeeAllProductController extends GetxController {
 
     seeAllProductModel = [...seeAllProductModelAll!];
 
-    seeAllProductModel?.removeWhere((element) =>
-        element.catagoryId != null &&
-        int.parse(element.catagoryId.toString()) !=
-            seeAllProductCategoryList![index].id!.toInt());
+    if (!seeAllProductCategoryList![index]
+        .catagoryName!
+        .toUpperCase()
+        .contains("ALL")) {
+      seeAllProductModel?.removeWhere((element) =>
+          element.catagoryId != null &&
+          int.parse(element.catagoryId.toString()) !=
+              seeAllProductCategoryList![index].id!.toInt());
+    }
+
     if (searchController.text.trim().isNotEmpty) {
       searchProduct(searchController.text);
     }
@@ -77,12 +83,22 @@ class SeeAllProductController extends GetxController {
         .firstWhere((element) => element.isSelected == true);
 
     seeAllProductModel = [...seeAllProductModelAll!];
-    seeAllProductModel?.removeWhere((element) =>
-        element.catagoryId != null && element.catagoryId != cat.id);
+
+    if (!cat.catagoryName!.toUpperCase().contains("ALL")) {
+      seeAllProductModel?.removeWhere((element) =>
+          element.catagoryId != null && element.catagoryId != cat.id);
+    }
+    // seeAllProductModel?.removeWhere((element) =>
+    //     element.catagoryId != null && element.catagoryId != cat.id);
     final suggestion = seeAllProductModel!.where((element) {
-      final eventName = element.productName!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
+      final productName = element.productName!.toLowerCase();
+      final productFor = element.productFor?.toLowerCase() ?? '';
+      final price = element.price?.toDouble().toString() ?? '';
+
+      final input = query.toLowerCase().trim();
+      return productName.contains(input) ||
+          productFor.contains(input) ||
+          price.contains(input);
     }).toList();
     seeAllProductModel = suggestion;
 

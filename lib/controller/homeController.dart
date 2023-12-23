@@ -6,6 +6,7 @@ import 'package:tiqarte/controller/seeAllEventController.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/HomeDataModel.dart';
+import 'package:tiqarte/model/LocationsModel.dart';
 import 'package:tiqarte/model/NewsModel.dart';
 
 class HomeController extends GetxController {
@@ -30,6 +31,9 @@ class HomeController extends GetxController {
 
   List<String> cityListForFilter = [];
   String? selectedCity;
+
+  List<LocationsModel> locationsList = [];
+  String? selectedLocation;
 
   addHomeData(dynamic data) async {
     homeDataModel = HomeDataModel.fromJson(data);
@@ -181,12 +185,12 @@ class HomeController extends GetxController {
             element.catagoryId != null && element.catagoryId != shopCat.id);
       }
       final shop = shopList?.where((element) {
-        final eventName = element.productName!.toLowerCase();
+        final productName = element.productName!.toLowerCase();
         final productFor = element.productFor?.toLowerCase() ?? '';
         final price = element.price?.toDouble().toString() ?? '';
 
         final input = query.toLowerCase().trim();
-        return eventName.contains(input) ||
+        return productName.contains(input) ||
             productFor.contains(input) ||
             price.contains(input);
       }).toList();
@@ -208,13 +212,6 @@ class HomeController extends GetxController {
 
       update();
     }
-  }
-
-  String convertMonthToLowerCase(String inputDate) {
-    return inputDate.replaceAllMapped(
-      RegExp(r'\b(\w{3})\b'),
-      (match) => match.group(0)!.toLowerCase(),
-    );
   }
 
 //   homeSearch(String query) {
@@ -281,6 +278,11 @@ class HomeController extends GetxController {
     update();
   }
 
+  addLocations(List data) {
+    locationsList = locationsModelFromJson(data);
+    update();
+  }
+
   @override
   void onClose() {
     super.onClose();
@@ -298,7 +300,8 @@ class HomeController extends GetxController {
     homeFilterCategoryList?[0].isSelected = true;
 
     distanceValue = 100.0;
-    selectedCity = null;
+    // selectedCity = null;
+    selectedLocation = null;
     update();
   }
 }

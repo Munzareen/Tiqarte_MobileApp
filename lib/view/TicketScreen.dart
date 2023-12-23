@@ -7,6 +7,7 @@ import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/ticketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/highlightedText.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 import 'package:tiqarte/view/CancelBookingScreen.dart';
@@ -83,7 +84,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       focusNode: _tc.searchFocusNode,
                                       cursorColor: kPrimaryColor,
                                       controller: _tc.searchController,
-                                      keyboardType: TextInputType.text,
+                                      // keyboardType: TextInputType.text,
                                       // validator: (value) {
                                       //   if (value!.isEmpty) {
                                       //     return 'Please enter your username';
@@ -113,7 +114,7 @@ class _TicketScreenState extends State<TicketScreen>
                                       onChanged: _tc.onSearch,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(
-                                            textRegExp),
+                                            alphanumeric),
                                       ],
                                     ),
                                   ),
@@ -152,24 +153,24 @@ class _TicketScreenState extends State<TicketScreen>
                                             _tc.onSearchTap();
                                           },
                                           icon: Icon(Icons.search)),
-                                      10.horizontalSpace,
-                                      Container(
-                                        height: 30,
-                                        width: 30,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background),
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                        ),
-                                        child: Icon(
-                                          Icons.more_horiz_sharp,
-                                          size: 25,
-                                        ),
-                                      )
+                                      // 10.horizontalSpace,
+                                      // Container(
+                                      //   height: 30,
+                                      //   width: 30,
+                                      //   decoration: BoxDecoration(
+                                      //     border: Border.all(
+                                      //         width: 1,
+                                      //         color: Theme.of(context)
+                                      //             .colorScheme
+                                      //             .background),
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(50.0),
+                                      //   ),
+                                      //   child: Icon(
+                                      //     Icons.more_horiz_sharp,
+                                      //     size: 25,
+                                      //   ),
+                                      // )
                                     ],
                                   )
                                 ],
@@ -362,51 +363,46 @@ class _TicketScreenState extends State<TicketScreen>
                                                                     .start,
                                                             children: [
                                                               SizedBox(
-                                                                width: 0.5.sw,
-                                                                child: Text(
-                                                                  _tc
-                                                                      .upcomingTicketList![
-                                                                          index]
-                                                                      .eventName
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  maxLines: 1,
-                                                                  style:
-                                                                      TextStyle(
+                                                                  width: 0.5.sw,
+                                                                  child:
+                                                                      HighlightedText(
+                                                                    searchQuery: _tc
+                                                                        .searchController
+                                                                        .text,
+                                                                    text: _tc
+                                                                        .upcomingTicketList![
+                                                                            index]
+                                                                        .eventName
+                                                                        .toString(),
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .indicatorColor,
                                                                     fontSize:
                                                                         18,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                  ),
-                                                                ),
-                                                              ),
+                                                                    maxlines: 1,
+                                                                  )),
                                                               8.verticalSpace,
                                                               FittedBox(
-                                                                child: Text(
-                                                                  splitDateTimeWithoutYear(_tc
-                                                                      .upcomingTicketList![
-                                                                          index]
-                                                                      .eventDate
-                                                                      .toString()),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      color:
-                                                                          kPrimaryColor),
-                                                                ),
-                                                              ),
+                                                                  child:
+                                                                      HighlightedText(
+                                                                searchQuery: _tc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: splitDateTimeWithoutYear(_tc
+                                                                    .upcomingTicketList![
+                                                                        index]
+                                                                    .eventDate
+                                                                    .toString()),
+                                                                color:
+                                                                    kPrimaryColor,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              )),
                                                               8.verticalSpace,
                                                               FittedBox(
                                                                 child: Row(
@@ -423,28 +419,26 @@ class _TicketScreenState extends State<TicketScreen>
                                                                     ),
                                                                     5.horizontalSpace,
                                                                     SizedBox(
-                                                                      width: 0.3
-                                                                          .sw,
-                                                                      child:
-                                                                          Text(
-                                                                        _tc.upcomingTicketList![index]
-                                                                            .city
-                                                                            .toString(),
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        maxLines:
-                                                                            1,
-                                                                        style:
-                                                                            TextStyle(
+                                                                        width: 0.3
+                                                                            .sw,
+                                                                        child:
+                                                                            HighlightedText(
+                                                                          searchQuery: _tc
+                                                                              .searchController
+                                                                              .text,
+                                                                          text: _tc
+                                                                              .upcomingTicketList![index]
+                                                                              .city
+                                                                              .toString(),
+                                                                          color:
+                                                                              Theme.of(context).indicatorColor,
                                                                           fontSize:
-                                                                              12,
+                                                                              13,
                                                                           fontWeight:
                                                                               FontWeight.w400,
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                                          maxlines:
+                                                                              1,
+                                                                        )),
                                                                     5.horizontalSpace,
                                                                     Container(
                                                                       padding: EdgeInsets.symmetric(
@@ -727,51 +721,48 @@ class _TicketScreenState extends State<TicketScreen>
                                                                       .start,
                                                               children: [
                                                                 SizedBox(
-                                                                  width: 0.5.sw,
-                                                                  child: Text(
-                                                                    _tc
-                                                                        .completedTicketList[
-                                                                            index]
-                                                                        .eventName
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 1,
-                                                                    style:
-                                                                        TextStyle(
+                                                                    width:
+                                                                        0.5.sw,
+                                                                    child:
+                                                                        HighlightedText(
+                                                                      searchQuery: _tc
+                                                                          .searchController
+                                                                          .text,
+                                                                      text: _tc
+                                                                          .completedTicketList[
+                                                                              index]
+                                                                          .eventName
+                                                                          .toString(),
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .indicatorColor,
                                                                       fontSize:
                                                                           18,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
-                                                                    ),
-                                                                  ),
-                                                                ),
+                                                                      maxlines:
+                                                                          1,
+                                                                    )),
                                                                 8.verticalSpace,
                                                                 FittedBox(
-                                                                  child: Text(
-                                                                    splitDateTimeWithoutYear(_tc
-                                                                        .completedTicketList[
-                                                                            index]
-                                                                        .eventDate
-                                                                        .toString()),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w600,
-                                                                        color:
-                                                                            kPrimaryColor),
-                                                                  ),
-                                                                ),
+                                                                    child:
+                                                                        HighlightedText(
+                                                                  searchQuery: _tc
+                                                                      .searchController
+                                                                      .text,
+                                                                  text: splitDateTimeWithoutYear(_tc
+                                                                      .completedTicketList[
+                                                                          index]
+                                                                      .eventDate
+                                                                      .toString()),
+                                                                  color:
+                                                                      kPrimaryColor,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                )),
                                                                 8.verticalSpace,
                                                                 FittedBox(
                                                                   child: Row(
@@ -789,28 +780,23 @@ class _TicketScreenState extends State<TicketScreen>
                                                                       ),
                                                                       5.horizontalSpace,
                                                                       SizedBox(
-                                                                        width: 0.25
-                                                                            .sw,
-                                                                        child:
-                                                                            Text(
-                                                                          _tc.completedTicketList[index]
-                                                                              .city
-                                                                              .toString(),
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                          maxLines:
-                                                                              1,
-                                                                          style:
-                                                                              TextStyle(
+                                                                          width: 0.25
+                                                                              .sw,
+                                                                          child:
+                                                                              HighlightedText(
+                                                                            searchQuery:
+                                                                                _tc.searchController.text,
+                                                                            text:
+                                                                                _tc.completedTicketList[index].city.toString(),
+                                                                            color:
+                                                                                Theme.of(context).indicatorColor,
                                                                             fontSize:
-                                                                                12,
+                                                                                13,
                                                                             fontWeight:
                                                                                 FontWeight.w400,
-                                                                          ),
-                                                                        ),
-                                                                      ),
+                                                                            maxlines:
+                                                                                1,
+                                                                          )),
                                                                       5.horizontalSpace,
                                                                       Container(
                                                                         padding: EdgeInsets.symmetric(
@@ -1122,51 +1108,46 @@ class _TicketScreenState extends State<TicketScreen>
                                                                     .start,
                                                             children: [
                                                               SizedBox(
-                                                                width: 0.5.sw,
-                                                                child: Text(
-                                                                  _tc
-                                                                      .cancelledTicketList[
-                                                                          index]
-                                                                      .eventName
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  maxLines: 1,
-                                                                  style:
-                                                                      TextStyle(
+                                                                  width: 0.5.sw,
+                                                                  child:
+                                                                      HighlightedText(
+                                                                    searchQuery: _tc
+                                                                        .searchController
+                                                                        .text,
+                                                                    text: _tc
+                                                                        .cancelledTicketList[
+                                                                            index]
+                                                                        .eventName
+                                                                        .toString(),
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .indicatorColor,
                                                                     fontSize:
                                                                         18,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                  ),
-                                                                ),
-                                                              ),
+                                                                    maxlines: 1,
+                                                                  )),
                                                               8.verticalSpace,
                                                               FittedBox(
-                                                                child: Text(
-                                                                  splitDateTimeWithoutYear(_tc
-                                                                      .cancelledTicketList[
-                                                                          index]
-                                                                      .eventDate
-                                                                      .toString()),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      color:
-                                                                          kPrimaryColor),
-                                                                ),
-                                                              ),
+                                                                  child:
+                                                                      HighlightedText(
+                                                                searchQuery: _tc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: splitDateTimeWithoutYear(_tc
+                                                                    .cancelledTicketList[
+                                                                        index]
+                                                                    .eventDate
+                                                                    .toString()),
+                                                                color:
+                                                                    kPrimaryColor,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              )),
                                                               8.verticalSpace,
                                                               FittedBox(
                                                                 child: Row(
@@ -1183,28 +1164,26 @@ class _TicketScreenState extends State<TicketScreen>
                                                                     ),
                                                                     5.horizontalSpace,
                                                                     SizedBox(
-                                                                      width: 0.25
-                                                                          .sw,
-                                                                      child:
-                                                                          Text(
-                                                                        _tc.cancelledTicketList[index]
-                                                                            .city
-                                                                            .toString(),
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        maxLines:
-                                                                            1,
-                                                                        style:
-                                                                            TextStyle(
+                                                                        width: 0.25
+                                                                            .sw,
+                                                                        child:
+                                                                            HighlightedText(
+                                                                          searchQuery: _tc
+                                                                              .searchController
+                                                                              .text,
+                                                                          text: _tc
+                                                                              .cancelledTicketList[index]
+                                                                              .city
+                                                                              .toString(),
+                                                                          color:
+                                                                              Theme.of(context).indicatorColor,
                                                                           fontSize:
-                                                                              12,
+                                                                              13,
                                                                           fontWeight:
                                                                               FontWeight.w400,
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                                          maxlines:
+                                                                              1,
+                                                                        )),
                                                                     5.horizontalSpace,
                                                                     Container(
                                                                       padding: EdgeInsets.symmetric(

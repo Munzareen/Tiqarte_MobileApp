@@ -26,24 +26,25 @@ class FavoriteModel {
   dynamic catagoryId;
   num? price;
   num? organizerId;
+  num? reviewRating;
 
-  FavoriteModel({
-    this.eventId,
-    this.name,
-    this.compnayName,
-    this.discription,
-    this.location,
-    this.city,
-    this.eventDate,
-    this.creationUserId,
-    this.eventStatusId,
-    this.eventTypeId,
-    this.postEventImages,
-    this.preEventImages,
-    this.catagoryId,
-    this.price,
-    this.organizerId,
-  });
+  FavoriteModel(
+      {this.eventId,
+      this.name,
+      this.compnayName,
+      this.discription,
+      this.location,
+      this.city,
+      this.eventDate,
+      this.creationUserId,
+      this.eventStatusId,
+      this.eventTypeId,
+      this.postEventImages,
+      this.preEventImages,
+      this.catagoryId,
+      this.price,
+      this.organizerId,
+      this.reviewRating});
 
   factory FavoriteModel.fromJson(Map<String, dynamic> json) => FavoriteModel(
         eventId: json["EventId"],
@@ -63,6 +64,10 @@ class FavoriteModel {
         catagoryId: json["CatagoryId"],
         price: json["Price"],
         organizerId: json["OrganizerID"],
+        reviewRating:
+            json['ReviewRating'] == null || (json['ReviewRating'] is String)
+                ? 0
+                : json['ReviewRating'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -81,5 +86,6 @@ class FavoriteModel {
         "CatagoryId": catagoryId,
         "Price": price,
         "OrganizerID": organizerId,
+        "ReviewRating": reviewRating,
       };
 }

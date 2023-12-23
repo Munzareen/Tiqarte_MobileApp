@@ -6,6 +6,7 @@ import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/seeAllProductController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/highlightedText.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/view/ViewProductScreen.dart';
 
@@ -92,14 +93,14 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                             size: 20,
                                             color: _spc.iconColorSearch,
                                           ),
-                                          suffixIcon: GestureDetector(
-                                              onTap: () => filterBottomSheet(
-                                                  context,
-                                                  eventsCatergoryList,
-                                                  locationList,
-                                                  selectedLocation,
-                                                  currentRangeValues),
-                                              child: Image.asset(filterIcon)),
+                                          // suffixIcon: GestureDetector(
+                                          //     onTap: () => filterBottomSheet(
+                                          //         context,
+                                          //         eventsCatergoryList,
+                                          //         locationList,
+                                          //         selectedLocation,
+                                          //         currentRangeValues),
+                                          //     child: Image.asset(filterIcon)),
                                           errorBorder: customOutlineBorder,
                                           enabledBorder: customOutlineBorder,
                                           focusedBorder: OutlineInputBorder(
@@ -117,7 +118,7 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                       onChanged: _spc.searchProduct,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(
-                                            textRegExp),
+                                            alphanumeric),
                                       ],
                                     ),
                                   ),
@@ -353,66 +354,61 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                               120.h),
                                                           8.verticalSpace,
                                                           SizedBox(
-                                                            width: 0.5.sw,
-                                                            child: Text(
-                                                              _spc
-                                                                  .seeAllProductModel![
-                                                                      index]
-                                                                  .productName
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
+                                                              width: 0.5.sw,
+                                                              child:
+                                                                  HighlightedText(
+                                                                searchQuery: _spc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: _spc
+                                                                    .seeAllProductModel![
+                                                                        index]
+                                                                    .productName
+                                                                    .toString(),
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .indicatorColor,
                                                                 fontSize: 18,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                                maxlines: 1,
+                                                              )),
                                                           5.verticalSpace,
-                                                          Text(
-                                                            'forMen'.tr,
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
+                                                          HighlightedText(
+                                                            searchQuery: _spc
+                                                                .searchController
+                                                                .text,
+                                                            text: _spc
+                                                                .seeAllProductModel![
+                                                                    index]
+                                                                .productFor
+                                                                .toString(),
+                                                            color: Colors.grey,
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            maxlines: 1,
                                                           ),
                                                           5.verticalSpace,
                                                           FittedBox(
-                                                            child: Text(
-                                                              _spc
-                                                                  .seeAllProductModel![
-                                                                      index]
-                                                                  .price
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kPrimaryColor),
-                                                            ),
-                                                          ),
+                                                              child:
+                                                                  HighlightedText(
+                                                            searchQuery: _spc
+                                                                .searchController
+                                                                .text,
+                                                            text: _spc
+                                                                .seeAllProductModel![
+                                                                    index]
+                                                                .price
+                                                                .toString(),
+                                                            color:
+                                                                kPrimaryColor,
+                                                            fontSize: 17,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            maxlines: 1,
+                                                          )),
                                                         ],
                                                       ),
                                                     ),
@@ -480,66 +476,63 @@ class _SeeAllProductsScreenState extends State<SeeAllProductsScreen> {
                                                                   .start,
                                                           children: [
                                                             SizedBox(
-                                                              width: 0.5.sw,
-                                                              child: Text(
-                                                                _spc
-                                                                    .seeAllProductModel![
-                                                                        index]
-                                                                    .productName
-                                                                    .toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style:
-                                                                    TextStyle(
+                                                                width: 0.5.sw,
+                                                                child:
+                                                                    HighlightedText(
+                                                                  searchQuery: _spc
+                                                                      .searchController
+                                                                      .text,
+                                                                  text: _spc
+                                                                      .seeAllProductModel![
+                                                                          index]
+                                                                      .productName
+                                                                      .toString(),
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .indicatorColor,
                                                                   fontSize: 18,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                ),
-                                                              ),
-                                                            ),
+                                                                  maxlines: 2,
+                                                                )),
                                                             8.verticalSpace,
-                                                            Text(
-                                                              'forMen'.tr,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                color:
-                                                                    Colors.grey,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
+                                                            HighlightedText(
+                                                              searchQuery: _spc
+                                                                  .searchController
+                                                                  .text,
+                                                              text: _spc
+                                                                  .seeAllProductModel![
+                                                                      index]
+                                                                  .productFor
+                                                                  .toString(),
+                                                              color:
+                                                                  Colors.grey,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              maxlines: 1,
                                                             ),
                                                             8.verticalSpace,
                                                             FittedBox(
-                                                              child: Text(
-                                                                "Starting from " +
-                                                                    _spc
-                                                                        .seeAllProductModel![
-                                                                            index]
-                                                                        .price
-                                                                        .toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color:
-                                                                        kPrimaryColor),
-                                                              ),
-                                                            ),
+                                                                child:
+                                                                    HighlightedText(
+                                                              searchQuery: _spc
+                                                                  .searchController
+                                                                  .text,
+                                                              text: _spc
+                                                                  .seeAllProductModel![
+                                                                      index]
+                                                                  .price
+                                                                  .toString(),
+                                                              color:
+                                                                  kPrimaryColor,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            )),
                                                           ],
                                                         )
                                                       ],

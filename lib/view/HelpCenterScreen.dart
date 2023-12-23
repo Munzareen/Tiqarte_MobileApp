@@ -8,6 +8,7 @@ import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/helpCenterController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/highlightedText.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -95,22 +96,22 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 1,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background),
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  child: Icon(
-                                    Icons.more_horiz_sharp,
-                                    size: 25,
-                                  ),
-                                )
+                                // Container(
+                                //   height: 30,
+                                //   width: 30,
+                                //   decoration: BoxDecoration(
+                                //     border: Border.all(
+                                //         width: 1,
+                                //         color: Theme.of(context)
+                                //             .colorScheme
+                                //             .background),
+                                //     borderRadius: BorderRadius.circular(50.0),
+                                //   ),
+                                //   child: Icon(
+                                //     Icons.more_horiz_sharp,
+                                //     size: 25,
+                                //   ),
+                                // )
                               ],
                             ),
                             20.verticalSpace,
@@ -296,7 +297,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                                   ),
 
                                   //Contact US
-                                  _hcc.contactUsModel != null
+                                  _hcc.contactUsModel == null
                                       ? Center(
                                           child: Text(
                                             'notFound'.tr,
@@ -419,9 +420,12 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
           collapsedShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20), side: BorderSide.none),
           tilePadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-          title: Text(
-            _hcc.faqModelList![index].fAQQuestion.toString(),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          title: HighlightedText(
+            searchQuery: _hcc.searchController.text,
+            text: _hcc.faqModelList![index].fAQQuestion.toString(),
+            color: Theme.of(context).indicatorColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
           trailing: Icon(
             Icons.arrow_drop_down,

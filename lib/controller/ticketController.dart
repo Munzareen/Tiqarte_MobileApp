@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/model/TicketModel.dart';
 
 class TicketController extends GetxController {
@@ -67,20 +68,38 @@ class TicketController extends GetxController {
 
     final upcomingSuggestion = upcomingTicketList?.where((element) {
       final eventName = element.eventName!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
+      final city = element.city!.toLowerCase();
+
+      final eventDate = splitDateTimeWithoutYear(element.eventDate.toString());
+      final input = query.toLowerCase().trim();
+      final lwrDate = convertMonthToLowerCase(eventDate);
+      final containsQuery = lwrDate.contains(input);
+
+      return eventName.contains(input) || city.contains(input) || containsQuery;
     }).toList();
 
     final completedSuggestion = completedTicketList.where((element) {
       final eventName = element.eventName!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
+      final city = element.city!.toLowerCase();
+
+      final eventDate = splitDateTimeWithoutYear(element.eventDate.toString());
+      final input = query.toLowerCase().trim();
+      final lwrDate = convertMonthToLowerCase(eventDate);
+      final containsQuery = lwrDate.contains(input);
+
+      return eventName.contains(input) || city.contains(input) || containsQuery;
     }).toList();
 
     final cancelledSuggestion = cancelledTicketList.where((element) {
       final eventName = element.eventName!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
+      final city = element.city!.toLowerCase();
+
+      final eventDate = splitDateTimeWithoutYear(element.eventDate.toString());
+      final input = query.toLowerCase().trim();
+      final lwrDate = convertMonthToLowerCase(eventDate);
+      final containsQuery = lwrDate.contains(input);
+
+      return eventName.contains(input) || city.contains(input) || containsQuery;
     }).toList();
     upcomingTicketList = upcomingSuggestion;
     completedTicketList = completedSuggestion;

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/favoriteController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/highlightedText.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
 
@@ -84,7 +86,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       cursorColor: kPrimaryColor,
                                       controller: _fc.searchController,
                                       //  style: const TextStyle(color: Colors.black),
-                                      keyboardType: TextInputType.text,
+                                      // keyboardType: TextInputType.text,
                                       // validator: (value) {
                                       //   if (value!.isEmpty) {
                                       //     return 'Please enter your username';
@@ -114,7 +116,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       onChanged: _fc.searchEvent,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(
-                                            textRegExp),
+                                            alphanumeric),
                                       ],
                                     ),
                                   ),
@@ -153,17 +155,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                             _fc.favoriteOnSearch();
                                           },
                                           icon: Icon(Icons.search)),
-                                      10.horizontalSpace,
-                                      GestureDetector(
-                                          onTap: () => filterBottomSheet(
-                                              context,
-                                              eventsCatergoryList,
-                                              locationList,
-                                              selectedLocation,
-                                              currentRangeValues),
-                                          child: Image.asset(
-                                            filterIcon,
-                                          )),
+                                      // 10.horizontalSpace,
+                                      // GestureDetector(
+                                      //     onTap: () => filterBottomSheet(
+                                      //         context,
+                                      //         eventsCatergoryList,
+                                      //         locationList,
+                                      //         selectedLocation,
+                                      //         currentRangeValues),
+                                      //     child: Image.asset(
+                                      //       filterIcon,
+                                      //     )),
                                     ],
                                   )
                                 ],
@@ -366,7 +368,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                 10,
                                                             mainAxisSpacing: 20,
                                                             mainAxisExtent:
-                                                                245),
+                                                                280),
                                                     itemCount: _fc
                                                         .favoriteList!.length,
                                                     shrinkWrap: true,
@@ -420,51 +422,101 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                   100.h),
                                                               8.verticalSpace,
                                                               SizedBox(
-                                                                width: 0.5.sw,
-                                                                child: Text(
-                                                                  _fc
-                                                                      .favoriteList![
-                                                                          index]
-                                                                      .name
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
+                                                                  width: 0.5.sw,
+                                                                  child:
+                                                                      HighlightedText(
+                                                                    searchQuery: _fc
+                                                                        .searchController
+                                                                        .text,
+                                                                    text: _fc
+                                                                        .favoriteList![
+                                                                            index]
+                                                                        .name
+                                                                        .toString(),
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .indicatorColor,
                                                                     fontSize:
                                                                         18,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                  ),
-                                                                ),
-                                                              ),
+                                                                    maxlines: 1,
+                                                                  )),
                                                               8.verticalSpace,
                                                               FittedBox(
-                                                                child: Text(
-                                                                  splitDateTimeWithoutYear(_fc
-                                                                      .favoriteList![
-                                                                          index]
-                                                                      .eventDate
-                                                                      .toString()),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      color:
-                                                                          kPrimaryColor),
-                                                                ),
-                                                              ),
+                                                                  child:
+                                                                      HighlightedText(
+                                                                searchQuery: _fc
+                                                                    .searchController
+                                                                    .text,
+                                                                text: splitDateTimeWithoutYear(_fc
+                                                                    .favoriteList![
+                                                                        index]
+                                                                    .eventDate
+                                                                    .toString()),
+                                                                color:
+                                                                    kPrimaryColor,
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              )),
+                                                              8.verticalSpace,
+                                                              _fc.favoriteList![index].reviewRating !=
+                                                                          null &&
+                                                                      (_fc
+                                                                          .favoriteList![
+                                                                              index]
+                                                                          .reviewRating is num)
+                                                                  ? SizedBox(
+                                                                      width: 0.4
+                                                                          .sw,
+                                                                      child:
+                                                                          RatingBar(
+                                                                        ignoreGestures:
+                                                                            true,
+                                                                        itemSize:
+                                                                            20,
+                                                                        initialRating: _fc
+                                                                            .favoriteList![index]
+                                                                            .reviewRating!
+                                                                            .toDouble(),
+                                                                        direction:
+                                                                            Axis.horizontal,
+                                                                        allowHalfRating:
+                                                                            true,
+                                                                        itemCount:
+                                                                            5,
+                                                                        ratingWidget:
+                                                                            RatingWidget(
+                                                                          full:
+                                                                              Icon(
+                                                                            Icons.star,
+                                                                            color:
+                                                                                kPrimaryColor,
+                                                                          ),
+                                                                          half:
+                                                                              Icon(
+                                                                            Icons.star_half,
+                                                                            color:
+                                                                                kPrimaryColor,
+                                                                          ),
+                                                                          empty:
+                                                                              Icon(
+                                                                            Icons.star_border,
+                                                                            color:
+                                                                                kPrimaryColor,
+                                                                          ),
+                                                                        ),
+                                                                        itemPadding:
+                                                                            EdgeInsets.zero,
+                                                                        onRatingUpdate:
+                                                                            (rating) =>
+                                                                                null,
+                                                                      ),
+                                                                    )
+                                                                  : SizedBox(),
                                                               8.verticalSpace,
                                                               FittedBox(
                                                                 child: Row(
@@ -481,28 +533,26 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                     ),
                                                                     5.horizontalSpace,
                                                                     SizedBox(
-                                                                      width: 0.3
-                                                                          .sw,
-                                                                      child:
-                                                                          Text(
-                                                                        _fc.favoriteList![index]
-                                                                            .city
-                                                                            .toString(),
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        maxLines:
-                                                                            1,
-                                                                        style:
-                                                                            TextStyle(
+                                                                        width: 0.3
+                                                                            .sw,
+                                                                        child:
+                                                                            HighlightedText(
+                                                                          searchQuery: _fc
+                                                                              .searchController
+                                                                              .text,
+                                                                          text: _fc
+                                                                              .favoriteList![index]
+                                                                              .city
+                                                                              .toString(),
+                                                                          color:
+                                                                              Theme.of(context).indicatorColor,
                                                                           fontSize:
-                                                                              12,
+                                                                              13,
                                                                           fontWeight:
                                                                               FontWeight.w400,
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                                          maxlines:
+                                                                              1,
+                                                                        )),
                                                                     5.horizontalSpace,
                                                                     GestureDetector(
                                                                       onTap:
@@ -594,46 +644,81 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                           .start,
                                                                   children: [
                                                                     SizedBox(
-                                                                      width: 0.5
-                                                                          .sw,
-                                                                      child:
-                                                                          Text(
-                                                                        _fc.favoriteList![index]
-                                                                            .name
-                                                                            .toString(),
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        maxLines:
-                                                                            1,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        style:
-                                                                            TextStyle(
+                                                                        width: 0.5
+                                                                            .sw,
+                                                                        child:
+                                                                            HighlightedText(
+                                                                          searchQuery: _fc
+                                                                              .searchController
+                                                                              .text,
+                                                                          text: _fc
+                                                                              .favoriteList![index]
+                                                                              .name
+                                                                              .toString(),
+                                                                          color:
+                                                                              Theme.of(context).indicatorColor,
                                                                           fontSize:
                                                                               18,
                                                                           fontWeight:
                                                                               FontWeight.bold,
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                                          maxlines:
+                                                                              1,
+                                                                        )),
                                                                     8.verticalSpace,
                                                                     FittedBox(
-                                                                      child:
-                                                                          Text(
-                                                                        splitDateTimeWithoutYear(_fc
-                                                                            .favoriteList![index]
-                                                                            .eventDate
-                                                                            .toString()),
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                12,
-                                                                            fontWeight:
-                                                                                FontWeight.w400,
-                                                                            color: kPrimaryColor),
-                                                                      ),
-                                                                    ),
+                                                                        child:
+                                                                            HighlightedText(
+                                                                      searchQuery: _fc
+                                                                          .searchController
+                                                                          .text,
+                                                                      text: splitDateTimeWithoutYear(_fc
+                                                                          .favoriteList![
+                                                                              index]
+                                                                          .eventDate
+                                                                          .toString()),
+                                                                      color:
+                                                                          kPrimaryColor,
+                                                                      fontSize:
+                                                                          13,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                    )),
+                                                                    8.verticalSpace,
+                                                                    _fc.favoriteList![index].reviewRating !=
+                                                                                null &&
+                                                                            (_fc.favoriteList![index].reviewRating
+                                                                                is num)
+                                                                        ? SizedBox(
+                                                                            width:
+                                                                                0.4.sw,
+                                                                            child:
+                                                                                RatingBar(
+                                                                              ignoreGestures: true,
+                                                                              itemSize: 20,
+                                                                              initialRating: _fc.favoriteList![index].reviewRating!.toDouble(),
+                                                                              direction: Axis.horizontal,
+                                                                              allowHalfRating: true,
+                                                                              itemCount: 5,
+                                                                              ratingWidget: RatingWidget(
+                                                                                full: Icon(
+                                                                                  Icons.star,
+                                                                                  color: kPrimaryColor,
+                                                                                ),
+                                                                                half: Icon(
+                                                                                  Icons.star_half,
+                                                                                  color: kPrimaryColor,
+                                                                                ),
+                                                                                empty: Icon(
+                                                                                  Icons.star_border,
+                                                                                  color: kPrimaryColor,
+                                                                                ),
+                                                                              ),
+                                                                              itemPadding: EdgeInsets.zero,
+                                                                              onRatingUpdate: (rating) => null,
+                                                                            ),
+                                                                          )
+                                                                        : SizedBox(),
                                                                     8.verticalSpace,
                                                                     FittedBox(
                                                                       child:
@@ -650,20 +735,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                                           ),
                                                                           5.horizontalSpace,
                                                                           SizedBox(
-                                                                            width:
-                                                                                0.3.sw,
-                                                                            child:
-                                                                                Text(
-                                                                              _fc.favoriteList![index].city.toString(),
-                                                                              textAlign: TextAlign.start,
-                                                                              maxLines: 1,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              style: TextStyle(
-                                                                                fontSize: 12,
+                                                                              width: 0.3.sw,
+                                                                              child: HighlightedText(
+                                                                                searchQuery: _fc.searchController.text,
+                                                                                text: _fc.favoriteList![index].city.toString(),
+                                                                                color: Theme.of(context).indicatorColor,
+                                                                                fontSize: 13,
                                                                                 fontWeight: FontWeight.w400,
-                                                                              ),
-                                                                            ),
-                                                                          ),
+                                                                                maxlines: 1,
+                                                                              )),
                                                                           5.horizontalSpace,
                                                                           GestureDetector(
                                                                             onTap:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/model/FavoriteModel.dart';
 
@@ -115,8 +116,14 @@ class FavoriteController extends GetxController {
     }
     final suggestion = favoriteList!.where((element) {
       final eventName = element.name!.toLowerCase();
-      final input = query.toLowerCase();
-      return eventName.contains(input);
+      final city = element.city!.toLowerCase();
+
+      final eventDate = splitDateTimeWithoutYear(element.eventDate.toString());
+      final input = query.toLowerCase().trim();
+      final lwrDate = convertMonthToLowerCase(eventDate);
+      final containsQuery = lwrDate.contains(input);
+
+      return eventName.contains(input) || city.contains(input) || containsQuery;
     }).toList();
     favoriteList = suggestion;
 

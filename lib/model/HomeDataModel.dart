@@ -24,7 +24,8 @@ class HomeDataModel {
       this.userId});
 
   HomeDataModel.fromJson(Map<String, dynamic> json) {
-    welcomeMessage = json['WelcomeMessage'];
+    welcomeMessage =
+        json['WelcomeMessage'] != null ? json['WelcomeMessage'] : '';
     //  profilePictureUrl = json['ProfilePictureUrl'];
     // userName = json['UserName'];
     if (json['FeaturedEvents'] != null) {

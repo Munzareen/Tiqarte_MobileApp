@@ -138,6 +138,13 @@ customAlertDialogWithSpinkit(
       });
 }
 
+String convertMonthToLowerCase(String inputDate) {
+  return inputDate.replaceAllMapped(
+    RegExp(r'\b(\w{3})\b'),
+    (match) => match.group(0)!.toLowerCase(),
+  );
+}
+
 customAlertDialogWithOneButton(BuildContext context, String logo, IconData icon,
     String title, String contentMsg, String butonText, Function() onPressed) {
   return showDialog(

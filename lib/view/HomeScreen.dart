@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiqarte/api/ApiService.dart';
 import 'package:tiqarte/controller/navigationBarController.dart';
@@ -14,6 +13,7 @@ import 'package:tiqarte/controller/homeController.dart';
 import 'package:tiqarte/controller/myBasketController.dart';
 import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
+import 'package:tiqarte/helper/highlightedText.dart';
 import 'package:tiqarte/helper/images.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
 import 'package:tiqarte/view/EventDetailScreen.dart';
@@ -46,9 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    getData();
+    _homeController.homeDataModel.welcomeMessage == null ? getData() : null;
     getCartProducts();
-    getNewsList();
+    _homeController.newsList.isEmpty ? getNewsList() : null;
+    _homeController.locationsList.isEmpty ? getLocationsList() : null;
     checkLocationPermission();
 
     // ApiService().getProfile();
@@ -67,6 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (res != null && res is List) {
       _homeController.addNews(res);
+    }
+  }
+
+  getLocationsList() async {
+    var res = await ApiService().getAllLocations();
+
+    if (res != null && res is List) {
+      _homeController.addLocations(res);
     }
   }
 
@@ -216,8 +225,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 10.verticalSpace,
-                _hc.homeDataModel.featuredEvents == null &&
-                        _hc.upcomingCategoryList == null
+                _hc.homeDataModel.welcomeMessage == null
+                    //&& _hc.upcomingCategoryList == null
                     ? Expanded(
                         child: Center(
                           child: spinkit,
@@ -646,81 +655,94 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                           20.verticalSpace,
-                                          Container(
-                                            height: 45,
-                                            width: 1.sw,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: _hc
-                                                  .upcomingCategoryList?.length,
-                                              itemBuilder: (context, index) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    _hc.selectUpcomingEventCategory(
-                                                        index);
-                                                  },
-                                                  child: Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 5.0),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 15.0),
-                                                    decoration: BoxDecoration(
-                                                      color: _hc
-                                                                  .upcomingCategoryList![
-                                                                      index]
-                                                                  .isSelected ==
-                                                              true
-                                                          ? kPrimaryColor
-                                                          : Colors.transparent,
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              4.0),
-                                                      child: Row(
-                                                        children: [
-                                                          customCategoryImage(_hc
-                                                              .upcomingCategoryList![
-                                                                  index]
-                                                              .imageURL
-                                                              .toString()),
-                                                          5.horizontalSpace,
-                                                          Text(
-                                                            _hc
-                                                                .upcomingCategoryList![
-                                                                    index]
-                                                                .catagoryName
-                                                                .toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: _hc.upcomingCategoryList![index]
-                                                                            .isSelected ==
-                                                                        true
-                                                                    ? Colors.white
-                                                                    : kPrimaryColor),
+                                          _hc.upcomingCategoryList == null
+                                              ? SizedBox()
+                                              : Container(
+                                                  height: 45,
+                                                  width: 1.sw,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: _hc
+                                                        .upcomingCategoryList
+                                                        ?.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          _hc.selectUpcomingEventCategory(
+                                                              index);
+                                                        },
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.0),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      15.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: _hc
+                                                                        .upcomingCategoryList![
+                                                                            index]
+                                                                        .isSelected ==
+                                                                    true
+                                                                ? kPrimaryColor
+                                                                : Colors
+                                                                    .transparent,
+                                                            border: Border.all(
+                                                                width: 2,
+                                                                color:
+                                                                    kPrimaryColor),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(4.0),
+                                                            child: Row(
+                                                              children: [
+                                                                customCategoryImage(_hc
+                                                                    .upcomingCategoryList![
+                                                                        index]
+                                                                    .imageURL
+                                                                    .toString()),
+                                                                5.horizontalSpace,
+                                                                Text(
+                                                                  _hc
+                                                                      .upcomingCategoryList![
+                                                                          index]
+                                                                      .catagoryName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: _hc.upcomingCategoryList![index].isSelected ==
+                                                                              true
+                                                                          ? Colors
+                                                                              .white
+                                                                          : kPrimaryColor),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          ),
+                                                ),
                                           20.verticalSpace,
                                           Column(
                                             children: [
@@ -793,81 +815,94 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                           20.verticalSpace,
-                                          Container(
-                                            height: 45,
-                                            width: 1.sw,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: _hc
-                                                  .upcomingCategoryList?.length,
-                                              itemBuilder: (context, index) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    _hc.selectUpcomingEventCategory(
-                                                        index);
-                                                  },
-                                                  child: Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 5.0),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 15.0),
-                                                    decoration: BoxDecoration(
-                                                      color: _hc
-                                                                  .upcomingCategoryList![
-                                                                      index]
-                                                                  .isSelected ==
-                                                              true
-                                                          ? kPrimaryColor
-                                                          : Colors.transparent,
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              4.0),
-                                                      child: Row(
-                                                        children: [
-                                                          customCategoryImage(_hc
-                                                              .upcomingCategoryList![
-                                                                  index]
-                                                              .imageURL
-                                                              .toString()),
-                                                          5.horizontalSpace,
-                                                          Text(
-                                                            _hc
-                                                                .upcomingCategoryList![
-                                                                    index]
-                                                                .catagoryName
-                                                                .toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: _hc.upcomingCategoryList![index]
-                                                                            .isSelected ==
-                                                                        true
-                                                                    ? Colors.white
-                                                                    : kPrimaryColor),
+                                          _hc.upcomingCategoryList == null
+                                              ? SizedBox()
+                                              : Container(
+                                                  height: 45,
+                                                  width: 1.sw,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: _hc
+                                                        .upcomingCategoryList
+                                                        ?.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          _hc.selectUpcomingEventCategory(
+                                                              index);
+                                                        },
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.0),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      15.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: _hc
+                                                                        .upcomingCategoryList![
+                                                                            index]
+                                                                        .isSelected ==
+                                                                    true
+                                                                ? kPrimaryColor
+                                                                : Colors
+                                                                    .transparent,
+                                                            border: Border.all(
+                                                                width: 2,
+                                                                color:
+                                                                    kPrimaryColor),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(4.0),
+                                                            child: Row(
+                                                              children: [
+                                                                customCategoryImage(_hc
+                                                                    .upcomingCategoryList![
+                                                                        index]
+                                                                    .imageURL
+                                                                    .toString()),
+                                                                5.horizontalSpace,
+                                                                Text(
+                                                                  _hc
+                                                                      .upcomingCategoryList![
+                                                                          index]
+                                                                      .catagoryName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: _hc.upcomingCategoryList![index].isSelected ==
+                                                                              true
+                                                                          ? Colors
+                                                                              .white
+                                                                          : kPrimaryColor),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          ),
+                                                ),
                                           20.verticalSpace,
                                           Container(
                                             child: GridView.builder(
@@ -1242,81 +1277,94 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                           20.verticalSpace,
-                                          Container(
-                                            height: 45,
-                                            width: 1.sw,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  _hc.shopCategoryList?.length,
-                                              itemBuilder: (context, index) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    _hc.selectShopCategory(
-                                                        index);
-                                                  },
-                                                  child: Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 5.0),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 15.0),
-                                                    decoration: BoxDecoration(
-                                                      color: _hc
-                                                                  .shopCategoryList![
-                                                                      index]
-                                                                  .isSelected ==
-                                                              true
-                                                          ? kPrimaryColor
-                                                          : Colors.transparent,
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              4.0),
-                                                      child: Row(
-                                                        children: [
-                                                          customCategoryImage(_hc
-                                                              .upcomingCategoryList![
-                                                                  index]
-                                                              .imageURL
-                                                              .toString()),
-                                                          5.horizontalSpace,
-                                                          Text(
-                                                            _hc
-                                                                .shopCategoryList![
-                                                                    index]
-                                                                .catagoryName
-                                                                .toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: _hc.shopCategoryList![index]
-                                                                            .isSelected ==
-                                                                        true
-                                                                    ? Colors.white
-                                                                    : kPrimaryColor),
+                                          _hc.shopCategoryList == null
+                                              ? SizedBox()
+                                              : Container(
+                                                  height: 45,
+                                                  width: 1.sw,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: _hc
+                                                        .shopCategoryList
+                                                        ?.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          _hc.selectShopCategory(
+                                                              index);
+                                                        },
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.0),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      15.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: _hc
+                                                                        .shopCategoryList![
+                                                                            index]
+                                                                        .isSelected ==
+                                                                    true
+                                                                ? kPrimaryColor
+                                                                : Colors
+                                                                    .transparent,
+                                                            border: Border.all(
+                                                                width: 2,
+                                                                color:
+                                                                    kPrimaryColor),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(4.0),
+                                                            child: Row(
+                                                              children: [
+                                                                customCategoryImage(_hc
+                                                                    .upcomingCategoryList![
+                                                                        index]
+                                                                    .imageURL
+                                                                    .toString()),
+                                                                5.horizontalSpace,
+                                                                Text(
+                                                                  _hc
+                                                                      .shopCategoryList![
+                                                                          index]
+                                                                      .catagoryName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: _hc.shopCategoryList![index].isSelected ==
+                                                                              true
+                                                                          ? Colors
+                                                                              .white
+                                                                          : kPrimaryColor),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          ),
+                                                ),
                                           20.verticalSpace,
                                           Column(
                                             children: [
@@ -1441,81 +1489,94 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                           20.verticalSpace,
-                                          Container(
-                                            height: 45,
-                                            width: 1.sw,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  _hc.shopCategoryList?.length,
-                                              itemBuilder: (context, index) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    _hc.selectShopCategory(
-                                                        index);
-                                                  },
-                                                  child: Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 5.0),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 15.0),
-                                                    decoration: BoxDecoration(
-                                                      color: _hc
-                                                                  .shopCategoryList![
-                                                                      index]
-                                                                  .isSelected ==
-                                                              true
-                                                          ? kPrimaryColor
-                                                          : Colors.transparent,
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              4.0),
-                                                      child: Row(
-                                                        children: [
-                                                          customCategoryImage(_hc
-                                                              .upcomingCategoryList![
-                                                                  index]
-                                                              .imageURL
-                                                              .toString()),
-                                                          5.horizontalSpace,
-                                                          Text(
-                                                            _hc
-                                                                .shopCategoryList![
-                                                                    index]
-                                                                .catagoryName
-                                                                .toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: _hc.shopCategoryList![index]
-                                                                            .isSelected ==
-                                                                        true
-                                                                    ? Colors.white
-                                                                    : kPrimaryColor),
+                                          _hc.shopCategoryList == null
+                                              ? SizedBox()
+                                              : Container(
+                                                  height: 45,
+                                                  width: 1.sw,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: _hc
+                                                        .shopCategoryList
+                                                        ?.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          _hc.selectShopCategory(
+                                                              index);
+                                                        },
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.0),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      15.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: _hc
+                                                                        .shopCategoryList![
+                                                                            index]
+                                                                        .isSelected ==
+                                                                    true
+                                                                ? kPrimaryColor
+                                                                : Colors
+                                                                    .transparent,
+                                                            border: Border.all(
+                                                                width: 2,
+                                                                color:
+                                                                    kPrimaryColor),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(4.0),
+                                                            child: Row(
+                                                              children: [
+                                                                customCategoryImage(_hc
+                                                                    .upcomingCategoryList![
+                                                                        index]
+                                                                    .imageURL
+                                                                    .toString()),
+                                                                5.horizontalSpace,
+                                                                Text(
+                                                                  _hc
+                                                                      .shopCategoryList![
+                                                                          index]
+                                                                      .catagoryName
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: _hc.shopCategoryList![index].isSelected ==
+                                                                              true
+                                                                          ? Colors
+                                                                              .white
+                                                                          : kPrimaryColor),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          ),
+                                                ),
                                           20.verticalSpace,
                                           Container(
                                             child: GridView.builder(
@@ -1949,71 +2010,79 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         20.verticalSpace,
-                        Container(
-                          height: 45,
-                          width: 1.sw,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _hc.homeFilterCategoryList?.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  _hc.homeFilterCategoryList
-                                      ?.forEach((element) {
-                                    element.isSelected = false;
-                                  });
-                                  _hc.homeFilterCategoryList?[index]
-                                      .isSelected = true;
-                                  _hc.update();
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 15.0),
-                                  decoration: BoxDecoration(
-                                    color: _hc.homeFilterCategoryList![index]
-                                                .isSelected ==
-                                            true
-                                        ? kPrimaryColor
-                                        : Colors.transparent,
-                                    border: Border.all(
-                                        width: 2, color: kPrimaryColor),
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Row(
-                                      children: [
-                                        customCategoryImage(_hc
-                                            .homeFilterCategoryList![index]
-                                            .imageURL
-                                            .toString()),
-                                        5.horizontalSpace,
-                                        Text(
-                                          _hc.homeFilterCategoryList![index]
-                                              .catagoryName
-                                              .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                              color: _hc
-                                                          .homeFilterCategoryList![
-                                                              index]
+                        _hc.homeFilterCategoryList == null
+                            ? SizedBox()
+                            : Container(
+                                height: 45,
+                                width: 1.sw,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: _hc.homeFilterCategoryList?.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        _hc.homeFilterCategoryList
+                                            ?.forEach((element) {
+                                          element.isSelected = false;
+                                        });
+                                        _hc.homeFilterCategoryList?[index]
+                                            .isSelected = true;
+                                        _hc.update();
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 5.0),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15.0),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              _hc.homeFilterCategoryList![index]
                                                           .isSelected ==
                                                       true
-                                                  ? Colors.white
-                                                  : kPrimaryColor),
+                                                  ? kPrimaryColor
+                                                  : Colors.transparent,
+                                          border: Border.all(
+                                              width: 2, color: kPrimaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
                                         ),
-                                      ],
-                                    ),
-                                  ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              customCategoryImage(_hc
+                                                  .homeFilterCategoryList![
+                                                      index]
+                                                  .imageURL
+                                                  .toString()),
+                                              5.horizontalSpace,
+                                              Text(
+                                                _hc
+                                                    .homeFilterCategoryList![
+                                                        index]
+                                                    .catagoryName
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: _hc
+                                                                .homeFilterCategoryList![
+                                                                    index]
+                                                                .isSelected ==
+                                                            true
+                                                        ? Colors.white
+                                                        : kPrimaryColor),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
                         10.verticalSpace,
                         Align(
                           alignment: Alignment.centerLeft,
@@ -2049,21 +2118,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               // color: Colors.black,
                             ),
                             iconEnabledColor: kDisabledColor,
-                            // hint: Text(
-                            //   "New York, United States",
-                            //   style: TextStyle(fontSize: 15.sp),
-                            // ),
-                            value: _hc.selectedCity,
+                            hint: Text(
+                              "Please select",
+                              style: TextStyle(fontSize: 15.sp),
+                            ),
+                            value: _hc.selectedLocation,
                             onChanged: (value) {
-                              _hc.selectedCity = value;
+                              _hc.selectedLocation = value;
                               _hc.update();
                             },
-                            items: _hc.cityListForFilter //items
+                            items: _hc.locationsList //items
                                 .map(
                                   (item) => DropdownMenuItem<String>(
-                                    value: item,
+                                    value: item.locationName,
                                     child: Text(
-                                      item.toString(),
+                                      item.locationName.toString(),
                                       style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400,
@@ -2137,8 +2206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .firstWhere((element) =>
                                           element.isSelected == true);
                                   String selectedLocation =
-                                      _hc.selectedCity != null
-                                          ? _hc.selectedCity!
+                                      _hc.selectedLocation != null
+                                          ? _hc.selectedLocation!
                                           : '';
 
                                   String filterData;
@@ -2256,129 +2325,24 @@ class _HomeScreenState extends State<HomeScreen> {
       latitude = position?.latitude.toString();
       longitude = position?.longitude.toString();
     }
-    _homeController.cityListForFilter = await getCitiesByCountry(
-        double.parse(latitude!), double.parse(longitude!));
+    // _homeController.cityListForFilter = await getCitiesByCountry(
+    //     double.parse(latitude!), double.parse(longitude!));
   }
 
-  Future<List<String>> getCitiesByCountry(
-      double latitude, double longitude) async {
-    try {
-      final placemarks = await placemarkFromCoordinates(latitude, longitude,
-          localeIdentifier: 'en_US');
-      final cityNames = placemarks
-          .where((placemark) => placemark.name != null)
-          .map((placemark) => placemark.name!)
-          .toList();
+  // Future<List<String>> getCitiesByCountry(
+  //     double latitude, double longitude) async {
+  //   try {
+  //     final placemarks = await placemarkFromCoordinates(latitude, longitude,
+  //         localeIdentifier: 'en_US');
+  //     final cityNames = placemarks
+  //         .where((placemark) => placemark.name != null)
+  //         .map((placemark) => placemark.name!)
+  //         .toList();
 
-      return cityNames.toSet().toList();
-    } catch (e) {
-      print("Error: $e");
-      return [];
-    }
-  }
-}
-
-class HighlightedText extends StatelessWidget {
-  final String text;
-  final String searchQuery;
-  final double fontSize;
-  final FontWeight fontWeight;
-  final Color color;
-  final int? maxlines;
-  HighlightedText(
-      {required this.text,
-      required this.searchQuery,
-      required this.fontSize,
-      required this.fontWeight,
-      required this.color,
-      this.maxlines = null});
-
-  @override
-  Widget build(BuildContext context) {
-    // Case-insensitive search
-    final RegExp regex = RegExp('($searchQuery)', caseSensitive: false);
-    final Iterable<Match> matches = regex.allMatches(text);
-
-    // If there are no matches, return the original text
-    if (matches.isEmpty) {
-      return Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          color: color,
-          fontFamily: GoogleFonts.urbanist().fontFamily,
-        ),
-        maxLines: maxlines,
-      );
-    }
-
-    // Create a list of TextSpan widgets with highlighted matches
-    List<Widget> children = [];
-    int lastMatchEnd = 0;
-
-    for (Match match in matches) {
-      // Add the text before the match
-      if (match.start > lastMatchEnd) {
-        children.add(
-          Text(
-            text.substring(lastMatchEnd, match.start),
-            style: TextStyle(
-              fontSize: fontSize,
-              fontWeight: fontWeight,
-              color: color,
-              fontFamily: GoogleFonts.urbanist().fontFamily,
-            ),
-          ),
-        );
-      }
-
-      // Add the highlighted match
-      children.add(
-        Container(
-          color: Colors.yellow, // Highlight color
-          child: Text(
-            match.group(0)!,
-            style: TextStyle(
-              fontWeight: fontWeight,
-              fontSize: fontSize,
-              color: Colors.black, // Text color on highlight
-              fontFamily: GoogleFonts.urbanist().fontFamily,
-            ),
-          ),
-        ),
-      );
-
-      lastMatchEnd = match.end;
-    }
-
-    // Add the remaining text after the last match
-    if (lastMatchEnd < text.length) {
-      children.add(
-        Text(
-          text.substring(lastMatchEnd),
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            color: color,
-            fontFamily: GoogleFonts.urbanist().fontFamily,
-          ),
-        ),
-      );
-    }
-
-    return RichText(
-      overflow: TextOverflow.ellipsis,
-      text: TextSpan(
-          children: children.map((widget) {
-            return WidgetSpan(child: widget);
-          }).toList(),
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            color: color,
-            fontFamily: GoogleFonts.urbanist().fontFamily,
-          )),
-    );
-  }
+  //     return cityNames.toSet().toList();
+  //   } catch (e) {
+  //     print("Error: $e");
+  //     return [];
+  //   }
+  // }
 }

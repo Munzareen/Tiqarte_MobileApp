@@ -43,6 +43,8 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
     super.initState();
     _seeAllEventController.eventTypeId = widget.eventTypeId;
     getData();
+    _seeAllEventController.locationsList.isEmpty ? getLocationsList() : null;
+
     checkLocationPermission();
   }
 
@@ -55,14 +57,22 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
     }
   }
 
+  getLocationsList() async {
+    var res = await ApiService().getAllLocations();
+
+    if (res != null && res is List) {
+      _seeAllEventController.addLocations(res);
+    }
+  }
+
   @override
   void dispose() {
     _seeAllEventController.searchController.clear();
     _seeAllEventController.isSearch = false;
     _seeAllEventController.distanceValue = 100.0;
 
-    _seeAllEventController.cityListForFilter = [];
-    _seeAllEventController.selectedCity = null;
+    // _seeAllEventController.cityListForFilter = [];
+    _seeAllEventController.selectedLocation = null;
 
     _seeAllEventController.filterCategoryList?.forEach((element) {
       element.isSelected = false;
@@ -1043,21 +1053,21 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                               // color: Colors.black,
                             ),
                             iconEnabledColor: kDisabledColor,
-                            // hint: Text(
-                            //   "New York, United States",
-                            //   style: TextStyle(fontSize: 15.sp),
-                            // ),
-                            value: _sae.selectedCity,
+                            hint: Text(
+                              "Please select",
+                              style: TextStyle(fontSize: 15.sp),
+                            ),
+                            value: _sae.selectedLocation,
                             onChanged: (value) {
-                              _sae.selectedCity = value;
+                              _sae.selectedLocation = value;
                               _sae.update();
                             },
-                            items: _sae.cityListForFilter //items
+                            items: _sae.locationsList //items
                                 .map(
                                   (item) => DropdownMenuItem<String>(
-                                    value: item,
+                                    value: item.locationName,
                                     child: Text(
-                                      item.toString(),
+                                      item.locationName.toString(),
                                       style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400,
@@ -1130,8 +1140,8 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
                                     .firstWhere((element) =>
                                         element.isSelected == true);
                                 String selectedLocation =
-                                    _sae.selectedCity != null
-                                        ? _sae.selectedCity!
+                                    _sae.selectedLocation != null
+                                        ? _sae.selectedLocation!
                                         : '';
                                 String filterData;
 
@@ -1243,24 +1253,24 @@ class _SeeAllEventsScreenState extends State<SeeAllEventsScreen> {
       latitude = position?.latitude.toString();
       longitude = position?.longitude.toString();
     }
-    _seeAllEventController.cityListForFilter = await getCitiesByCountry(
-        double.parse(latitude!), double.parse(longitude!));
+    // _seeAllEventController.cityListForFilter = await getCitiesByCountry(
+    //     double.parse(latitude!), double.parse(longitude!));
   }
 
-  Future<List<String>> getCitiesByCountry(
-      double latitude, double longitude) async {
-    try {
-      final placemarks = await placemarkFromCoordinates(latitude, longitude,
-          localeIdentifier: 'en_US');
-      final cityNames = placemarks
-          .where((placemark) => placemark.name != null)
-          .map((placemark) => placemark.name!)
-          .toList();
+  // Future<List<String>> getCitiesByCountry(
+  //     double latitude, double longitude) async {
+  //   try {
+  //     final placemarks = await placemarkFromCoordinates(latitude, longitude,
+  //         localeIdentifier: 'en_US');
+  //     final cityNames = placemarks
+  //         .where((placemark) => placemark.name != null)
+  //         .map((placemark) => placemark.name!)
+  //         .toList();
 
-      return cityNames.toSet().toList();
-    } catch (e) {
-      print("Error: $e");
-      return [];
-    }
-  }
+  //     return cityNames.toSet().toList();
+  //   } catch (e) {
+  //     print("Error: $e");
+  //     return [];
+  //   }
+  // }
 }

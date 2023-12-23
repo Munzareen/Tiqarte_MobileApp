@@ -7,6 +7,7 @@ import 'package:tiqarte/helper/colors.dart';
 import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/strings.dart';
 import 'package:tiqarte/model/CategoryModel.dart';
+import 'package:tiqarte/model/LocationsModel.dart';
 import 'package:tiqarte/model/SeeAllEventModel.dart';
 
 class SeeAllEventController extends GetxController {
@@ -27,8 +28,11 @@ class SeeAllEventController extends GetxController {
 
   double distanceValue = 100.0;
 
-  List<String> cityListForFilter = [];
-  String? selectedCity;
+  // List<String> cityListForFilter = [];
+  // String? selectedCity;
+
+  List<LocationsModel> locationsList = [];
+  String? selectedLocation;
   List<CategoryModel>? filterCategoryList;
 
   String eventTypeId = '';
@@ -50,6 +54,11 @@ class SeeAllEventController extends GetxController {
       }
     }
 
+    update();
+  }
+
+  addLocations(List data) {
+    locationsList = locationsModelFromJson(data);
     update();
   }
 
@@ -92,10 +101,10 @@ class SeeAllEventController extends GetxController {
       if (searchController.text.trim() != '') {
         CategoryModel catId = filterCategoryList!
             .firstWhere((element) => element.isSelected == true);
-        String selectedLocation = selectedCity != null ? selectedCity! : '';
+        String location = selectedLocation != null ? selectedLocation! : '';
         String filterData;
 
-        if (selectedLocation == '') {
+        if (location == '') {
           if (catId.id?.toInt() == 1) {
             filterData =
                 "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=$eventTypeId&cityName=";
@@ -106,10 +115,10 @@ class SeeAllEventController extends GetxController {
         } else {
           if (catId.id?.toInt() == 1) {
             filterData =
-                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=$eventTypeId&cityName=$selectedLocation";
+                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=&eventTypeId=$eventTypeId&cityName=$location";
           } else {
             filterData =
-                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=${catId.id!.toInt().toString()}&eventTypeId=$eventTypeId&cityName=$selectedLocation";
+                "?searchText=${searchController.text.trim()}&eventDate&eventCategoryId=${catId.id!.toInt().toString()}&eventTypeId=$eventTypeId&cityName=$location";
           }
         }
 
@@ -139,7 +148,7 @@ class SeeAllEventController extends GetxController {
     seeAllCategoryList?[0].isSelected = true;
 
     distanceValue = 100.0;
-    selectedCity = null;
+    selectedLocation = null;
     update();
   }
 
