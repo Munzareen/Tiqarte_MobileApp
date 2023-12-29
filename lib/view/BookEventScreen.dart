@@ -27,6 +27,13 @@ class _BookEventScreenState extends State<BookEventScreen>
   }
 
   @override
+  void dispose() {
+    _bookEventController.economySeatCount = 0;
+    _bookEventController.vipSeatCount = 0;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: kSecondBackgroundColor,

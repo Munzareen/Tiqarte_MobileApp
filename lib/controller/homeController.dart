@@ -29,6 +29,10 @@ class HomeController extends GetxController {
 
   double distanceValue = 100.0;
 
+  RangeValues priceValues = const RangeValues(0.0, 100.0);
+
+  bool filterSet = false;
+
   List<String> cityListForFilter = [];
   String? selectedCity;
 
@@ -293,6 +297,11 @@ class HomeController extends GetxController {
     update();
   }
 
+  updatePriceValues(values) {
+    priceValues = values;
+    update();
+  }
+
   resetHomeFilter() {
     homeFilterCategoryList?.forEach((element) {
       element.isSelected = false;
@@ -300,8 +309,16 @@ class HomeController extends GetxController {
     homeFilterCategoryList?[0].isSelected = true;
 
     distanceValue = 100.0;
+    priceValues = RangeValues(0.0, 100.0);
     // selectedCity = null;
     selectedLocation = null;
+    filterSet = false;
     update();
+  }
+
+  closeModal(void value) {
+    if (!filterSet) {
+      resetHomeFilter();
+    }
   }
 }

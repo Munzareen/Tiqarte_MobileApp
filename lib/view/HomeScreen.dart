@@ -1957,7 +1957,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   filterBottomSheetHome(BuildContext context) {
-    showModalBottomSheet(
+    Future<void> future = showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -2176,6 +2176,39 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         20.verticalSpace,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'priceRange',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: RangeSlider(
+                                inactiveColor: kDisabledColor,
+                                activeColor: kPrimaryColor,
+                                values: _hc.priceValues,
+                                min: 0,
+                                max: 100,
+                                divisions: 100,
+                                labels: RangeLabels(
+                                    "${_hc.priceValues.start.toInt().toString()}",
+                                    "${_hc.priceValues.end.toInt().toString()}"),
+                                onChanged: (RangeValues values) {
+                                  _hc.updatePriceValues(values);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        20.verticalSpace,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -2215,25 +2248,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                   if (selectedLocation == '') {
                                     if (catId.id?.toInt() == 1) {
                                       filterData =
-                                          "CategoryId=&City=&LocationSearch.lat=&LocationSearch.long=&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                          "SearchText&CategoryId=&City&LocationSearch.lat&LocationSearch.long&LocationSearch.distance=${_hc.distanceValue.toInt().toString()}&sPrice=${_hc.priceValues.start.toInt().toString()}&ePrice=${_hc.priceValues.end.toInt().toString()}";
+                                      // "CategoryId=&City=&LocationSearch.lat=&LocationSearch.long=&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
                                     } else {
                                       filterData =
-                                          "CategoryId=${catId.id!.toInt().toString()}&City=&LocationSearch.lat=&LocationSearch.long=&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                          "SearchText&CategoryId=${catId.id!.toInt().toString()}&City&LocationSearch.lat&LocationSearch.long&LocationSearch.distance=${_hc.distanceValue.toInt().toString()}&sPrice=${_hc.priceValues.start.toInt().toString()}&ePrice=${_hc.priceValues.end.toInt().toString()}";
+                                      //"CategoryId=${catId.id!.toInt().toString()}&City=&LocationSearch.lat=&LocationSearch.long=&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
                                     }
                                   } else {
                                     if (catId.id?.toInt() == 1) {
                                       filterData =
-                                          "CategoryId=&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                          "SearchText&CategoryId=&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.distance=${_hc.distanceValue.toInt().toString()}&sPrice=${_hc.priceValues.start.toInt().toString()}&ePrice=${_hc.priceValues.end.toInt().toString()}";
+                                      //  "CategoryId=&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
                                     } else {
                                       filterData =
-                                          "CategoryId=${catId.id!.toInt().toString()}&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
+                                          "SearchText&CategoryId=${catId.id!.toInt().toString()}&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.distance=${_hc.distanceValue.toInt().toString()}&sPrice=${_hc.priceValues.start.toInt().toString()}&ePrice=${_hc.priceValues.end.toInt().toString()}";
+                                      //  "CategoryId=${catId.id!.toInt().toString()}&City=$selectedLocation&LocationSearch.lat=$latitude&LocationSearch.long=$longitude&LocationSearch.disctance=${_hc.distanceValue.toInt().toString()}";
                                     }
                                   }
-
                                   var res = await ApiService()
                                       .getHomeDataWithFilter(
                                           context, filterData);
                                   if (res != null && res is Map) {
+                                    _hc.filterSet = true;
+
                                     _homeController.addHomeDataForFilter(res);
                                     Get.back();
                                   } else if (res != null && res is String) {
@@ -2271,6 +2309,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       },
     );
+    future.then((void value) => _homeController.closeModal(value));
   }
 
   checkLocationPermission() async {

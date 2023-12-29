@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:tiqarte/api/ApiService.dart';
+import 'package:tiqarte/controller/notificationController.dart';
 import 'package:tiqarte/helper/colors.dart';
+import 'package:tiqarte/helper/common.dart';
 import 'package:tiqarte/helper/images.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final _notificationController = Get.put(NotificationController());
   List notificationList = [
     {
       "icon": Icons.calendar_month,
@@ -77,61 +80,55 @@ class _NotificationScreenState extends State<NotificationScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    var res = await ApiService().getNotifications();
+    if (res != null && res is List) {
+      _notificationController.addNotifications(res);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: kSecondBackgroundColor,
+      // appBar: AppBar(
+      //   toolbarHeight: 0,
+      //   //  backgroundColor: kSecondBackgroundColor,
+      //   elevation: 0,
+      //   automaticallyImplyLeading: false,
+      // ),
       appBar: AppBar(
-        toolbarHeight: 0,
-        //  backgroundColor: kSecondBackgroundColor,
         elevation: 0,
+        backgroundColor: kSecondBackgroundColor,
         automaticallyImplyLeading: false,
+        title: Text(
+          'notification'.tr,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: IconButton(
+            onPressed: () => Get.back(), icon: Icon(Icons.arrow_back)),
       ),
       body: Container(
         height: 1.sh,
         width: 1.sw,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            children: [
-              20.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () => Get.back(),
-                          icon: Icon(Icons.arrow_back)),
-                      Text(
-                        'notification'.tr,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.background),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: Icon(
-                      Icons.more_horiz_sharp,
-                      size: 25,
-                    ),
+          child: GetBuilder<NotificationController>(builder: (_nc) {
+            return _nc.notificationList == null
+                ? Center(
+                    child: spinkit,
                   )
-                ],
-              ),
-              20.verticalSpace,
-              notificationList.isEmpty
-                  ? Expanded(
-                      child: ListView(
+                : _nc.notificationList!.isEmpty
+                    ? ListView(
                         children: [
                           SizedBox(
                             height: 0.1.sh,
@@ -160,139 +157,179 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             ),
                           ),
                         ],
-                      ),
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: notificationList.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(12.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 60,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              color: notificationList[index]
-                                                      ['color']
-                                                  .withOpacity(0.3),
-                                              borderRadius:
-                                                  BorderRadius.circular(50.0)),
-                                          child: Icon(
-                                            notificationList[index]['icon'],
-                                            color: notificationList[index]
-                                                ['color'],
-                                          ),
-                                        ),
-                                        10.horizontalSpace,
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              width: 0.5.sw,
-                                              child: Text(
-                                                notificationList[index]
-                                                    ['title'],
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                            5.verticalSpace,
-                                            Row(
-                                              children: [
-                                                FittedBox(
-                                                  child: Text(
-                                                    notificationList[index]
-                                                        ['date'],
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w300,
+                      )
+                    : Column(
+                        children: [
+                          20.verticalSpace,
+                          Expanded(
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _nc.notificationList?.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              customProfileImage(
+                                                  _nc.notificationList![index]
+                                                      .iconURL
+                                                      .toString(),
+                                                  60,
+                                                  60),
+                                              // Container(
+                                              //   height: 60,
+                                              //   width: 60,
+                                              //   decoration: BoxDecoration(
+                                              //       color:
+                                              //           notificationList[
+                                              //                       index]
+                                              //                   ['color']
+                                              //               .withOpacity(
+                                              //                   0.3),
+                                              //       borderRadius:
+                                              //           BorderRadius
+                                              //               .circular(
+                                              //                   50.0)),
+                                              //   child: Icon(
+                                              //     notificationList[index]
+                                              //         ['icon'],
+                                              //     color: notificationList[
+                                              //         index]['color'],
+                                              //   ),
+                                              // ),
+                                              10.horizontalSpace,
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 0.5.sw,
+                                                    child: Text(
+                                                      _nc
+                                                          .notificationList![
+                                                              index]
+                                                          .notificationHeader
+                                                          .toString(),
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5.0),
-                                                  height: 15,
-                                                  width: 1,
+                                                  5.verticalSpace,
+                                                  Row(
+                                                    children: [
+                                                      FittedBox(
+                                                        child: Text(
+                                                          splitDateOnly(_nc
+                                                              .notificationList![
+                                                                  index]
+                                                              .creationTime
+                                                              .toString()),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    5.0),
+                                                        height: 15,
+                                                        width: 1,
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                kDisabledColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0)),
+                                                      ),
+                                                      FittedBox(
+                                                        child: Text(
+                                                          splitTimeOnly(
+                                                            _nc
+                                                                .notificationList![
+                                                                    index]
+                                                                .creationTime
+                                                                .toString(),
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          _nc.notificationList![index].isRead ==
+                                                  false
+                                              ? Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 10.0),
                                                   decoration: BoxDecoration(
-                                                      color: kDisabledColor,
+                                                      color: kPrimaryColor,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              20.0)),
-                                                ),
-                                                FittedBox(
+                                                              13.0)),
                                                   child: Text(
-                                                    notificationList[index]
-                                                        ['time'],
+                                                    "New",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white),
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    notificationList[index]['isNew'] == true
-                                        ? Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20.0,
-                                                vertical: 10.0),
-                                            decoration: BoxDecoration(
-                                                color: kPrimaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        13.0)),
-                                            child: Text(
-                                              "New",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.white),
-                                            ),
-                                          )
-                                        : SizedBox()
-                                  ],
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  notificationList[index]['body'],
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                                )
+                                              : SizedBox()
+                                        ],
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        _nc.notificationList![index]
+                                            .notificationText
+                                            .toString(),
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-                    )
-            ],
-          ),
+                          ),
+                        ],
+                      );
+          }),
         ),
       ),
     );
